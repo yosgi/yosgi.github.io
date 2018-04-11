@@ -78,4 +78,6 @@ theme: next
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type:
+  type: git 
+  repo: https://gitee.com/yosgi/personal_blog.git
+  branch: master
