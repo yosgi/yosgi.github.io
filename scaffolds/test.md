@@ -1,10 +1,11 @@
 ---
 title: {{ title }}
 date: {{ date }}
-description: 《ES6标准入门》 知识点整理
+description: Js习题记录
 categories:
-- ES6
+- Js测试题
 tags:
 - Javascript
-- ES6
+- codeWars
+- leetcode
 ---

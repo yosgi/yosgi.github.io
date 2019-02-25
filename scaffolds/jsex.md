@@ -1,10 +1,9 @@
 ---
 title: {{ title }}
 date: {{ date }}
-description: 《ES6标准入门》 知识点整理
+description: Javascript基础
 categories:
-- ES6
+- Javascript学习
 tags:
 - Javascript
-- ES6
 ---
