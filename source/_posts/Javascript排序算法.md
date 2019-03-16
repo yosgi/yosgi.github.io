@@ -225,59 +225,51 @@ var arr = quickSort([85, 24, 63, 45, 17, 31, 96, 50])
 
 可以看到快速排序的过程是三步
 
-1. 在数据集之中，选择一个元素作为"基准"（pivot）。
-2. 所有小于"基准"的元素，都移到"基准"的左边；所有大于"基准"的元素，都移到"基准"的右边。
-3. 对"基准"左边和右边的两个子集，不断重复第一步和第二步，直到所有子集只剩下一个元素为止。
+1. 在数据集之中，选择一个元素作为”基准”（pivot）。
+2. 所有小于”基准”的元素，都移到”基准”的左边；所有大于”基准”的元素，都移到”基准”的右边。
+3. 对”基准”左边和右边的两个子集，不断重复第一步和第二步，直到所有子集只剩下一个元素为止。
 
 [快速排序](http://www.ruanyifeng.com/blog/2011/04/quicksort_in_javascript.html)
 
 上面排序方法的的问题是每次递归都需要开了2个临时数组，导致了空间复杂度增大。不过对于快速排序的理解是有帮助的；
 
-
-
 ```javascript
-function swap(arr,index1,index2) {
-    let a = arr[index2]
-    arr[index2 ] = arr[index1]
-    arr[index1] = a
+var swap = function (arr,i,j) {
+    [arr[i],arr[j]] = [arr[j],arr[i]]
 }
-function sortFuc (arr,left,right) {
-    if(left >= right ){
-        //当left == right时数组的元素只剩下一个
-        return 
-    }
-    let baseIndex = left// 总是以最左边的那个作为基准
-    let i = left + 1,j = right
-    // 当i == j时，i和j同时指向的元素还没有与中轴元素判断 
-    while(i<=j) {
-        //  从右向左找到比基准小的，从左向右找到比基准大的，做交换，直到i与j相等
-        while (arr[j] >= arr[baseIndex] && i < j) {
-            j --
+var quickSort = function (arr, left, right) {
+    if (left >= right) return 
+    // 以最左边的项为基准
+    var base = arr[left];
+    var i = left , j = right;
+    while(i < j ) {
+        // 左边为基准时j需要先变，这点很重要。
+        // 这样才能保证最后归位时，被移动到左边的是小于基准的数
+        while(i < j && arr[j] >= base) {
+            j--
         }
-        while (arr[i] <= arr[baseIndex] && i < j) {
-            i ++
+        while (i < j && arr[i] <= base) {
+            i++
         }
-        swap(arr, j, i)
-        i++
-        j--
+        // j找到比基准小的数，i找到比基准大的数
+        if (i<j) {
+            swap(arr, i, j)
+        }
     }
-    //当循环结束时，j指向的元素是最后一个（从左边算起）小于等于中轴的元素
-    swap(arr, left, j)
+    // 这一步我叫它归位，讲基准和最后找到的比它小的数对换（可能是本身）
+    if (i == j) {
+        swap(arr,j,left)
+    }
     quickSort(arr,left,j-1)
-    quickSort(array,j+1,right)
+    quickSort(arr,j+1,right)
 }
 
+var arr = [3,1,2,6,3,6,7,1,8,3,1,6,78,8,9,19,23,432,1]
+var sortFunc = function (arr) {
+    var left = 0 ,right = arr.length - 1
+    quickSort(arr,left,right)
+    return arr
+}
 ```
 
-
-
 快速排序复杂度为O(nlogn)，且它的性能通常比其他的复杂度为O(nlogn)的排序算法要好。
-可以看到上面快速排序的步骤是
-
-1. 首先，从数组中选择中间一项作为主元。
-2. 创建两个指针，左边一个指向数组第一个项，右边一个指向数组最后一个项。移动左指
-   针直到我们找到一个比主元大的元素，接着，移动右指针直到找到一个比主元小的元素，然后交
-   换它们，重复这个过程，直到左指针超过了右指针。这个过程将使得比主元小的值都排在主元之
-   前，而比主元大的值都排在主元之后。这一步叫作划分操作。
-3. 接着，算法对划分后的小数组（较主元小的值组成的子数组，以及较主元大的值组成的
-   子数组）重复之前的两个步骤，直至数组已完全排序。
