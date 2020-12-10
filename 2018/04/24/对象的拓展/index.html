@@ -1,37 +1,1018 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+  
 
 
-{% block content %}
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Javascript,ES6," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="《ES6标准入门》 知识点整理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对象的拓展">
+<meta property="og:url" content="https://yosgi.github.io/2018/04/24/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%8B%93%E5%B1%95/index.html">
+<meta property="og:site_name" content="快雪时晴">
+<meta property="og:description" content="《ES6标准入门》 知识点整理">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-04-23T16:00:00.000Z">
+<meta property="article:modified_time" content="2019-03-16T07:36:43.000Z">
+<meta property="article:author" content="yosgi">
+<meta property="article:tag" content="Javascript">
+<meta property="article:tag" content="ES6">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yosgi.github.io/2018/04/24/对象的拓展/"/>
+
+
+
+
+
+  <title>对象的拓展 | 快雪时晴</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">快雪时晴</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">失败会设下陷阱，没有胜利会发出邀请</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
 
   <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yosgi.github.io/2018/04/24/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%8B%93%E5%B1%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="快雪时晴">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">对象的拓展</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-24T00:00:00+08:00">
+                2018-04-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ES6/" itemprop="url" rel="index">
+                    <span itemprop="name">ES6</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/04/24/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%8B%93%E5%B1%95/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/04/24/对象的拓展/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  《ES6标准入门》 知识点整理
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="对象的拓展"><a href="#对象的拓展" class="headerlink" title="对象的拓展"></a>对象的拓展</h3><h4 id="对象属性的简洁表示法"><a href="#对象属性的简洁表示法" class="headerlink" title="对象属性的简洁表示法"></a>对象属性的简洁表示法</h4><pre><code>//几个例子
+function f(x,y)&#123;
+    return &#123;x,y&#125;
+&#125;
+f(1,2)//Objext &#123;x:1,y:2&#125;
+
+module.exports = &#123; getItem, setItem, clear &#125;;
+
+const cart = &#123;
+_wheels: 4,
+get wheels() &#123;
+    return this._wheels;
+&#125;,
+
+set wheels(value) &#123;
+    if (value &lt; this._wheels) &#123;
+        throw new Error(&#39;数值太小了！&#39;);
+    &#125;
+    this._wheels = value;
+    &#125;
+&#125;
+cart.wheels//4
+set.wheels = 1//Error&#39;数值太小了！&#39;</code></pre>
+<h4 id="属性名表达式"><a href="#属性名表达式" class="headerlink" title="属性名表达式"></a>属性名表达式</h4><pre><code>// 方法一
+obj.foo = true;
+
+// 方法二
+obj[&#39;a&#39; + &#39;bc&#39;] = 123;</code></pre>
+<p>注意，属性名表达式如果是一个对象，默认情况下会自动将对象转为字符串[object Object]，这一点要特别小心。<br>    const keyA = {a: 1};<br>    const keyB = {b: 2};</p>
+<pre><code>const myObject = &#123;
+  [keyA]: &#39;valueA&#39;,
+  [keyB]: &#39;valueB&#39;
+&#125;;
+
+myObject // Object &#123;[object Object]: &quot;valueB&quot;&#125;</code></pre>
+<p>上面代码中，[keyA]和[keyB]得到的都是[object Object]，所以[keyB]会把[keyA]覆盖掉，而myObject最后只有一个[object Object]属性。</p>
+<h4 id="方法的name属性"><a href="#方法的name属性" class="headerlink" title="方法的name属性"></a>方法的name属性</h4><p>函数的name属性，返回函数名。对象方法也是函数，因此也有name属性。</p>
+<pre><code>const person = &#123;
+sayName() &#123;
+  console.log(&#39;hello!&#39;);
+    &#125;
+  &#125;;
+person.sayName.name   // &quot;sayName&quot;</code></pre>
+<p>如果对象的方法使用了取值函数和存值函数，则name属性不是在改方法上面，而是在该方法的描述对象的get set属性上面</p>
+<pre><code>const  obj = &#123;
+    get foo()&#123;&#125;,
+    set foo(x)&#123;&#125;
+&#125; 
+const descriptor = Object.getOwnPropertyDescriptor(obj,&quot;foo&quot;);
+//getOwnPropertyDescriptor方法返回指定对象上一个自有属性对应的属性描述符。
+descriptor.get.name // &quot;get foo&quot;
+descriptor.set.name // &quot;set foo&quot;</code></pre>
+<p>  如果对象的方法是一个 Symbol 值，那么name属性返回的是这个 Symbol 值的描述。</p>
+<pre><code>const key1 = Symbol(&#39;description&#39;);
+const key2 = Symbol();
+let obj = &#123;
+  [key1]() &#123;&#125;,
+  [key2]() &#123;&#125;,
+&#125;;
+obj[key1].name // &quot;[description]&quot;
+obj[key2].name // &quot;&quot;</code></pre>
+<h4 id="Object-is"><a href="#Object-is" class="headerlink" title="Object.is()"></a>Object.is()</h4><p>ES5用 == 和=== 两个运算符比较两个值是否相等，但都有缺点。</p>
+<p>第一个会自动转换数据类型，后面的NaN不等于自身。以及+0 等于-0。JavaScript 缺乏一种运算，在所有环境中，只要两个值是一样的，它们就应该相等。</p>
+<p>ES6 提出“Same-value equality”（同值相等）算法，用来解决这个问题。Object.is就是部署这个算法的新方法。它用来比较两个值是否严格相等，与===的不同之处只有+0不等于-0 NaN等于自身。</p>
+<p>ES5 可以通过下面的代码，部署Object.is。</p>
+<pre><code>  Object.defineProperty(Object, &#39;is&#39;, &#123;
+    value: function(x, y) &#123;
+        if (x === y) &#123;
+        // 针对+0 不等于 -0的情况
+        return x !== 0 || 1 / x === 1 / y;
+        &#125;
+        // 针对NaN的情况
+        return x !== x &amp;&amp; y !== y;
+    &#125;,
+    configurable: true,
+    enumerable: false,
+    writable: true
+&#125;);</code></pre>
+<h4 id="Object-assign"><a href="#Object-assign" class="headerlink" title="Object.assign()"></a>Object.assign()</h4><p>Object.assign()方法用于对象的合并，将源对象的所有可枚举属性，复制到目标对象上</p>
+<p>其中第一个参数是目标对象，后面的参数都是源对象</p>
+<pre><code>const target= &#123;a:1&#125;;
+const source1 = &#123;b:2&#125;;
+const source2 = &#123;c:3&#125;;
+Object.assign(target,source1,source2)</code></pre>
+<p>Object.assign拷贝的属性是有限制的，之拷贝源对象的自身属性，不拷贝继承属性，也不拷贝不可枚举的属性</p>
+<pre><code>Object.assign(&#123;b: &#39;c&#39;&#125;,
+  Object.defineProperty(&#123;&#125;, &#39;invisible&#39;, &#123;
+    enumerable: false,
+    value: &#39;hello&#39;
+  &#125;)
+)
+// &#123; b: &#39;c&#39; &#125;</code></pre>
+<p>属性名为 Symbol 值的属性，也会被Object.assign拷贝。</p>
+<pre><code>Object.assign(&#123; a: &#39;b&#39; &#125;, &#123; [Symbol(&#39;c&#39;)]: &#39;d&#39; &#125;)
+// &#123; a: &#39;b&#39;, Symbol(c): &#39;d&#39; &#125;</code></pre>
+<p>Object.assign方法实行的是浅拷贝，而不是深拷贝。也就是说，如果源对象某个属性的值是对象，那么目标对象拷贝得到的是这个对象的引用。</p>
+<pre><code>const obj1 = &#123;a: &#123;b: 1&#125;&#125;;
+const obj2 = Object.assign(&#123;&#125;, obj1);
+
+obj1.a.b = 2;
+obj2.a.b // 2</code></pre>
+<p>源对象obj1的a属性是对象，目标对象拷贝的是对象的引用。对象的任何变化都会反映到目标对象上</p>
+<p>对于嵌套的对象，一旦遇到同名属性，Object.assign的处理方法是替换</p>
+<pre><code>const target = &#123; a: &#123; b: &#39;c&#39;, d: &#39;e&#39; &#125; &#125;
+const source = &#123; a: &#123; b: &#39;hello&#39; &#125; &#125;
+Object.assign(target, source)
+// &#123; a: &#123; b: &#39;hello&#39; &#125; &#125;</code></pre>
+<p>也就是说对象的复制最多到一层</p>
+<p>Object.assign的常见用途</p>
+<h5 id="为对象添加方法"><a href="#为对象添加方法" class="headerlink" title="为对象添加方法"></a>为对象添加方法</h5><pre><code>Object.assign(SomeClass.prototype,&#123;
+    someMethod(arg1,arg2)&#123;
+        //...
+    &#125;
+&#125;)
+SomeClass.prototype.someMethod = function (arg1, arg2) &#123;
+  //···
+&#125;;</code></pre>
+<h5 id="克隆对象"><a href="#克隆对象" class="headerlink" title="克隆对象"></a>克隆对象</h5><pre><code>function clone(origin) &#123;
+  let originProto = Object.getPrototypeOf(origin);
+  return Object.assign(Object.create(originProto), origin);
+&#125;//保持继承链</code></pre>
+<h5 id="合并多个对象"><a href="#合并多个对象" class="headerlink" title="合并多个对象"></a>合并多个对象</h5><pre><code>const merge =
+(target, ...sources) =&gt; Object.assign(target, ...sources);
+//or
+const merge =
+(...sources) =&gt; Object.assign(&#123;&#125;, ...sources);</code></pre>
+<h5 id="为属性指定默认值"><a href="#为属性指定默认值" class="headerlink" title="为属性指定默认值"></a>为属性指定默认值</h5><pre><code>const DEFAULTS = &#123;
+logLevel: 0,
+outputFormat: &#39;html&#39;
+  &#125;;
+
+  function processContent(options) &#123;
+    options = Object.assign(&#123;&#125;, DEFAULTS, options);
+    console.log(options);
+    // ...
+  &#125;</code></pre>
+<p>DEFAULTS对象是默认值，options是用户提供的参数，processContent将DEFAULTS和options合并成一个新对象，如果两者有同名属性，则options的值将覆盖DEFAULTS的属性值。当然，属性都是简单类型数据，不然将有可能发生前面所说的属性替换。</p>
+<h4 id="属性的可枚举性-属性的遍历"><a href="#属性的可枚举性-属性的遍历" class="headerlink" title="属性的可枚举性 属性的遍历"></a>属性的可枚举性 属性的遍历</h4><p>对象的每个属性都有一个Descriptor来控制属性的行为,object.getOwnPropertyDescriptor方法可以获取该属性描述的对象。</p>
+<h5 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h5><p>引入“可枚举”（enumerable）这个概念的最初目的，就是让某些属性可以规避掉for…in操作</p>
+<pre><code>let obj = &#123;foo:123&#125;;
+Object.getOwnPropertyDescriptor(obj,foo);
+//&#123;value: 123, writable: true, enumerable: true, configurable: true&#125;</code></pre>
+<p>enumerable属性成为可枚举性，设为false表示某些操作会忽略此属性。目前有4种。</p>
+<p>for..in 循环只遍历对象自身和继承的可枚举的属性</p>
+<p>Object.keys() 只遍历自身的可枚举属性键名</p>
+<p>JSON.stringfy()只串行化自身的可枚举属性</p>
+<p>Object.assign() 之拷贝对象自身的可枚举属性 继承的和不可枚举的都会被忽略</p>
+<p>另外，ES6 规定，所有 Class 的原型的方法都是不可枚举的。</p>
+<p>总的来说，操作中引入继承的属性会让问题复杂化，大多数时候，我们只关心对象自身的属性。所以，尽量不要用for…in循环，而用Object.keys()代替。</p>
+<h5 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h5><p>ES6一共5中方法遍历对象的属性</p>
+<h6 id="for…in"><a href="#for…in" class="headerlink" title="for…in"></a>for…in</h6><p>for…in循环遍历对象自身的和继承的可枚举属性（不含 Symbol 属性）。</p>
+<h6 id="Object-keys-obj"><a href="#Object-keys-obj" class="headerlink" title="Object.keys(obj)"></a>Object.keys(obj)</h6><p>Object.keys返回一个数组，包括对象自身的（不含继承的）所有可枚举属性（不含 Symbol 属性）的键名。</p>
+<h6 id="Object-getOwnPropertyNames-obj"><a href="#Object-getOwnPropertyNames-obj" class="headerlink" title="Object.getOwnPropertyNames(obj)"></a>Object.getOwnPropertyNames(obj)</h6><p>Object.getOwnPropertyNames返回一个数组，包含对象自身的所有属性（不含 Symbol 属性，但是包括不可枚举属性）的键名。</p>
+<h6 id="Object-getOwnPropertySymbols-obj"><a href="#Object-getOwnPropertySymbols-obj" class="headerlink" title="Object.getOwnPropertySymbols(obj)"></a>Object.getOwnPropertySymbols(obj)</h6><p>Object.getOwnPropertySymbols返回一个数组，包含对象自身的所有 Symbol 属性的键名。</p>
+<h6 id="Reflect-ownKeys-obj"><a href="#Reflect-ownKeys-obj" class="headerlink" title="Reflect.ownKeys(obj)"></a>Reflect.ownKeys(obj)</h6><p>Reflect.ownKeys返回一个数组，包含对象自身的所有键名，不管键名是 Symbol 或字符串，也不管是否可枚举。</p>
+<p>以上的 5 种方法遍历对象的键名，都遵守同样的属性遍历的次序规则。</p>
+<p>首先遍历所有数值键，按照数值升序排列。</p>
+<p>其次遍历所有字符串键，按照加入时间升序排列。</p>
+<p>最后遍历所有 Symbol 键，按照加入时间升序排列。</p>
+<pre><code>Reflect.ownKeys(&#123; [Symbol()]:0, b:0, 10:0, 2:0, a:0 &#125;)
+// [&#39;2&#39;, &#39;10&#39;, &#39;b&#39;, &#39;a&#39;, Symbol()]</code></pre>
+<p>上面代码中，Reflect.ownKeys方法返回一个数组，包含了参数对象的所有属性。这个数组的属性次序是这样的，首先是数值属性2和10，其次是字符串属性b和a，最后是 Symbol 属性。</p>
+<h4 id="Object-getOwnPropetryDescriptions"><a href="#Object-getOwnPropetryDescriptions" class="headerlink" title="Object.getOwnPropetryDescriptions()"></a>Object.getOwnPropetryDescriptions()</h4><p>Object.getOwnPropertyDescriptors返回指定对象的所有自身属性的描述对象</p>
+<p>该方法的引用目的是为了解决Object.assign()无法正确拷贝get属性和set属性的问题</p>
+<h4 id="proto-属性，Object-setPrototypeOf-Object-getPrototypeOf"><a href="#proto-属性，Object-setPrototypeOf-Object-getPrototypeOf" class="headerlink" title="__proto__属性，Object.setPrototypeOf(),Object.getPrototypeOf()"></a>__proto__属性，Object.setPrototypeOf(),Object.getPrototypeOf()</h4><h5 id="proto"><a href="#proto" class="headerlink" title="proto"></a><strong>proto</strong></h5><p>_proto__，用来读取或设置当前对象的[[prototype]]对象。</p>
+<pre><code>//es6
+const obj = &#123;
+    method:function()&#123;...&#125;
+&#125;;
+obj.__proto__ = someOtherObj;
+
+//es5
+var obj = Object.create(someOtherObj);
+obj.method = function() &#123; ... &#125;;</code></pre>
+<p>只有浏览器必须部署这个属性。其它环境不一定需要部署。</p>
+<pre><code>let shape = function () &#123;&#125;;
+var p = &#123;
+    a: function () &#123;
+        console.log(&#39;a&#39;);
+    &#125;
+&#125;;
+
+let circle = new shape();
+circle.__proto__ = p;//原型对象被改变了
+circle.a(); //  a
+console.log(shape.prototype === circle.__proto__);//false</code></pre>
+<p>最好使用Object.create(),Object.setPrototypeOf(),Object.getPrototypeOf()来代替</p>
+<h5 id="Object-setPrototypeOf"><a href="#Object-setPrototypeOf" class="headerlink" title="Object.setPrototypeOf()"></a>Object.setPrototypeOf()</h5><p>用来设置一个对象的prototype对象，返回参数对象本身，是ES6正式推荐的设置原型对象的方法</p>
+<pre><code>//es6
+const o = Object.setPrototypeOf(&#123;&#125;, null);
+//es5
+function (obj, proto) &#123;
+  obj.__proto__ = proto;
+  return obj;
+&#125;</code></pre>
+<p>举个栗子</p>
+<pre><code>let proto = &#123;&#125;;
+let obj = &#123; x: 10 &#125;;
+Object.setPrototypeOf(obj, proto);
+
+proto.y = 20;
+proto.z = 40;
+
+obj.x // 10
+obj.y // 20
+obj.z // 40
+//上面代码将proto对象设为obj对象的原型，所以从obj对象可以读取proto对象的属性。</code></pre>
+<h5 id="Object-getPrototypeOf"><a href="#Object-getPrototypeOf" class="headerlink" title="Object.getPrototypeOf()"></a>Object.getPrototypeOf()</h5><p>该方法与Object.setPrototypeOf方法配套，用于读取一个对象的原型对象。<br>举个栗子</p>
+<pre><code>function Rectangle() &#123;
+  // ...
+&#125;
+
+const rec = new Rectangle();
+
+Object.getPrototypeOf(rec) === Rectangle.prototype
+// true
+
+Object.setPrototypeOf(rec, Object.prototype);
+Object.getPrototypeOf(rec) === Rectangle.prototype
+// false</code></pre>
+<h4 id="super关键字"><a href="#super关键字" class="headerlink" title="super关键字"></a>super关键字</h4><p>this关键字总是指向函数所在的当前对象，ES6新增super，指向当前的原型对象</p>
+<pre><code>const proto = &#123;
+  foo: &#39;hello&#39;
+&#125;;
+
+const obj = &#123;
+  foo: &#39;world&#39;,
+  find() &#123;
+    return super.foo;
+  &#125;
+&#125;;
+
+Object.setPrototypeOf(obj, proto);
+obj.find() // &quot;hello&quot;</code></pre>
+<p>super关键字表示原型对象时，只能用在对象的方法之中。</p>
+<pre><code>const obj = &#123;
+  foo: super.foo
+&#125;
+
+// 报错，super用在一个函数里面，赋值给foo属性
+const obj = &#123;
+  foo: () =&gt; super.foo
+&#125;
+
+// 报错
+const obj = &#123;
+  foo: function () &#123;
+    return super.foo
+&#125;</code></pre>
+<p>JavaScript 引擎内部，super.foo等同于Object.getPrototypeOf(this).foo（属性）或Object.getPrototypeOf(this).foo.call(this)（方法）。</p>
+<h4 id="Object-keys-，Object-values-，Object-entries"><a href="#Object-keys-，Object-values-，Object-entries" class="headerlink" title="Object.keys()，Object.values()，Object.entries()"></a>Object.keys()，Object.values()，Object.entries()</h4><p>与前面数组的拓展类似</p>
+<pre><code>let &#123;keys, values, entries&#125; = Object;
+let obj = &#123; a: 1, b: 2, c: 3 &#125;;
+
+for (let key of keys(obj)) &#123;
+  console.log(key); // &#39;a&#39;, &#39;b&#39;, &#39;c&#39;
+&#125;
+
+for (let value of values(obj)) &#123;
+  console.log(value); // 1, 2, 3
+&#125;
+
+for (let [key, value] of entries(obj)) &#123;
+  console.log([key, value]); // [&#39;a&#39;, 1], [&#39;b&#39;, 2], [&#39;c&#39;, 3]
+&#125;</code></pre>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          
+            <a href="/tags/ES6/" rel="tag"># ES6</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/20/%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F/" rel="next" title="迭代器模式">
+                <i class="fa fa-chevron-left"></i> 迭代器模式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/28/Symbol/" rel="prev" title="Symbol">
+                Symbol <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
 
     <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+      
     </div>
   </div>
 
-{% endblock %}
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+          </div>
+          
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%8B%93%E5%B1%95"><span class="nav-number">1.</span> <span class="nav-text">对象的拓展</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E5%B1%9E%E6%80%A7%E7%9A%84%E7%AE%80%E6%B4%81%E8%A1%A8%E7%A4%BA%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">对象属性的简洁表示法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B1%9E%E6%80%A7%E5%90%8D%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">属性名表达式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E7%9A%84name%E5%B1%9E%E6%80%A7"><span class="nav-number">1.3.</span> <span class="nav-text">方法的name属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Object-is"><span class="nav-number">1.4.</span> <span class="nav-text">Object.is()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Object-assign"><span class="nav-number">1.5.</span> <span class="nav-text">Object.assign()</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%BA%E5%AF%B9%E8%B1%A1%E6%B7%BB%E5%8A%A0%E6%96%B9%E6%B3%95"><span class="nav-number">1.5.1.</span> <span class="nav-text">为对象添加方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%8B%E9%9A%86%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.5.2.</span> <span class="nav-text">克隆对象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%88%E5%B9%B6%E5%A4%9A%E4%B8%AA%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.5.3.</span> <span class="nav-text">合并多个对象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%BA%E5%B1%9E%E6%80%A7%E6%8C%87%E5%AE%9A%E9%BB%98%E8%AE%A4%E5%80%BC"><span class="nav-number">1.5.4.</span> <span class="nav-text">为属性指定默认值</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B1%9E%E6%80%A7%E7%9A%84%E5%8F%AF%E6%9E%9A%E4%B8%BE%E6%80%A7-%E5%B1%9E%E6%80%A7%E7%9A%84%E9%81%8D%E5%8E%86"><span class="nav-number">1.6.</span> <span class="nav-text">属性的可枚举性 属性的遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9E%9A%E4%B8%BE"><span class="nav-number">1.6.1.</span> <span class="nav-text">枚举</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%81%8D%E5%8E%86"><span class="nav-number">1.6.2.</span> <span class="nav-text">遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#for%E2%80%A6in"><span class="nav-number">1.6.2.1.</span> <span class="nav-text">for…in</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Object-keys-obj"><span class="nav-number">1.6.2.2.</span> <span class="nav-text">Object.keys(obj)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Object-getOwnPropertyNames-obj"><span class="nav-number">1.6.2.3.</span> <span class="nav-text">Object.getOwnPropertyNames(obj)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Object-getOwnPropertySymbols-obj"><span class="nav-number">1.6.2.4.</span> <span class="nav-text">Object.getOwnPropertySymbols(obj)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Reflect-ownKeys-obj"><span class="nav-number">1.6.2.5.</span> <span class="nav-text">Reflect.ownKeys(obj)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Object-getOwnPropetryDescriptions"><span class="nav-number">1.7.</span> <span class="nav-text">Object.getOwnPropetryDescriptions()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#proto-%E5%B1%9E%E6%80%A7%EF%BC%8CObject-setPrototypeOf-Object-getPrototypeOf"><span class="nav-number">1.8.</span> <span class="nav-text">__proto__属性，Object.setPrototypeOf(),Object.getPrototypeOf()</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#proto"><span class="nav-number">1.8.1.</span> <span class="nav-text">proto</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Object-setPrototypeOf"><span class="nav-number">1.8.2.</span> <span class="nav-text">Object.setPrototypeOf()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Object-getPrototypeOf"><span class="nav-number">1.8.3.</span> <span class="nav-text">Object.getPrototypeOf()</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#super%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">1.9.</span> <span class="nav-text">super关键字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Object-keys-%EF%BC%8CObject-values-%EF%BC%8CObject-entries"><span class="nav-number">1.10.</span> <span class="nav-text">Object.keys()，Object.values()，Object.entries()</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yosgi</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://yosgi.github.io/2018/04/24/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%8B%93%E5%B1%95/';
+          this.page.identifier = '2018/04/24/对象的拓展/';
+          this.page.title = '对象的拓展';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

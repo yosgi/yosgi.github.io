@@ -1,37 +1,995 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+  
 
 
-{% block content %}
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Javascript,VUE," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="知识点整理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue易错易混知识点整理">
+<meta property="og:url" content="https://yosgi.github.io/2018/09/10/vue%E6%98%93%E9%94%99%E6%98%93%E6%B7%B7%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/index.html">
+<meta property="og:site_name" content="快雪时晴">
+<meta property="og:description" content="知识点整理">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-09-10T10:30:10.000Z">
+<meta property="article:modified_time" content="2019-03-16T07:36:43.000Z">
+<meta property="article:author" content="yosgi">
+<meta property="article:tag" content="Javascript">
+<meta property="article:tag" content="VUE">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yosgi.github.io/2018/09/10/vue易错易混知识点整理/"/>
+
+
+
+
+
+  <title>vue易错易混知识点整理 | 快雪时晴</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">快雪时晴</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">失败会设下陷阱，没有胜利会发出邀请</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
 
   <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yosgi.github.io/2018/09/10/vue%E6%98%93%E9%94%99%E6%98%93%E6%B7%B7%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="快雪时晴">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">vue易错易混知识点整理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-10T18:30:10+08:00">
+                2018-09-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/VUE/" itemprop="url" rel="index">
+                    <span itemprop="name">VUE</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/09/10/vue%E6%98%93%E9%94%99%E6%98%93%E6%B7%B7%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/09/10/vue易错易混知识点整理/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  <ES6标准入门> 知识点整理
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="什么是MVVM？与MVC有什么区别？"><a href="#什么是MVVM？与MVC有什么区别？" class="headerlink" title="什么是MVVM？与MVC有什么区别？"></a>什么是MVVM？与MVC有什么区别？</h4><p>mvc是Model-View-Controller的缩写，用业务逻辑，数据，界面分离的方式组织代码，其中的通信是单项的，View 传送指令到 Controller；Controller 完成业务逻辑后，要求 Model 改变状态；Model 将新的数据发送到 View，用户得到反馈。</p>
+<p>MVVM是Model-View-ViewModel的缩写，和MVC模式一样，主要目的是分离视图（View）和模型（Model），但是mvvm的控制器并不会去监听浏览器的事件,而是监听一个属性表,由浏览器的事件修改属性,以触发控制器中的方法,增加了一层控制业务的属性,而这层属性被称为VM。当 ViewModel 中数据变化，View 层会得到更新；而当 View 中声明了数据的双向绑定（通常是表单元素），框架也会监听 View 层（表单）值的变化。一旦值变化，View 层绑定的 ViewModel 中的数据也会得到自动更新。</p>
+<p>new Vue 正是viewmodel</p>
+<h4 id="过滤器怎么串联和传参数"><a href="#过滤器怎么串联和传参数" class="headerlink" title="过滤器怎么串联和传参数?"></a>过滤器怎么串联和传参数?</h4><p>串联</p>
+<pre><code>&#123;&#123; message | filterA | filterB &#125;&#125;</code></pre>
+<p>接受参数</p>
+<pre><code>&#123;&#123; message | filterA('arg1', arg2) &#125;&#125;</code></pre>
+<p>这里，filterA 被定义为接收三个参数的过滤器函数。其中 message 的值作为第一个参数，普通字符串 ‘arg1’ 作为第二个参数，表达式 arg2 的值作为第三个参数。</p>
+<h4 id="计算属性和方法有什么区别？计算属性和侦听属性有什么区别？"><a href="#计算属性和方法有什么区别？计算属性和侦听属性有什么区别？" class="headerlink" title="计算属性和方法有什么区别？计算属性和侦听属性有什么区别？"></a>计算属性和方法有什么区别？计算属性和侦听属性有什么区别？</h4><p>计算属性和方法的区别是计算属性是基于依赖进行缓存的，只有在相关依赖发生改变后才会求值。</p>
+<p>侦听器允许我们执行异步操作（访问一个API），并可以设置中间状态（比如loading…）。</p>
+<p>计算属性默认只有getter ，不过在需要时也可以提供一个 setter </p>
+<h4 id="watch怎么观察实例的表达式？怎么观察对象内部变化？怎么立即触发回调？"><a href="#watch怎么观察实例的表达式？怎么观察对象内部变化？怎么立即触发回调？" class="headerlink" title="$watch怎么观察实例的表达式？怎么观察对象内部变化？怎么立即触发回调？"></a>$watch怎么观察实例的表达式？怎么观察对象内部变化？怎么立即触发回调？</h4><p>观察表达式</p>
+<pre><code>vm.$watch(
+  function () &#123;
+    return this.a + this.b
+  &#125;,
+  function (newVal, oldVal) &#123;
+  &#125;
+)</code></pre>
+<p>对象内部变化</p>
+<pre><code>vm.$watch(&#39;someObject&#39;, callback, &#123;
+  deep: true
+&#125;)
+vm.someObject.nestedValue = 123</code></pre>
+<p>立即触发回调</p>
+<pre><code>vm.$watch(&#39;a&#39;, callback, &#123;
+  immediate: true
+&#125;)</code></pre>
+<h4 id="v-show和v-if的区别是什么？"><a href="#v-show和v-if的区别是什么？" class="headerlink" title="v-show和v-if的区别是什么？"></a>v-show和v-if的区别是什么？</h4><p>v-if支持v-else和v-else-if语法，也支持&lt; template/&gt;语法；v-show不支持这些；</p>
+<p>v-show是通过简单地切换元素的CSS属性display属性来实现显示隐藏效果；</p>
+<p>v-if 是“真正的”条件渲染，因为它会确保在切换过程中条件块内的事件监听器和子组件适当地被销毁和重建；</p>
+<p>v-if 也是惰性的：如果在初始渲染时条件为假，则什么也不做——直到条件第一次变为真时，才会开始渲染条件块；</p>
+<p>相比之下， v-show 就简单得多——不管初始条件是什么，元素总是会被渲染，并且只是简单地基于 CSS 进行切换；</p>
+<h4 id="v-if中的key有什么作用？"><a href="#v-if中的key有什么作用？" class="headerlink" title="v-if中的key有什么作用？"></a>v-if中的key有什么作用？</h4><p>为了更高效的渲染元素，vue通常会复用元素，唯一的key值会让元素不被复用而是重新渲染。</p>
+<h4 id="v-for中的key应该怎么使用？为什么需要key？"><a href="#v-for中的key应该怎么使用？为什么需要key？" class="headerlink" title="v-for中的key应该怎么使用？为什么需要key？"></a>v-for中的key应该怎么使用？为什么需要key？</h4><p>使用v-for更新已渲染的元素列表时,默认用就地复用策略;列表数据修改的时候,他会根据key值去判断某个值是否修改,如果修改,则重新渲染这一项,否则复用之前的元素;</p>
+<p>因此，key的使用办法是使用数组中不会变化的那一项作为key值，即每条数据都有唯一且不变的id来标识这条数据的唯一性。(而不是使用数组的index值，因为在插入新项后会发生改变)</p>
+<p>key的作用主要是为了高效的更新虚拟DOM。另外vue中在使用相同标签名元素的过渡切换时，也会使用到key属性，其目的也是为了让vue可以区分它们，否则vue只会替换其内部属性而不会触发过渡效果。</p>
+<h4 id="怎么使vue检测到利用索引直接设置一个项或者修改数组的长度？"><a href="#怎么使vue检测到利用索引直接设置一个项或者修改数组的长度？" class="headerlink" title="怎么使vue检测到利用索引直接设置一个项或者修改数组的长度？"></a>怎么使vue检测到利用索引直接设置一个项或者修改数组的长度？</h4><pre><code>// Vue.set
+Vue.set(vm.items, indexOfItem, newValue)
+// Array.prototype.splice
+vm.items.splice(indexOfItem, 1, newValue)</code></pre>
+<h4 id="使用修饰符使用户的输入值转为数字类型？自动过滤用户输入的首尾空白字符？"><a href="#使用修饰符使用户的输入值转为数字类型？自动过滤用户输入的首尾空白字符？" class="headerlink" title="使用修饰符使用户的输入值转为数字类型？自动过滤用户输入的首尾空白字符？"></a>使用修饰符使用户的输入值转为数字类型？自动过滤用户输入的首尾空白字符？</h4><pre><code>&lt;input v-model.number=&quot;age&quot; type=&quot;number&quot;&gt;
+&lt;input v-model.trim=&quot;msg&quot;&gt;</code></pre>
+<h4 id="data为什么必须是函数？"><a href="#data为什么必须是函数？" class="headerlink" title="data为什么必须是函数？"></a>data为什么必须是函数？</h4><p>因为只有这样每个实例才能维护一份被返回对象的独立的拷贝，否则对一个实例的修改会影响到其它的实例</p>
+<h4 id="怎么从一个文件夹批量全局导入基础组件？"><a href="#怎么从一个文件夹批量全局导入基础组件？" class="headerlink" title="怎么从一个文件夹批量全局导入基础组件？"></a>怎么从一个文件夹批量全局导入基础组件？</h4><pre><code>import Vue from &#39;vue&#39;
+import upperFirst from &#39;lodash/upperFirst&#39;
+import camelCase from &#39;lodash/camelCase&#39;
+//具体查看webpack的API
+const requireComponent = require.context(
+  // 其组件目录的相对路径
+  &#39;./components&#39;,
+  // 是否查询其子目录
+  false,
+  // 匹配基础组件文件名的正则表达式
+  /Base[A-Z]\w+\.(vue|js)$/
+)
+
+requireComponent.keys().forEach(fileName =&gt; &#123;
+  // 获取组件配置
+  const componentConfig = requireComponent(fileName)
+
+  // 获取组件的 PascalCase 命名
+  const componentName = upperFirst(
+    camelCase(
+      // 剥去文件名开头的 `./` 和结尾的扩展名
+      fileName.replace(/^\.\/(.*)\.\w+$/, &#39;$1&#39;)
+    )
+  )
+
+  // 全局注册组件
+  Vue.component(
+    componentName,
+    // 如果这个组件选项是通过 `export default` 导出的，
+    // 那么就会优先使用 `.default`，
+    // 否则回退到使用模块的根。
+    componentConfig.default || componentConfig
+  )
+&#125;)</code></pre>
+<h4 id="组件的特性继承是什么？如何自定义特性继承？"><a href="#组件的特性继承是什么？如何自定义特性继承？" class="headerlink" title="组件的特性继承是什么？如何自定义特性继承？"></a>组件的特性继承是什么？如何自定义特性继承？</h4><p>添加到组件实例上的特性会被自动添加到组件的根元素上。其中class 和 style 特性如果冲突，两边的值会被合并，其它的特性的冲突则会被替换。</p>
+<p>如果不希望组件的根元素继承特性，可以在组件的选项中设置inheritAttrs: false,例如</p>
+<pre><code>ue.component(&#39;my-component&#39;, &#123;
+  inheritAttrs: false,
+  // ...
+&#125;)</code></pre>
+<p>配合实例的$attrs属性使用，可以手动将特性赋予给指定元素，例如</p>
+<pre><code>Vue.component(&#39;base-input&#39;, &#123;
+  inheritAttrs: false,
+  props: [&#39;label&#39;, &#39;value&#39;],
+  template: `
+    &lt;label&gt;
+      &#123;&#123; label &#125;&#125;
+      &lt;input
+        v-bind=&quot;$attrs&quot;
+        v-bind:value=&quot;value&quot;
+        v-on:input=&quot;$emit(&#39;input&#39;, $event.target.value)&quot;
+      &gt;
+    &lt;/label&gt;
+  `
+&#125;)</code></pre>
+<h4 id="如何将原生事件绑定到组件？怎么绑定到组件的特定元素？"><a href="#如何将原生事件绑定到组件？怎么绑定到组件的特定元素？" class="headerlink" title="如何将原生事件绑定到组件？怎么绑定到组件的特定元素？"></a>如何将原生事件绑定到组件？怎么绑定到组件的特定元素？</h4><p>如果是想在组件的根元素直接监听原生事件，可以使用native修饰符，例如</p>
+<pre><code>&lt;base-input v-on:focus.native=&quot;onFocus&quot;&gt;&lt;/base-input&gt;</code></pre>
+<p>如果根元素不是需要监听的元素，父级的native将会失效，可以使用$listeners属性，它是一个包含了作用在这个组件上的所有监听器的对象。<br>例如<base-input>组件中的$listeners是</base-input></p>
+<pre><code>&#123;
+  focus: function (event) &#123; /* ... */ &#125;
+&#125;</code></pre>
+<p>这样就可以像如下将事件侦听器指向这个组件的某个特定子元素。</p>
+<pre><code>Vue.component(&#39;base-input&#39;, &#123;
+  inheritAttrs: false,
+  props: [&#39;label&#39;, &#39;value&#39;],
+  computed: &#123;
+    inputListeners: function () &#123;
+      var vm = this
+      return Object.assign(&#123;&#125;,
+        // 我们从父级添加所有的监听器
+        this.$listeners,
+        // 然后我们添加自定义监听器，
+        // 或覆写一些监听器的行为
+        &#123;
+          // 这里确保组件配合 `v-model` 的工作
+          input: function (event) &#123;
+            vm.$emit(&#39;input&#39;, event.target.value)
+          &#125;
+        &#125;
+      )
+    &#125;
+  &#125;,
+  template: `
+    &lt;label&gt;
+      &#123;&#123; label &#125;&#125;
+      &lt;input
+        v-bind=&quot;$attrs&quot;
+        v-bind:value=&quot;value&quot;
+        v-on=&quot;inputListeners&quot;
+      &gt;
+    &lt;/label&gt;
+  `
+&#125;)</code></pre>
+<h4 id="sync修饰符是什么？-怎么使用？"><a href="#sync修饰符是什么？-怎么使用？" class="headerlink" title=".sync修饰符是什么？ 怎么使用？"></a>.sync修饰符是什么？ 怎么使用？</h4><p>.sync是子组件触发父组件事件并修改父组件值的方法的缩写，使用例子：</p>
+<pre><code>this.$emit(&#39;update:title&#39;, newTitle)
+&lt;text-document
+  v-bind:title=&quot;doc.title&quot;
+  v-on:update:title=&quot;doc.title = $event&quot;
+&gt;&lt;/text-document&gt;
+//可以缩写成为
+&lt;text-document v-bind:title.sync=&quot;doc.title&quot;&gt;&lt;/text-document&gt;</code></pre>
+<h4 id="怎么直接访问根实例，父组件实例，子组件实例（子元素）"><a href="#怎么直接访问根实例，父组件实例，子组件实例（子元素）" class="headerlink" title="怎么直接访问根实例，父组件实例，子组件实例（子元素）"></a>怎么直接访问根实例，父组件实例，子组件实例（子元素）</h4><p>访问根实例</p>
+<pre><code>this.$root
+//最好还是使用vuex</code></pre>
+<p>访问父组件实例</p>
+<pre><code>this.$parent</code></pre>
+<p>或者使用依赖注入</p>
+<pre><code>provide: function () &#123;
+  return &#123;
+    getMap: this.getMap
+  &#125;
+&#125;
+
+inject: [&#39;getMap&#39;]</code></pre>
+<p>访问子组件或者子元素</p>
+<pre><code>this.$refs</code></pre>
+<h4 id="如何在实例销毁前注销手动绑定的eventListener？"><a href="#如何在实例销毁前注销手动绑定的eventListener？" class="headerlink" title="如何在实例销毁前注销手动绑定的eventListener？"></a>如何在实例销毁前注销手动绑定的eventListener？</h4><p>使用程序化的事件侦听器，比如一个集成的第三方库的模式</p>
+<pre><code>// 一次性将这个日期选择器附加到一个输入框上
+// 它会被挂载到 DOM 上。
+mounted: function () &#123;
+  // Pikaday 是一个第三方日期选择器的库
+  this.picker = new Pikaday(&#123;
+    field: this.$refs.input,
+    format: &#39;YYYY-MM-DD&#39;
+  &#125;)
+&#125;,
+// 在组件被销毁之前，
+// 也销毁这个日期选择器。
+beforeDestroy: function () &#123;
+  this.picker.destroy()
+&#125;</code></pre>
+<p>存在的问题是第一需要在实例中保存这个piker，第二是建立代码和清理代码分开了，使得比较难程序化的清理所建立的所有东西。<br>解决办法是</p>
+<pre><code>mounted: function () &#123;
+  var picker = new Pikaday(&#123;
+    field: this.$refs.input,
+    format: &#39;YYYY-MM-DD&#39;
+  &#125;)
+
+  this.$once(&#39;hook:beforeDestroy&#39;, function () &#123;
+    picker.destroy()
+  &#125;)
+&#125;</code></pre>
+<h4 id="什么时候会使用到自定义指令？怎么使用？"><a href="#什么时候会使用到自定义指令？怎么使用？" class="headerlink" title="什么时候会使用到自定义指令？怎么使用？"></a>什么时候会使用到自定义指令？怎么使用？</h4><p>当需要对<strong>普通DOM元素</strong>进行底层操作的时候可能需要用到自定义指令</p>
+<p>比如想要输入框在页面加载的时候获取焦点，或者某个元素在加载的时候就改变相应的背景颜色。</p>
+<p>输入框的例子：</p>
+<pre><code>// 注册一个全局自定义指令 `v-focus`
+Vue.directive(&#39;focus&#39;, &#123;
+  // 当被绑定的元素插入到 DOM 中时……
+  inserted: function (el) &#123;
+    // 聚焦元素
+    el.focus()
+  &#125;
+&#125;)</code></pre>
+<p>或者局部指令</p>
+<pre><code>directives: &#123;
+  focus: &#123;
+    // 指令的定义
+    inserted: function (el) &#123;
+      el.focus()
+    &#125;
+  &#125;
+&#125;
+&lt;input v-focus&gt;</code></pre>
+<p>背景颜色的例子</p>
+<pre><code>&lt;div v-demo=&quot;&#123; color: &#39;white&#39;, text: &#39;hello!&#39; &#125;&quot;&gt;&lt;/div&gt;
+
+Vue.directive(&#39;demo&#39;, function (el, binding) &#123;
+  console.log(binding.value.color) // =&gt; &quot;white&quot;
+  console.log(binding.value.text)  // =&gt; &quot;hello!&quot;
+&#125;)</code></pre>
+<h4 id="vue插件有哪几种？怎么使用插件？"><a href="#vue插件有哪几种？怎么使用插件？" class="headerlink" title="vue插件有哪几种？怎么使用插件？"></a>vue插件有哪几种？怎么使用插件？</h4><p>Vue.js 的插件应当有一个公开方法 install 。这个方法的第一个参数是 Vue 构造器，第二个参数是一个可选的选项对象：</p>
+<pre><code>MyPlugin.install = function (Vue, options) &#123;
+  // 1. 添加全局方法或属性
+  Vue.myGlobalMethod = function () &#123;
+    // 逻辑...
+  &#125;
+
+  // 2. 添加全局资源
+  Vue.directive(&#39;my-directive&#39;, &#123;
+    bind (el, binding, vnode, oldVnode) &#123;
+      // 逻辑...
+    &#125;
+    ...
+  &#125;)
+
+  // 3. 注入组件
+  Vue.mixin(&#123;
+    created: function () &#123;
+      // 逻辑...
+    &#125;
+    ...
+  &#125;)
+
+  // 4. 添加实例方法
+  Vue.prototype.$myMethod = function (methodOptions) &#123;
+    // 逻辑...
+  &#125;
+&#125;</code></pre>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          
+            <a href="/tags/VUE/" rel="tag"># VUE</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/04/Js%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96/" rel="next" title="Js加载优化">
+                <i class="fa fa-chevron-left"></i> Js加载优化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/12/DOM%E6%93%8D%E4%BD%9C%E7%9A%84%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="prev" title="DOM操作的性能优化">
+                DOM操作的性能优化 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
 
     <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+      
     </div>
   </div>
 
-{% endblock %}
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+          </div>
+          
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFMVVM%EF%BC%9F%E4%B8%8EMVC%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">什么是MVVM？与MVC有什么区别？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%87%E6%BB%A4%E5%99%A8%E6%80%8E%E4%B9%88%E4%B8%B2%E8%81%94%E5%92%8C%E4%BC%A0%E5%8F%82%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">过滤器怎么串联和传参数?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7%E5%92%8C%E6%96%B9%E6%B3%95%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7%E5%92%8C%E4%BE%A6%E5%90%AC%E5%B1%9E%E6%80%A7%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">计算属性和方法有什么区别？计算属性和侦听属性有什么区别？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#watch%E6%80%8E%E4%B9%88%E8%A7%82%E5%AF%9F%E5%AE%9E%E4%BE%8B%E7%9A%84%E8%A1%A8%E8%BE%BE%E5%BC%8F%EF%BC%9F%E6%80%8E%E4%B9%88%E8%A7%82%E5%AF%9F%E5%AF%B9%E8%B1%A1%E5%86%85%E9%83%A8%E5%8F%98%E5%8C%96%EF%BC%9F%E6%80%8E%E4%B9%88%E7%AB%8B%E5%8D%B3%E8%A7%A6%E5%8F%91%E5%9B%9E%E8%B0%83%EF%BC%9F"><span class="nav-number">4.</span> <span class="nav-text">$watch怎么观察实例的表达式？怎么观察对象内部变化？怎么立即触发回调？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#v-show%E5%92%8Cv-if%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">5.</span> <span class="nav-text">v-show和v-if的区别是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#v-if%E4%B8%AD%E7%9A%84key%E6%9C%89%E4%BB%80%E4%B9%88%E4%BD%9C%E7%94%A8%EF%BC%9F"><span class="nav-number">6.</span> <span class="nav-text">v-if中的key有什么作用？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#v-for%E4%B8%AD%E7%9A%84key%E5%BA%94%E8%AF%A5%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81key%EF%BC%9F"><span class="nav-number">7.</span> <span class="nav-text">v-for中的key应该怎么使用？为什么需要key？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E4%BD%BFvue%E6%A3%80%E6%B5%8B%E5%88%B0%E5%88%A9%E7%94%A8%E7%B4%A2%E5%BC%95%E7%9B%B4%E6%8E%A5%E8%AE%BE%E7%BD%AE%E4%B8%80%E4%B8%AA%E9%A1%B9%E6%88%96%E8%80%85%E4%BF%AE%E6%94%B9%E6%95%B0%E7%BB%84%E7%9A%84%E9%95%BF%E5%BA%A6%EF%BC%9F"><span class="nav-number">8.</span> <span class="nav-text">怎么使vue检测到利用索引直接设置一个项或者修改数组的长度？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E4%BF%AE%E9%A5%B0%E7%AC%A6%E4%BD%BF%E7%94%A8%E6%88%B7%E7%9A%84%E8%BE%93%E5%85%A5%E5%80%BC%E8%BD%AC%E4%B8%BA%E6%95%B0%E5%AD%97%E7%B1%BB%E5%9E%8B%EF%BC%9F%E8%87%AA%E5%8A%A8%E8%BF%87%E6%BB%A4%E7%94%A8%E6%88%B7%E8%BE%93%E5%85%A5%E7%9A%84%E9%A6%96%E5%B0%BE%E7%A9%BA%E7%99%BD%E5%AD%97%E7%AC%A6%EF%BC%9F"><span class="nav-number">9.</span> <span class="nav-text">使用修饰符使用户的输入值转为数字类型？自动过滤用户输入的首尾空白字符？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#data%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BF%85%E9%A1%BB%E6%98%AF%E5%87%BD%E6%95%B0%EF%BC%9F"><span class="nav-number">10.</span> <span class="nav-text">data为什么必须是函数？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E4%BB%8E%E4%B8%80%E4%B8%AA%E6%96%87%E4%BB%B6%E5%A4%B9%E6%89%B9%E9%87%8F%E5%85%A8%E5%B1%80%E5%AF%BC%E5%85%A5%E5%9F%BA%E7%A1%80%E7%BB%84%E4%BB%B6%EF%BC%9F"><span class="nav-number">11.</span> <span class="nav-text">怎么从一个文件夹批量全局导入基础组件？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%84%E4%BB%B6%E7%9A%84%E7%89%B9%E6%80%A7%E7%BB%A7%E6%89%BF%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E5%A6%82%E4%BD%95%E8%87%AA%E5%AE%9A%E4%B9%89%E7%89%B9%E6%80%A7%E7%BB%A7%E6%89%BF%EF%BC%9F"><span class="nav-number">12.</span> <span class="nav-text">组件的特性继承是什么？如何自定义特性继承？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%B0%86%E5%8E%9F%E7%94%9F%E4%BA%8B%E4%BB%B6%E7%BB%91%E5%AE%9A%E5%88%B0%E7%BB%84%E4%BB%B6%EF%BC%9F%E6%80%8E%E4%B9%88%E7%BB%91%E5%AE%9A%E5%88%B0%E7%BB%84%E4%BB%B6%E7%9A%84%E7%89%B9%E5%AE%9A%E5%85%83%E7%B4%A0%EF%BC%9F"><span class="nav-number">13.</span> <span class="nav-text">如何将原生事件绑定到组件？怎么绑定到组件的特定元素？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sync%E4%BF%AE%E9%A5%B0%E7%AC%A6%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F-%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8%EF%BC%9F"><span class="nav-number">14.</span> <span class="nav-text">.sync修饰符是什么？ 怎么使用？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E7%9B%B4%E6%8E%A5%E8%AE%BF%E9%97%AE%E6%A0%B9%E5%AE%9E%E4%BE%8B%EF%BC%8C%E7%88%B6%E7%BB%84%E4%BB%B6%E5%AE%9E%E4%BE%8B%EF%BC%8C%E5%AD%90%E7%BB%84%E4%BB%B6%E5%AE%9E%E4%BE%8B%EF%BC%88%E5%AD%90%E5%85%83%E7%B4%A0%EF%BC%89"><span class="nav-number">15.</span> <span class="nav-text">怎么直接访问根实例，父组件实例，子组件实例（子元素）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8%E5%AE%9E%E4%BE%8B%E9%94%80%E6%AF%81%E5%89%8D%E6%B3%A8%E9%94%80%E6%89%8B%E5%8A%A8%E7%BB%91%E5%AE%9A%E7%9A%84eventListener%EF%BC%9F"><span class="nav-number">16.</span> <span class="nav-text">如何在实例销毁前注销手动绑定的eventListener？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E4%BC%9A%E4%BD%BF%E7%94%A8%E5%88%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4%EF%BC%9F%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8%EF%BC%9F"><span class="nav-number">17.</span> <span class="nav-text">什么时候会使用到自定义指令？怎么使用？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vue%E6%8F%92%E4%BB%B6%E6%9C%89%E5%93%AA%E5%87%A0%E7%A7%8D%EF%BC%9F%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8%E6%8F%92%E4%BB%B6%EF%BC%9F"><span class="nav-number">18.</span> <span class="nav-text">vue插件有哪几种？怎么使用插件？</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yosgi</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://yosgi.github.io/2018/09/10/vue%E6%98%93%E9%94%99%E6%98%93%E6%B7%B7%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/';
+          this.page.identifier = '2018/09/10/vue易错易混知识点整理/';
+          this.page.title = 'vue易错易混知识点整理';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

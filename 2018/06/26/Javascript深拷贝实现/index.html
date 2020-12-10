@@ -1,37 +1,973 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+  
 
 
-{% block content %}
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Javascript," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Javascript基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Javascript深拷贝实现">
+<meta property="og:url" content="https://yosgi.github.io/2018/06/26/Javascript%E6%B7%B1%E6%8B%B7%E8%B4%9D%E5%AE%9E%E7%8E%B0/index.html">
+<meta property="og:site_name" content="快雪时晴">
+<meta property="og:description" content="Javascript基础">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-06-26T09:01:50.000Z">
+<meta property="article:modified_time" content="2019-03-16T07:36:43.000Z">
+<meta property="article:author" content="yosgi">
+<meta property="article:tag" content="Javascript">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yosgi.github.io/2018/06/26/Javascript深拷贝实现/"/>
+
+
+
+
+
+  <title>Javascript深拷贝实现 | 快雪时晴</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">快雪时晴</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">失败会设下陷阱，没有胜利会发出邀请</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
 
   <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yosgi.github.io/2018/06/26/Javascript%E6%B7%B1%E6%8B%B7%E8%B4%9D%E5%AE%9E%E7%8E%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="快雪时晴">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Javascript深拷贝实现</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-26T17:01:50+08:00">
+                2018-06-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Javascript%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">Javascript学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/06/26/Javascript%E6%B7%B1%E6%8B%B7%E8%B4%9D%E5%AE%9E%E7%8E%B0/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/06/26/Javascript深拷贝实现/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  Javascript基础
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="如何实现深拷贝"><a href="#如何实现深拷贝" class="headerlink" title="如何实现深拷贝"></a>如何实现深拷贝</h4><h5 id="Object-assign"><a href="#Object-assign" class="headerlink" title="Object.assign()"></a>Object.assign()</h5><p>只能处理一层的深拷贝</p>
+<pre><code>var oldObj = &#123;a:1&#125;;
+var newObj = Object.assign(&#123;&#125;,oldObj)
+console.log(oldObj===newObj)//false</code></pre>
+<h5 id="序列-反序列"><a href="#序列-反序列" class="headerlink" title="序列/反序列"></a>序列/反序列</h5><p>无法实现对函数 、RegExp等特殊对象的克隆</p>
+<p>会抛弃对象的constructor,所有的构造函数会指向Object</p>
+<p>对象有循环引用,会报错</p>
+<p>这种方法能正确处理的对象只有 Number, String, Boolean, Array, 扁平对象，即那些能够被 json 直接表示的数据结构</p>
+<pre><code>// 构造函数
+function person(pname) &#123;
+  this.name = pname;
+&#125;
+
+const Messi = new person(&#39;Messi&#39;);
+
+// 函数
+function say() &#123;
+  console.log(&#39;hi&#39;);
+&#125;;
+
+const oldObj = &#123;
+  a: say,
+  b: new Array(1),
+  c: new RegExp(&#39;ab+c&#39;, &#39;i&#39;),
+  d: Messi
+&#125;;
+
+const newObj = JSON.parse(JSON.stringify(oldObj));
+
+// 无法复制数函
+console.log(newObj.a, oldObj.a); // undefined [Function: say]
+// 稀疏数组复制错误
+console.log(newObj.b[0], oldObj.b[0]); // null undefined
+// 无法复制正则对象
+console.log(newObj.c, oldObj.c); // &#123;&#125; /ab+c/i
+// 构造函数指向错误
+console.log(newObj.d.constructor, oldObj.d.constructor); // [Function: Object] [Function: person]</code></pre>
+<h5 id="递归拷贝"><a href="#递归拷贝" class="headerlink" title="递归拷贝"></a>递归拷贝</h5><pre><code>function isArray(arr) &#123;
+  return Object.prototype.toString.call(arr) == &#39;[object Array]&#39;
+&#125;;
+
+function _clone(oldObj) &#123;
+  console.log(typeof oldObj)
+  if (typeof oldObj !== &quot;object&quot;) &#123;
+      return oldObj;
+  &#125;
+  var obj = isArray(oldObj) ? [] : &#123;&#125;
+  for (var i in oldObj) &#123;
+      if (oldObj.hasOwnProperty(i)) &#123;
+          if (oldObj[i] == oldObj) &#123;
+              continue
+          &#125;
+          obj[i] = _clone(oldObj[i])
+      &#125;
+  &#125;
+  return obj
+&#125;
+//还是用上面的测试
+function Person(pname) &#123;
+this.name = name;
+&#125;
+const Messi = new Person(&#39;Messi&#39;);
+function say() &#123;
+    console.log(&#39;hi&#39;);
+&#125;;
+const oldObj = &#123;
+    a: say,
+    b: new Array(1),
+    c: new RegExp(&#39;ab+c&#39;, &#39;i&#39;),
+    d: Messi
+&#125;;
+const newObj = _clone(oldObj)
+// 函数可复制
+console.log(newObj.a, oldObj.a); // [Function: say] [Function: say]
+// 稀疏数组可以复制
+console.log(newObj.b[0], oldObj.b[0]); // undefined undefined
+// 无法复制正则对象
+console.log(newObj.c, oldObj.c); // &#123;&#125; /ab+c/i
+// 构造函数指向错误
+console.log(newObj.d.constructor, oldObj.d.constructor); // [Function: Object] [Function: person]
+//循环引用也不行，上面的continue去掉会内存溢出</code></pre>
+<p>同样存在无法复制正则对象，构造函数指向错误等问题。</p>
+<h5 id="递归拷贝-改进版"><a href="#递归拷贝-改进版" class="headerlink" title="递归拷贝 改进版"></a>递归拷贝 改进版</h5><pre><code>   const isType = function (obj, type) &#123;
+  //用来区别属性类型的函数
+  if (typeof obj !== &#39;object&#39;) return false
+  const typeString = Object.prototype.toString.call(obj);
+  let flag;
+  //flag作为属性判断的标识
+  switch (type) &#123;
+    case &#39;Array&#39;:
+      flag = typeString === &#39;[object Array]&#39;;
+      break;
+    case &#39;Date&#39;:
+      flag = typeString === &#39;[object Date]&#39;;
+      break;
+    case &#39;RegExp&#39;:
+      flag = typeString === &#39;[object RegExp]&#39;;
+      break;
+    case &#39;Set&#39;:
+      flag = typeString === &#39;[object Set]&#39;;
+      break;
+    case &#39;Map&#39;:
+      flag = typeString === &#39;[object Map]&#39;;
+      break;
+    case &#39;Symbol&#39;:
+      flag = typeString === &#39;[object Symbol]&#39;;
+      break;
+    default:
+      flag = false;
+  &#125;
+  return flag;
+&#125;
+
+function _clone(oldObj) &#123;
+  let obj;
+  if (isType(oldObj) == false) &#123;
+    //基本数据类型,函数,和我没考虑到的类型，一律直接引用（偷懒）
+    obj = oldObj
+  &#125; else if (isType(oldObj, &#39;Array&#39;)) &#123;
+    //处理数组
+    obj = [];
+  &#125; else if (isType(oldObj, &#39;RegExp&#39;)) &#123;
+    //处理正则
+    let flags = &#39;&#39;;
+    if (oldObj.global) flags += &quot;g&quot;;//全局
+    if (oldObj.ignoreCase) flags += &quot;i&quot;;//大小写
+    if (oldObj.multiline) flags += &quot;m&quot;;//
+    return obj = new RegExp(oldObj.source, getRegExp(oldObj));
+  &#125; else if (isType(oldObj, &#39;Date&#39;)) &#123;
+    //处理时间对象
+    return obj = new Date(oldObj.getTime());
+  &#125; else if (isType(oldObj, &#39;Set&#39;)) &#123;
+    //处理Set
+    return obj = new Set([...obj]);
+  &#125; else if (isType(oldObj, &#39;Map&#39;)) &#123;
+    //处理Map
+    return obj = new Map([...obj]);
+  &#125; else if (isType(oldObj, &#39;Symbol&#39;)) &#123;
+    //处理Symbol
+    return obj = Symbol(String(oldObj).slice(7, -1))
+  &#125; else &#123;
+    // 处理对象原型
+    let proto = Object.getPrototypeOf(oldObj);
+    obj = Object.create(proto);
+  &#125;
+  for (var i in oldObj) &#123;
+    if (oldObj.hasOwnProperty(i)) &#123;
+      if (oldObj[i] == oldObj) &#123;
+        obj[i] = oldObj
+      &#125; else &#123;
+        obj[i] = _clone(oldObj[i])
+      &#125;
+    &#125;
+  &#125;
+  return obj
+&#125;
+
+function Person(pname) &#123;
+    this.name = pname;
+&#125;
+const Messi = new Person(&#39;Messi&#39;);
+function say() &#123;
+    console.log(&#39;hi&#39;);
+&#125;;
+const oldObj = &#123;
+    a: say,
+    b: new Array(1),
+    c: new RegExp(&#39;ab+c&#39;, &#39;i&#39;),
+    d: Messi,
+    e:new Set([1,2,3]),
+    f:new Map([[&#39;foo&#39;, 1],[&#39;bar&#39;, 2]]),
+    g:Symbol(&quot;yosgi&quot;)
+&#125;;
+const newObj = _.clone(oldObj)
+// 函数
+console.log(newObj.a, oldObj.a); // [Function: say] [Function: say]
+// 稀疏数组
+console.log(newObj.b[0], oldObj.b[0]); // undefined undefined
+// 正则对象
+console.log(newObj.c, oldObj.c); // /ab+c/i /ab+c/i
+// 构造函数
+console.log(newObj.d.constructor, oldObj.d.constructor); // [Function: person] [Function: person]
+//Set
+console.log(newObj.e, oldObj.e)//Set(3) &#123;1, 2, 3&#125; Set(3) &#123;1, 2, 3&#125;
+//Map
+console.log(newObj.f, oldObj.f)//Map(2) &#123;&quot;foo&quot; =&gt; 1, &quot;bar&quot; =&gt; 2&#125; Map(2) &#123;&quot;foo&quot; =&gt; 1, &quot;bar&quot; =&gt; 2&#125;
+//Symbol
+console.log(newObj.g, oldObj.g)//Symbol(yosgi) Symbol(yosgi)
+//循环引用
+// var oldObj = &#123;&#125;;;
+// oldObj.a = oldObj;
+// const newObj = _.clone(oldObj)
+// console.log(oldObj,newObj)//&#123;a: &#123;…&#125;&#125; &#123;a: &#123;…&#125;&#125;</code></pre>
+<p>函数,数组,正则对象,构造函数,Set,Map,Symbol,循环引用都考虑在内</p>
+<p>然鹅，还有Buffer，Promise，proxy等…</p>
+<h5 id="lodash"><a href="#lodash" class="headerlink" title="lodash"></a>lodash</h5><p>真香</p>
+<pre><code>function person(pname) &#123;
+    this.name = pname;
+&#125;
+const Messi = new person(&#39;Messi&#39;);
+function say() &#123;
+    console.log(&#39;hi&#39;);
+&#125;;
+const oldObj = &#123;
+    a: say,
+    b: new Array(1),
+    c: new RegExp(&#39;ab+c&#39;, &#39;i&#39;),
+    d: Messi
+&#125;;
+const newObj = _.clone(oldObj)
+// 函数
+console.log(newObj.a, oldObj.a); // [Function: say] [Function: say]
+// 稀疏数组
+console.log(newObj.b[0], oldObj.b[0]); // undefined undefined
+// 正则对象
+console.log(newObj.c, oldObj.c); // /ab+c/i /ab+c/i
+// 构造函数
+console.log(newObj.d.constructor, oldObj.d.constructor); // [Function: person] [Function: person]
+//循环引用
+var oldObj = &#123;&#125;;;
+oldObj.a = oldObj;
+const newObj = _.clone(oldObj)
+console.log(oldObj,newObj)//&#123;a: &#123;…&#125;&#125; &#123;a: &#123;…&#125;&#125;</code></pre>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/25/Javascript%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" rel="next" title="Javascript排序算法">
+                <i class="fa fa-chevron-left"></i> Javascript排序算法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/27/promise/" rel="prev" title="promise">
+                promise <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
 
     <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+      
     </div>
   </div>
 
-{% endblock %}
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+          </div>
+          
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E6%B7%B1%E6%8B%B7%E8%B4%9D"><span class="nav-number">1.</span> <span class="nav-text">如何实现深拷贝</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Object-assign"><span class="nav-number">1.1.</span> <span class="nav-text">Object.assign()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BA%8F%E5%88%97-%E5%8F%8D%E5%BA%8F%E5%88%97"><span class="nav-number">1.2.</span> <span class="nav-text">序列&#x2F;反序列</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%80%92%E5%BD%92%E6%8B%B7%E8%B4%9D"><span class="nav-number">1.3.</span> <span class="nav-text">递归拷贝</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%80%92%E5%BD%92%E6%8B%B7%E8%B4%9D-%E6%94%B9%E8%BF%9B%E7%89%88"><span class="nav-number">1.4.</span> <span class="nav-text">递归拷贝 改进版</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#lodash"><span class="nav-number">1.5.</span> <span class="nav-text">lodash</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yosgi</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://yosgi.github.io/2018/06/26/Javascript%E6%B7%B1%E6%8B%B7%E8%B4%9D%E5%AE%9E%E7%8E%B0/';
+          this.page.identifier = '2018/06/26/Javascript深拷贝实现/';
+          this.page.title = 'Javascript深拷贝实现';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

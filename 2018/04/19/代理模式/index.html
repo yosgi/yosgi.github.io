@@ -1,37 +1,907 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+  
 
 
-{% block content %}
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Javascript,设计模式," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="《Javascript设计模式》 知识点整理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="代理模式">
+<meta property="og:url" content="https://yosgi.github.io/2018/04/19/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:site_name" content="快雪时晴">
+<meta property="og:description" content="《Javascript设计模式》 知识点整理">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-04-19T01:46:11.000Z">
+<meta property="article:modified_time" content="2019-03-16T07:36:43.000Z">
+<meta property="article:author" content="yosgi">
+<meta property="article:tag" content="Javascript">
+<meta property="article:tag" content="设计模式">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yosgi.github.io/2018/04/19/代理模式/"/>
+
+
+
+
+
+  <title>代理模式 | 快雪时晴</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">快雪时晴</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">失败会设下陷阱，没有胜利会发出邀请</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
 
   <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yosgi.github.io/2018/04/19/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="快雪时晴">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">代理模式</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-19T09:46:11+08:00">
+                2018-04-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Js%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">Js设计模式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/04/19/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/04/19/代理模式/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  《Javascript设计模式》 知识点整理
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h4><h5 id="代理模式和图片预加载"><a href="#代理模式和图片预加载" class="headerlink" title="代理模式和图片预加载"></a>代理模式和图片预加载</h5><p>先不使用代理模式做一个图片预加载功能。</p>
+<pre><code>var myImage = (function()&#123;
+    var imgNode = document.createElement(&quot;img&quot;);
+    document.body.appendChild(imgNode);
+    var img = new Image;
+    img.onload = function()&#123;
+        imgNode.src = img.src;
+    &#125;
+    return &#123;
+        setSrc:function(src)&#123;
+            imgNode.src = &quot;./bd_logo1.png&quot;
+            img.src = src
+        &#125;
+    &#125;
+&#125;)()
+myImage.setSrc(&quot;http://data.17jita.com/attachment/forum/201412/20/213333npk8mvppcav3rmv8.png&quot;)</code></pre>
+<p>问题是，当我们网速不再需要预加载，那就不得不改动myImage对象。</p>
+<p>同时，myImage除了负责给img节点设置src，还要负责预加载图片，违背了单一职责原则。</p>
+<p>下面使用代理模式实现预加载功能</p>
+<pre><code>var myImage  = (function()&#123;
+    var imgNode = document.createElement(&quot;img&quot;);
+    document.body.appendChild(imgNode)
+    return &#123;
+        setSrc:function(src)&#123;
+            imgNode.src=src 
+        &#125;
+    &#125;
+&#125;)()
+
+var proxyImage = (function()&#123;
+    var img = new Image;
+    img.onload = function()&#123;
+        myImage.setSrc(this.src)
+    &#125;
+    return &#123;
+        setSrc:function(src)&#123;
+            myImage.setSrc(&quot;./bd_logo1.png&quot;)
+            img.src = src;
+        &#125;
+    &#125;
+&#125;)()
+proxyImage.setSrc(&quot;http://data.17jita.com/attachment/forum/201412/20/213333npk8mvppcav3rmv8.png&quot;)</code></pre>
+<p>通过proxyImage间接访问myIname,控制图片的预加载。</p>
+<p>当不需要预加载的时候，只用把对proxyImage的引用改成myImage即可。</p>
+<h4 id="虚拟代理合并http请求"><a href="#虚拟代理合并http请求" class="headerlink" title="虚拟代理合并http请求"></a>虚拟代理合并http请求</h4><p>在web开发中，也需最大的开销就是网络请求，假设我们在做一个文件同步功能，在我们选中一个checkbox的时候，它对应的文件就会被同步到另一个服务器上</p>
+<pre><code>var　synchronousFile = function(id)&#123;
+    console.log(&quot;开始同步文件&quot;+id)
+&#125;
+var proxysynchronousFile = (function()&#123;
+    var cache = [],
+    timer;
+    return function(id)&#123;
+        cache.push(id);
+        if(timer)&#123;
+            retrurn
+        &#125;;
+        timer = setTimeout(function()&#123;
+            synchronousFile(cache.join(&quot;,&quot;))
+            clearTimeout(timer);
+            timer = null;
+            cache.length = 0;
+        &#125;,2000)
+    &#125;
+&#125;)()
+var checkbox = document.getElementByTagName(&quot;input&quot;);
+for(var i=0,c;c = checkbox[i];i++)&#123;
+    c.onclick = function()&#123;
+        if(this.checked===true)&#123;
+            proxysynchronousFile(this.id)
+        &#125;
+    &#125;
+&#125;</code></pre>
+<h4 id="缓存代理"><a href="#缓存代理" class="headerlink" title="缓存代理"></a>缓存代理</h4><h5 id="缓存代理的应用-计算乘积"><a href="#缓存代理的应用-计算乘积" class="headerlink" title="缓存代理的应用-计算乘积"></a>缓存代理的应用-计算乘积</h5><p>缓存代理可以为运算结果提供暂时的存储，在下次运算时，如果传毒的参数和之前一致，则可以直接返回前面储存的计算结果</p>
+<pre><code>var mult = function(...numbers)&#123;//es6  rest参数
+    var a= 1;
+    for(var i=0,number;number = numbers[i];i++)&#123;
+        a*=number
+    &#125;
+    return a
+&#125;
+mult(2,3)//6</code></pre>
+<p>加入缓存代理</p>
+<pre><code>var proxyMult = (function()&#123;
+    var chache = &#123;&#125;;
+    return function(...numbers)&#123;
+        var args = numbers.join(&#39;,&#39;)
+        if(chache[args])&#123;
+            return chache[args]
+        &#125;
+        return chache[args] = mult(...numbers)//es6函数拓展运算符，rest参数逆运算
+    &#125;        
+&#125;)(
+)
+proxyMult(2,3)//6</code></pre>
+<h5 id="缓存代理的应用-ajax异步请求资源"><a href="#缓存代理的应用-ajax异步请求资源" class="headerlink" title="缓存代理的应用-ajax异步请求资源"></a>缓存代理的应用-ajax异步请求资源</h5><p>在项目中遇到的分页需求，同一页面理论上只需要后台取得一次，下次在请求同一页时，可以直接使用之前的缓存<br>也可以引用缓存代理，和计算乘积不同的地方在于请求数据是异步操作无法直接把结果放入缓存中，要使用异步的回调。</p>
+<pre><code>var chache = &#123;&#125;;
+var request = function(num)&#123;
+    ajax(num)//假装是个ajax请求数据的操作
+    .success(function(res)&#123;
+        render(res.data)//假装是个渲染操作
+        chache[num] = res.data
+    &#125;)
+&#125;
+var getPage = function(num)&#123;
+    request(num)
+&#125;
+
+var proxyPage = function()&#123;
+    return function(num)&#123;
+        if(chache[num])&#123;
+            return chache[num]
+        &#125;
+        getPage(num)
+    &#125;
+&#125;</code></pre>
+<h4 id="用高阶函数动态创建代理"><a href="#用高阶函数动态创建代理" class="headerlink" title="用高阶函数动态创建代理"></a>用高阶函数动态创建代理</h4><p>可以将计算函数作为参数传入创建缓存的代理中，这样就可以为乘法加减法统一创建代理</p>
+<pre><code>//乘法
+var mult = (...args)=&gt;&#123;
+    var a = 1 ;
+    for(var i=0,c;c=args[i];i++)&#123;
+        a *=c
+    &#125;
+    return a
+&#125;
+//加法
+var plus = (...args)=&gt;&#123;
+    var a = 0;
+    for(var i=0,c;c=args[i];i++)&#123;
+        a+=c
+    &#125;
+    return a
+&#125;
+
+//代理工厂
+var createProxyFactory = (fn)=&gt;&#123;
+    var chache = &#123;&#125;;
+    return function(...args)&#123;
+        var arg = args.join(&quot;,&quot;);
+        if(arg in chache)&#123;
+            return chache[arg]
+        &#125;
+        return chache[arg] = fn(...args)
+    &#125;
+&#125;;
+var proxyMult = createProxyFactory(mult),
+proxyPlus = createProxyFactory(plus);
+
+proxyMult(1,2,3,4)//24
+proxyPlus(1,2,3,4)//10</code></pre>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>代理模式的关键是，当不方便直接访问一个对象或者不满足需要的时候，提供一个替身对象控制对这个对象的访问。替身对象对请求做出一些处理后，再转交给本体</p>
+<p>在javascript开发中最常用的代理模式是虚拟代理和缓存代理。</p>
+<p>虚拟代理把开销大的对象延迟到真正需要的时候创建。（imgNode在img onload结束之后再设置其src）</p>
+<p>缓存代理为一些开销大的运算结果提供暂时的存储。（将结果用chache存储）</p>
+<p>编写业务代码的时候，往往不需要去预先猜测是否需要使用，当不方便直接访问某个对象的时候，再编写代理不迟</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          
+            <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag"># 设计模式</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/13/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" rel="next" title="Js单例模式">
+                <i class="fa fa-chevron-left"></i> Js单例模式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/20/%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F/" rel="prev" title="迭代器模式">
+                迭代器模式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
 
     <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+      
     </div>
   </div>
 
-{% endblock %}
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+          </div>
+          
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">代理模式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E5%92%8C%E5%9B%BE%E7%89%87%E9%A2%84%E5%8A%A0%E8%BD%BD"><span class="nav-number">1.1.</span> <span class="nav-text">代理模式和图片预加载</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E4%BB%A3%E7%90%86%E5%90%88%E5%B9%B6http%E8%AF%B7%E6%B1%82"><span class="nav-number">2.</span> <span class="nav-text">虚拟代理合并http请求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E4%BB%A3%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">缓存代理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E4%BB%A3%E7%90%86%E7%9A%84%E5%BA%94%E7%94%A8-%E8%AE%A1%E7%AE%97%E4%B9%98%E7%A7%AF"><span class="nav-number">3.1.</span> <span class="nav-text">缓存代理的应用-计算乘积</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E4%BB%A3%E7%90%86%E7%9A%84%E5%BA%94%E7%94%A8-ajax%E5%BC%82%E6%AD%A5%E8%AF%B7%E6%B1%82%E8%B5%84%E6%BA%90"><span class="nav-number">3.2.</span> <span class="nav-text">缓存代理的应用-ajax异步请求资源</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%A8%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0%E5%8A%A8%E6%80%81%E5%88%9B%E5%BB%BA%E4%BB%A3%E7%90%86"><span class="nav-number">4.</span> <span class="nav-text">用高阶函数动态创建代理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yosgi</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://yosgi.github.io/2018/04/19/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/';
+          this.page.identifier = '2018/04/19/代理模式/';
+          this.page.title = '代理模式';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

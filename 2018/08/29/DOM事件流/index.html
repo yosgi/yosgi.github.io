@@ -1,37 +1,905 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+  
 
 
-{% block content %}
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Javascript," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="DOM事件流易混点整理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DOM事件流">
+<meta property="og:url" content="https://yosgi.github.io/2018/08/29/DOM%E4%BA%8B%E4%BB%B6%E6%B5%81/index.html">
+<meta property="og:site_name" content="快雪时晴">
+<meta property="og:description" content="DOM事件流易混点整理">
+<meta property="og:locale">
+<meta property="og:image" content="https://yosgi.github.io/.io//img1.png">
+<meta property="og:image" content="https://yosgi.github.io/.io//img2.png">
+<meta property="article:published_time" content="2018-08-29T09:29:45.000Z">
+<meta property="article:modified_time" content="2019-03-16T07:36:43.000Z">
+<meta property="article:author" content="yosgi">
+<meta property="article:tag" content="Javascript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yosgi.github.io/.io//img1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yosgi.github.io/2018/08/29/DOM事件流/"/>
+
+
+
+
+
+  <title>DOM事件流 | 快雪时晴</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">快雪时晴</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">失败会设下陷阱，没有胜利会发出邀请</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
 
   <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yosgi.github.io/2018/08/29/DOM%E4%BA%8B%E4%BB%B6%E6%B5%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="快雪时晴">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">DOM事件流</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-29T17:29:45+08:00">
+                2018-08-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">Javascript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/08/29/DOM%E4%BA%8B%E4%BB%B6%E6%B5%81/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/08/29/DOM事件流/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  DOM事件流易混点整理
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>一直以来对这个概念不是特别的清楚，这次通过资料和实验总结一下</p>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><h4 id="事件冒泡"><a href="#事件冒泡" class="headerlink" title="事件冒泡"></a>事件冒泡</h4><blockquote>
+<p>IE的事件流叫做事件冒泡。即事件开始时由最具体的元素（event target）接收，然后逐级向上传播到较为不具体的节点（文档）。所有现代浏览器都支持事件冒泡，并且会将事件一直冒泡到window对象。</p>
+</blockquote>
+<h4 id="事件捕获"><a href="#事件捕获" class="headerlink" title="事件捕获"></a>事件捕获</h4><blockquote>
+<p>事件捕获的思想是不太具体的节点应该更早的接收到事件，而在最具体的节点应该最后接收到事件。事件捕获的用以在于事件到达预定目标之前捕获它。IE9+、Safari、Chrome、Opera和Firefox支持，且从window开始捕获（尽管DOM2级事件规范要求从document）。由于老版本浏览器不支持，所以很少有人使用事件捕获。</p>
+</blockquote>
+<h4 id="DOM事件流"><a href="#DOM事件流" class="headerlink" title="DOM事件流"></a>DOM事件流</h4><blockquote>
+<p>“DOM2级事件”规定事件流包括三个阶段，事件捕获阶段、处于目标阶段和事件冒泡阶段。首先发生的事件捕获，为截获事件提供了机会。然后是实际的目标接收了事件。最后一个阶段是冒泡阶段，可以在这个阶段对事件做出响应。</p>
+</blockquote>
+<p><img src="/.io//img1.png" alt="image"></p>
+<hr>
+<p>下面看例子</p>
+<p><img src="/.io//img2.png" alt="image"></p>
+<pre><code> &lt;div id=&quot;wrapDiv&quot;&gt;wrapDiv
+    &lt;p id=&quot;middleP&quot;&gt;middleP
+        &lt;span id=&quot;innerSpan&quot;&gt;innerSpan&lt;/span&gt;
+    &lt;/p&gt;
+&lt;/div&gt;
+
+
+
+#wrapDiv, #middleP, #innerSpan&#123;
+    margin: 5px;padding: 5px;box-sizing: border-box;cursor: default;
+&#125;
+#wrapDiv&#123;
+    width: 300px;height: 300px;border: indianred 3px solid;
+&#125;
+#middleP&#123;
+    width: 200px;height: 200px;border: hotpink 3px solid;
+&#125;
+#innerSpan&#123;
+    display: block;width: 100px;height: 100px;border: orange 3px solid;
+&#125;
+
+
+var wrapDiv = document.getElementById(&quot;wrapDiv&quot;);
+var middleP = document.getElementById(&quot;middleP&quot;);
+var innerSpan = document.getElementById(&quot;innerSpan&quot;);</code></pre>
+<h5 id="事件捕获元素（冒泡）的触发次序"><a href="#事件捕获元素（冒泡）的触发次序" class="headerlink" title="事件捕获元素（冒泡）的触发次序"></a>事件捕获元素（冒泡）的触发次序</h5><p>先来看一下事件捕获</p>
+<pre><code>middleP.addEventListener(&quot;click&quot;, function(e)&#123;
+    console.log(&quot;middleP 捕获&quot;, e.target.nodeName, e.currentTarget.nodeName);
+&#125;, true);
+wrapDiv.addEventListener(&quot;click&quot;, function(e)&#123;
+    console.log(&quot;wrapDiv 捕获&quot;, e.target.nodeName, e.currentTarget.nodeName);
+&#125;, true);
+innerSpan.addEventListener(&quot;click&quot;, function(e)&#123;
+    console.log(&quot;innerSpan 捕获&quot;, e.target.nodeName, e.currentTarget.nodeName);
+&#125;, true);
+//wrapDiv 捕获 SPAN DIV middleP 捕获 SPAN P innerSpan 捕获 SPAN SPAN</code></pre>
+<p>可以看到，绑定的顺序并不影响捕获顺序，事件捕获是<br><strong>不太具体的节点应该更早的接收到事件</strong></p>
+<p>而事件冒泡是</p>
+<p>** 即事件开始时由最具体的元素（event target）接收，然后逐级向上传播到较为不具体的节点**</p>
+<p>这点就不再实验了。</p>
+<h5 id="e-target和e-currentTarget"><a href="#e-target和e-currentTarget" class="headerlink" title="e.target和e.currentTarget"></a>e.target和e.currentTarget</h5><p>再说上述代码的两个属性e.target和e.currentTarget，可以看到</p>
+<p> <strong>target是触发事件者，而currentTarget是监听事件者</strong></p>
+<h5 id="事件捕获和冒泡谁先发生？"><a href="#事件捕获和冒泡谁先发生？" class="headerlink" title="事件捕获和冒泡谁先发生？"></a>事件捕获和冒泡谁先发生？</h5><p>接下来再做一个实验，看看捕获和冒泡谁先发生</p>
+<pre><code>//冒泡阶段事件
+middleP.addEventListener(&quot;click&quot;, function(e)&#123;
+    console.log(&quot;middleP 冒泡&quot;, e.target.nodeName, e.currentTarget.nodeName);
+&#125;, false);
+wrapDiv.addEventListener(&quot;click&quot;, function(e)&#123;
+    console.log(&quot;wrapDiv 冒泡&quot;, e.target.nodeName, e.currentTarget.nodeName);
+&#125;, false);
+innerSpan.addEventListener(&quot;click&quot;, function(e)&#123;
+    console.log(&quot;innerSpan 冒泡&quot;, e.target.nodeName, e.currentTarget.nodeName);
+&#125;, false);
+// 捕获阶段绑定事件
+middleP.addEventListener(&quot;click&quot;, function(e)&#123;
+    console.log(&quot;middleP 捕获&quot;, e.target.nodeName, e.currentTarget.nodeName);
+&#125;, true);
+wrapDiv.addEventListener(&quot;click&quot;, function(e)&#123;
+    console.log(&quot;wrapDiv 捕获&quot;, e.target.nodeName, e.currentTarget.nodeName);
+&#125;, true);
+innerSpan.addEventListener(&quot;click&quot;, function(e)&#123;
+    console.log(&quot;innerSpan 捕获&quot;, e.target.nodeName, e.currentTarget.nodeName);
+&#125;, true);
+//wrapDiv 捕获 SPAN DIV
+// middleP 捕获 SPAN P
+//innerSpan 冒泡 SPAN SPAN
+//innerSpan 捕获 SPAN SPAN
+// middleP 冒泡 SPAN P
+// wrapDiv 冒泡 SPAN DIV</code></pre>
+<p>按理说，捕获事件应该在冒泡之前发生。</p>
+<p>可是innerSpan的冒泡先发生。<br>对这个结果的解释是：</p>
+<p>处于<strong>目标阶段</strong>的事件流，事件处理程序被调用的顺序是<strong>注册的顺序</strong></p>
+<p>也就是说，事件流到p这个元素的时候，<strong>target和currentTarget是一致的</strong>，认为已经不需要捕获了，此时就按顺序执行已经预定的事件处理函数，处理完后再冒泡。</p>
+<h4 id="event-stopPropagation"><a href="#event-stopPropagation" class="headerlink" title="event.stopPropagation"></a>event.stopPropagation</h4><p>stopPropagation 的作用是阻止捕获和冒泡阶段中当前事件的进一步传播。<br>还是拿上面的例子进行试验，注意我在innerspan的冒泡阶段增加了e.stopPropagation()</p>
+<pre><code>//冒泡阶段事件
+middleP.addEventListener(&quot;click&quot;, function(e)&#123;
+    console.log(&quot;middleP 冒泡&quot;, e.target.nodeName, e.currentTarget.nodeName);
+&#125;, false);
+wrapDiv.addEventListener(&quot;click&quot;, function(e)&#123;
+    console.log(&quot;wrapDiv 冒泡&quot;, e.target.nodeName, e.currentTarget.nodeName);
+&#125;, false);
+innerSpan.addEventListener(&quot;click&quot;, function(e)&#123;
+    e.stopPropagation()
+    console.log(&quot;innerSpan 冒泡&quot;, e.target.nodeName, e.currentTarget.nodeName);
+&#125;, false);
+// 捕获阶段绑定事件
+middleP.addEventListener(&quot;click&quot;, function(e)&#123;
+    console.log(&quot;middleP 捕获&quot;, e.target.nodeName, e.currentTarget.nodeName);
+&#125;, true);
+wrapDiv.addEventListener(&quot;click&quot;, function(e)&#123;
+    console.log(&quot;wrapDiv 捕获&quot;, e.target.nodeName, e.currentTarget.nodeName);
+&#125;, true);
+innerSpan.addEventListener(&quot;click&quot;, function(e)&#123;
+    console.log(&quot;innerSpan 捕获&quot;, e.target.nodeName, e.currentTarget.nodeName);
+&#125;, true);
+//wrapDiv 捕获 SPAN DIV
+//middleP 捕获 SPAN P
+//innerSpan 冒泡 SPAN SPAN
+//innerSpan 捕获 SPAN SPAN</code></pre>
+<p>可以看到的是，e.stopPropagation阻止了后续的middleP，wrapDiv的冒泡事件触发。</p>
+<p>你可能会说，不对，在innerSpan的冒泡之后，innerSpan的捕获还是发生了没有被阻止啊？这就要看stopImmediatePropagation了。</p>
+<h5 id="event-stopPropagation-stopImmediatePropagation的区别"><a href="#event-stopPropagation-stopImmediatePropagation的区别" class="headerlink" title="event.stopPropagation stopImmediatePropagation的区别"></a>event.stopPropagation stopImmediatePropagation的区别</h5><p>stopPropagation 的作用是阻止捕获和冒泡阶段中当前事件的进一步传播。</p>
+<p>stopImmediatePropagation<br>的作用是阻止事件冒泡并且阻止相同事件的其他侦听器被调用。</p>
+<p>下面试验：</p>
+<pre><code>innerSpan.addEventListener(&quot;click&quot;, function(e)&#123;
+    e.stopImmediatePropagation()
+    console.log(&quot;innerSpan 冒泡&quot;, e.target.nodeName, e.currentTarget.nodeName);
+&#125;, false);
+innerSpan.addEventListener(&quot;click&quot;, function(e)&#123;
+    console.log(&quot;innerSpan 捕获&quot;, e.target.nodeName, e.currentTarget.nodeName);
+&#125;, true);
+//innerSpan 冒泡 SPAN SPAN</code></pre>
+<p>这下捕获事件的触发也被阻止了。</p>
+<blockquote>
+<p>从概念上讲，在调用完stopPropagation函数之后，就会立即停止对后续节点的访问，但是会执行完绑定到当前节点上的所有事件处理程序；而调用stopImmediatePropagation函数之后，除了所有后续节点，绑定到当前元素上的、当前事件处理程序之后的事件处理程序就不会再执行了</p>
+</blockquote>
+<h5 id="onclick是捕获阶段还是冒泡阶段发生？"><a href="#onclick是捕获阶段还是冒泡阶段发生？" class="headerlink" title="onclick是捕获阶段还是冒泡阶段发生？"></a>onclick是捕获阶段还是冒泡阶段发生？</h5><p>不试验了，直接说结论，冒泡。</p>
+<h5 id="事件委托"><a href="#事件委托" class="headerlink" title="事件委托"></a>事件委托</h5><blockquote>
+<p>　　在JavaScript中，添加到页面上的事件处理程序数量将直接关系到页面的整体运行性能。导致这一问题的原因是多方面的。首先，每个函数都是对象，都会占用内存；内存中的对象越多，性能就越差。其次，必须事先指定所有事件处理程序而导致的DOM访问次数，会延迟整个页面的交互就绪时间。</p>
+</blockquote>
+<blockquote>
+<p>　　对“事件处理程序过多”问题的解决方案就是事件委托。事件委托利用了事件冒泡，只指定一个事件处理程序，就可以管理某一类型的所有事件。例如，click事件会一直冒泡到document层次。也就是说，我们可以为整个页面指定一个onclick事件处理程序，而不必给每个可单击的元素分别添加事件处理程序。</p>
+</blockquote>
+<p>比如</p>
+<pre><code>(function()&#123;
+    var lists = document.getElementById(&#39;lists&#39;);
+    lists.addEventListener(&#39;click&#39;,showColor,false);
+    function showColor(e)&#123;
+        var x = e.target;
+        if(x.nodeName.toLowerCase() === &#39;li&#39;)&#123;
+            alert(&#39;The color is &#39; + x.innerHTML);
+        &#125;
+    &#125;
+&#125;)();</code></pre>
+<p>而不用去遍历整个li列表</p>
+<h4 id="用冒泡还是捕获？"><a href="#用冒泡还是捕获？" class="headerlink" title="用冒泡还是捕获？"></a>用冒泡还是捕获？</h4><blockquote>
+<p>对于事件代理来说，在事件捕获或者事件冒泡阶段处理并没有明显的优劣之分，但是由于事件冒泡的事件流模型被所有主流的浏览器兼容，从兼容性角度来说还是建议使用事件冒泡模型。</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/22/%E6%95%B0%E7%BB%84%EF%BC%8C%E6%A0%88%EF%BC%8C%E9%98%9F%E5%88%97/" rel="next" title="数组，栈，队列">
+                <i class="fa fa-chevron-left"></i> 数组，栈，队列
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/04/Js%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96/" rel="prev" title="Js加载优化">
+                Js加载优化 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
 
     <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+      
     </div>
   </div>
 
-{% endblock %}
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+          </div>
+          
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.</span> <span class="nav-text">定义</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E5%86%92%E6%B3%A1"><span class="nav-number">1.1.</span> <span class="nav-text">事件冒泡</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E6%8D%95%E8%8E%B7"><span class="nav-number">1.2.</span> <span class="nav-text">事件捕获</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DOM%E4%BA%8B%E4%BB%B6%E6%B5%81"><span class="nav-number">1.3.</span> <span class="nav-text">DOM事件流</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E6%8D%95%E8%8E%B7%E5%85%83%E7%B4%A0%EF%BC%88%E5%86%92%E6%B3%A1%EF%BC%89%E7%9A%84%E8%A7%A6%E5%8F%91%E6%AC%A1%E5%BA%8F"><span class="nav-number">1.3.1.</span> <span class="nav-text">事件捕获元素（冒泡）的触发次序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#e-target%E5%92%8Ce-currentTarget"><span class="nav-number">1.3.2.</span> <span class="nav-text">e.target和e.currentTarget</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E6%8D%95%E8%8E%B7%E5%92%8C%E5%86%92%E6%B3%A1%E8%B0%81%E5%85%88%E5%8F%91%E7%94%9F%EF%BC%9F"><span class="nav-number">1.3.3.</span> <span class="nav-text">事件捕获和冒泡谁先发生？</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#event-stopPropagation"><span class="nav-number">1.4.</span> <span class="nav-text">event.stopPropagation</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#event-stopPropagation-stopImmediatePropagation%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.4.1.</span> <span class="nav-text">event.stopPropagation stopImmediatePropagation的区别</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#onclick%E6%98%AF%E6%8D%95%E8%8E%B7%E9%98%B6%E6%AE%B5%E8%BF%98%E6%98%AF%E5%86%92%E6%B3%A1%E9%98%B6%E6%AE%B5%E5%8F%91%E7%94%9F%EF%BC%9F"><span class="nav-number">1.4.2.</span> <span class="nav-text">onclick是捕获阶段还是冒泡阶段发生？</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98"><span class="nav-number">1.4.3.</span> <span class="nav-text">事件委托</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%A8%E5%86%92%E6%B3%A1%E8%BF%98%E6%98%AF%E6%8D%95%E8%8E%B7%EF%BC%9F"><span class="nav-number">1.5.</span> <span class="nav-text">用冒泡还是捕获？</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yosgi</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://yosgi.github.io/2018/08/29/DOM%E4%BA%8B%E4%BB%B6%E6%B5%81/';
+          this.page.identifier = '2018/08/29/DOM事件流/';
+          this.page.title = 'DOM事件流';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

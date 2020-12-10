@@ -1,37 +1,1224 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+  
 
 
-{% block content %}
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Javascript,ES6," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="《ES6标准入门》 知识点整理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Generator函数与应用">
+<meta property="og:url" content="https://yosgi.github.io/2018/07/06/Generator%E5%87%BD%E6%95%B0%E4%B8%8E%E5%BA%94%E7%94%A8/index.html">
+<meta property="og:site_name" content="快雪时晴">
+<meta property="og:description" content="《ES6标准入门》 知识点整理">
+<meta property="og:locale">
+<meta property="og:image" content="https://yosgi.github.io/.io//Generator.png">
+<meta property="article:published_time" content="2018-07-06T10:37:55.000Z">
+<meta property="article:modified_time" content="2019-03-16T07:36:43.000Z">
+<meta property="article:author" content="yosgi">
+<meta property="article:tag" content="Javascript">
+<meta property="article:tag" content="ES6">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yosgi.github.io/.io//Generator.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yosgi.github.io/2018/07/06/Generator函数与应用/"/>
+
+
+
+
+
+  <title>Generator函数与应用 | 快雪时晴</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">快雪时晴</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">失败会设下陷阱，没有胜利会发出邀请</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
 
   <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yosgi.github.io/2018/07/06/Generator%E5%87%BD%E6%95%B0%E4%B8%8E%E5%BA%94%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="快雪时晴">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Generator函数与应用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-06T18:37:55+08:00">
+                2018-07-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ES6/" itemprop="url" rel="index">
+                    <span itemprop="name">ES6</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/06/Generator%E5%87%BD%E6%95%B0%E4%B8%8E%E5%BA%94%E7%94%A8/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/07/06/Generator函数与应用/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  《ES6标准入门》 知识点整理
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="/.io//Generator.png" alt="image"></p>
+<h4 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h4><p>形式上，Generator 函数是一个普通函数，但是有两个特征。一是，function关键字与函数名之间有一个星号；二是，函数体内部使用yield表达式，定义不同的内部状态</p>
+<pre><code>function* helloWorldGenerator() &#123;
+  yield &#39;hello&#39;;
+  yield &#39;world&#39;;
+  return &#39;ending&#39;;
+&#125;
+
+var hw = helloWorldGenerator();</code></pre>
+<p>调用 Generator 函数后，该函数并不执行，返回的也不是函数运行结果，而是一个指向内部状态的遍历器对象</p>
+<p>调用 Generator 函数，返回一个遍历器对象，代表 Generator 函数的内部指针。以后，每次调用遍历器对象的next方法，就会返回一个有着value和done两个属性的对象。value属性表示当前的内部状态的值，是yield表达式后面那个表达式的值；done属性是一个布尔值，表示是否遍历结束。</p>
+<h4 id="yield-表达式"><a href="#yield-表达式" class="headerlink" title="yield 表达式"></a>yield 表达式</h4><p>yield表达式是暂停标志。</p>
+<p>遇到yield表达式，就暂停执行后面的操作，并将紧跟在yield后面的那个表达式的值，作为返回的对象的value属性值。</p>
+<p>直到return语句为止，并将return语句后面的表达式的值，作为返回的对象的value属性值。如果该函数没有return语句，则返回的对象的value属性值为undefined。</p>
+<p>yield表达式只能用在 Generator 函数里面。</p>
+<p>另外，yield表达式如果用在另一个表达式之中，必须放在圆括号里面。</p>
+<p>yield表达式用作函数参数或放在赋值表达式的右边，可以不加括号。</p>
+<pre><code>function* demo() &#123;
+  console.log(&#39;Hello&#39; + yield); // SyntaxError
+  console.log(&#39;Hello&#39; + yield 123); // SyntaxError
+
+  console.log(&#39;Hello&#39; + (yield)); // OK
+  console.log(&#39;Hello&#39; + (yield 123)); // OK
+  foo(yield &#39;a&#39;, yield &#39;b&#39;); // OK
+    let input = yield; // OK
+&#125;   </code></pre>
+<h4 id="遍历器对象"><a href="#遍历器对象" class="headerlink" title="遍历器对象"></a>遍历器对象</h4><p>可以把 Generator 赋值给对象的Symbol.iterator属性，从而使得该对象具有 Iterator 接口。</p>
+<pre><code>var myIterable = &#123;&#125;;
+myIterable[Symbol.iterator] = function* () &#123;
+  yield 1;
+  yield 2;
+  yield 3;
+&#125;;
+
+[...myIterable] // [1, 2, 3]</code></pre>
+<p>Generator 函数执行后，返回一个遍历器对象。该对象本身也具有Symbol.iterator属性，执行后返回自身。<br>，(ES6 规定这个遍历器是 Generator 函数的实例，也继承了 Generator 函数的prototype对象上的方法)。</p>
+<pre><code>function* gen()&#123;
+  // some code
+&#125;
+
+var g = gen();
+
+g[Symbol.iterator]() === g// true
+g instanceof  gen=== g// true</code></pre>
+<p>for…of循环可以自动遍历 Generator 函数时生成的Iterator对象，</p>
+<pre><code>function* foo() &#123;
+  yield 1;
+  yield 2;
+  yield 3;
+  yield 4;
+  yield 5;
+  return 6;
+&#125;
+
+for (let v of foo()) &#123;
+  console.log(v);
+&#125;
+// 1 2 3 4 5</code></pre>
+<p>同样，可以遍历使用Generator作为Iterator接口的对象</p>
+<pre><code>function* objectEntries() &#123;
+  let propKeys = Object.keys(this);
+
+  for (let propKey of propKeys) &#123;
+    yield [propKey, this[propKey]];
+  &#125;
+&#125;
+
+let jane = &#123; first: &#39;Jane&#39;, last: &#39;Doe&#39; &#125;;
+
+jane[Symbol.iterator] = objectEntries;
+
+for (let [key, value] of jane) &#123;
+  console.log(`$&#123;key&#125;: $&#123;value&#125;`);
+&#125;
+// first: Jane
+// last: Doe</code></pre>
+<h4 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h4><p>next()、throw()、return() 的共同点</p>
+<p>它们的作用都是让 Generator 函数恢复执行，并且使用不同的语句替换yield表达式。</p>
+<pre><code>//next()是将yield表达式替换成一个值。
+const g = function* (x, y) &#123;
+  let result = yield x + y;
+  return result;
+&#125;;
+
+const gen = g(1, 2);
+gen.next(); // Object &#123;value: 3, done: false&#125;
+
+gen.next(1); // Object &#123;value: 1, done: true&#125;
+// 相当于将 let result = yield x + y
+// 替换成 let result = 1;
+//throw()是将yield表达式替换成一个throw语句。
+gen.throw(new Error(&#39;出错了&#39;)); // Uncaught Error: 出错了
+// 相当于将 let result = yield x + y
+// 替换成 let result = throw(new Error(&#39;出错了&#39;));
+return()是将yield表达式替换成一个return语句。
+gen.return(2); // Object &#123;value: 2, done: true&#125;
+// 相当于将 let result = yield x + y
+// 替换成 let result = return 2;</code></pre>
+<h4 id="yield"><a href="#yield" class="headerlink" title="yield*"></a>yield*</h4><p>从语法角度看，如果yield表达式后面跟的是一个遍历器对象，需要在yield表达式后面加上星号，表明它返回的是一个遍历器对象。这被称为yield*表达式。</p>
+<p>任何数据结构只要有 Iterator 接口，就可以被yield*遍历。</p>
+<pre><code>let read = function* () &#123;
+    yield &#39;hello&#39;;
+    yield* &#39;hello&#39;;
+  &#125;;
+
+for(let i of read())&#123;
+    console.log(i)
+&#125;
+//hello h,e,l,l,o</code></pre>
+<p>yield*语句遍历完全二叉树。</p>
+<pre><code>// 下面是二叉树的构造函数，
+// 三个参数分别是左树、当前节点和右树
+function Tree(left, label, right) &#123;
+  this.left = left;
+  this.label = label;
+  this.right = right;
+&#125;
+
+// 下面是中序（inorder）遍历函数。
+// 由于返回的是一个遍历器，所以要用generator函数。
+// 函数体内采用递归算法，所以左树和右树要用yield*遍历
+function* inorder(t) &#123;
+  if (t) &#123;
+    yield* inorder(t.left);
+    yield t.label;
+    yield* inorder(t.right);
+  &#125;
+&#125;
+
+// 下面生成二叉树
+function make(array) &#123;
+  // 判断是否为叶节点
+  if (array.length == 1) return new Tree(null, array[0], null);
+  return new Tree(make(array[0]), array[1], make(array[2]));
+&#125;
+let tree = make([[[&#39;a&#39;], &#39;b&#39;, [&#39;c&#39;]], &#39;d&#39;, [[&#39;e&#39;], &#39;f&#39;, [&#39;g&#39;]]]);
+
+// 遍历二叉树
+var result = [];
+for (let node of inorder(tree)) &#123;
+  result.push(node);
+&#125;
+
+result
+// [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;, &#39;f&#39;, &#39;g&#39;]</code></pre>
+<h4 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h4><h5 id="状态机"><a href="#状态机" class="headerlink" title="状态机"></a>状态机</h5><pre><code>var clock = function* () &#123;
+  while (true) &#123;
+    console.log(&#39;Tick!&#39;);
+    yield;
+    console.log(&#39;Tock!&#39;);
+    yield;
+  &#125;
+&#125;;</code></pre>
+<p>上面的 Generator 实现与 ES5 实现对比，少了用来保存状态的外部变量，这样就更简洁，更安全。</p>
+<h5 id="异步操作的同步化表达"><a href="#异步操作的同步化表达" class="headerlink" title="异步操作的同步化表达"></a>异步操作的同步化表达</h5><pre><code>function* main() &#123;
+  var result = yield request(&quot;http://some.url&quot;);
+  var resp = JSON.parse(result);
+    console.log(resp.value);
+&#125;
+
+function request(url) &#123;
+  makeAjaxCall(url, function(response)&#123;
+    it.next(response);
+  &#125;);
+&#125;
+
+var it = main();
+it.next();</code></pre>
+<p>异步操作的后续操作可以放在yield表达式下面，反正要等到调用next方法时再执行</p>
+<h5 id="控制流管理"><a href="#控制流管理" class="headerlink" title="控制流管理"></a>控制流管理</h5><p>使用一个函数，按次序自动执行所有步骤。</p>
+<pre><code>function* longRunningTask(value1) &#123;
+  try &#123;
+    var value2 = yield step1(value1);
+    var value3 = yield step2(value2);
+    var value4 = yield step3(value3);
+    var value5 = yield step4(value4);
+    // Do something with value4
+  &#125; catch (e) &#123;
+    // Handle any error from step1 through step4
+  &#125;
+&#125;
+scheduler(longRunningTask(initialValue));
+
+function scheduler(task) &#123;
+  var taskObj = task.next(task.value);
+  // 如果Generator函数未结束，就继续调用
+  if (!taskObj.done) &#123;
+    task.value = taskObj.value
+    scheduler(task);
+  &#125;
+&#125;</code></pre>
+<p>==上面这种做法，只适合同步操作，即所有的task都必须是同步的，不能有异步操作。因为这里的代码一得到返回值，就继续往下执行，没有判断异步操作何时完成。如果要控制异步的操作流程，见下面thunk部分==</p>
+<p>yield*可以将任务分解成多个依次执行的任务。</p>
+<pre><code>let jobs = [job1, job2, job3];
+
+function* iterateJobs(jobs)&#123;
+  for (var i=0; i&lt; jobs.length; i++)&#123;
+    var job = jobs[i];
+    yield* iterateSteps(job.steps);
+  &#125;
+&#125;
+for (var step of iterateJobs(jobs))&#123;
+  console.log(step.id);
+&#125;</code></pre>
+<p>数组jobs封装了一个项目的多个任务，iterateJobs则是依次为这些任务加上yield*命令。</p>
+<h5 id="作为数组结构"><a href="#作为数组结构" class="headerlink" title="作为数组结构"></a>作为数组结构</h5><p>Generator 可以看作是一个数组结构，因为 Generator 函数可以返回一系列的值，这意味着它可以对任意表达式，提供类似数组的接口。</p>
+<pre><code>function* doStuff() &#123;
+  yield fs.readFile.bind(null, &#39;hello.txt&#39;);
+  yield fs.readFile.bind(null, &#39;world.txt&#39;);
+  yield fs.readFile.bind(null, &#39;and-such.txt&#39;);
+&#125;
+for (task of doStuff()) &#123;
+  // task是一个函数，可以像回调函数那样使用它
+&#125;
+//es5
+function doStuff() &#123;
+  return [
+    fs.readFile.bind(null, &#39;hello.txt&#39;),
+    fs.readFile.bind(null, &#39;world.txt&#39;),
+    fs.readFile.bind(null, &#39;and-such.txt&#39;)
+  ];
+&#125;</code></pre>
+<h5 id="封装异步任务"><a href="#封装异步任务" class="headerlink" title="封装异步任务"></a>封装异步任务</h5><p>Generator 函数可以暂停执行和恢复执行，这是它能封装异步任务的根本原因。除此之外，它还有两个特性，使它可以作为异步编程的完整解决方案：函数体内外的数据交换和错误处理机制。</p>
+<p>异步操作需要暂停的地方，都用yield语句注明。</p>
+<p>next返回值的 value 属性，是 Generator 函数向外输出数据；next方法还可以接受参数，向 Generator 函数体内输入数据。</p>
+<p>Generator 函数体外，使用指针对象的throw方法抛出的错误，可以被函数体内的try…catch代码块捕获。</p>
+<p>例子：</p>
+<pre><code>var fetch = require(&#39;node-fetch&#39;);
+
+function* gen()&#123;
+  var url = &#39;https://api.github.com/users/github&#39;;
+  var result = yield fetch(url);
+  console.log(result.bio);
+&#125;
+var g = gen();
+var result = g.next();
+
+result.value.then(function(data)&#123;
+  return data.json();
+&#125;).then(function(data)&#123;
+  g.next(data);
+&#125;);</code></pre>
+<h4 id="Generator-函数的异步流程管理"><a href="#Generator-函数的异步流程管理" class="headerlink" title="Generator 函数的异步流程管理"></a>Generator 函数的异步流程管理</h4><p>先拿个例子看下只用Generator试试管理异步流程：</p>
+<pre><code>function fetchData(time,fn)&#123;
+    //一个异步函数，在random*1000ms后执行回调
+    setTimeout(function()&#123;
+      fn(time)
+    &#125;,Math.random()*1000)
+&#125;
+
+var taskList = function *()&#123;
+    for(let i=0;i&lt;10;i++)&#123;
+        //生成任务0~10
+        yield fetchData(i,function(data)&#123;
+            console.log(`任务$&#123;data&#125;的回调`)
+        &#125;)
+    &#125;
+&#125;
+
+var taskObj = taskList()
+var task = taskObj.next()
+while(!task.done)&#123;
+    task = taskObj.next()
+&#125;
+//任务6的回调
+//任务4的回调
+//任务0的回调
+//任务2的回调
+//任务1的回调
+//任务7的回调
+//任务8的回调
+//任务9的回调
+//任务5的回调
+//任务3的回调</code></pre>
+<p>可以看到每运行fetchData执行的任务顺序都是不一样的，不能达到“执行一个后执行下一个”的效果。这时，Thunk 函数就能派上用处。</p>
+<h6 id="Thunk函数"><a href="#Thunk函数" class="headerlink" title="Thunk函数"></a>Thunk函数</h6><p>Thunk 函数替换多参数函数，将其替换成一个只接受回调函数作为参数的单参数函数。</p>
+<pre><code>function thunkify(fn) &#123;
+    return function() &#123;
+      var args = new Array(arguments.length);
+      var ctx = this;
+
+      for (var i = 0; i &lt; args.length; ++i) &#123;
+        args[i] = arguments[i];
+      &#125;
+
+      return function (done) &#123;
+        var called;
+
+        args.push(function () &#123;
+          if (called) return;
+          called = true;
+          done.apply(null, arguments);
+        &#125;);
+
+        try &#123;
+          fn.apply(ctx, args);
+        &#125; catch (err) &#123;
+          done(err);
+        &#125;
+      &#125;
+    &#125;
+  &#125;;</code></pre>
+<p>举个例子：</p>
+<pre><code>var fetchData = function(data,fn)&#123;
+    setTimeout(function()&#123;
+        console.log(&quot;读取文件&quot;+data+&quot;中&quot;)
+        fn(data)
+    &#125;,1000)
+&#125;
+fetchData(1,function(data)&#123;
+    console.log(&quot;文件&quot;+data+&quot;读取完毕&quot;)   
+&#125;)//普通的调用函数
+var fetchDataThunk = thunkify(fetchData)
+fetchDataThunk(1)(function(data)&#123;
+    console.log(&quot;文件&quot;+data+&quot;读取完毕&quot;)   
+&#125;)//加入chunk的调用</code></pre>
+<p>可以的看出fetchDataThunk(1)调用之后会返回一个以回调函数作为参数的函数。再结合yield可以把函数内部的结果返回给next()调用的结果。可以实现在函数外部控制函数内的调用。</p>
+<p>还是拿上面的fetchData为例子：</p>
+<pre><code>var thunkify = require(&#39;thunkify&#39;);
+var fetchData = function(data,fn)&#123;
+    setTimeout(function()&#123;
+        console.log(&quot;读取文件&quot;+data+&quot;中&quot;)
+        fn(data)
+    &#125;,Math.random()*1000)
+&#125;
+var fetchDataThunk = thunkify(fetchData)
+var taskList = function *()&#123;
+    var f1 = yield fetchDataThunk(1)
+    var f2 = yield fetchDataThunk(2)
+&#125;
+
+
+var task = taskList();
+var taskObj = task.next();
+console.log(taskObj)
+taskObj.value(function(data)&#123;
+    console.log(&quot;文件&quot;+data+&quot;读取完毕&quot;)
+    var taskObj2 = task.next();
+    taskObj2.value(function(data)&#123;
+        console.log(&quot;文件&quot;+data+&quot;读取完毕&quot;)
+    &#125;)
+&#125;)
+// 读取文件1中
+// 文件1读取完毕
+// 读取文件2中
+// 文件2读取完毕</code></pre>
+<p>接下来，回到一开始的需求，用thunk使Generator 中的函数“执行一个后执行下一个”</p>
+<pre><code>//nodejs环境下运行
+var thunkify = require(&#39;thunkify&#39;);
+var fetchData = function(data,fn)&#123;
+    setTimeout(function()&#123;
+        console.log(&quot;读取文件&quot;+data+&quot;中&quot;)
+        fn(data)
+    &#125;,Math.random()*1000)
+&#125;
+var fetchDataThunk = thunkify(fetchData)
+var taskList = function *()&#123;
+    for(let i=0;i&lt;5;i++)&#123;
+        yield fetchDataThunk(i)
+        console.log(&quot;文件&quot;+i+&quot;读取完毕&quot;)
+    &#125;
+&#125;
+
+function run (fn)&#123;
+    var task = fn();
+    function next()&#123;
+        //task.next()返回的是&#123;value:[Function],done:false/true&#125;
+        //value属性用来调用下一步需要执行的方法
+        var result  = task.next();
+        if (result.done) return;
+        result.value(next);
+    &#125;
+    next()
+&#125;
+
+run(taskList)
+// 读取文件0中
+// 文件0读取完毕
+// 读取文件1中
+// 文件1读取完毕
+// 读取文件2中
+// 文件2读取完毕
+// 读取文件3中
+// 文件3读取完毕
+// 读取文件4中
+// 文件4读取完毕</code></pre>
+<p>可以看到，taskList里面的异步函数是按顺序执行的，和同步可以说是差不多了</p>
+<p>Thunk 函数并不是 Generator 函数自动执行的唯一方案。因为自动执行的关键是，必须有一种机制，自动控制 Generator 函数的流程，接收和交还程序的执行权。回调函数可以做到这一点，Promise 对象也可以做到这一点。</p>
+<h4 id="co-模块"><a href="#co-模块" class="headerlink" title="co 模块"></a>co 模块</h4><p>上面编写Generator 函数的执行器还是麻烦了点。co 模块可以解决这个问题。<br>兴高采烈的使用一下</p>
+<pre><code>//nodejs环境下运行
+var co = require(&#39;co&#39;);
+var fetchData = function(data)&#123;
+    setTimeout(function()&#123;
+        console.log(&quot;读取文件&quot;+data+&quot;中&quot;)
+    &#125;,Math.random()*1000)
+&#125;
+var taskList = function *()&#123;
+    for(let i=0;i&lt;5;i++)&#123;
+        yield fetchData(i)
+        console.log(&quot;文件&quot;+i+&quot;读取完毕&quot;)
+    &#125;
+&#125;
+
+
+co(taskList)
+// UnhandledPromiseRejectionWarning: Unhandled promise rejection (rejection id: 1): TypeError: You may //only yield a function, promise, generator, array, or object, but the following object was passed: //&quot;undefined&quot;
+//(node:16260) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, //promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+读取文件0中</code></pre>
+<p>报错了。只好看看源码</p>
+<pre><code>function co(gen) &#123;
+  var ctx = this;
+
+  return new Promise(function(resolve, reject) &#123;
+    if (typeof gen === &#39;function&#39;) gen = gen.call(ctx);
+    if (!gen || typeof gen.next !== &#39;function&#39;) return resolve(gen);
+
+    onFulfilled();
+    function onFulfilled(res) &#123;
+      var ret;
+      try &#123;
+        ret = gen.next(res);
+      &#125; catch (e) &#123;
+        return reject(e);
+      &#125;
+      next(ret);
+    &#125;
+  &#125;);
+&#125;
+function next(ret) &#123;
+  if (ret.done) return resolve(ret.value);
+  var value = toPromise.call(ctx, ret.value);
+  if (value &amp;&amp; isPromise(value)) return value.then(onFulfilled, onRejected);
+  return onRejected(
+    new TypeError(
+      &#39;You may only yield a function, promise, generator, array, or object, &#39;
+      + &#39;but the following object was passed: &quot;&#39;
+      + String(ret.value)
+      + &#39;&quot;&#39;
+    )
+  );
+&#125;</code></pre>
+<p>co 模块其实就是将两种自动执行器（Thunk 函数和 Promise 对象），包装成一个模块。使用 co 的前提条件是，Generator 函数的yield命令后面，只能是 Thunk 函数或 Promise 对象。</p>
+<p>改写成Promise试一试</p>
+<pre><code>var co = require(&#39;co&#39;);
+var fetchData =function(data)&#123;
+    new Promise((resolve,reject)=&gt;&#123;
+        setTimeout(function()&#123;
+            console.log(&quot;读取文件&quot;+data+&quot;中&quot;)
+            resolve()
+        &#125;,Math.random()*1000)
+    &#125;)
+&#125;
+var taskList = function *()&#123;
+    var f1 = fetchData(0)
+    console.log(&quot;文件&quot;+0+&quot;读取完毕&quot;)
+    var f2 = fetchData(1)
+    console.log(&quot;文件&quot;+1+&quot;读取完毕&quot;)
+&#125;
+
+co(taskList).then(res=&gt;&#123;
+    console.log(&quot;全部完毕&quot;)
+&#125;).catch(e=&gt;&#123;
+    console.log(&quot;错误&quot;)
+&#125;)
+// 文件0读取完毕
+// 文件1读取完毕
+// 全部完毕
+// 读取文件1中
+// 读取文件0中</code></pre>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          
+            <a href="/tags/ES6/" rel="tag"># ES6</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/05/Web%E5%AE%89%E5%85%A8%E6%B5%85%E8%BF%B0/" rel="next" title="Web安全浅述">
+                <i class="fa fa-chevron-left"></i> Web安全浅述
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/11/async/" rel="prev" title="async">
+                async <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
 
     <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+      
     </div>
   </div>
 
-{% endblock %}
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+          </div>
+          
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">基本概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#yield-%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">yield 表达式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%81%8D%E5%8E%86%E5%99%A8%E5%AF%B9%E8%B1%A1"><span class="nav-number">3.</span> <span class="nav-text">遍历器对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%96%B9%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#yield"><span class="nav-number">5.</span> <span class="nav-text">yield*</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BA%94%E7%94%A8"><span class="nav-number">6.</span> <span class="nav-text">应用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E6%9C%BA"><span class="nav-number">6.1.</span> <span class="nav-text">状态机</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5%E6%93%8D%E4%BD%9C%E7%9A%84%E5%90%8C%E6%AD%A5%E5%8C%96%E8%A1%A8%E8%BE%BE"><span class="nav-number">6.2.</span> <span class="nav-text">异步操作的同步化表达</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E6%B5%81%E7%AE%A1%E7%90%86"><span class="nav-number">6.3.</span> <span class="nav-text">控制流管理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%9C%E4%B8%BA%E6%95%B0%E7%BB%84%E7%BB%93%E6%9E%84"><span class="nav-number">6.4.</span> <span class="nav-text">作为数组结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B0%81%E8%A3%85%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1"><span class="nav-number">6.5.</span> <span class="nav-text">封装异步任务</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Generator-%E5%87%BD%E6%95%B0%E7%9A%84%E5%BC%82%E6%AD%A5%E6%B5%81%E7%A8%8B%E7%AE%A1%E7%90%86"><span class="nav-number">7.</span> <span class="nav-text">Generator 函数的异步流程管理</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#Thunk%E5%87%BD%E6%95%B0"><span class="nav-number">7.0.1.</span> <span class="nav-text">Thunk函数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#co-%E6%A8%A1%E5%9D%97"><span class="nav-number">8.</span> <span class="nav-text">co 模块</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yosgi</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://yosgi.github.io/2018/07/06/Generator%E5%87%BD%E6%95%B0%E4%B8%8E%E5%BA%94%E7%94%A8/';
+          this.page.identifier = '2018/07/06/Generator函数与应用/';
+          this.page.title = 'Generator函数与应用';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

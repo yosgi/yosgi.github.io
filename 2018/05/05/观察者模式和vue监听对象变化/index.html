@@ -1,37 +1,776 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+  
 
 
-{% block content %}
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Javascript,设计模式," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="《Javascript设计模式》 知识点整理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="观察者模式和vue监听对象变化">
+<meta property="og:url" content="https://yosgi.github.io/2018/05/05/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%92%8Cvue%E7%9B%91%E5%90%AC%E5%AF%B9%E8%B1%A1%E5%8F%98%E5%8C%96/index.html">
+<meta property="og:site_name" content="快雪时晴">
+<meta property="og:description" content="《Javascript设计模式》 知识点整理">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-05-05T14:38:54.000Z">
+<meta property="article:modified_time" content="2019-02-25T03:53:54.000Z">
+<meta property="article:author" content="yosgi">
+<meta property="article:tag" content="Javascript">
+<meta property="article:tag" content="设计模式">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yosgi.github.io/2018/05/05/观察者模式和vue监听对象变化/"/>
+
+
+
+
+
+  <title>观察者模式和vue监听对象变化 | 快雪时晴</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">快雪时晴</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">失败会设下陷阱，没有胜利会发出邀请</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
 
   <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yosgi.github.io/2018/05/05/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%92%8Cvue%E7%9B%91%E5%90%AC%E5%AF%B9%E8%B1%A1%E5%8F%98%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="快雪时晴">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">观察者模式和vue监听对象变化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-05T22:38:54+08:00">
+                2018-05-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Js%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">Js设计模式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/05/05/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%92%8Cvue%E7%9B%91%E5%90%AC%E5%AF%B9%E8%B1%A1%E5%8F%98%E5%8C%96/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/05/05/观察者模式和vue监听对象变化/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  《Javascript设计模式》 知识点整理
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="发布订阅模式"><a href="#发布订阅模式" class="headerlink" title="发布订阅模式"></a>发布订阅模式</h4><p>发布订阅模式又叫观察者模式，他定义对象间的一种一对多的依赖关系，当一个对象状态发生改变时，所有依赖于他的对象都将得到通知，在Js开发中我们一般用事件模式代替传统的发布订阅模式。</p>
+<p>发布订阅模式实现的步骤</p>
+<p>1.指定发布者</p>
+<p>2.给发布者添加一个缓存列表，用于存放回调函数以便通知订阅者</p>
+<p>3.发布消息的时候发布者会遍历整个缓存列表，依次触发里面的回调函数</p>
+<p>一个售楼处的例子，售楼处可以在发给订阅者的信息里加上房子的单价，面积等信息，订阅者接受到这个信息进行各自的处理</p>
+<h5 id="售楼处的例子"><a href="#售楼处的例子" class="headerlink" title="售楼处的例子"></a>售楼处的例子</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> salesOffices = &#123;&#125;;</span><br><span class="line">salesOffices.clientList = [];</span><br><span class="line">salesOffices.listen = <span class="function"><span class="keyword">function</span>(<span class="params">fn</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 发布者缓存回调函数</span></span><br><span class="line">    salesOffices.clientList.push(fn);</span><br><span class="line">&#125;</span><br><span class="line">salesOffices.trigger = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>,fn;fn = <span class="built_in">this</span>.clientList[i];i++)&#123;</span><br><span class="line">        fn.apply(<span class="built_in">this</span>,<span class="built_in">arguments</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">salesOffices.listen(<span class="function"><span class="keyword">function</span>(<span class="params">price,squareMeter</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;价格=&quot;</span>+price);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;squareMeter=&#x27;</span>+squareMeter);</span><br><span class="line">&#125;)</span><br><span class="line">salesOffices.trigger(<span class="number">2000000</span>,<span class="number">88</span>)</span><br><span class="line"><span class="comment">//价格=2000000</span></span><br><span class="line"><span class="comment">// squareMeter=88</span></span><br></pre></td></tr></table></figure>
+
+<p>下面为订阅的消息做一个key，添加上订阅者id，并把发布-订阅的功能提取出来作为一个对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> event = &#123;</span><br><span class="line">    clientList:&#123;&#125;,</span><br><span class="line">    listen:<span class="function"><span class="keyword">function</span>(<span class="params">key,id,fn</span>)</span>&#123;</span><br><span class="line">        <span class="comment">// key 订阅表示 id 订阅者id fnu回调函数</span></span><br><span class="line">        <span class="comment">// 一个订阅标识下面可能存在很多个订阅者以及回调函数</span></span><br><span class="line">        <span class="comment">// 所以将订阅者作为数组，数组中存放回调函数</span></span><br><span class="line">        <span class="keyword">if</span>(!<span class="built_in">this</span>.clientList[key])&#123;</span><br><span class="line">            <span class="built_in">this</span>.clientList[key]=[];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">this</span>.clientList[key].push(&#123;</span><br><span class="line">            id,fn</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;,</span><br><span class="line">    trigger:<span class="function"><span class="keyword">function</span>(<span class="params">...args</span>)</span>&#123;<span class="comment">//rest参数</span></span><br><span class="line">        <span class="keyword">var</span> key = args.shift();</span><br><span class="line">        fns = <span class="built_in">this</span>.clientList[key];</span><br><span class="line">       	<span class="comment">// 回调函数数组为空 什么都不做</span></span><br><span class="line">        <span class="keyword">if</span>(!fns||fns.length==<span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">        <span class="comment">// 依次触发回调函数数组中的函数</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>,fn;fn = fns[i];i++)&#123;</span><br><span class="line">            <span class="comment">// fn 是一个有id fn 属性的对象</span></span><br><span class="line">            fn.fn.apply(<span class="built_in">this</span>,args)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    remove:<span class="function"><span class="keyword">function</span>(<span class="params">key,fn</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> fns = <span class="built_in">this</span>.clientList[key];</span><br><span class="line">        <span class="keyword">if</span>(!fns) <span class="keyword">return</span> <span class="literal">false</span><span class="comment">//对应的key没有人订阅</span></span><br><span class="line">        <span class="keyword">if</span>(!fn)&#123;<span class="comment">//没有传入具体的回调则取消key的所有订阅</span></span><br><span class="line">            fns &amp;&amp; (fns.length=<span class="number">0</span>) </span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">var</span> i = fns.length-<span class="number">1</span>;i&gt;=<span class="number">0</span>;i--)&#123;</span><br><span class="line">                <span class="keyword">var</span> _fn = fns[i].fn;</span><br><span class="line">                <span class="keyword">if</span>(_fn===fn)&#123;</span><br><span class="line">                    fns.splice(i,<span class="number">1</span>)<span class="comment">//删除回调</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义一个installEvent函数为对象安装发布订阅功能</span></span><br><span class="line"><span class="keyword">var</span> installEvent = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i <span class="keyword">in</span> event)&#123;</span><br><span class="line">        <span class="comment">// 遍历event对象的key 为 obj 添加上属性和属性方法</span></span><br><span class="line">        obj[i] = event[i]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> salesOffices = &#123;&#125;;</span><br><span class="line">installEvent(salesOffices)</span><br><span class="line">salesOffices.listen(<span class="string">&quot;square88&quot;</span>,<span class="number">1</span>,f1 = <span class="function"><span class="keyword">function</span>(<span class="params">price</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`square88的消息，价格是<span class="subst">$&#123;price&#125;</span>`</span>)</span><br><span class="line">&#125;)</span><br><span class="line">salesOffices.listen(<span class="string">&quot;square88&quot;</span>,<span class="number">2</span>,f3 = <span class="function"><span class="keyword">function</span>(<span class="params">price</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`square88的消息，价格是<span class="subst">$&#123;price&#125;</span>`</span>)</span><br><span class="line">&#125;)</span><br><span class="line">salesOffices.listen(<span class="string">&quot;square100&quot;</span>,<span class="number">2</span>,f2 = <span class="function"><span class="keyword">function</span>(<span class="params">price</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`square100的消息，价格是<span class="subst">$&#123;price&#125;</span>`</span>)</span><br><span class="line">&#125;)</span><br><span class="line">salesOffices.trigger(<span class="string">&#x27;square88&#x27;</span>,<span class="number">1000000</span>)<span class="comment">//square88的消息，价格是1000000  *2</span></span><br><span class="line">salesOffices.trigger(<span class="string">&#x27;square100&#x27;</span>,<span class="number">1500000</span>)<span class="comment">//square100的消息，价格是1500000</span></span><br><span class="line"></span><br><span class="line">salesOffices.remove(<span class="string">&quot;square88&quot;</span>,f1);</span><br><span class="line">salesOffices.trigger(<span class="string">&#x27;square88&#x27;</span>,<span class="number">1000000</span>)<span class="comment">//square88的消息，价格是1000000</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="vue怎么监听对象的变化"><a href="#vue怎么监听对象的变化" class="headerlink" title="vue怎么监听对象的变化"></a>vue怎么监听对象的变化</h5><p><code>Object.defineProperty</code></p>
+<p> 能自定义get和set函数，在获取和设置对象属性时可以触发对应回调函数。 利用这个方法，为对象中的每个属性安装发布订阅功能就可以了。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个Vue 构造函数，使用 prototype 继承方法</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Vue</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// new新的对象后会有data属性 </span></span><br><span class="line">    <span class="built_in">this</span>.data = data;</span><br><span class="line">    <span class="comment">// watchList 相当于 上面的clientList</span></span><br><span class="line">    <span class="built_in">this</span>.watchList = [];</span><br><span class="line">    <span class="comment">// 为data对象添加 发布消息的功能</span></span><br><span class="line">    <span class="built_in">this</span>.$bindObserver(data)；</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> $watch = <span class="function"><span class="keyword">function</span> (<span class="params">key,fn</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//监听的id是谁已经不重要，所以去掉了</span></span><br><span class="line">    <span class="keyword">if</span>(!<span class="built_in">this</span>.clientList[key])&#123;</span><br><span class="line">        <span class="built_in">this</span>.clientList[key]=[];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">this</span>.clientList[key].push(fn)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> $emit = <span class="function"><span class="keyword">function</span>(<span class="params">...args</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> key = args.shift();</span><br><span class="line">    fns = <span class="built_in">this</span>.watchList[key];</span><br><span class="line">    <span class="keyword">if</span>(!fns||fns.length==<span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>,fn;fn = fns[i];i++)&#123;</span><br><span class="line">        fn.apply(<span class="built_in">this</span>,args)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> $remove = <span class="function"><span class="keyword">function</span>(<span class="params">key,fn</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> fns = <span class="built_in">this</span>.clientList[key];</span><br><span class="line">    <span class="keyword">if</span>(!fns) <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    <span class="keyword">if</span>(!fn)&#123;</span><br><span class="line">        fns &amp;&amp; (fns.length=<span class="number">0</span>) </span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i = fns.length-<span class="number">1</span>;i&gt;=<span class="number">0</span>;i--)&#123;</span><br><span class="line">            <span class="keyword">var</span> _fn = fns[i].fn;</span><br><span class="line">            <span class="keyword">if</span>(_fn===fn)&#123;</span><br><span class="line">                fns.splice(i,<span class="number">1</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> $bindObserver = <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line"><span class="keyword">var</span> self = <span class="built_in">this</span>;</span><br><span class="line"><span class="keyword">var</span> keys = <span class="built_in">Object</span>.keys(data)</span><br><span class="line">keys.forEach(<span class="function"><span class="params">key</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> result = data[key];</span><br><span class="line">    <span class="comment">//这里用到闭包 result 作为在函数内被内部函数引用的变量，一直存在于缓存中</span></span><br><span class="line">    <span class="built_in">Object</span>.defineProperty(data,key, &#123;</span><br><span class="line">        enumerable:<span class="literal">true</span>,</span><br><span class="line">        configurable:<span class="literal">true</span>,</span><br><span class="line">        get:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="comment">// return 的是上个作用域的result</span></span><br><span class="line">            <span class="keyword">return</span> result</span><br><span class="line">        &#125;,</span><br><span class="line">        set:<span class="function"><span class="keyword">function</span>(<span class="params">newVal</span>)</span>&#123;</span><br><span class="line">            self.$emit(key,newVal);</span><br><span class="line">            result = newVal;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line">Vue.prototype = &#123;</span><br><span class="line">    $watch,$emit,$remove,$bindObserver</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> person=&#123;</span><br><span class="line">    name:<span class="string">&quot;yosgi&quot;</span>,</span><br><span class="line">    age:<span class="number">29</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> app1 = <span class="keyword">new</span> Vue(person)</span><br><span class="line">app1.listen(<span class="string">&quot;age&quot;</span>,<span class="function"><span class="keyword">function</span>(<span class="params">val</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`age被改变，值为<span class="subst">$&#123;val&#125;</span>`</span>)</span><br><span class="line">&#125;)</span><br><span class="line">app1.data.age = <span class="number">30</span></span><br><span class="line">age被改变，值为<span class="number">30</span></span><br></pre></td></tr></table></figure>
+
+<p>上面实现的代码还有问题。</p>
+<p>对象往往是一个深层次的结构，对象的某个属性可能仍然是一个对象，这种情况怎么处理？ 应该用递归来处理</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Vue</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.data = data;</span><br><span class="line">    <span class="built_in">this</span>.watchList = [];</span><br><span class="line">    <span class="comment">//相当于clientLists</span></span><br><span class="line">    <span class="built_in">this</span>.$bindObserver(data)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> $watch = <span class="function"><span class="keyword">function</span> (<span class="params">key,fn</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!<span class="built_in">this</span>.watchList[key])&#123;</span><br><span class="line">        <span class="built_in">this</span>.watchList[key]=[];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">this</span>.watchList[key].push(fn)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> $emit = <span class="function"><span class="keyword">function</span>(<span class="params">...args</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> key = args.shift();</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.watchList)</span><br><span class="line">    fns = app1.watchList[key];</span><br><span class="line">    <span class="keyword">if</span>(!fns||fns.length==<span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>,fn;fn = fns[i];i++)&#123;</span><br><span class="line">        fn.apply(<span class="built_in">this</span>,args)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> $remove = <span class="function"><span class="keyword">function</span>(<span class="params">key,fn</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> fns = <span class="built_in">this</span>.watchList[key];</span><br><span class="line">    <span class="keyword">if</span>(!fns) <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    <span class="keyword">if</span>(!fn)&#123;</span><br><span class="line">        fns &amp;&amp; (fns.length=<span class="number">0</span>) </span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i = fns.length-<span class="number">1</span>;i&gt;=<span class="number">0</span>;i--)&#123;</span><br><span class="line">            <span class="keyword">var</span> _fn = fns[i].fn;</span><br><span class="line">            <span class="keyword">if</span>(_fn===fn)&#123;</span><br><span class="line">                fns.splice(i,<span class="number">1</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> $bindObserver = <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line"><span class="keyword">var</span> self = <span class="built_in">this</span>;</span><br><span class="line"><span class="keyword">var</span> keys = <span class="built_in">Object</span>.keys(data)</span><br><span class="line">keys.forEach(<span class="function"><span class="params">key</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> result = data[key];</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> result ===<span class="string">&#x27;object&#x27;</span>)&#123;</span><br><span class="line">        self.$bindObserver(data[key])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">Object</span>.defineProperty(data,key, &#123;</span><br><span class="line">        enumerable:<span class="literal">true</span>,</span><br><span class="line">        configurable:<span class="literal">true</span>,</span><br><span class="line">        get:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> result</span><br><span class="line">        &#125;,</span><br><span class="line">        set:<span class="function"><span class="keyword">function</span>(<span class="params">newVal</span>)</span>&#123;</span><br><span class="line">            self.$emit(key,newVal);</span><br><span class="line">             <span class="comment">//如果newVal也是对象，同样需要对 对象添加 发布消息的功能</span></span><br><span class="line">            <span class="keyword">if</span>(<span class="keyword">typeof</span> newVal ===<span class="string">&#x27;object&#x27;</span>)&#123;</span><br><span class="line">                self.$bindObserver(newVal)</span><br><span class="line">            &#125;</span><br><span class="line">            result = newVal;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line">Vue.prototype = &#123;</span><br><span class="line">    $watch,$emit,$remove,$bindObserver</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> person=&#123;</span><br><span class="line">    name:<span class="string">&quot;yosgi&quot;</span>,</span><br><span class="line">    age:<span class="number">29</span>,</span><br><span class="line">    address:&#123;</span><br><span class="line">        city:<span class="string">&quot;hangZhou&quot;</span>,</span><br><span class="line">        province:&#123;</span><br><span class="line">            a:<span class="number">1</span>,</span><br><span class="line">            b:<span class="number">2</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> app1 = <span class="keyword">new</span> Vue(person)</span><br><span class="line"></span><br><span class="line">app1.$watch(<span class="string">&quot;city&quot;</span>,<span class="function"><span class="keyword">function</span>(<span class="params">val</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`city被改变，值为<span class="subst">$&#123;val&#125;</span>`</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app1.data.address.city = <span class="string">&quot;beijing&quot;</span></span><br><span class="line"><span class="comment">//city被改变，值为beijing</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><p>发布订阅模式的优点是时间和对象之间的解耦。缺点是创建订阅者本身要消耗时间和内存，订阅一个消息后若消息始终没有发生，订阅者会始终存在与内存中。</p>
+<p>vue监听对象变化是发布订阅模式的一种应用，其中发布者就是 watchList 订阅者，通过$bindObserver 发布消息 。$bindObserver的作用是监听对象属性的改变触发$emit。需要注意的是</p>
+<p>1.可能存在嵌套对象，嵌套对象的属性需要有发布功能。</p>
+<p>2.可能修改后的变量也是对象，改变新的对象的属性仍需要有发布的功能。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          
+            <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag"># 设计模式</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/02/Set%E5%92%8CMap%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="next" title="Set和Map数据结构">
+                <i class="fa fa-chevron-left"></i> Set和Map数据结构
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/18/proxy/" rel="prev" title="proxy">
+                proxy <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
 
     <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+      
     </div>
   </div>
 
-{% endblock %}
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+          </div>
+          
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">发布订阅模式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%94%AE%E6%A5%BC%E5%A4%84%E7%9A%84%E4%BE%8B%E5%AD%90"><span class="nav-number">1.1.</span> <span class="nav-text">售楼处的例子</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#vue%E6%80%8E%E4%B9%88%E7%9B%91%E5%90%AC%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%8F%98%E5%8C%96"><span class="nav-number">1.2.</span> <span class="nav-text">vue怎么监听对象的变化</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">2.</span> <span class="nav-text">小结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yosgi</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://yosgi.github.io/2018/05/05/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%92%8Cvue%E7%9B%91%E5%90%AC%E5%AF%B9%E8%B1%A1%E5%8F%98%E5%8C%96/';
+          this.page.identifier = '2018/05/05/观察者模式和vue监听对象变化/';
+          this.page.title = '观察者模式和vue监听对象变化';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

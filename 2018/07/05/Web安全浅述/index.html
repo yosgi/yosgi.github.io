@@ -1,37 +1,847 @@
-{% extends '_layout.swig' %}
-{% import '_macro/post.swig' as post_template %}
-{% import '_macro/sidebar.swig' as sidebar_template %}
+<!DOCTYPE html>
 
 
-{% block title %}{{ page.title }} | {{ config.title }}{% endblock %}
 
-{% block page_class %}page-post-detail{% endblock %}
+  
 
 
-{% block content %}
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Javascript,前端," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="web安全相关整理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Web安全浅述">
+<meta property="og:url" content="https://yosgi.github.io/2018/07/05/Web%E5%AE%89%E5%85%A8%E6%B5%85%E8%BF%B0/index.html">
+<meta property="og:site_name" content="快雪时晴">
+<meta property="og:description" content="web安全相关整理">
+<meta property="og:locale">
+<meta property="og:image" content="https://yosgi.github.io/.io//img1.png">
+<meta property="article:published_time" content="2018-07-05T02:05:36.000Z">
+<meta property="article:modified_time" content="2019-03-16T07:36:43.000Z">
+<meta property="article:author" content="yosgi">
+<meta property="article:tag" content="Javascript">
+<meta property="article:tag" content="前端">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yosgi.github.io/.io//img1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yosgi.github.io/2018/07/05/Web安全浅述/"/>
+
+
+
+
+
+  <title>Web安全浅述 | 快雪时晴</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">快雪时晴</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">失败会设下陷阱，没有胜利会发出邀请</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
 
   <div id="posts" class="posts-expand">
-    {{ post_template.render(page) }}
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yosgi.github.io/2018/07/05/Web%E5%AE%89%E5%85%A8%E6%B5%85%E8%BF%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="快雪时晴">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Web安全浅述</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-05T10:05:36+08:00">
+                2018-07-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/07/05/Web%E5%AE%89%E5%85%A8%E6%B5%85%E8%BF%B0/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/07/05/Web安全浅述/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  web安全相关整理
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="/.io//img1.png" alt="image"></p>
+<h4 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h4><h5 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h5><p>跨站脚本攻击(Cross-Site Scripting)是通过存在安全漏洞的Web网站注册用户的浏览器运行非法HTML标签或者Javascript进行的一种攻击。动态创建的HTML部分可能有隐藏的安全漏洞,攻击者编写脚本设下陷阱，用户在自己的浏览器上运行时，一不小心就会受到被动攻击。</p>
+<h5 id="可能造成的影响"><a href="#可能造成的影响" class="headerlink" title="可能造成的影响"></a>可能造成的影响</h5><ul>
+<li>利用虚假输入表单骗取用户个人信息</li>
+<li>利用脚本窃取用户的cookie值，发送恶意请求</li>
+<li>显示伪造的文章或者图片</li>
+</ul>
+<h5 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h5><p>一类是反射型XSS，又称非持久型XSS，具体表现在我们把我们的恶意脚本通过url的方式传递给了服务器，而服务器则只是不加处理的把脚本“反射”回访问者的浏览器而使访问者的浏览器执行相应的脚本。</p>
+<p>一类是储存型XSS，也就是持久型XSS。它与反射型XSS最大的不同就是服务器再接收到我们的恶意脚本时会将其做一些处理。</p>
+<p>例如储存到数据库中，然后当我们再次访问相同页面时，将恶意脚本从数据库中取出并返回给浏览器执行。</p>
+<p>例如当有人在留言内容中插入恶意脚本时，由于服务器要像每一个访客展示之前的留言内容，所以后面的访客自然会接收到之前留言中的恶意脚本而不幸躺枪。</p>
+<h5 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h5><p>网上XSS的举例有很多<a target="_blank" rel="noopener" href="https://blog.csdn.net/u011781521/article/details/53894399/">例子1</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/ganyingxie123456/article/details/70230486">例子2</a></p>
+<h5 id="XSS的防御措施"><a href="#XSS的防御措施" class="headerlink" title="XSS的防御措施"></a>XSS的防御措施</h5><p>原则：宁死也不让数据变成可执行的代码，不信任任何用户的数据，严格区分数据和代码。</p>
+<ol>
+<li>HttpOnly    浏览器禁止页面的JS访问带有HttpOnly属性的Cookie。</li>
+<li>输入检查 XSS Filter     对输入内容做格式检查，类似“白名单”，可以让一些基于特殊字符的攻击失效。在客户端JS和服务器端代码中实现相同的输入检查（服务器端必须有）</li>
+<li>输出检查     在变量输出到html页面时，可以使用编码或转义的方式来防御XSS攻击  HtmlEncode：将字符转成HTMLEntities，对应的标准是ISO-8859-1。    JS中可以使用JavascriptEncode。需要对“\”对特殊字符转义，输出的变量的必须在引号内部。</li>
+</ol>
+<h6 id="在Html标签中输出："><a href="#在Html标签中输出：" class="headerlink" title="在Html标签中输出："></a>在Html标签中输出：</h6><pre><code>&lt;div&gt;$var&lt;/div&gt; </code></pre>
+<p>在标签中输出的变量，如果未做任何处理，都能导致直接产生XSS</p>
+<pre><code>&lt;div&gt;&lt;script&gt;alert(/XSS/)&lt;/script&gt;&lt;/div&gt;  或者  &lt;a href=# &gt;&lt;img src=# onerror=alert(1) /&gt;&lt;/a&gt;</code></pre>
+<p> 防御方法：对变量使用HtmlEncode。</p>
+<h6 id="在Html属性中输出："><a href="#在Html属性中输出：" class="headerlink" title="在Html属性中输出："></a>在Html属性中输出：</h6><pre><code>&lt;div id=&quot;abc name=&quot;$var&quot;&gt;&lt;/div&gt; </code></pre>
+<p>攻击方法：</p>
+<pre><code>&lt;div id=&quot;abc&quot; name=&quot;&quot;&gt;&lt;script&gt;alert(/XSS/)&lt;/script&gt;&lt;&quot;&quot;&gt;&lt;/div&gt;</code></pre>
+<p>防御方法：采用HtmlEncode。</p>
+<h6 id="在在CSS中输出：方式多样"><a href="#在在CSS中输出：方式多样" class="headerlink" title="在在CSS中输出：方式多样"></a>在在CSS中输出：方式多样</h6><p> 防御方法：尽可能禁止用户可控制的变量在</p>
+<pre><code>&quot;style标签&quot;、&quot;html标签的style属性&quot;、&quot;CSS文件&quot;中输出。</code></pre>
+<p> 在地址中输出：比较复杂。一般是在URL的path(路径)或者search(参数)中输出，使用URLEncode即可。</p>
+<p> 整个URL都被用户完全控制时，URL的Protocal(http://) 和Host (<a href="http://www.xxx.com)部分不能使用URLEncode，可能会构造伪协议实施攻击：">www.xxx.com)部分不能使用URLEncode，可能会构造伪协议实施攻击：</a></p>
+<p>防御方法：先检查变量是否以http开头（如果不是则自动添加），以保证不会出现伪协议类的XSS攻击。在此之后，再对变量进行URLEncode。</p>
+<h6 id="处理富文本"><a href="#处理富文本" class="headerlink" title="处理富文本"></a>处理富文本</h6><p> 防御方法：与输入检查的思路一致。使用”XSS Filter”：“事件”应该被严格禁止；一些危险的标签：</p>
+<pre><code>&lt;iframe&gt;、&lt;script&gt;、&lt;base&gt;、&lt;form&gt;</code></pre>
+<p> 等也应严格禁止；在标签、属性、事件的选择上，应该使用白名单，避免使用黑名单。比如，只允许</p>
+<pre><code>&lt;a&gt;、&lt;img&gt;、&lt;div&gt;</code></pre>
+<p> 等比较“安全”的标签存在。</p>
+<h6 id="防御DOM-Based-XSS"><a href="#防御DOM-Based-XSS" class="headerlink" title="防御DOM Based XSS"></a>防御DOM Based XSS</h6><p>果是输出到事件或脚本，要做一次javascriptEncode；如果是输出到HTML内容或者属性，要做一次HtmlEncode。</p>
+<h4 id="CSRF攻击"><a href="#CSRF攻击" class="headerlink" title="CSRF攻击"></a>CSRF攻击</h4><p>跨站点请求伪造(Cross-Site Request Forgeries,CSRF)攻击是攻击者通过设置好的陷阱，强制对已完成认证的用户进行非预期的个人信息或设定信息等某些状态更新，属于被动攻击。</p>
+<h5 id="案例-1"><a href="#案例-1" class="headerlink" title="案例"></a>案例</h5><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/stpeace/article/details/53512283">CSRF攻击与防御</a></p>
+<h5 id="防御CSRF"><a href="#防御CSRF" class="headerlink" title="防御CSRF"></a>防御CSRF</h5><p>CSRF 防御可以从服务端和客户端两方面着手，防御效果是从服务端着手效果比较好，现在一般 CSRF 防御在服务端进行的。</p>
+<ol>
+<li>关键操作只接受 POST 请求与验证码</li>
+</ol>
+<p>CSRF 攻击的过程，往往是在用户不知情的情况下发生的，在用户不知情的情况下构造网络请求，所以如果使用验证码，那么每次操作都需要用户进行互动，从而简单有效地防御了 CSRF 的攻击。</p>
+<p>但是如果你在一个网站作出任何举动都要输入验证码的话会严重影响用户体验，所以验证码一般只出现在特殊操作里面，或者在注册时候使用。</p>
+<p>2.检测 Referer</p>
+<p>常见的互联网页面与页面之间是存在联系的，之前的网址一定保留在新页面中 Referer 属性中。<br>通过检查 Referer 的值，我们就可以判断这个请求是合法的还是非法的.</p>
+<p>但是问题出在服务器不是任何时候都接受到 Referer 的值，所以 Referer Check 一般用于监控 CSRF 攻击的发生，而不用来抵御攻击。</p>
+<p>3.Cookie Hashing(所有表单都包含同一个伪随机值)：</p>
+<p>这可能是最简单的解决方案了，因为攻击者不能获得第三方的Cookie(理论上)，所以表单中的数据也就构造失败了</p>
+<p>在表单里增加Hash值，以认证这确实是用户发送的请求，然后在服务器端进行Hash值验证</p>
+<p>除非用户Cookie由于网站的XSS漏洞而被盗取。一般的攻击者看到有需要算Hash值，基本都会放弃了。</p>
+<h4 id="SQL注入攻击"><a href="#SQL注入攻击" class="headerlink" title="SQL注入攻击"></a>SQL注入攻击</h4><p>SQL注入攻击是黑客对数据库进行攻击的常用手段之一。原因是有没对用户输入数据的合法性进行判断，使应用程序存在安全隐患，用户可以提交一段数据库查询代码，根据程序返回的结果，获得某些他想得知的数据，这就是所谓的SQL Injection，即SQL注入。</p>
+<h5 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h5><p>某个网站的登录验证的SQL查询代码为：</p>
+<pre><code>strSQL = &quot;SELECT * FROM users WHERE (name = &#39;&quot; + userName + &quot;&#39;) and (pw = &#39;&quot;+ passWord +&quot;&#39;);&quot; </code></pre>
+<p>恶意填入</p>
+<pre><code>userName = &quot;1&#39; OR &#39;1&#39;=&#39;1&quot;;</code></pre>
+<p>与</p>
+<pre><code>passWord = &quot;1&#39; OR &#39;1&#39;=&#39;1&quot;;</code></pre>
+<p>时，将导致原本的SQL字符串被填为</p>
+<pre><code>strSQL = &quot;SELECT * FROM users WHERE (name = &#39;1&#39; OR &#39;1&#39;=&#39;1&#39;) and (pw = &#39;1&#39; OR &#39;1&#39;=&#39;1&#39;);&quot;</code></pre>
+<p>也就是实际上运行的SQL命令会变成下面这样的</p>
+<pre><code>strSQL = &quot;SELECT * FROM users;&quot;</code></pre>
+<p>因此达到无账号密码，亦可登录网站。所以SQL注入攻击被俗称为黑客的填空游戏。</p>
+<h5 id="防御方法"><a href="#防御方法" class="headerlink" title="防御方法"></a>防御方法</h5><p>从安全技术手段上来说，可以通过数据库防火墙实现对SQL注入攻击的防范，因为SQL注入攻击往往是通过应用程序来进攻，可以使用虚拟补丁技术实现对注入攻击的SQL特征识别，实现实时攻击阻断。</p>
+<h4 id="OS命令注入"><a href="#OS命令注入" class="headerlink" title="OS命令注入"></a>OS命令注入</h4><p>OS命令注入和SQL注入差不多，只不过SQL注入是针对数据库的，而OS命令注入是针对操作系统的。OS命令注入即能够在服务器上执行任意命令。</p>
+<h5 id="防御方法-1"><a href="#防御方法-1" class="headerlink" title="防御方法"></a>防御方法</h5><ol>
+<li>不要调用外部程序。举个例子，在UNIX系统上，有一个叫CGI的程序，可以执行sendmail命令来发送邮件。也许你的web应用程序也有发送邮件的功能，通过直接调用CGI程序发送邮件非常的简单，但是不要这样做，因为在执行sendmail命令的同时，也会混杂进其他OS命令，正确的做法是使用发送邮件的library。</li>
+</ol>
+<p>2.过滤 、; ，[ ，] ，| ，&lt; ，&gt; ，\ 之类的符号</p>
+<p>3.设置用户的权限</p>
+<h4 id="HTTP首部注入攻击"><a href="#HTTP首部注入攻击" class="headerlink" title="HTTP首部注入攻击"></a>HTTP首部注入攻击</h4><p>HTTP首部注入攻击(HTTPHeader Injection)是指攻击者通过在响应首部字段内插入换行，添加任意响应首部或主体的一种攻击。</p>
+<p>其中首部主体内添加内容的攻击称为HTTP响应截断攻击(HTTPResponse Splitting Attack)</p>
+<p>HTTP首部注入可能，通过在某些响应首部字段需要处理输出值的地方，插入换行发动攻击。</p>
+<h5 id="例子-1"><a href="#例子-1" class="headerlink" title="例子"></a>例子</h5><p>例如一个的请求如下：</p>
+<pre><code>GET / HTTP/1.1
+Host: www.example.com
+Connection: keep-alive
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0&#39;(select*from(select(sleep(20)))a) #
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: en-US,en;q=0.8,fr;q=0.6</code></pre>
+<p>HTTP协议的User-Agent头部为“Mozilla/5.0’(select*from(select(sleep(20)))a) #”。其中“select * from (select(sleep(20)))”是不正常的，这里的攻击主要是让数据库什么也不干而睡眠20秒，从而浪费数据库处理线程。这是一个简单的注入，除此之外还能进行更多复杂的攻击。</p>
+<h5 id="可能会造成影响："><a href="#可能会造成影响：" class="headerlink" title="可能会造成影响："></a>可能会造成影响：</h5><ol>
+<li><p>设置任何Cookie信息</p>
+</li>
+<li><p>重定向至任意URL</p>
+</li>
+<li><p>显示任意的主体(HTTP响应截断攻击)</p>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          
+            <a href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag"># 前端</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/04/Iterator/" rel="next" title="Iterator">
+                <i class="fa fa-chevron-left"></i> Iterator
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/06/Generator%E5%87%BD%E6%95%B0%E4%B8%8E%E5%BA%94%E7%94%A8/" rel="prev" title="Generator函数与应用">
+                Generator函数与应用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
 
     <div class="post-spread">
-      {% if theme.jiathis %}
-        {% include '_partials/share/jiathis.swig' %}
-      {% elseif theme.baidushare %}
-        {% include '_partials/share/baidushare.swig' %}
-      {% elseif theme.add_this_id %}
-        {% include '_partials/share/add-this.swig' %}
-      {% elseif theme.duoshuo_shortname and theme.duoshuo_share %}
-        {% include '_partials/share/duoshuo_share.swig' %}
-      {% endif %}
+      
     </div>
   </div>
 
-{% endblock %}
 
-{% block sidebar %}
-  {{ sidebar_template.render(true) }}
-{% endblock %}
+          </div>
+          
 
-{% block script_extra %}
-  {% include '_scripts/pages/post-details.swig' %}
-{% endblock %}
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#XSS"><span class="nav-number">1.</span> <span class="nav-text">XSS</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">1.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%AF%E8%83%BD%E9%80%A0%E6%88%90%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="nav-number">1.2.</span> <span class="nav-text">可能造成的影响</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%86%E7%B1%BB"><span class="nav-number">1.3.</span> <span class="nav-text">分类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B"><span class="nav-number">1.4.</span> <span class="nav-text">案例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#XSS%E7%9A%84%E9%98%B2%E5%BE%A1%E6%8E%AA%E6%96%BD"><span class="nav-number">1.5.</span> <span class="nav-text">XSS的防御措施</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%9C%A8Html%E6%A0%87%E7%AD%BE%E4%B8%AD%E8%BE%93%E5%87%BA%EF%BC%9A"><span class="nav-number">1.5.1.</span> <span class="nav-text">在Html标签中输出：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%9C%A8Html%E5%B1%9E%E6%80%A7%E4%B8%AD%E8%BE%93%E5%87%BA%EF%BC%9A"><span class="nav-number">1.5.2.</span> <span class="nav-text">在Html属性中输出：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%9C%A8%E5%9C%A8CSS%E4%B8%AD%E8%BE%93%E5%87%BA%EF%BC%9A%E6%96%B9%E5%BC%8F%E5%A4%9A%E6%A0%B7"><span class="nav-number">1.5.3.</span> <span class="nav-text">在在CSS中输出：方式多样</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E5%AF%8C%E6%96%87%E6%9C%AC"><span class="nav-number">1.5.4.</span> <span class="nav-text">处理富文本</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E9%98%B2%E5%BE%A1DOM-Based-XSS"><span class="nav-number">1.5.5.</span> <span class="nav-text">防御DOM Based XSS</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CSRF%E6%94%BB%E5%87%BB"><span class="nav-number">2.</span> <span class="nav-text">CSRF攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B-1"><span class="nav-number">2.1.</span> <span class="nav-text">案例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%98%B2%E5%BE%A1CSRF"><span class="nav-number">2.2.</span> <span class="nav-text">防御CSRF</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB"><span class="nav-number">3.</span> <span class="nav-text">SQL注入攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90"><span class="nav-number">3.1.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95"><span class="nav-number">3.2.</span> <span class="nav-text">防御方法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#OS%E5%91%BD%E4%BB%A4%E6%B3%A8%E5%85%A5"><span class="nav-number">4.</span> <span class="nav-text">OS命令注入</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95-1"><span class="nav-number">4.1.</span> <span class="nav-text">防御方法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP%E9%A6%96%E9%83%A8%E6%B3%A8%E5%85%A5%E6%94%BB%E5%87%BB"><span class="nav-number">5.</span> <span class="nav-text">HTTP首部注入攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90-1"><span class="nav-number">5.1.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%AF%E8%83%BD%E4%BC%9A%E9%80%A0%E6%88%90%E5%BD%B1%E5%93%8D%EF%BC%9A"><span class="nav-number">5.2.</span> <span class="nav-text">可能会造成影响：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">yosgi</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://yosgi.github.io/2018/07/05/Web%E5%AE%89%E5%85%A8%E6%B5%85%E8%BF%B0/';
+          this.page.identifier = '2018/07/05/Web安全浅述/';
+          this.page.title = 'Web安全浅述';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
