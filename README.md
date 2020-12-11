@@ -1,1 +1,1 @@
-[个人博客](https://www.yosgi.top/)
+[个人博客](https://yosgi.github.io/)
