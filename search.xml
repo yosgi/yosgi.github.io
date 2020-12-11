@@ -4325,4 +4325,50 @@ co(taskList).then(res=&gt;&#123;
         <tag>ES6</tag>
       </tags>
   </entry>
+  <entry>
+    <title></title>
+    <url>/2020/12/11/Hexo%20%E5%8D%87%E7%BA%A7%E5%88%B0%205/</url>
+    <content><![CDATA[<hr>
+<p>title: Hexo 升级到 5<br>description: 填坑日记<br>categories:</p>
+<ul>
+<li>其它<br>date: 2020-12-11 12:37:55</li>
+</ul>
+<p>一年多没有更新博客，拉下来 <code>hexo s</code> 发现生成的页面是空白的，并且也没有报错</p>
+<p>查了资料发现是没有 下载 _config.yml 中配置的 theme: next</p>
+<p>于是 去 next 官网找到 相应的下载命令</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com&#x2F;iissnan&#x2F;hexo-theme-next themes&#x2F;next</span><br></pre></td></tr></table></figure>
+
+<p>发现下载的速度令人发指 ，于是 切换 npm 包源</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https:&#x2F;&#x2F;github.com.cnpmjs.org&#x2F;iissnan&#x2F;hexo-theme-next themes&#x2F;next</span><br></pre></td></tr></table></figure>
+
+<p>之后再 <code>hexo s --debug</code> ，久违的博客页面终于显示了出来。</p>
+<p>接下来就是部署到 github page 上</p>
+<h5 id="新的问题"><a href="#新的问题" class="headerlink" title="新的问题"></a>新的问题</h5><p><code>hexo d -g</code> 之后发现报错 <code>The &quot;mode&quot; argument must be integer. Received an instance of Object</code></p>
+<p>网上查找发现是 因为 npm 版本过高引起的问题</p>
+<p>我总不能切回旧版本 node ，写别的项目再切回去吧</p>
+<p>本着用新不用旧的原则 ，开始升级 hexo</p>
+<h5 id="升级-hexo"><a href="#升级-hexo" class="headerlink" title="升级 hexo"></a>升级 hexo</h5><p>这里使用 npm-upgrade 来进行 packge.json 的更新</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install -g npm-upgrade</span><br><span class="line">npm-upgrade</span><br><span class="line">npm i</span><br></pre></td></tr></table></figure>
+
+<p>操作后我的 package 如下</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">  <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;hexo-site&quot;</span>,</span><br><span class="line"></span><br><span class="line">  <span class="attr">&quot;version&quot;</span>: <span class="string">&quot;0.0.0&quot;</span>,</span><br><span class="line"></span><br><span class="line">  <span class="attr">&quot;private&quot;</span>: <span class="literal">true</span>,</span><br><span class="line"></span><br><span class="line">  <span class="attr">&quot;hexo&quot;</span>: &#123;</span><br><span class="line"></span><br><span class="line">​    &quot;version&quot;: &quot;5.2.0&quot;</span><br><span class="line"></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  &quot;dependencies&quot;: &#123;</span><br><span class="line"></span><br><span class="line">​    &quot;hexo&quot;: &quot;^5.2.0&quot;,</span><br><span class="line"></span><br><span class="line">​    &quot;hexo-asset-image&quot;: &quot;^1.0.0&quot;,</span><br><span class="line"></span><br><span class="line">​    &quot;hexo-deployer-git&quot;: &quot;^2.1.0&quot;,</span><br><span class="line"></span><br><span class="line">​    &quot;hexo-generator-archive&quot;: &quot;^1.0.0&quot;,</span><br><span class="line"></span><br><span class="line">​    &quot;hexo-generator-category&quot;: &quot;^1.0.0&quot;,</span><br><span class="line"></span><br><span class="line">​    &quot;hexo-generator-index&quot;: &quot;^2.0.0&quot;,</span><br><span class="line"></span><br><span class="line">​    &quot;hexo-generator-searchdb&quot;: &quot;^1.3.3&quot;,</span><br><span class="line"></span><br><span class="line">​    &quot;hexo-generator-tag&quot;: &quot;^1.0.0&quot;,</span><br><span class="line"></span><br><span class="line">​    &quot;hexo-renderer-ejs&quot;: &quot;^1.0.0&quot;,</span><br><span class="line"></span><br><span class="line">​    &quot;hexo-renderer-marked&quot;: &quot;^3.3.0&quot;,</span><br><span class="line"></span><br><span class="line">​    &quot;hexo-renderer-stylus&quot;: &quot;^2.0.1&quot;,</span><br><span class="line"></span><br><span class="line">​    &quot;hexo-renderer-swig&quot;: &quot;^1.1.0&quot;,</span><br><span class="line"></span><br><span class="line">​    &quot;hexo-server&quot;: &quot;^2.0.0&quot;,</span><br><span class="line"></span><br><span class="line">​    &quot;hexo-theme-next&quot;: &quot;^8.1.0&quot;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="升级后的新问题"><a href="#升级后的新问题" class="headerlink" title="升级后的新问题"></a>升级后的新问题</h5><p>升级后部署到 github page ，果然又出现了新的问题，发现部署之后的网站只显示了</p>
+<p><code>hexo &#123;% extends '_layout.swig' %&#125;</code></p>
+<p>使用 debug 发现一个 warn</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">INFO  Validating config</span><br><span class="line">WARN  Deprecated config detected: &quot;external_link&quot; with a Boolean value is deprecated. See https:&#x2F;&#x2F;hexo.io&#x2F;docs&#x2F;configuration for more details.</span><br></pre></td></tr></table></figure>
+
+<p>原来是 external_link 这个 属性被改成了 object 类型，马上去修改 _config.yml</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">external_link:</span><br><span class="line">  enable: true</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>再次 <code>hexo s</code> 发现 问题并没有解决</p>
+<p>从 <a href="https://github.com/ahonn/hexo-theme-even/issues/266">issue： 与 hexo 5 不兼容</a> 找到了解决办法，原来是 Hexo 5 把 swig 渲染插件删了，需要单独安装</p>
+<figure class="highlight plain"><figcaption><span>i hexo-renderer-swig</span></figcaption><table><tr><td class="code"><pre><span class="line">npm i hexo-renderer-swig</span><br></pre></td></tr></table></figure>
+
+<p>再 <code>hexo s</code></p>
+<p>成功</p>
+<h5 id="小调整"><a href="#小调整" class="headerlink" title="小调整"></a>小调整</h5><p>next 主题下的 翻页出现显示的问题，直接改成</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% if page.prev or page.next %&#125;</span><br><span class="line"></span><br><span class="line">  &lt;nav class&#x3D;&quot;pagination&quot;&gt;</span><br><span class="line">    &#123;&#123;</span><br><span class="line">      paginator(&#123;</span><br><span class="line">        prev_text: &#39;上页&#39;,</span><br><span class="line">       next_text: &#39;下页&#39;,</span><br><span class="line">        mid_size: 1</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;&#125;</span><br><span class="line">  &lt;&#x2F;nav&gt;</span><br><span class="line"></span><br><span class="line">&#123;% endif %&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+  </entry>
 </search>
