@@ -79,15 +79,15 @@
 
 
 
-<meta name="description" content="写了又忘，菜的很真实">
+<meta name="description" content="又是菜狗的一天">
 <meta property="og:type" content="article">
-<meta property="og:title" content="leetcode 207.课程表">
-<meta property="og:url" content="https://yosgi.github.io/2020/12/11/207.%E8%AF%BE%E7%A8%8B%E8%A1%A8/index.html">
+<meta property="og:title" content="leetcode 139.单词拆分">
+<meta property="og:url" content="https://yosgi.github.io/2020/12/11/139.%20%E5%8D%95%E8%AF%8D%E6%8B%86%E5%88%86/index.html">
 <meta property="og:site_name" content="快雪时晴">
-<meta property="og:description" content="写了又忘，菜的很真实">
+<meta property="og:description" content="又是菜狗的一天">
 <meta property="og:locale">
 <meta property="article:published_time" content="2020-12-11T07:53:34.000Z">
-<meta property="article:modified_time" content="2020-12-12T02:48:30.014Z">
+<meta property="article:modified_time" content="2020-12-13T05:08:24.088Z">
 <meta property="article:author" content="yosgi">
 <meta property="article:tag" content="拓扑排序">
 <meta property="article:tag" content="图">
@@ -123,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="https://yosgi.github.io/2020/12/11/207.课程表/"/>
+  <link rel="canonical" href="https://yosgi.github.io/2020/12/11/139. 单词拆分/"/>
 
 
 
 
 
-  <title>leetcode 207.课程表 | 快雪时晴</title>
+  <title>leetcode 139.单词拆分 | 快雪时晴</title>
   
 
 
@@ -236,7 +236,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yosgi.github.io/2020/12/11/207.%E8%AF%BE%E7%A8%8B%E8%A1%A8/">
+    <link itemprop="mainEntityOfPage" href="https://yosgi.github.io/2020/12/11/139.%20%E5%8D%95%E8%AF%8D%E6%8B%86%E5%88%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -253,7 +253,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">leetcode 207.课程表</h1>
+          <h1 class="post-title" itemprop="name headline">leetcode 139.单词拆分</h1>
         
 
         <div class="post-meta">
@@ -306,9 +306,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2020/12/11/207.%E8%AF%BE%E7%A8%8B%E8%A1%A8/#comments" itemprop="discussionUrl">
+                <a href="/2020/12/11/139.%20%E5%8D%95%E8%AF%8D%E6%8B%86%E5%88%86/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2020/12/11/207.课程表/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2020/12/11/139. 单词拆分/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -323,7 +323,7 @@
 
           
               <div class="post-description">
-                  写了又忘，菜的很真实
+                  又是菜狗的一天
               </div>
           
 
@@ -340,21 +340,23 @@
       
 
       
-        <h4 id="207-课程表"><a href="#207-课程表" class="headerlink" title="207. 课程表"></a><a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/course-schedule/">207. 课程表</a></h4><p>用时 1h 30min</p>
-<p>我哭了， 一道常见 mid 写了 一个多小时</p>
-<p>还是一道以前写过两遍的题</p>
-<p>哈哈哈哈哈哈哈哈哈 也太真实了</p>
-<p>拿到题 就开始写 DFS，然后写着写着 不知道为什么 把 DFS 和 BFS 混在一起用了，也不知道自己是怎么想的</p>
-<p>导致做出来的结果全部是 TRUE</p>
-<p>最后只好看了一眼自己以前怎么写出来的才过</p>
-<h4 id="BFS-的解法"><a href="#BFS-的解法" class="headerlink" title="BFS 的解法"></a>BFS 的解法</h4><p>思路就是 先遍历一遍数组，存储 每个课程有几个依赖 ， 和 被依赖的课程 map 表</p>
-<p>然后找到依赖是 0 的课程，进行 BFS，每次出栈都视为学习了一门课程</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> canFinish = <span class="function"><span class="keyword">function</span> (<span class="params">numCourses, prerequisites</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> cources = <span class="keyword">new</span> <span class="built_in">Array</span>(numCourses).fill(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">if</span> (!prerequisites.length) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  <span class="keyword">let</span> requireMap = &#123;&#125;;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; prerequisites.length; i++) &#123;</span><br><span class="line">    <span class="keyword">const</span> [cource, reqCource] = prerequisites[i];</span><br><span class="line">    cources[cource]++;</span><br><span class="line">    <span class="keyword">if</span> (!requireMap[reqCource]) &#123;</span><br><span class="line">      requireMap[reqCource] = [cource];</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      requireMap[reqCource].push(cource);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">let</span> stack = [];</span><br><span class="line">  <span class="keyword">let</span> count = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; cources.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (cources[i] === <span class="number">0</span>) &#123;</span><br><span class="line">      stack.push(i);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">while</span> (stack.length) &#123;</span><br><span class="line">    <span class="keyword">let</span> cur = stack.pop();</span><br><span class="line">    count++;</span><br><span class="line">    <span class="keyword">let</span> canLearn = requireMap[cur];</span><br><span class="line">    <span class="keyword">if</span> (canLearn &amp;&amp; canLearn.length) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; canLearn.length; i++) &#123;</span><br><span class="line">        cources[canLearn[i]]--;</span><br><span class="line">        <span class="keyword">if</span> (cources[canLearn[i]] === <span class="number">0</span>) &#123;</span><br><span class="line">          stack.push(canLearn[i]);</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> count === numCourses;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+        <p>用时 20 min</p>
+<p>没错，又是一道之前写过一次的题，这次还是看了自己以前的解法才做出来</p>
+<p>我真的是巨菜，菜中菜</p>
+<h5 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h5><p>dp[i] 表示 [0 … i - 1] 是否能被拆分为单词，求 dp[s.length] 是否为 true</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> wordBreak = <span class="function"><span class="keyword">function</span> (<span class="params">s, wordDict</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> dp = [<span class="literal">true</span>];</span><br><span class="line">  <span class="keyword">let</span> len = s.length;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = i + <span class="number">1</span>; j &lt;= len; j++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (dp[i] &amp;&amp; wordDict.indexOf(s.substring(i, j)) &gt; -<span class="number">1</span>) &#123;</span><br><span class="line">        dp[j] = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> dp[len] === <span class="literal">true</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<h4 id="DFS-解法"><a href="#DFS-解法" class="headerlink" title="DFS 解法"></a>DFS 解法</h4><p>考察从每个课程出发做 DFS 是否存在环</p>
-<p>在每项 DFS 中，每个课程初始值是 0 ， 访问过的课程赋值 1 ， 一次 DFS 完成后 赋值 -1</p>
-<p>遇到 -1 说明该课程出发不存在环，返回 true ，如果是 1 说明在一次 DFS 中存在环</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> canFinish = <span class="function"><span class="keyword">function</span> (<span class="params">numCourses, prerequisites</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> cources = <span class="keyword">new</span> <span class="built_in">Array</span>(numCourses).fill(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">if</span> (!prerequisites.length) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  <span class="keyword">let</span> requireMap = &#123;&#125;;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; prerequisites.length; i++) &#123;</span><br><span class="line">    <span class="keyword">const</span> [cource, reqCource] = prerequisites[i];</span><br><span class="line">    <span class="keyword">if</span> (!requireMap[reqCource]) &#123;</span><br><span class="line">      requireMap[reqCource] = [cource];</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      requireMap[reqCource].push(cource);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> walk = <span class="function"><span class="keyword">function</span> (<span class="params">id</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (cources[id] === <span class="number">1</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span> (cources[id] === -<span class="number">1</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    cources[id] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">let</span> arr = requireMap[id];</span><br><span class="line">    <span class="keyword">if</span> (arr) &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!walk(arr[i])) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    cources[id] = -<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; cources.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!walk(i)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h5 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h5><p>把字符串拆分为 <code>pre : [0 ... i - 1]</code> 　<code>cur: [ i ... s.length]</code> 两个部分</p>
+<p>如果 pre 存在于 字典中，使用递归继续考察 cur 的部分，直到需要考察的长度为 0</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> wordBreak = <span class="function"><span class="keyword">function</span> (<span class="params">s, wordDict</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> walk = <span class="function"><span class="keyword">function</span> (<span class="params">s</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (s.length === <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt;= s.length; i++) &#123;</span><br><span class="line">      <span class="keyword">let</span> pre = s.substring(<span class="number">0</span>, i);</span><br><span class="line">      <span class="keyword">let</span> cur = s.substring(i, s.length);</span><br><span class="line">      <span class="keyword">if</span> (wordDict.indexOf(pre) &gt; -<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (walk(cur)) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> walk(s) === <span class="literal">true</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>然后在测试用例中超时</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab&quot;</span>[</span><br><span class="line">  (<span class="string">&quot;a&quot;</span>,</span><br><span class="line">  <span class="string">&quot;aa&quot;</span>,</span><br><span class="line">  <span class="string">&quot;aaa&quot;</span>,</span><br><span class="line">  <span class="string">&quot;aaaa&quot;</span>,</span><br><span class="line">  <span class="string">&quot;aaaaa&quot;</span>,</span><br><span class="line">  <span class="string">&quot;aaaaaa&quot;</span>,</span><br><span class="line">  <span class="string">&quot;aaaaaaa&quot;</span>,</span><br><span class="line">  <span class="string">&quot;aaaaaaaa&quot;</span>,</span><br><span class="line">  <span class="string">&quot;aaaaaaaaa&quot;</span>,</span><br><span class="line">  <span class="string">&quot;aaaaaaaaaa&quot;</span>)</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+
+<p>可以看出中间做了很多重复计算，尝试用 memo 优化</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> wordBreak = <span class="function"><span class="keyword">function</span> (<span class="params">s, wordDict</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> memo = &#123;&#125;;</span><br><span class="line">  <span class="keyword">const</span> walk = <span class="function"><span class="keyword">function</span> (<span class="params">start</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 判断从start 开始到末尾是否break</span></span><br><span class="line">    <span class="keyword">if</span> (start === s.length) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="comment">// 如果 这次start 已经计算过，结果从memo中拿</span></span><br><span class="line">    <span class="keyword">if</span> (memo[start] !== <span class="literal">undefined</span>) <span class="keyword">return</span> memo[start];</span><br><span class="line">    <span class="comment">// 以i作为分界 划分</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = start + <span class="number">1</span>; i &lt;= s.length; i++) &#123;</span><br><span class="line">      <span class="keyword">let</span> pre = s.substring(start, i);</span><br><span class="line">      <span class="comment">// 能划分成功，后续不用继续计算</span></span><br><span class="line">      <span class="comment">// memo 能划分到的start</span></span><br><span class="line">      <span class="keyword">if</span> (wordDict.indexOf(pre) &gt; -<span class="number">1</span> &amp;&amp; walk(i)) &#123;</span><br><span class="line">        memo[start] = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 划分不成功返回false</span></span><br><span class="line">    memo[start] = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> walk(<span class="number">0</span>) === <span class="literal">true</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h5 id><a href="#" class="headerlink" title></a></h5><h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p>不论是看到题后的思路和解题中的逻辑清晰度都不怎么行。多加练习啊少年</p>
 
       
     </div>
@@ -391,8 +393,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/12/11/139.%20%E5%8D%95%E8%AF%8D%E6%8B%86%E5%88%86/" rel="next" title="leetcode 139.单词拆分">
-                <i class="fa fa-chevron-left"></i> leetcode 139.单词拆分
+              <a href="/2020/12/11/Hexo%20%E5%8D%87%E7%BA%A7%E5%88%B0%205/" rel="next" title="Hexo 升级到 5">
+                <i class="fa fa-chevron-left"></i> Hexo 升级到 5
               </a>
             
           </div>
@@ -400,6 +402,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/12/11/207.%E8%AF%BE%E7%A8%8B%E8%A1%A8/" rel="prev" title="leetcode 207.课程表">
+                leetcode 207.课程表 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -541,7 +547,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#207-%E8%AF%BE%E7%A8%8B%E8%A1%A8"><span class="nav-number">1.</span> <span class="nav-text">207. 课程表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BFS-%E7%9A%84%E8%A7%A3%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">BFS 的解法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DFS-%E8%A7%A3%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">DFS 解法</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92"><span class="nav-number">1.</span> <span class="nav-text">动态规划</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%80%92%E5%BD%92"><span class="nav-number">2.</span> <span class="nav-text">递归</span></a></li><li class="nav-item nav-level-5"><a class="nav-link"><span class="nav-number">3.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -704,9 +710,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'https://yosgi.github.io/2020/12/11/207.%E8%AF%BE%E7%A8%8B%E8%A1%A8/';
-          this.page.identifier = '2020/12/11/207.课程表/';
-          this.page.title = 'leetcode 207.课程表';
+          this.page.url = 'https://yosgi.github.io/2020/12/11/139.%20%E5%8D%95%E8%AF%8D%E6%8B%86%E5%88%86/';
+          this.page.identifier = '2020/12/11/139. 单词拆分/';
+          this.page.title = 'leetcode 139.单词拆分';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://.disqus.com/embed.js';
