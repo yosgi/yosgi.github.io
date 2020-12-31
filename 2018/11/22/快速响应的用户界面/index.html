@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Javascript," />
+  <meta name="keywords" content="Javascript,性能优化," />
 
 
 
@@ -87,9 +87,10 @@
 <meta property="og:description" content="《高性能Javascript》 知识点整理">
 <meta property="og:locale">
 <meta property="article:published_time" content="2018-11-22T08:55:21.000Z">
-<meta property="article:modified_time" content="2019-03-16T07:36:43.000Z">
+<meta property="article:modified_time" content="2020-12-31T01:27:14.252Z">
 <meta property="article:author" content="yosgi">
 <meta property="article:tag" content="Javascript">
+<meta property="article:tag" content="性能优化">
 <meta name="twitter:card" content="summary">
 
 
@@ -285,19 +286,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">Javascript</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Javascript/Javascript-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" itemprop="url" rel="index">
-                    <span itemprop="name">Javascript 性能优化</span>
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
                   </a>
                 </span>
 
@@ -348,14 +338,14 @@
       
 
       
-        <h4 id="怎么理解Javascript是单线程，浏览器是多线程"><a href="#怎么理解Javascript是单线程，浏览器是多线程" class="headerlink" title="怎么理解Javascript是单线程，浏览器是多线程?"></a>怎么理解Javascript是单线程，浏览器是多线程?</h4><p>浏览器内核是多线程的，（浏览器为每个TAB页面单独启用进程。<a target="_blank" rel="noopener" href="http://www.imweb.io/topic/58e3bfa845e5c13468f567d5">进程与线程的关系</a>），通常由以下常驻线程组成</p>
-<p>GUI渲染线程</p>
-<p>JavaScript引擎线程</p>
+        <h4 id="怎么理解-Javascript-是单线程，浏览器是多线程"><a href="#怎么理解-Javascript-是单线程，浏览器是多线程" class="headerlink" title="怎么理解 Javascript 是单线程，浏览器是多线程?"></a>怎么理解 Javascript 是单线程，浏览器是多线程?</h4><p>浏览器内核是多线程的，（浏览器为每个 TAB 页面单独启用进程。<a target="_blank" rel="noopener" href="http://www.imweb.io/topic/58e3bfa845e5c13468f567d5">进程与线程的关系</a>），通常由以下常驻线程组成</p>
+<p>GUI 渲染线程</p>
+<p>JavaScript 引擎线程</p>
 <p>定时器触发线程</p>
 <p>事件触发线程</p>
-<p>异步http请求线程</p>
-<p>Javascript是单线程的，因为Js需要操作DOM树，如果是多线程的操作DOM,可能会出现UI操作冲突</p>
-<h4 id="怎么记录代码运行时间？"><a href="#怎么记录代码运行时间？" class="headerlink" title="怎么记录代码运行时间？"></a>怎么记录代码运行时间？</h4><p>可以通过原生的Date对象来跟踪代码的运行时间</p>
+<p>异步 http 请求线程</p>
+<p>Javascript 是单线程的，因为 Js 需要操作 DOM 树，如果是多线程的操作 DOM,可能会出现 UI 操作冲突</p>
+<h4 id="怎么记录代码运行时间？"><a href="#怎么记录代码运行时间？" class="headerlink" title="怎么记录代码运行时间？"></a>怎么记录代码运行时间？</h4><p>可以通过原生的 Date 对象来跟踪代码的运行时间</p>
 <pre><code>var start = + Date()
 //(+)可以将Date对象转化为数字</code></pre>
 <h4 id="怎么使用定时器分解任务，并增加时间检测机制来改进？"><a href="#怎么使用定时器分解任务，并增加时间检测机制来改进？" class="headerlink" title="怎么使用定时器分解任务，并增加时间检测机制来改进？"></a>怎么使用定时器分解任务，并增加时间检测机制来改进？</h4><pre><code>var todo = item.concat()
@@ -370,7 +360,7 @@ setTimeout(function() &#123;
         callback(items)
     &#125;
 &#125;,25)</code></pre>
-<p>有的时候只执行一个任务的效率不高，例如：如果处理一个长度为1000项的数组，每处理一项需要1毫秒，如果每个定时器只处理一项，且在两次处理之间产生25毫秒的延时，数组处理的总时间为 （25+1）x 1000毫秒，如果修改成一次处理50个，处理时间为（1000/50） *25 +  1000 = 1500毫秒，比单个处理更快。</p>
+<p>有的时候只执行一个任务的效率不高，例如：如果处理一个长度为 1000 项的数组，每处理一项需要 1 毫秒，如果每个定时器只处理一项，且在两次处理之间产生 25 毫秒的延时，数组处理的总时间为 （25+1）x 1000 毫秒，如果修改成一次处理 50 个，处理时间为（1000/50） *25 + 1000 = 1500 毫秒，比单个处理更快。</p>
 <pre><code>function timedProcessArray(items, process, callback) &#123;
     var todo = items.concat()
     setTimeout(function ()  &#123;
@@ -388,13 +378,13 @@ setTimeout(function() &#123;
     &#125;,25)
 &#125;</code></pre>
 <h4 id="定时器对性能有影响吗？"><a href="#定时器对性能有影响吗？" class="headerlink" title="定时器对性能有影响吗？"></a>定时器对性能有影响吗？</h4><p>上述的代码使用了定时器序列，同一时间只有一个定时器存在，只有在定时器结束才会创建下一个，这种使用方式不会导致性能问题。</p>
-<p>当多个重复定时器同时创建会出现问题，所有的定时器都在争夺运行时间；间隔在1秒或1秒以上的低频率重复定时器不会出现问题，当在100到200毫秒间的多个重复定时器会出现问题。<br>因此应该用一个独立的重复定时器，每次执行多个操作。</p>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>JavaScript任务不应该执行过多的时间（100毫秒），否则会使UI更新出现延迟，影响用户体验</p>
+<p>当多个重复定时器同时创建会出现问题，所有的定时器都在争夺运行时间；间隔在 1 秒或 1 秒以上的低频率重复定时器不会出现问题，当在 100 到 200 毫秒间的多个重复定时器会出现问题。<br>因此应该用一个独立的重复定时器，每次执行多个操作。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>JavaScript 任务不应该执行过多的时间（100 毫秒），否则会使 UI 更新出现延迟，影响用户体验</p>
 <p>定时器可以让代码延迟执行，可以把长时间运行的代码分解成多个短时间的代码</p>
 <h4 id="关于事件循环"><a href="#关于事件循环" class="headerlink" title="关于事件循环"></a>关于事件循环</h4><p>事件循环是主线程从任务队列中读取事件，这个过程是循环不断的，被称为事件循环。</p>
-<p>主线程运行的时候，产生堆（heap）和栈（stack），栈中的代码调用各种外部API，它们在”任务队列”中加入各种事件（click，load，done）。只要栈中的代码执行完毕，主线程就会去读取”任务队列”，依次执行那些事件所对应的回调函数。</p>
-<p>其中定时器事件就是放在任务队列中，setTimeout(fn,100)的含义是。它100毫秒后在”任务队列”的尾部添加一个事件，因此要等到同步任务和”任务队列”现有的事件都处理完，才会得到执行。所以并没有办法保证，回调函数一定会在setTimeout()指定的时间执行。</p>
-<p>HTML5标准规定了setTimeout()的第二个参数的最小值（最短间隔），不得低于4毫秒，如果低于这个值，就会自动增加。</p>
+<p>主线程运行的时候，产生堆（heap）和栈（stack），栈中的代码调用各种外部 API，它们在”任务队列”中加入各种事件（click，load，done）。只要栈中的代码执行完毕，主线程就会去读取”任务队列”，依次执行那些事件所对应的回调函数。</p>
+<p>其中定时器事件就是放在任务队列中，setTimeout(fn,100)的含义是。它 100 毫秒后在”任务队列”的尾部添加一个事件，因此要等到同步任务和”任务队列”现有的事件都处理完，才会得到执行。所以并没有办法保证，回调函数一定会在 setTimeout()指定的时间执行。</p>
+<p>HTML5 标准规定了 setTimeout()的第二个参数的最小值（最短间隔），不得低于 4 毫秒，如果低于这个值，就会自动增加。</p>
 
       
     </div>
@@ -413,6 +403,8 @@ setTimeout(function() &#123;
         <div class="post-tags">
           
             <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          
+            <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="tag"># 性能优化</a>
           
         </div>
       
@@ -535,7 +527,7 @@ setTimeout(function() &#123;
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -546,7 +538,7 @@ setTimeout(function() &#123;
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -579,7 +571,7 @@ setTimeout(function() &#123;
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E7%90%86%E8%A7%A3Javascript%E6%98%AF%E5%8D%95%E7%BA%BF%E7%A8%8B%EF%BC%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E6%98%AF%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">怎么理解Javascript是单线程，浏览器是多线程?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E8%AE%B0%E5%BD%95%E4%BB%A3%E7%A0%81%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">怎么记录代码运行时间？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8%E5%AE%9A%E6%97%B6%E5%99%A8%E5%88%86%E8%A7%A3%E4%BB%BB%E5%8A%A1%EF%BC%8C%E5%B9%B6%E5%A2%9E%E5%8A%A0%E6%97%B6%E9%97%B4%E6%A3%80%E6%B5%8B%E6%9C%BA%E5%88%B6%E6%9D%A5%E6%94%B9%E8%BF%9B%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">怎么使用定时器分解任务，并增加时间检测机制来改进？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E6%97%B6%E5%99%A8%E5%AF%B9%E6%80%A7%E8%83%BD%E6%9C%89%E5%BD%B1%E5%93%8D%E5%90%97%EF%BC%9F"><span class="nav-number">4.</span> <span class="nav-text">定时器对性能有影响吗？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF"><span class="nav-number">6.</span> <span class="nav-text">关于事件循环</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E7%90%86%E8%A7%A3-Javascript-%E6%98%AF%E5%8D%95%E7%BA%BF%E7%A8%8B%EF%BC%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E6%98%AF%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">怎么理解 Javascript 是单线程，浏览器是多线程?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E8%AE%B0%E5%BD%95%E4%BB%A3%E7%A0%81%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">怎么记录代码运行时间？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E4%BD%BF%E7%94%A8%E5%AE%9A%E6%97%B6%E5%99%A8%E5%88%86%E8%A7%A3%E4%BB%BB%E5%8A%A1%EF%BC%8C%E5%B9%B6%E5%A2%9E%E5%8A%A0%E6%97%B6%E9%97%B4%E6%A3%80%E6%B5%8B%E6%9C%BA%E5%88%B6%E6%9D%A5%E6%94%B9%E8%BF%9B%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">怎么使用定时器分解任务，并增加时间检测机制来改进？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E6%97%B6%E5%99%A8%E5%AF%B9%E6%80%A7%E8%83%BD%E6%9C%89%E5%BD%B1%E5%93%8D%E5%90%97%EF%BC%9F"><span class="nav-number">4.</span> <span class="nav-text">定时器对性能有影响吗？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF"><span class="nav-number">6.</span> <span class="nav-text">关于事件循环</span></a></li></ol></div>
             
 
           </div>

@@ -87,7 +87,7 @@
 <meta property="og:description" content="《Javascript设计模式》 知识点整理">
 <meta property="og:locale">
 <meta property="article:published_time" content="2018-04-13T12:06:30.000Z">
-<meta property="article:modified_time" content="2019-03-16T07:36:43.000Z">
+<meta property="article:modified_time" content="2020-12-31T01:27:42.564Z">
 <meta property="article:author" content="yosgi">
 <meta property="article:tag" content="Javascript">
 <meta property="article:tag" content="设计模式">
@@ -286,8 +286,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Js%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index">
-                    <span itemprop="name">Js设计模式</span>
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
                   </a>
                 </span>
 
@@ -338,10 +338,10 @@
       
 
       
-        <h3 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h3><h4 id="简单的单例模式实现"><a href="#简单的单例模式实现" class="headerlink" title="简单的单例模式实现"></a>简单的单例模式实现</h4><p>需要用一个变量来标记是否已经创建过一个实例对象    </p>
+        <h3 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h3><h4 id="简单的单例模式实现"><a href="#简单的单例模式实现" class="headerlink" title="简单的单例模式实现"></a>简单的单例模式实现</h4><p>需要用一个变量来标记是否已经创建过一个实例对象</p>
 <pre><code>var Single = function(name)&#123;
     this.name = name;
-    this.instance = null;    
+    this.instance = null;
 &#125;
 Single.getInstance = function(name)&#123;
 if(!this.instance)&#123;
@@ -353,8 +353,8 @@ return this.instance
 var a = Single.getInstance(&quot;a&quot;);
 var b = Single.getInstance(&quot;b&quot;);
 a===b //true</code></pre>
-<p>缺点:不透明，相比于正常的new创建实例，创建单例必须用getInstance方法.</p>
-<h4 id="透明的单例模式"><a href="#透明的单例模式" class="headerlink" title="透明的单例模式"></a>透明的单例模式</h4><p>目标是实现一个透明的单例类，下面将使用CreateDiv单例类，在页面创建唯一的div节点</p>
+<p>缺点:不透明，相比于正常的 new 创建实例，创建单例必须用 getInstance 方法.</p>
+<h4 id="透明的单例模式"><a href="#透明的单例模式" class="headerlink" title="透明的单例模式"></a>透明的单例模式</h4><p>目标是实现一个透明的单例类，下面将使用 CreateDiv 单例类，在页面创建唯一的 div 节点</p>
 <pre><code>var CreateDiv = (function()&#123;
     var instance = null;//自执行函数保证instance只初始化一次
     function CreateDiv(html)&#123;
@@ -376,8 +376,8 @@ a===b //true</code></pre>
 var a = new CreateDiv(&quot;a&quot;);
 var b = new CreateDiv(&quot;b&quot;);
 a===b//true</code></pre>
-<p>为了将instance封装起来使用了自执行匿名函数和闭包 增加了复杂性 并且CreateDiv负责了两件事 第一是创建对象和执行init方法 第二是保证只有一个对象 。违背了单一职责原则</p>
-<h4 id="用代理实现单例模式"><a href="#用代理实现单例模式" class="headerlink" title="用代理实现单例模式"></a>用代理实现单例模式</h4><p>为了解决上述的单一职责问题 下面引入代理模式实现这个单例模式<br>首先把创建对象和执行init方法分离出来</p>
+<p>为了将 instance 封装起来使用了自执行匿名函数和闭包 增加了复杂性 并且 CreateDiv 负责了两件事 第一是创建对象和执行 init 方法 第二是保证只有一个对象 。违背了单一职责原则</p>
+<h4 id="用代理实现单例模式"><a href="#用代理实现单例模式" class="headerlink" title="用代理实现单例模式"></a>用代理实现单例模式</h4><p>为了解决上述的单一职责问题 下面引入代理模式实现这个单例模式<br>首先把创建对象和执行 init 方法分离出来</p>
 <pre><code>function  CreateDiv(html)&#123;
     this.html = html;
     this.init();
@@ -394,14 +394,14 @@ CreateDiv.prototype.init = function(html)&#123;
         if(!instance)&#123;
             instance = new CreateDiv(html)
         &#125;
-        return instance 
+        return instance
     &#125;
 
 &#125;)()
 var a = new createDivProx(&quot;a&quot;)
 var b= new createDivProx(&quot;b&quot;)
 a==b//true</code></pre>
-<h4 id="Js的单例模式-使用闭包封装的私有变量"><a href="#Js的单例模式-使用闭包封装的私有变量" class="headerlink" title="Js的单例模式-使用闭包封装的私有变量"></a>Js的单例模式-使用闭包封装的私有变量</h4><p>既然我们需要的是一个对象 那就没必要先创建一个类</p>
+<h4 id="Js-的单例模式-使用闭包封装的私有变量"><a href="#Js-的单例模式-使用闭包封装的私有变量" class="headerlink" title="Js 的单例模式-使用闭包封装的私有变量"></a>Js 的单例模式-使用闭包封装的私有变量</h4><p>既然我们需要的是一个对象 那就没必要先创建一个类</p>
 <p>为了避免全局变量的滥用，可以把变量封装在闭包内部 只暴露接口和外界通信</p>
 <pre><code>var user = (function()&#123;
     var _name = &quot;yosgi&quot;
@@ -412,13 +412,13 @@ a==b//true</code></pre>
         &#125;
     &#125;
 &#125;)()</code></pre>
-<p>或者使用es6的Symbol</p>
+<p>或者使用 es6 的 Symbol</p>
 <pre><code>var _name = Symbol.for(&#39;name&#39;);
 var _age = Symbol.for(&#39;age&#39;);
 window[_name] = &quot;yosgi&quot;
 window[_age] = 29//_name 和_user不会被无意中覆盖</code></pre>
 <h4 id="完成一个惰性单例"><a href="#完成一个惰性单例" class="headerlink" title="完成一个惰性单例"></a>完成一个惰性单例</h4><p>惰性单例指在需要的时候才创建实例对象。</p>
-<p>下面完成一个需求是 当点击login按钮时被创建的div框(以后也有可能是iframe框)。</p>
+<p>下面完成一个需求是 当点击 login 按钮时被创建的 div 框(以后也有可能是 iframe 框)。</p>
 <pre><code> var createLoginLayer = (function () &#123;
         var div;
         return function () &#123;
@@ -443,8 +443,8 @@ var getSingle = (function()&#123;
         //闭包使result可以保存fn的结果
             result = fn.apply(this,arguments)
         &#125;
-        return result 
-    &#125; 
+        return result
+    &#125;
 &#125;)()
 
 //createSingleIframe用来创建实例
@@ -460,15 +460,15 @@ document.getElementById(&quot;login&quot;).onclick = function()&#123;
     Iframe.style.display = &#39;block&#39;;
     Iframe.src=&quot;http://baidu.com&quot;
 &#125;;</code></pre>
-<h4 id="单例模式的应用"><a href="#单例模式的应用" class="headerlink" title="单例模式的应用"></a>单例模式的应用</h4><p>在渲染页面中的一个列表之后，绑定addEventListener click 事件 ，如果是通过ajax动态添加数据，实际上只需要在第一次渲染绑定一次，如果不想判断是第几次渲染 可以利用getSingle</p>
+<h4 id="单例模式的应用"><a href="#单例模式的应用" class="headerlink" title="单例模式的应用"></a>单例模式的应用</h4><p>在渲染页面中的一个列表之后，绑定 addEventListener click 事件 ，如果是通过 ajax 动态添加数据，实际上只需要在第一次渲染绑定一次，如果不想判断是第几次渲染 可以利用 getSingle</p>
 <pre><code>var getSingle = (function()&#123;
 var result;
 return function(fn)&#123;
     if(!result)&#123;
         result = fn.apply(this, arguments)
     &#125;
-    return result 
-    &#125; 
+    return result
+    &#125;
 &#125;)()
 
 
@@ -485,7 +485,7 @@ var render = function() &#123;
 render()
 render()
 render()</code></pre>
-<p>可以注意到，点击div1多次也只会触发一次点击事件(当然也可以使用onclick，一个click在同一时间只能指向唯一的对象 这点我以前没注意)</p>
+<p>可以注意到，点击 div1 多次也只会触发一次点击事件(当然也可以使用 onclick，一个 click 在同一时间只能指向唯一的对象 这点我以前没注意)</p>
 
       
     </div>
@@ -628,7 +628,7 @@ render()</code></pre>
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -639,7 +639,7 @@ render()</code></pre>
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -672,7 +672,7 @@ render()</code></pre>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">单例模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E7%9A%84%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.1.</span> <span class="nav-text">简单的单例模式实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%8F%E6%98%8E%E7%9A%84%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">透明的单例模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%A8%E4%BB%A3%E7%90%86%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.3.</span> <span class="nav-text">用代理实现单例模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Js%E7%9A%84%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F-%E4%BD%BF%E7%94%A8%E9%97%AD%E5%8C%85%E5%B0%81%E8%A3%85%E7%9A%84%E7%A7%81%E6%9C%89%E5%8F%98%E9%87%8F"><span class="nav-number">1.4.</span> <span class="nav-text">Js的单例模式-使用闭包封装的私有变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%8C%E6%88%90%E4%B8%80%E4%B8%AA%E6%83%B0%E6%80%A7%E5%8D%95%E4%BE%8B"><span class="nav-number">1.5.</span> <span class="nav-text">完成一个惰性单例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">1.6.</span> <span class="nav-text">单例模式的应用</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">单例模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E7%9A%84%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.1.</span> <span class="nav-text">简单的单例模式实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%8F%E6%98%8E%E7%9A%84%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">透明的单例模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%A8%E4%BB%A3%E7%90%86%E5%AE%9E%E7%8E%B0%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.3.</span> <span class="nav-text">用代理实现单例模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Js-%E7%9A%84%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F-%E4%BD%BF%E7%94%A8%E9%97%AD%E5%8C%85%E5%B0%81%E8%A3%85%E7%9A%84%E7%A7%81%E6%9C%89%E5%8F%98%E9%87%8F"><span class="nav-number">1.4.</span> <span class="nav-text">Js 的单例模式-使用闭包封装的私有变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%8C%E6%88%90%E4%B8%80%E4%B8%AA%E6%83%B0%E6%80%A7%E5%8D%95%E4%BE%8B"><span class="nav-number">1.5.</span> <span class="nav-text">完成一个惰性单例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">1.6.</span> <span class="nav-text">单例模式的应用</span></a></li></ol></li></ol></div>
             
 
           </div>

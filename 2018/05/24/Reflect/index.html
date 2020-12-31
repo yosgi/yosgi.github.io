@@ -87,7 +87,7 @@
 <meta property="og:description" content="《ES6标准入门》 知识点整理">
 <meta property="og:locale">
 <meta property="article:published_time" content="2018-05-24T10:39:00.000Z">
-<meta property="article:modified_time" content="2019-03-16T07:36:43.000Z">
+<meta property="article:modified_time" content="2020-12-31T01:22:14.402Z">
 <meta property="article:author" content="yosgi">
 <meta property="article:tag" content="Javascript">
 <meta property="article:tag" content="ES6">
@@ -286,8 +286,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ES6/" itemprop="url" rel="index">
-                    <span itemprop="name">ES6</span>
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
                   </a>
                 </span>
 
@@ -338,34 +338,27 @@
       
 
       
-        <h3 id="Reflect"><a href="#Reflect" class="headerlink" title="Reflect"></a>Reflect</h3><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>Reflect对象与Proxy对象一样，也是 ES6 为了操作对象而提供的新 API。Reflect对象的设计目的有:</p>
+        <h3 id="Reflect"><a href="#Reflect" class="headerlink" title="Reflect"></a>Reflect</h3><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>Reflect 对象与 Proxy 对象一样，也是 ES6 为了操作对象而提供的新 API。Reflect 对象的设计目的有:</p>
 <ol>
-<li> 将Object对象的一些明显属于语言内部的方法（比如Object.defineProperty），放到Reflect对象上。现阶段，某些方法同时在Object和Reflect对象上部署，未来的新方法将只部署在Reflect对象上。也就是说，从Reflect对象上可以拿到语言内部的方法。</li>
+<li><p> 将 Object 对象的一些明显属于语言内部的方法（比如 Object.defineProperty），放到 Reflect 对象上。现阶段，某些方法同时在 Object 和 Reflect 对象上部署，未来的新方法将只部署在 Reflect 对象上。也就是说，从 Reflect 对象上可以拿到语言内部的方法。</p>
+</li>
+<li><p>修改某些 Object 方法的返回结果，让其变得更合理。比如，Object.defineProperty(obj, name, desc)在无法定义属性时，会抛出一个错误，而 Reflect.defineProperty(obj, name, desc)则会返回 false。</p>
+<p> // 老写法<br> try {<br> Object.defineProperty(target, property, attributes);<br> // success<br> } catch (e) {<br> // failure<br> }</p>
+<pre><code> // 新写法
+ if (Reflect.defineProperty(target, property, attributes)) &#123;
+   // success
+ &#125; else &#123;
+   // failure</code></pre>
+<p> }</p>
+</li>
 </ol>
-<ol start="2">
-<li>修改某些Object方法的返回结果，让其变得更合理。比如，Object.defineProperty(obj, name, desc)在无法定义属性时，会抛出一个错误，而Reflect.defineProperty(obj, name, desc)则会返回false。  </li>
-</ol>
-<pre><code>// 老写法
-    try &#123;
-      Object.defineProperty(target, property, attributes);
-      // success
-    &#125; catch (e) &#123;
-      // failure
-    &#125;
-
-    // 新写法
-    if (Reflect.defineProperty(target, property, attributes)) &#123;
-      // success
-    &#125; else &#123;
-      // failure
-&#125;</code></pre>
-<p>3.让Object操作都变成函数行为。某些Object操作是命令式，比如name in obj和delete obj[name]，而Reflect.has(obj, name)和Reflect.deleteProperty(obj, name)让它们变成了函数行为。</p>
+<p>3.让 Object 操作都变成函数行为。某些 Object 操作是命令式，比如 name in obj 和 delete obj[name]，而 Reflect.has(obj, name)和 Reflect.deleteProperty(obj, name)让它们变成了函数行为。</p>
 <pre><code>// 老写法
 &#39;assign&#39; in Object // true
 
 // 新写法
 Reflect.has(Object, &#39;assign&#39;) // true</code></pre>
-<p>（4）Reflect对象的方法与Proxy对象的方法一一对应，只要是Proxy对象的方法，就能在Reflect对象上找到对应的方法。这就让Proxy对象可以方便地调用对应的Reflect方法，完成默认行为，作为修改行为的基础。也就是说，不管Proxy怎么修改默认行为，你总可以在Reflect上获取默认行为。</p>
+<p>（4）Reflect 对象的方法与 Proxy 对象的方法一一对应，只要是 Proxy 对象的方法，就能在 Reflect 对象上找到对应的方法。这就让 Proxy 对象可以方便地调用对应的 Reflect 方法，完成默认行为，作为修改行为的基础。也就是说，不管 Proxy 怎么修改默认行为，你总可以在 Reflect 上获取默认行为。</p>
 <pre><code>var loggedObj = new Proxy(obj, &#123;
   get(target, name) &#123;
     console.log(&#39;get&#39;, target, name);
@@ -380,11 +373,11 @@ Reflect.has(Object, &#39;assign&#39;) // true</code></pre>
     return Reflect.has(target, name);
   &#125;
 &#125;);</code></pre>
-<p>上面代码中，每一个Proxy对象的拦截操作（get、delete、has），内部都调用对应的Reflect方法，保证原生行为能够正常执行。添加的工作，就是将每一个操作输出一行日志。</p>
+<p>上面代码中，每一个 Proxy 对象的拦截操作（get、delete、has），内部都调用对应的 Reflect 方法，保证原生行为能够正常执行。添加的工作，就是将每一个操作输出一行日志。</p>
 <h4 id="静态方法"><a href="#静态方法" class="headerlink" title="静态方法"></a>静态方法</h4><ul>
-<li><p>Reflect对象一共有 13 个静态方法。</p>
+<li><p>Reflect 对象一共有 13 个静态方法。</p>
 </li>
-<li><p> Reflect.apply(target, thisArg, args)</p>
+<li><p>Reflect.apply(target, thisArg, args)</p>
 </li>
 <li><p>Reflect.construct(target, args)</p>
 </li>
@@ -411,8 +404,8 @@ Reflect.has(Object, &#39;assign&#39;) // true</code></pre>
 <li><p>Reflect.setPrototypeOf(target, prototype)</p>
 </li>
 </ul>
-<p>上面这些方法的作用，大部分与Object对象的同名方法的作用都是相同的，而且它与Proxy对象的方法是</p>
-<p><a target="_blank" rel="noopener" href="http://es6.ruanyifeng.com/#docs/reflect">es6入门阮一峰</a></p>
+<p>上面这些方法的作用，大部分与 Object 对象的同名方法的作用都是相同的，而且它与 Proxy 对象的方法是</p>
+<p><a target="_blank" rel="noopener" href="http://es6.ruanyifeng.com/#docs/reflect">es6 入门阮一峰</a></p>
 
       
     </div>
@@ -555,7 +548,7 @@ Reflect.has(Object, &#39;assign&#39;) // true</code></pre>
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -566,7 +559,7 @@ Reflect.has(Object, &#39;assign&#39;) // true</code></pre>
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>

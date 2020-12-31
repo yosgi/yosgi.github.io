@@ -87,7 +87,7 @@
 <meta property="og:description" content="《ES6标准入门》 知识点整理">
 <meta property="og:locale">
 <meta property="article:published_time" content="2018-04-11T16:00:00.000Z">
-<meta property="article:modified_time" content="2019-03-16T07:36:43.000Z">
+<meta property="article:modified_time" content="2020-12-31T01:27:19.923Z">
 <meta property="article:author" content="yosgi">
 <meta property="article:tag" content="Javascript">
 <meta property="article:tag" content="ES6">
@@ -286,8 +286,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ES6/" itemprop="url" rel="index">
-                    <span itemprop="name">ES6</span>
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
                   </a>
                 </span>
 
@@ -351,7 +351,7 @@ log(&quot;hello&quot;)//hello world</code></pre>
     console.log(x,y)
 &#125;</code></pre>
 <p>通常情况下,定义了默认值的参数应该是函数的尾参数，这样比较容易看出到底省略了哪些参数。</p>
-<h4 id="函数的length属性"><a href="#函数的length属性" class="headerlink" title="函数的length属性"></a>函数的length属性</h4><p>指定了默认值以后，函数的length属性将返回没有指定默认值的参数个数。length的含义是函数与其传入的参数个数，同理，rest参数不会计入length属性</p>
+<h4 id="函数的-length-属性"><a href="#函数的-length-属性" class="headerlink" title="函数的 length 属性"></a>函数的 length 属性</h4><p>指定了默认值以后，函数的 length 属性将返回没有指定默认值的参数个数。length 的含义是函数与其传入的参数个数，同理，rest 参数不会计入 length 属性</p>
 <pre><code>(function(a)&#123;&#125;).length //1
 (function(a=5)&#123;&#125;).length //0
 (function(...args)&#123;&#125;).length//0</code></pre>
@@ -366,7 +366,7 @@ function foo(mustBeProvided = throwIfMissing())&#123;
 
 foo()
 // Uncaught Error: Missing Params</code></pre>
-<h4 id="rest参数"><a href="#rest参数" class="headerlink" title="rest参数"></a>rest参数</h4><p>rest参数用于获取函数的多余参数，用来替代arguments对象</p>
+<h4 id="rest-参数"><a href="#rest-参数" class="headerlink" title="rest 参数"></a>rest 参数</h4><p>rest 参数用于获取函数的多余参数，用来替代 arguments 对象</p>
 <pre><code>function add(...values)&#123;
     let sum = 0;
     for(var val of values)&#123;
@@ -379,10 +379,10 @@ add(1,2,3)//6</code></pre>
 <pre><code>var sortNumbers = function()&#123;
   return  Array.prototype.slice.call(arguments).sort()//slice可以转化类数组对象
 &#125;</code></pre>
-<p>es6 rest </p>
+<p>es6 rest</p>
 <pre><code>const sortNumbers=(...numbers)=&gt;numbers.sort()
 sortNumbers(3,7,4,5)//[3,4,5,7]</code></pre>
-<h4 id="拓展运算符"><a href="#拓展运算符" class="headerlink" title="拓展运算符"></a>拓展运算符</h4><p>拓展运算符是三个点(…)。是rest参数的逆运算，将一个数组转为用逗号分隔的参数序列；</p>
+<h4 id="拓展运算符"><a href="#拓展运算符" class="headerlink" title="拓展运算符"></a>拓展运算符</h4><p>拓展运算符是三个点(…)。是 rest 参数的逆运算，将一个数组转为用逗号分隔的参数序列；</p>
 <pre><code>console.log(1,...[1,2,3],4)
 //1 1 2 3 4</code></pre>
 <p>该运算符主要用于函数调用</p>
@@ -395,7 +395,7 @@ function add(x,y)&#123;
 &#125;
 var numbers = [4,38];
 add(...numbers);//42</code></pre>
-<h5 id="替代数组的apply的写法"><a href="#替代数组的apply的写法" class="headerlink" title="替代数组的apply的写法"></a>替代数组的apply的写法</h5><pre><code>var arr1 = [0,1,2]
+<h5 id="替代数组的-apply-的写法"><a href="#替代数组的-apply-的写法" class="headerlink" title="替代数组的 apply 的写法"></a>替代数组的 apply 的写法</h5><pre><code>var arr1 = [0,1,2]
 var arr2 = [3,4,5]</code></pre>
 <p>es5</p>
 <pre><code>Array.prototype.push.apply(arr1,arr2)//[1,2,3,4,5]</code></pre>
@@ -412,10 +412,10 @@ var arr2 = [3,4,5]</code></pre>
 <p>如果将拓展运算符用于数组赋值，只能放在参数的最后一位，否则会报错。</p>
 <h5 id="转化类数组对象"><a href="#转化类数组对象" class="headerlink" title="转化类数组对象"></a>转化类数组对象</h5><pre><code>var nodelist = document.querySelectorAll(&quot;div&quot;);
 var array= [...nodelisst];</code></pre>
-<p>Map和Set解构,Gennerator函数</p>
+<p>Map 和 Set 解构,Gennerator 函数</p>
 <pre><code>[...map.keys()]
 [...generator()]</code></pre>
-<h4 id="name属性"><a href="#name属性" class="headerlink" title="name属性"></a>name属性</h4><p>函数的name属性返回该函数的函数名</p>
+<h4 id="name-属性"><a href="#name-属性" class="headerlink" title="name 属性"></a>name 属性</h4><p>函数的 name 属性返回该函数的函数名</p>
 <pre><code>function foo()&#123;&#125;
 foo.name //&quot;foo&quot;
 var func1 = function()&#123;&#125;//&quot;func1&quot;
@@ -426,9 +426,9 @@ var func1 = function()&#123;&#125;//&quot;func1&quot;
 &#125;</code></pre>
 <p>es6</p>
 <pre><code>var f = v =&gt; v</code></pre>
-<p>注意：<br>1.箭头函数没有this,内部的this就是外部代码块的this,因为没有this所以不能用作构造函数</p>
-<p>2.箭头函数不能使用arguments对象，可以使用rest参数代替</p>
-<p>3.箭头函数不能用作Generator函数</p>
+<p>注意： 1.箭头函数没有 this,内部的 this 就是外部代码块的 this,因为没有 this 所以不能用作构造函数</p>
+<p>2.箭头函数不能使用 arguments 对象，可以使用 rest 参数代替</p>
+<p>3.箭头函数不能用作 Generator 函数</p>
 <p>es5</p>
 <pre><code>function foo()&#123;
     this.id = 1;
@@ -451,9 +451,9 @@ function foo()&#123;
         console.log(_this.id)
     &#125;,1000)
 &#125;</code></pre>
-<p>除了this之外，以下3个变量在箭头函数中也不存在，分别指向外层函数的变量</p>
+<p>除了 this 之外，以下 3 个变量在箭头函数中也不存在，分别指向外层函数的变量</p>
 <p>arguments super new.target</p>
-<p>也不能用call(),apply(),bind()来改变this的指向</p>
+<p>也不能用 call(),apply(),bind()来改变 this 的指向</p>
 <h4 id="函数绑定"><a href="#函数绑定" class="headerlink" title="函数绑定"></a>函数绑定</h4><p>函数绑定运算符是(::)左边对象右边函数。运算符会自动将左边的对象作为上下文环境（this）绑定到右边的函数上。</p>
 <pre><code>foo::bar;
 //等同于
@@ -473,7 +473,7 @@ bar.apply(foo,arguments)</code></pre>
     &#125;
     return n(x)
 &#125;//m n 都属于尾调用</code></pre>
-<p>函数调用会在内存形成调用帧，保存调用位置和内部变量等信息。如果在函数A的内部调用函数B，那么A的调用帧上方还会形成一个B的调用帧，等到B运行结束将结果返回到A，调用帧才会消失。</p>
+<p>函数调用会在内存形成调用帧，保存调用位置和内部变量等信息。如果在函数 A 的内部调用函数 B，那么 A 的调用帧上方还会形成一个 B 的调用帧，等到 B 运行结束将结果返回到 A，调用帧才会消失。</p>
 <p>所有的调用帧形成一个调用栈。</p>
 <p>尾调用由于是函数的最后一步操作，所以不需要保留外层函数的调用帧，因为调用位置，内存变量等信息都不会再用到了。可以直接用内存的调用帧取代外层函数的调用帧。</p>
 <p>只有不再用到外层函数的内部变量，内层函数的调用帧才会取代外层函数的调用帧。否则无法进行尾调用优化。</p>
@@ -631,7 +631,7 @@ factorial(6)  //720</code></pre>
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -642,7 +642,7 @@ factorial(6)  //720</code></pre>
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -675,7 +675,7 @@ factorial(6)  //720</code></pre>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E6%8B%93%E5%B1%95"><span class="nav-number">1.</span> <span class="nav-text">函数的拓展</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0%E7%9A%84%E9%BB%98%E8%AE%A4%E5%80%BC"><span class="nav-number">1.1.</span> <span class="nav-text">函数参数的默认值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84length%E5%B1%9E%E6%80%A7"><span class="nav-number">1.2.</span> <span class="nav-text">函数的length属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rest%E5%8F%82%E6%95%B0"><span class="nav-number">1.3.</span> <span class="nav-text">rest参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8B%93%E5%B1%95%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.4.</span> <span class="nav-text">拓展运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9B%BF%E4%BB%A3%E6%95%B0%E7%BB%84%E7%9A%84apply%E7%9A%84%E5%86%99%E6%B3%95"><span class="nav-number">1.4.1.</span> <span class="nav-text">替代数组的apply的写法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%88%E5%B9%B6%E6%95%B0%E7%BB%84%E7%9A%84%E6%96%B0%E5%86%99%E6%B3%95"><span class="nav-number">1.4.2.</span> <span class="nav-text">合并数组的新写法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%8E%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC%E7%BB%93%E5%90%88%E7%94%9F%E6%88%90%E6%95%B0%E7%BB%84"><span class="nav-number">1.4.3.</span> <span class="nav-text">与解构赋值结合生成数组</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BD%AC%E5%8C%96%E7%B1%BB%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.4.4.</span> <span class="nav-text">转化类数组对象</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#name%E5%B1%9E%E6%80%A7"><span class="nav-number">1.5.</span> <span class="nav-text">name属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0"><span class="nav-number">1.6.</span> <span class="nav-text">箭头函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E7%BB%91%E5%AE%9A"><span class="nav-number">1.7.</span> <span class="nav-text">函数绑定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%BE%E8%B0%83%E7%94%A8%E4%BC%98%E5%8C%96-%E5%B0%BE%E9%80%92%E5%BD%92"><span class="nav-number">1.8.</span> <span class="nav-text">尾调用优化 尾递归</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E6%8B%93%E5%B1%95"><span class="nav-number">1.</span> <span class="nav-text">函数的拓展</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0%E7%9A%84%E9%BB%98%E8%AE%A4%E5%80%BC"><span class="nav-number">1.1.</span> <span class="nav-text">函数参数的默认值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84-length-%E5%B1%9E%E6%80%A7"><span class="nav-number">1.2.</span> <span class="nav-text">函数的 length 属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rest-%E5%8F%82%E6%95%B0"><span class="nav-number">1.3.</span> <span class="nav-text">rest 参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8B%93%E5%B1%95%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.4.</span> <span class="nav-text">拓展运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9B%BF%E4%BB%A3%E6%95%B0%E7%BB%84%E7%9A%84-apply-%E7%9A%84%E5%86%99%E6%B3%95"><span class="nav-number">1.4.1.</span> <span class="nav-text">替代数组的 apply 的写法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%88%E5%B9%B6%E6%95%B0%E7%BB%84%E7%9A%84%E6%96%B0%E5%86%99%E6%B3%95"><span class="nav-number">1.4.2.</span> <span class="nav-text">合并数组的新写法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%B8%8E%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC%E7%BB%93%E5%90%88%E7%94%9F%E6%88%90%E6%95%B0%E7%BB%84"><span class="nav-number">1.4.3.</span> <span class="nav-text">与解构赋值结合生成数组</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BD%AC%E5%8C%96%E7%B1%BB%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.4.4.</span> <span class="nav-text">转化类数组对象</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#name-%E5%B1%9E%E6%80%A7"><span class="nav-number">1.5.</span> <span class="nav-text">name 属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0"><span class="nav-number">1.6.</span> <span class="nav-text">箭头函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E7%BB%91%E5%AE%9A"><span class="nav-number">1.7.</span> <span class="nav-text">函数绑定</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%BE%E8%B0%83%E7%94%A8%E4%BC%98%E5%8C%96-%E5%B0%BE%E9%80%92%E5%BD%92"><span class="nav-number">1.8.</span> <span class="nav-text">尾调用优化 尾递归</span></a></li></ol></li></ol></div>
             
 
           </div>

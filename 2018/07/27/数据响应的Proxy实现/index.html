@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Javascript,vue源码实践," />
+  <meta name="keywords" content="Javascript,vue,源码," />
 
 
 
@@ -87,10 +87,11 @@
 <meta property="og:description" content="Javascript">
 <meta property="og:locale">
 <meta property="article:published_time" content="2018-07-27T07:56:49.000Z">
-<meta property="article:modified_time" content="2019-03-16T07:36:43.000Z">
+<meta property="article:modified_time" content="2020-12-31T01:26:54.968Z">
 <meta property="article:author" content="yosgi">
 <meta property="article:tag" content="Javascript">
-<meta property="article:tag" content="vue源码实践">
+<meta property="article:tag" content="vue">
+<meta property="article:tag" content="源码">
 <meta name="twitter:card" content="summary">
 
 
@@ -286,8 +287,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">Javascript</span>
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
                   </a>
                 </span>
 
@@ -338,12 +339,11 @@
       
 
       
-        <p>在之前我利用Object.defineProperty 以及闭包完成的这个任务</p>
+        <p>在之前我利用 Object.defineProperty 以及闭包完成的这个任务</p>
 <a href="/2018/05/05/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%92%8Cvue%E7%9B%91%E5%90%AC%E5%AF%B9%E8%B1%A1%E5%8F%98%E5%8C%96/" title="数据响应">数据响应</a>
 
-<p>在学习了ES6的Proxy之后，我希望可以用proxy完成这个</p>
+<p>在学习了 ES6 的 Proxy 之后，我希望可以用 proxy 完成这个</p>
 <a href="/2018/05/18/proxy/" title="Es6 proxy">Es6 proxy</a>
-
 
 <p>需要完成的：</p>
 <ol>
@@ -351,7 +351,7 @@
 <li>能响应数组的变化</li>
 <li>如果改变后的也是对象，能响应新对象的变化</li>
 </ol>
-<p>那么先简单测试一下proxy的功能</p>
+<p>那么先简单测试一下 proxy 的功能</p>
 <pre><code>let dog = &#123;
     foods:[&quot;食物1&quot;,&quot;食物2&quot;,&quot;食物3&quot;],
 &#125;
@@ -392,7 +392,7 @@ function defineReactive (obj, cb) &#123;
                 //如果新值也是对象，返回代理对象
                 val = observe(val,cb)
             &#125;
-            target[key] = val; 
+            target[key] = val;
             if(once)&#123;
                 cb();
                 once = false
@@ -435,8 +435,8 @@ console.log(app._data.text2.text4)//Proxy &#123;0: 1, 1: 2, length: 2&#125;
 
 基本需求完成了，但是还有两个问题</code></pre>
 <ol>
-<li>app._data.text返回的是proxy对象，这不是我想要的结果</li>
-<li>app._data.text操作才会触发set，我们需要一种方便的方法通过app.text直接设置就能触发set</li>
+<li>app._data.text 返回的是 proxy 对象，这不是我想要的结果</li>
+<li>app._data.text 操作才会触发 set，我们需要一种方便的方法通过 app.text 直接设置就能触发 set</li>
 </ol>
 <p>先留个坑，下次有好方法了来解决吧</p>
 
@@ -458,7 +458,9 @@ console.log(app._data.text2.text4)//Proxy &#123;0: 1, 1: 2, length: 2&#125;
           
             <a href="/tags/Javascript/" rel="tag"># Javascript</a>
           
-            <a href="/tags/vue%E6%BA%90%E7%A0%81%E5%AE%9E%E8%B7%B5/" rel="tag"># vue源码实践</a>
+            <a href="/tags/vue/" rel="tag"># vue</a>
+          
+            <a href="/tags/%E6%BA%90%E7%A0%81/" rel="tag"># 源码</a>
           
         </div>
       
@@ -572,7 +574,7 @@ console.log(app._data.text2.text4)//Proxy &#123;0: 1, 1: 2, length: 2&#125;
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -583,7 +585,7 @@ console.log(app._data.text2.text4)//Proxy &#123;0: 1, 1: 2, length: 2&#125;
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>

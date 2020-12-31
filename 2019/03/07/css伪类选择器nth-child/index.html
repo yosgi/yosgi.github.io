@@ -94,7 +94,7 @@
 <meta property="og:image" content="https://yosgi.github.io/.io//css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child%5C6.png">
 <meta property="og:image" content="https://yosgi.github.io/.io//css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child%5C7.png">
 <meta property="article:published_time" content="2019-03-07T09:32:19.000Z">
-<meta property="article:modified_time" content="2019-03-16T07:36:43.000Z">
+<meta property="article:modified_time" content="2020-12-31T01:25:17.707Z">
 <meta property="article:author" content="yosgi">
 <meta property="article:tag" content="CSS">
 <meta name="twitter:card" content="summary">
@@ -293,8 +293,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CSS/" itemprop="url" rel="index">
-                    <span itemprop="name">CSS</span>
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
                   </a>
                 </span>
 
@@ -345,40 +345,40 @@
       
 
       
-        <h1 id="关于css伪类选择器-nth-child-n"><a href="#关于css伪类选择器-nth-child-n" class="headerlink" title="关于css伪类选择器:nth-child(n)"></a>关于css伪类选择器:nth-child(n)</h1><p>这几天面试在一个简单的问题上翻车了。</p>
+        <h1 id="关于-css-伪类选择器-nth-child-n"><a href="#关于-css-伪类选择器-nth-child-n" class="headerlink" title="关于 css 伪类选择器:nth-child(n)"></a>关于 css 伪类选择器:nth-child(n)</h1><p>这几天面试在一个简单的问题上翻车了。</p>
 <p>问题大概是这样，问我哪个部分被标红</p>
 <p><img src="/.io//css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child%5C1.png"></p>
-<p>天真的我回答的是p元素 。</p>
-<p>答案当然是没有任何元素被标红，原因是 <strong>nth-child 会先找到所有父元素下第n个子元素，再找其中的p</strong>，</p>
-<p>也就是它第一步找到的集合是两个span，其中没有p元素。</p>
-<p>如果要标红那个p，须要这么写选择器：</p>
+<p>天真的我回答的是 p 元素 。</p>
+<p>答案当然是没有任何元素被标红，原因是 <strong>nth-child 会先找到所有父元素下第 n 个子元素，再找其中的 p</strong>，</p>
+<p>也就是它第一步找到的集合是两个 span，其中没有 p 元素。</p>
+<p>如果要标红那个 p，须要这么写选择器：</p>
 <p><code>p:nth-of-type(1)</code></p>
-<p>这样是 <strong>先选择父元素下的p，再找到其中的第一个p</strong>。</p>
+<p>这样是 <strong>先选择父元素下的 p，再找到其中的第一个 p</strong>。</p>
 <p>但是</p>
-<p>故事到这里并没有完结，我尝试去选择嵌套p标签下的p标签</p>
+<p>故事到这里并没有完结，我尝试去选择嵌套 p 标签下的 p 标签</p>
 <p><img src="/.io//css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child%5C2.png"></p>
 <p>令人震惊的是没有任何元素被选中，</p>
 <p>尝试了 <code>p &gt; p :nth-child(1)</code>也没有元素被选中<code>p:nth-of-type(1)</code>也不能选择到元素。</p>
 <p><img src="/.io//css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child%5C3.png"></p>
-<p>只有这样才能成功选择到p1 。</p>
-<p>在这里我已经想到可能是违背了HTML标准之类的东西，但p是块状元素，不知道为什么不能嵌套另外一个p呢？所以去mozilla 查看一下。看到了</p>
+<p>只有这样才能成功选择到 p1 。</p>
+<p>在这里我已经想到可能是违背了 HTML 标准之类的东西，但 p 是块状元素，不知道为什么不能嵌套另外一个 p 呢？所以去 mozilla 查看一下。看到了</p>
 <blockquote>
-<p>每一个HTML元素都必须遵循定义了它可以包含哪一类内容的规则。 这些规则被归类为几个常见的元素内容模型（content model）。每个HTML元素都属于0个、1 个或多个内容模型，每个模型都有一些规则使得元素中的内容必须遵循一个HTML规范文档( HTML-conformant document)。</p>
+<p>每一个 HTML 元素都必须遵循定义了它可以包含哪一类内容的规则。 这些规则被归类为几个常见的元素内容模型（content model）。每个 HTML 元素都属于 0 个、1 个或多个内容模型，每个模型都有一些规则使得元素中的内容必须遵循一个 HTML 规范文档( HTML-conformant document)。</p>
 </blockquote>
-<p>其中关于p元素的定义</p>
+<p>其中关于 p 元素的定义</p>
 <p><img src="/.io//css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child%5C4.png"></p>
-<p>描述是p元素表示文本的一个段落，重点是允许的内容是 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Content_categories#Phrasing_content">Phrasing content</a>，再看这个Phrasing content。</p>
+<p>描述是 p 元素表示文本的一个段落，重点是允许的内容是 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTML/Content_categories#Phrasing_content">Phrasing content</a>，再看这个 Phrasing content。</p>
 <p><img src="/.io//css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child%5C5.png"></p>
-<p>其中不包含p标签，所以我认为是  <code>nth-child</code> 选择器 按照 HTML 规范进行了选择上的优化，所以不会在 p 元素下面再去找p元素了,吗？</p>
+<p>其中不包含 p 标签，所以我认为是 <code>nth-child</code> 选择器 按照 HTML 规范进行了选择上的优化，所以不会在 p 元素下面再去找 p 元素了,吗？</p>
 <p>我们再看一下这个结构</p>
 <p><img src="/.io//css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child%5C6.png"></p>
 <p>在浏览器是怎么渲染的</p>
 <p><img src="/.io//css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child%5C7.png"></p>
-<p>可以看到，外面包裹的p，被浏览器渲染成了两个p元素。可以猜想到，如果CSS写成</p>
+<p>可以看到，外面包裹的 p，被浏览器渲染成了两个 p 元素。可以猜想到，如果 CSS 写成</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">p &#123;</span><br><span class="line">        color:red</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
 <p>span2 也不会被选择中的。</p>
-<p>所以最后的总结就是，HTML代码不规范会使浏览器做出错误的渲染，所以选择器选择出现问题 。</p>
+<p>所以最后的总结就是，HTML 代码不规范会使浏览器做出错误的渲染，所以选择器选择出现问题 。</p>
 
       
     </div>
@@ -519,7 +519,7 @@
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -530,7 +530,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -563,7 +563,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Ecss%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8-nth-child-n"><span class="nav-number">1.</span> <span class="nav-text">关于css伪类选择器:nth-child(n)</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E-css-%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8-nth-child-n"><span class="nav-number">1.</span> <span class="nav-text">关于 css 伪类选择器:nth-child(n)</span></a></li></ol></div>
             
 
           </div>

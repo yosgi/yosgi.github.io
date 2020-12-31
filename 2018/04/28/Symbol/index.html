@@ -87,7 +87,7 @@
 <meta property="og:description" content="《ES6标准入门》 知识点整理">
 <meta property="og:locale">
 <meta property="article:published_time" content="2018-04-27T16:00:00.000Z">
-<meta property="article:modified_time" content="2019-03-16T07:36:43.000Z">
+<meta property="article:modified_time" content="2020-12-31T01:22:04.366Z">
 <meta property="article:author" content="yosgi">
 <meta property="article:tag" content="Javascript">
 <meta property="article:tag" content="ES6">
@@ -286,8 +286,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ES6/" itemprop="url" rel="index">
-                    <span itemprop="name">ES6</span>
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
                   </a>
                 </span>
 
@@ -338,9 +338,9 @@
       
 
       
-        <h3 id="Symbol"><a href="#Symbol" class="headerlink" title="Symbol"></a>Symbol</h3><h4 id="Symbol概述"><a href="#Symbol概述" class="headerlink" title="Symbol概述"></a>Symbol概述</h4><p>Symbol引入的原因是为了解决属性名的冲突。</p>
-<p>表示的是独一无二的值，是Js第七种原始数据类型(undefined,null,Bollen,Number,String,Object,Symbol)</p>
-<p>也就是说对象的属性名现在可以有两种类型，一种是字符串，一种是Symbol，symbol可以保证不会与其它属性名产生冲突。</p>
+        <h3 id="Symbol"><a href="#Symbol" class="headerlink" title="Symbol"></a>Symbol</h3><h4 id="Symbol-概述"><a href="#Symbol-概述" class="headerlink" title="Symbol 概述"></a>Symbol 概述</h4><p>Symbol 引入的原因是为了解决属性名的冲突。</p>
+<p>表示的是独一无二的值，是 Js 第七种原始数据类型(undefined,null,Bollen,Number,String,Object,Symbol)</p>
+<p>也就是说对象的属性名现在可以有两种类型，一种是字符串，一种是 Symbol，symbol 可以保证不会与其它属性名产生冲突。</p>
 <pre><code>let s = Symbol();
 typeof s
 // &quot;symbol&quot; 不可以使用new命令，因为symbol是一个原始类型的值不是对象
@@ -348,8 +348,8 @@ typeof s
 let s1 = Symbol(&quot;foo&quot;);
 s1 // Symbol(foo)
 s2.toString() // &quot;Symbol(bar)&quot;</code></pre>
-<p>Symbol函数可以接受一个字符串作为参数，表示对symbol的描述，主要为了在控制台显示或者转为字符串时比较容易区分。(不加的话都是输出symbol)</p>
-<p>symbol函数参数只是描述作用，相同参数的返回值不相等。</p>
+<p>Symbol 函数可以接受一个字符串作为参数，表示对 symbol 的描述，主要为了在控制台显示或者转为字符串时比较容易区分。(不加的话都是输出 symbol)</p>
+<p>symbol 函数参数只是描述作用，相同参数的返回值不相等。</p>
 <pre><code>// 没有参数的情况
 let s1 = Symbol();
 let s2 = Symbol();
@@ -361,10 +361,10 @@ let s1 = Symbol(&#39;foo&#39;);
 let s2 = Symbol(&#39;foo&#39;);
 
 s1 === s2 // false</code></pre>
-<p>Symbol不能与其它类型的值进行运算</p>
-<p>可以显示转化为字符串（如上例1）</p>
+<p>Symbol 不能与其它类型的值进行运算</p>
+<p>可以显示转化为字符串（如上例 1）</p>
 <p>可以转化为布尔值，但是不能转化为数值</p>
-<h4 id="Symbol作为属性名"><a href="#Symbol作为属性名" class="headerlink" title="Symbol作为属性名"></a>Symbol作为属性名</h4><p>由于每一个Symbol值都是不相等的，就可以保证作为属性名时不会出现同名属性，对于一个对象由多个模块构成的情况很有用，能防止某一个键被误改写或者覆盖。</p>
+<h4 id="Symbol-作为属性名"><a href="#Symbol-作为属性名" class="headerlink" title="Symbol 作为属性名"></a>Symbol 作为属性名</h4><p>由于每一个 Symbol 值都是不相等的，就可以保证作为属性名时不会出现同名属性，对于一个对象由多个模块构成的情况很有用，能防止某一个键被误改写或者覆盖。</p>
 <pre><code>let mySymbol  =  Symbol();
 // 第一种写法
 let a = &#123;&#125;;
@@ -377,10 +377,10 @@ let a = &#123;
 let a = &#123;&#125;;
 Object.defineProperty(a, mySymbol, &#123; value: &#39;Hello!&#39; &#125;);
 a[mySymbol] // &quot;Hello!&quot;</code></pre>
-<p>Symbol 值作为对象属性名时，不能用点运算符。因为点运算符后面总是字符串，所以不会读取mySymbol作为标识名所指代的那个值。</p>
+<p>Symbol 值作为对象属性名时，不能用点运算符。因为点运算符后面总是字符串，所以不会读取 mySymbol 作为标识名所指代的那个值。</p>
 <p>Symbol 值作为属性名时，该属性还是公开属性，不是私有属性。</p>
-<h4 id="属性名的遍历"><a href="#属性名的遍历" class="headerlink" title="属性名的遍历"></a>属性名的遍历</h4><p>Object.getOwnPropertySymbols方法，可以获取指定对象的所有 Symbol 属性名。</p>
-<p>但是该属性不会出现在for…in、for…of循环中，也不会被Object.keys()、Object.getOwnPropertyNames()、JSON.stringify()返回。</p>
+<h4 id="属性名的遍历"><a href="#属性名的遍历" class="headerlink" title="属性名的遍历"></a>属性名的遍历</h4><p>Object.getOwnPropertySymbols 方法，可以获取指定对象的所有 Symbol 属性名。</p>
+<p>但是该属性不会出现在 for…in、for…of 循环中，也不会被 Object.keys()、Object.getOwnPropertyNames()、JSON.stringify()返回。</p>
 <pre><code>const obj = &#123;&#125;;
 let a = Symbol(&#39;a&#39;);
 let b = Symbol(&#39;b&#39;);
@@ -395,22 +395,22 @@ for (let i in obj) &#123;
 Object.getOwnPropertyNames(obj)// 无输出
 objectSymbols //[Symbol(a), Symbol(b)]
 Reflect.ownKeys(obj)//[Symbol(a), Symbol(b)]</code></pre>
-<p>Reflect.ownKeys()可以返回所有的键名，包括常规键和Symbol。</p>
-<p>Symbol可以利用这个特性，对对象定义一些非私有但希望只用于内部的方法</p>
-<h4 id="Symbol-for-，Symbol-keyFor"><a href="#Symbol-for-，Symbol-keyFor" class="headerlink" title="Symbol.for()，Symbol.keyFor()"></a>Symbol.for()，Symbol.keyFor()</h4><p>Symbol.for()接受一个参数，然后搜索有没有以该参数作为名称的Smybol值。如果有就返回这个值，否则就新建一个以该字符串为名称的Symbol</p>
+<p>Reflect.ownKeys()可以返回所有的键名，包括常规键和 Symbol。</p>
+<p>Symbol 可以利用这个特性，对对象定义一些非私有但希望只用于内部的方法</p>
+<h4 id="Symbol-for-，Symbol-keyFor"><a href="#Symbol-for-，Symbol-keyFor" class="headerlink" title="Symbol.for()，Symbol.keyFor()"></a>Symbol.for()，Symbol.keyFor()</h4><p>Symbol.for()接受一个参数，然后搜索有没有以该参数作为名称的 Smybol 值。如果有就返回这个值，否则就新建一个以该字符串为名称的 Symbol</p>
 <pre><code>let s1 = Symbol.for(&#39;foo&#39;);
 let s2 = Symbol.for(&#39;foo&#39;);
 
 s1 === s2 // true</code></pre>
 <p>Symbol.for()会被登记在全局环境中提供搜索。</p>
-<p>Symbol.keyFor方法返回一个已登记的 Symbol 类型值的key。</p>
+<p>Symbol.keyFor 方法返回一个已登记的 Symbol 类型值的 key。</p>
 <pre><code>let s1 = Symbol.for(&quot;foo&quot;);
 Symbol.keyFor(s1) // &quot;foo&quot;</code></pre>
-<h4 id="实例：模块的Singleton模式"><a href="#实例：模块的Singleton模式" class="headerlink" title="实例：模块的Singleton模式"></a>实例：模块的Singleton模式</h4><p>使用Symbol可以保证每次执行一个模块返回的都是同一个实例</p>
+<h4 id="实例：模块的-Singleton-模式"><a href="#实例：模块的-Singleton-模式" class="headerlink" title="实例：模块的 Singleton 模式"></a>实例：模块的 Singleton 模式</h4><p>使用 Symbol 可以保证每次执行一个模块返回的都是同一个实例</p>
 <pre><code>//Es5
 var Single = function(name)&#123;
 this.name = name;
-this.instance = null;    
+this.instance = null;
 &#125;
 Single.getInstance = function(name)&#123;
 if(!this.instance)&#123;
@@ -428,7 +428,7 @@ a===b//true
 const instance = Symbol.for(&#39;person&#39;);
 
 function GetInstance(name)&#123;
-    this.name = &quot;yosgi&quot;; 
+    this.name = &quot;yosgi&quot;;
 &#125;;
 if(!window[instance])&#123;
     window[instance] = new GetInstance()
@@ -437,8 +437,8 @@ if(!window[instance])&#123;
 var a = window[instance]
 var b = window[instance]
 a===b//true</code></pre>
-<p>上述代码可以保证window[instance]不会被无意中覆盖。但是可以被改写</p>
-<p>如果键名使用Symbol方法生成，那么外部将无法引用这个值，当然也就无法改写。</p>
+<p>上述代码可以保证 window[instance]不会被无意中覆盖。但是可以被改写</p>
+<p>如果键名使用 Symbol 方法生成，那么外部将无法引用这个值，当然也就无法改写。</p>
 
       
     </div>
@@ -581,7 +581,7 @@ a===b//true</code></pre>
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -592,7 +592,7 @@ a===b//true</code></pre>
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -625,7 +625,7 @@ a===b//true</code></pre>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Symbol"><span class="nav-number">1.</span> <span class="nav-text">Symbol</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Symbol%E6%A6%82%E8%BF%B0"><span class="nav-number">1.1.</span> <span class="nav-text">Symbol概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Symbol%E4%BD%9C%E4%B8%BA%E5%B1%9E%E6%80%A7%E5%90%8D"><span class="nav-number">1.2.</span> <span class="nav-text">Symbol作为属性名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B1%9E%E6%80%A7%E5%90%8D%E7%9A%84%E9%81%8D%E5%8E%86"><span class="nav-number">1.3.</span> <span class="nav-text">属性名的遍历</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Symbol-for-%EF%BC%8CSymbol-keyFor"><span class="nav-number">1.4.</span> <span class="nav-text">Symbol.for()，Symbol.keyFor()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%EF%BC%9A%E6%A8%A1%E5%9D%97%E7%9A%84Singleton%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.5.</span> <span class="nav-text">实例：模块的Singleton模式</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Symbol"><span class="nav-number">1.</span> <span class="nav-text">Symbol</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Symbol-%E6%A6%82%E8%BF%B0"><span class="nav-number">1.1.</span> <span class="nav-text">Symbol 概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Symbol-%E4%BD%9C%E4%B8%BA%E5%B1%9E%E6%80%A7%E5%90%8D"><span class="nav-number">1.2.</span> <span class="nav-text">Symbol 作为属性名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B1%9E%E6%80%A7%E5%90%8D%E7%9A%84%E9%81%8D%E5%8E%86"><span class="nav-number">1.3.</span> <span class="nav-text">属性名的遍历</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Symbol-for-%EF%BC%8CSymbol-keyFor"><span class="nav-number">1.4.</span> <span class="nav-text">Symbol.for()，Symbol.keyFor()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%EF%BC%9A%E6%A8%A1%E5%9D%97%E7%9A%84-Singleton-%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.5.</span> <span class="nav-text">实例：模块的 Singleton 模式</span></a></li></ol></li></ol></div>
             
 
           </div>

@@ -97,7 +97,7 @@
 <meta property="og:image" content="https://yosgi.github.io/.io//9.png">
 <meta property="og:image" content="https://yosgi.github.io/.io//10.png">
 <meta property="article:published_time" content="2018-12-13T10:15:10.000Z">
-<meta property="article:modified_time" content="2019-03-16T07:36:43.000Z">
+<meta property="article:modified_time" content="2020-12-31T01:21:54.579Z">
 <meta property="article:author" content="yosgi">
 <meta property="article:tag" content="vue">
 <meta property="article:tag" content="express">
@@ -298,8 +298,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vue/" itemprop="url" rel="index">
-                    <span itemprop="name">vue</span>
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
                   </a>
                 </span>
 
@@ -360,8 +360,8 @@
 <p><a target="_blank" rel="noopener" href="http://www.expressjs.com.cn/">express</a></p>
 <p>前端的页面我决定用<a target="_blank" rel="noopener" href="https://panjiachen.github.io/vue-element-admin-site/">vue-element-admin</a>，git clone 后就可以看到完整的开发框架</p>
 <p><img src="/.io//4.png" alt="image"></p>
-<h4 id="前端登录思路"><a href="#前端登录思路" class="headerlink" title="前端登录思路"></a>前端登录思路</h4><p>验证思路是登录成功后，服务端返回token(标识用户的唯一身份),之后将token储存在本地cookie中，下次打开页面或者刷新页面就能记住用户的登录状态。</p>
-<p>在用户登录成功后，会在全局钩子router.beforeEach，判断是否已获得token，在获得token之后去获取用户的信息。</p>
+<h4 id="前端登录思路"><a href="#前端登录思路" class="headerlink" title="前端登录思路"></a>前端登录思路</h4><p>验证思路是登录成功后，服务端返回 token(标识用户的唯一身份),之后将 token 储存在本地 cookie 中，下次打开页面或者刷新页面就能记住用户的登录状态。</p>
+<p>在用户登录成功后，会在全局钩子 router.beforeEach，判断是否已获得 token，在获得 token 之后去获取用户的信息。</p>
 <p>下面看具体登录页的主要代码</p>
 <pre><code>//index.vue
 handleLogin() &#123;
@@ -380,7 +380,7 @@ handleLogin() &#123;
         &#125;
       &#125;)
     &#125;,</code></pre>
-<p>可以点击登录后，先进行了表单验证,然后触发了vuex 的 LoginByUsername 的 action，<br>从代码中搜索一下这个异步操作做了什么</p>
+<p>可以点击登录后，先进行了表单验证,然后触发了 vuex 的 LoginByUsername 的 action，<br>从代码中搜索一下这个异步操作做了什么</p>
 <pre><code>// user.js
 import &#123; loginByUsername, logout, getUserInfo &#125; from &#39;@/api/login&#39;
 import &#123; getToken, setToken, removeToken &#125; from &#39;@/utils/auth&#39;
@@ -399,7 +399,7 @@ LoginByUsername(&#123; commit &#125;, userInfo) &#123;
       &#125;)
     &#125;,
     ...</code></pre>
-<p>可以看到这个 LoginByUsername 中调用了login.js 的 loginByUsername 方法，loginByUsername 接受了 username 和 password    两个参数。可以推测 loginByUsername 是发送了请求，在请求完毕之后提交了 SET_TOKEN 这种方法 ，并且调用了 auth.js 中的 setToken </p>
+<p>可以看到这个 LoginByUsername 中调用了 login.js 的 loginByUsername 方法，loginByUsername 接受了 username 和 password 两个参数。可以推测 loginByUsername 是发送了请求，在请求完毕之后提交了 SET_TOKEN 这种方法 ，并且调用了 auth.js 中的 setToken</p>
 <pre><code>// login.js
 import request from &#39;@/utils/request&#39;
 export function loginByUsername(username, password) &#123;
@@ -413,32 +413,32 @@ export function loginByUsername(username, password) &#123;
     data
   &#125;)
 &#125;</code></pre>
-<p>可以看到这里是发送了请求，其中request 应该是封装了axios 的方法，具体怎么封装后面再看。</p>
+<p>可以看到这里是发送了请求，其中 request 应该是封装了 axios 的方法，具体怎么封装后面再看。</p>
 <pre><code>// user.js
  mutations: &#123;
     SET_TOKEN: (state, token) =&gt; &#123;
       state.token = token
     &#125;,</code></pre>
-<p>可以看到 SET_TOKEN 就是将请求返回的token值更新到vuex的state中。</p>
+<p>可以看到 SET_TOKEN 就是将请求返回的 token 值更新到 vuex 的 state 中。</p>
 <pre><code>//auth.js
 import Cookies from &#39;js-cookie&#39;
 const TokenKey = &#39;Admin-Token&#39;
 export function setToken(token) &#123;
   return Cookies.set(TokenKey, token)
 &#125;</code></pre>
-<p>setToken方法是把token存进cookie中</p>
-<h4 id="后台思路"><a href="#后台思路" class="headerlink" title="后台思路"></a>后台思路</h4><p>按照前端的逻辑，我们需要有一个登录的接口，登录的时候从数据库中查询，如果正确就返回token给前端，还需要有一个接口来接收token，返回给前端用户的具体信息。</p>
+<p>setToken 方法是把 token 存进 cookie 中</p>
+<h4 id="后台思路"><a href="#后台思路" class="headerlink" title="后台思路"></a>后台思路</h4><p>按照前端的逻辑，我们需要有一个登录的接口，登录的时候从数据库中查询，如果正确就返回 token 给前端，还需要有一个接口来接收 token，返回给前端用户的具体信息。</p>
 <h5 id="express"><a href="#express" class="headerlink" title="express"></a>express</h5><p>先从<a target="_blank" rel="noopener" href="http://www.expressjs.com.cn/">express</a>开始说</p>
-<p>通过应用生成器工具express-generator 可以快速创建一个应用的骨架。生成后应该可以看到下面的目录结构。<br><img src="/.io//5.png" alt="image"></p>
+<p>通过应用生成器工具 express-generator 可以快速创建一个应用的骨架。生成后应该可以看到下面的目录结构。<br><img src="/.io//5.png" alt="image"></p>
 <pre><code>npm install //安装依赖模块
 npm start //启动项目</code></pre>
 <p>因为每次修改之后还需要重新 npm start 会比较麻烦，所以我用<a target="_blank" rel="noopener" href="https://www.npmjs.com/package/nodemon">nodemon</a>来进行热更新。</p>
 <pre><code>npm install -g nodemon //安装nodemon</code></pre>
 <p><img src="/.io//6.png" alt="image"></p>
-<p>就能启动express应用了</p>
+<p>就能启动 express 应用了</p>
 <p><img src="/.io//7.png" alt="image"></p>
-<p>下面看express项目的结构</p>
-<p>bin是应用的启动目录，</p>
+<p>下面看 express 项目的结构</p>
+<p>bin 是应用的启动目录，</p>
 <pre><code>var http = require(&#39;http&#39;);
 var port = normalizePort(process.env.PORT || &#39;3000&#39;);
 app.set(&#39;port&#39;, port);
@@ -446,14 +446,14 @@ var server = http.createServer(app);
 server.listen(port);
 server.on(&#39;error&#39;, onError);
 server.on(&#39;listening&#39;, onListening);</code></pre>
-<p>public是项目的静态文件目录</p>
+<p>public 是项目的静态文件目录</p>
 <p>routes 控制路由,我们需要在这里做登录的接口</p>
-<p>views 是视图文件，我们在这里放html文件</p>
-<h5 id="mongodb"><a href="#mongodb" class="headerlink" title="mongodb"></a>mongodb</h5><p>注册登录需要数据库，我使用了mongodb ，用<a target="_blank" rel="noopener" href="https://github.com/Automattic/mongoose">mongoose</a><br>操作数据库，文档有介绍的就不啰嗦了。</p>
-<p>在express的目录下建立一个database文件夹，建立文件model.js 以及处理文件bdHandler.js</p>
+<p>views 是视图文件，我们在这里放 html 文件</p>
+<h5 id="mongodb"><a href="#mongodb" class="headerlink" title="mongodb"></a>mongodb</h5><p>注册登录需要数据库，我使用了 mongodb ，用<a target="_blank" rel="noopener" href="https://github.com/Automattic/mongoose">mongoose</a><br>操作数据库，文档有介绍的就不啰嗦了。</p>
+<p>在 express 的目录下建立一个 database 文件夹，建立文件 model.js 以及处理文件 bdHandler.js</p>
 <pre><code>// models.js
-module.exports = &#123; 
-    user:&#123; 
+module.exports = &#123;
+    user:&#123;
         username:&#123;type:String,required:true&#125;,
         password:&#123;type:String,required:true&#125;,
         roles:&#123;type:String,required:true&#125;
@@ -466,20 +466,20 @@ var mongoose = require(&#39;mongoose&#39;);
 var Schema = mongoose.Schema;
 var models = require(&quot;./models&quot;);
 
-for(var m in models)&#123; 
+for(var m in models)&#123;
     mongoose.model(m,new Schema(models[m]));
 &#125;
 
-module.exports = &#123; 
-    getModel: function(type)&#123; 
+module.exports = &#123;
+    getModel: function(type)&#123;
         return _getModel(type);
     &#125;
 &#125;;
 
-var _getModel = function(type)&#123; 
+var _getModel = function(type)&#123;
     return mongoose.model(type);
 &#125;;</code></pre>
-<p>然后我们需要链接到数据库，并把bdHandel设置为全局的以便于在路由中使用</p>
+<p>然后我们需要链接到数据库，并把 bdHandel 设置为全局的以便于在路由中使用</p>
 <pre><code>//在app.js中添加
 global.dbHandel = require(&#39;./database/dbHandler&#39;);
 global.db = mongoose.connect(&quot;mongodb://localhost:27017/ch_users&quot;, &#123; useNewUrlParser: true &#125;)</code></pre>
@@ -488,7 +488,7 @@ global.db = mongoose.connect(&quot;mongodb://localhost:27017/ch_users&quot;, &#1
 var router = express.Router();
 var dbhandler = require(&#39;../database/dbHandler&#39;);
 var jwt = require(&#39;jwt-simple&#39;);
-router.post(&quot;/login&quot;, function (req, res) &#123;                      
+router.post(&quot;/login&quot;, function (req, res) &#123;
 // 从此路径检测到post方式则进行post数据的处理操作
   //这里的User就是从model中获取user对象
   var User = dbhandler.getModel(&#39;user&#39;);
@@ -502,8 +502,8 @@ router.post(&quot;/login&quot;, function (req, res) &#123;
       res.send(&#123;code:400,message:&#39;用户名不存在&#39;&#125;);                            //    状态码返回404
     &#125; else &#123;
       if (req.body.password != doc.password) &#123;     //查询到匹配用户名的信息，但相应的password属性不匹配
-        res.send(&#123;code:400,message:&#39;密码错误&#39;&#125;);  
-      &#125; else &#123;                                   
+        res.send(&#123;code:400,message:&#39;密码错误&#39;&#125;);
+      &#125; else &#123;
       //信息匹配成功返回20000，返回token
         let token = jwt.encode(doc, secret);
         res.send(&#123;code:20000,token&#125;);
@@ -512,38 +512,38 @@ router.post(&quot;/login&quot;, function (req, res) &#123;
   &#125;)
 &#125;)
 module.exports = router;</code></pre>
-<p>其中用户认证用的是基于 JWT 身份验证的方法，其中的secret是存在服务器上的密码,为了方便我把它作为了一个全局变量</p>
+<p>其中用户认证用的是基于 JWT 身份验证的方法，其中的 secret 是存在服务器上的密码,为了方便我把它作为了一个全局变量</p>
 <pre><code>//app.js
 global.secret = &#39;yosgi&#39;</code></pre>
-<p>别忘了router还需要在app.js中注册</p>
+<p>别忘了 router 还需要在 app.js 中注册</p>
 <pre><code>//app.js
 var users = require(&#39;./routes/users&#39;);
 app.use(&#39;/login&#39;, users);</code></pre>
 <p>这样我们的登录接口就做完了，在前端页面试试吧。</p>
-<h4 id="前端登录页面"><a href="#前端登录页面" class="headerlink" title="前端登录页面"></a>前端登录页面</h4><p>我们的express应用监听的是localhost:3000,因此我们需要往localhost:3000/login/login<br>的地址发送POST请求。</p>
-<p>首先要把mock中的模拟请求去掉，才能真正发送请求。</p>
+<h4 id="前端登录页面"><a href="#前端登录页面" class="headerlink" title="前端登录页面"></a>前端登录页面</h4><p>我们的 express 应用监听的是 localhost:3000,因此我们需要往 localhost:3000/login/login<br>的地址发送 POST 请求。</p>
+<p>首先要把 mock 中的模拟请求去掉，才能真正发送请求。</p>
 <pre><code>// mock\index.js
 // Mock.mock(/\/login\/login/, &#39;post&#39;, loginAPI.loginByUsername)
 这一段注释掉</code></pre>
 <p>点击登录尝试一下 发现是在向</p>
 <pre><code>http://serve-dev/login/login</code></pre>
-<p>发送请求，猜测是axios方面的baseURL设置的，在utils/request.js中看到下面的代码</p>
+<p>发送请求，猜测是 axios 方面的 baseURL 设置的，在 utils/request.js 中看到下面的代码</p>
 <pre><code>//request.js
 import axios from &#39;axios&#39;
 const service = axios.create(&#123;
   baseURL: process.env.BASE_API, // api 的 base_url
   timeout: 5000 // request timeout
 &#125;)</code></pre>
-<p>在config的dev.env.js中去掉</p>
+<p>在 config 的 dev.env.js 中去掉</p>
 <pre><code>//dev.env.js
 module.exports = &#123;
   NODE_ENV: &#39;&quot;development&quot;&#39;,
   ENV_CONFIG: &#39;&quot;dev&quot;&#39;,
-  BASE_API: &#39;&#39; 
+  BASE_API: &#39;&#39;
 &#125;</code></pre>
 <p>现在发送请求的地址是</p>
 <pre><code>http://localhost:9527/login/login</code></pre>
-<p>为什么不直接把BASE_API改成<a href="http://localhost:3000呢？因为这样的话就会跨域，跨域可以后台用cors解决，不过我这边决定还是用proxyTable插件比较方便。">http://localhost:3000呢？因为这样的话就会跨域，跨域可以后台用cors解决，不过我这边决定还是用proxyTable插件比较方便。</a></p>
+<p>为什么不直接把 BASE_API 改成 <a target="_blank" rel="noopener" href="http://localhost:3000/">http://localhost:3000</a> 呢？因为这样的话就会跨域，跨域可以后台用 cors 解决，不过我这边决定还是用 proxyTable 插件比较方便。</p>
 <pre><code>// index.js
 dev: &#123;
 // Paths
@@ -555,17 +555,18 @@ proxyTable: &#123;
       changeOrigin: true
   &#125;
 &#125;</code></pre>
-<p>这样就把向/login/login的请求发送到了<a target="_blank" rel="noopener" href="http://localhost:3000/login/login%E4%B8%8A%E4%BA%86">http://localhost:3000/login/login上了</a><br>尝试一下</p>
-<p>我们事先在数据库做好了admin用户<br><img src="/.io//8.png" alt="image"></p>
+<p>这样就把向/login/login 的请求发送到了 <a target="_blank" rel="noopener" href="http://localhost:3000/login/login">http://localhost:3000/login/login</a> 上了<br>尝试一下</p>
+<p>我们事先在数据库做好了 admin 用户<br><img src="/.io//8.png" alt="image"></p>
 <p>请求结果</p>
 <p><img src="/.io//9.png" alt="image"></p>
 <p><img src="/.io//10.png" alt="image"></p>
-<p>这步成功后，token就被储存到了vuex以及cookie中。接下来需要做的是</p>
+<p>这步成功后，token 就被储存到了 vuex 以及 cookie 中。接下来需要做的是</p>
 <ol>
-<li>使用token进行验证，拉取用户信息</li>
+<li>使用 token 进行验证，拉取用户信息</li>
 <li>做注册用户的接口</li>
 <li>做登出的接口</li>
 </ol>
+<p>没错我弃坑了！</p>
 
       
     </div>
@@ -710,7 +711,7 @@ proxyTable: &#123;
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -721,7 +722,7 @@ proxyTable: &#123;
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>

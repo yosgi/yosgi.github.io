@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Javascript," />
+  <meta name="keywords" content="Javascript,性能优化," />
 
 
 
@@ -87,9 +87,10 @@
 <meta property="og:description" content="《高性能Javascript》 知识点整理">
 <meta property="og:locale">
 <meta property="article:published_time" content="2018-11-28T06:47:40.000Z">
-<meta property="article:modified_time" content="2019-03-16T07:36:43.000Z">
+<meta property="article:modified_time" content="2020-12-31T01:25:55.645Z">
 <meta property="article:author" content="yosgi">
 <meta property="article:tag" content="Javascript">
+<meta property="article:tag" content="性能优化">
 <meta name="twitter:card" content="summary">
 
 
@@ -285,19 +286,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">Javascript</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Javascript/Javascript-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" itemprop="url" rel="index">
-                    <span itemprop="name">Javascript 性能优化</span>
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
                   </a>
                 </span>
 
@@ -348,8 +338,8 @@
       
 
       
-        <h4 id="使用XHR时，POST和GET的对比"><a href="#使用XHR时，POST和GET的对比" class="headerlink" title="使用XHR时，POST和GET的对比"></a>使用XHR时，POST和GET的对比</h4><p>发送数据到服务器时，GET方式会更快，因为对于少量数据而言，一个GET请求往服务器只发送一个数据包。而POST请求至少发送两个数据包，一个装载头信息，一个装载POST正文。POST更适合发送大量数据到服务器，一是因为它不关心额外数据包的数量，二是IE对URL的长度有限制。</p>
-<p>对于不会改变服务器状态，只获取数据（幂等行为）的请求应该使用GET。经过GET请求的数据会被缓存起来，有助于提高多次请求的性能。</p>
+        <h4 id="使用-XHR-时，POST-和-GET-的对比"><a href="#使用-XHR-时，POST-和-GET-的对比" class="headerlink" title="使用 XHR 时，POST 和 GET 的对比"></a>使用 XHR 时，POST 和 GET 的对比</h4><p>发送数据到服务器时，GET 方式会更快，因为对于少量数据而言，一个 GET 请求往服务器只发送一个数据包。而 POST 请求至少发送两个数据包，一个装载头信息，一个装载 POST 正文。POST 更适合发送大量数据到服务器，一是因为它不关心额外数据包的数量，二是 IE 对 URL 的长度有限制。</p>
+<p>对于不会改变服务器状态，只获取数据（幂等行为）的请求应该使用 GET。经过 GET 请求的数据会被缓存起来，有助于提高多次请求的性能。</p>
 <h4 id="动态脚本注入是什么？有什么特点？"><a href="#动态脚本注入是什么？有什么特点？" class="headerlink" title="动态脚本注入是什么？有什么特点？"></a>动态脚本注入是什么？有什么特点？</h4><pre><code>var scriptElement = document.createElement(&#39;script&#39;)
 scriptElement.src = &#39;http://xxx.com/lib.js&#39;
 document.getElementsByTagName(&#39;head&#39;)[0].appendChild(scriptElement)
@@ -360,28 +350,28 @@ function jsonCallBack(jsonString) &#123;
 
 // lib.js
 jsonCallBack(&#123;&quot;status&quot;:1&#125;)</code></pre>
-<p>利用JS创建一个新的脚本标签，并设置src属性为不同域的URL，可以进行跨域请求数据。</p>
-<p>不能设置请求头，只能使用GET方式，必须等待所有数据返回才可以访问。</p>
-<p>响应消息必须是可执行的JS代码</p>
+<p>利用 JS 创建一个新的脚本标签，并设置 src 属性为不同域的 URL，可以进行跨域请求数据。</p>
+<p>不能设置请求头，只能使用 GET 方式，必须等待所有数据返回才可以访问。</p>
+<p>响应消息必须是可执行的 JS 代码</p>
 <p>使用脚本注入到页面中的任何代码都可以控制页面，包括修改内容和重定向到其它网站，因此引入外部来源的代码需要小心</p>
-<h4 id="MXHR-Multipart-XHR-有什么特点？"><a href="#MXHR-Multipart-XHR-有什么特点？" class="headerlink" title="MXHR(Multipart XHR) 有什么特点？"></a>MXHR(Multipart XHR) 有什么特点？</h4><p>能把多次的http请求合并成一次请求，减少请求的数量会提升页面的性能。</p>
-<p>元素使用<a target="_blank" rel="noopener" href="http://www.webhek.com/post/data-url.html">data:URL</a>的方式创建，因此不能被浏览器缓存，当网站在每个页面使用一个独立打包的Js或者CSS文件时不会受此影响，比如单页面使用时，从外部加载一次CSS就可以了。</p>
-<h4 id="Beacons（网络信标）-是什么？"><a href="#Beacons（网络信标）-是什么？" class="headerlink" title="Beacons（网络信标） 是什么？"></a>Beacons（网络信标） 是什么？</h4><p>使用JavaScript创建一个Image对象，并把src属性设置为服务器上脚本的URL,URL包含需要传输的键值对数据。</p>
+<h4 id="MXHR-Multipart-XHR-有什么特点？"><a href="#MXHR-Multipart-XHR-有什么特点？" class="headerlink" title="MXHR(Multipart XHR) 有什么特点？"></a>MXHR(Multipart XHR) 有什么特点？</h4><p>能把多次的 http 请求合并成一次请求，减少请求的数量会提升页面的性能。</p>
+<p>元素使用<a target="_blank" rel="noopener" href="http://www.webhek.com/post/data-url.html">data:URL</a>的方式创建，因此不能被浏览器缓存，当网站在每个页面使用一个独立打包的 Js 或者 CSS 文件时不会受此影响，比如单页面使用时，从外部加载一次 CSS 就可以了。</p>
+<h4 id="Beacons（网络信标）-是什么？"><a href="#Beacons（网络信标）-是什么？" class="headerlink" title="Beacons（网络信标） 是什么？"></a>Beacons（网络信标） 是什么？</h4><p>使用 JavaScript 创建一个 Image 对象，并把 src 属性设置为服务器上脚本的 URL,URL 包含需要传输的键值对数据。</p>
 <pre><code>var url = &#39;/status_tracker.php&#39;;
 var params = [&#39;userName=yosgi&#39;,&#39;step=2&#39;];
 (new Image).src = url + &#39;?&#39; + params.join(&#39;&amp;&#39;);
 // 这段代码会对/status_tracker.php?step=2&amp;time=23311  发送请求</code></pre>
 <p>它无需向客户端返回信息，没有图片会实际显示出来。</p>
-<p>虽然性能消耗很小，但因为URL长度有最大值，所以可以发送的数据长度很少。只能靠监听Image对象的onload事件判断服务器是否已经接受数据。</p>
-<h4 id="JSON-JSON-P-的区别"><a href="#JSON-JSON-P-的区别" class="headerlink" title="JSON JSON-P 的区别"></a>JSON JSON-P 的区别</h4><p>在使用XHR时，JSON数据被当成是字符串返回，紧接着字符串被eval()转换成原生对象。</p>
-<p>而JSON-P数据被当成另一个Js文件并作为原生代码执行。</p>
-<p>JSON-P可以跨域使用，涉及敏感数据的时候不应该使用它</p>
+<p>虽然性能消耗很小，但因为 URL 长度有最大值，所以可以发送的数据长度很少。只能靠监听 Image 对象的 onload 事件判断服务器是否已经接受数据。</p>
+<h4 id="JSON-JSON-P-的区别"><a href="#JSON-JSON-P-的区别" class="headerlink" title="JSON JSON-P 的区别"></a>JSON JSON-P 的区别</h4><p>在使用 XHR 时，JSON 数据被当成是字符串返回，紧接着字符串被 eval()转换成原生对象。</p>
+<p>而 JSON-P 数据被当成另一个 Js 文件并作为原生代码执行。</p>
+<p>JSON-P 可以跨域使用，涉及敏感数据的时候不应该使用它</p>
 <h4 id="关于自定义格式"><a href="#关于自定义格式" class="headerlink" title="关于自定义格式"></a>关于自定义格式</h4><p>创建自定义格式的例子：</p>
 <pre><code>&#39;John;Jack;David&#39;</code></pre>
-<p>只需要简单的把数据用分隔符链接，接收后使用split()即可</p>
-<p>创建自定义格式时，最好是使用一个单字符，而且不应该存在于数据之中，ASCII字符表的前几个字符在大多数服务器语言能够正常工作。</p>
+<p>只需要简单的把数据用分隔符链接，接收后使用 split()即可</p>
+<p>创建自定义格式时，最好是使用一个单字符，而且不应该存在于数据之中，ASCII 字符表的前几个字符在大多数服务器语言能够正常工作。</p>
 <pre><code>\u0001 \u0002</code></pre>
-<h4 id="总结优化Ajax的方法："><a href="#总结优化Ajax的方法：" class="headerlink" title="总结优化Ajax的方法："></a>总结优化Ajax的方法：</h4><h5 id="减少请求数，合并JS和css文件，或者使用MXHR"><a href="#减少请求数，合并JS和css文件，或者使用MXHR" class="headerlink" title="减少请求数，合并JS和css文件，或者使用MXHR"></a>减少请求数，合并JS和css文件，或者使用MXHR</h5><h5 id="缩短页面的加载时间，页面主要内容加载之后，使用Ajax获取次要的"><a href="#缩短页面的加载时间，页面主要内容加载之后，使用Ajax获取次要的" class="headerlink" title="缩短页面的加载时间，页面主要内容加载之后，使用Ajax获取次要的"></a>缩短页面的加载时间，页面主要内容加载之后，使用Ajax获取次要的</h5><h5 id="知道何时使用成熟的Ajax类库，以及何时编写自己的底层Ajax代码（大多数javascrpt类库不允许直接访问readystatechange事件）"><a href="#知道何时使用成熟的Ajax类库，以及何时编写自己的底层Ajax代码（大多数javascrpt类库不允许直接访问readystatechange事件）" class="headerlink" title="知道何时使用成熟的Ajax类库，以及何时编写自己的底层Ajax代码（大多数javascrpt类库不允许直接访问readystatechange事件）"></a>知道何时使用成熟的Ajax类库，以及何时编写自己的底层Ajax代码（大多数javascrpt类库不允许直接访问readystatechange事件）</h5>
+<h4 id="总结优化-Ajax-的方法："><a href="#总结优化-Ajax-的方法：" class="headerlink" title="总结优化 Ajax 的方法："></a>总结优化 Ajax 的方法：</h4><h5 id="减少请求数，合并-JS-和-css-文件，或者使用-MXHR"><a href="#减少请求数，合并-JS-和-css-文件，或者使用-MXHR" class="headerlink" title="减少请求数，合并 JS 和 css 文件，或者使用 MXHR"></a>减少请求数，合并 JS 和 css 文件，或者使用 MXHR</h5><h5 id="缩短页面的加载时间，页面主要内容加载之后，使用-Ajax-获取次要的"><a href="#缩短页面的加载时间，页面主要内容加载之后，使用-Ajax-获取次要的" class="headerlink" title="缩短页面的加载时间，页面主要内容加载之后，使用 Ajax 获取次要的"></a>缩短页面的加载时间，页面主要内容加载之后，使用 Ajax 获取次要的</h5><h5 id="知道何时使用成熟的-Ajax-类库，以及何时编写自己的底层-Ajax-代码（大多数-javascrpt-类库不允许直接访问-readystatechange-事件）"><a href="#知道何时使用成熟的-Ajax-类库，以及何时编写自己的底层-Ajax-代码（大多数-javascrpt-类库不允许直接访问-readystatechange-事件）" class="headerlink" title="知道何时使用成熟的 Ajax 类库，以及何时编写自己的底层 Ajax 代码（大多数 javascrpt 类库不允许直接访问 readystatechange 事件）"></a>知道何时使用成熟的 Ajax 类库，以及何时编写自己的底层 Ajax 代码（大多数 javascrpt 类库不允许直接访问 readystatechange 事件）</h5>
       
     </div>
     
@@ -399,6 +389,8 @@ var params = [&#39;userName=yosgi&#39;,&#39;step=2&#39;];
         <div class="post-tags">
           
             <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          
+            <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="tag"># 性能优化</a>
           
         </div>
       
@@ -521,7 +513,7 @@ var params = [&#39;userName=yosgi&#39;,&#39;step=2&#39;];
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -532,7 +524,7 @@ var params = [&#39;userName=yosgi&#39;,&#39;step=2&#39;];
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -565,7 +557,7 @@ var params = [&#39;userName=yosgi&#39;,&#39;step=2&#39;];
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8XHR%E6%97%B6%EF%BC%8CPOST%E5%92%8CGET%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="nav-number">1.</span> <span class="nav-text">使用XHR时，POST和GET的对比</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%84%9A%E6%9C%AC%E6%B3%A8%E5%85%A5%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E6%9C%89%E4%BB%80%E4%B9%88%E7%89%B9%E7%82%B9%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">动态脚本注入是什么？有什么特点？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MXHR-Multipart-XHR-%E6%9C%89%E4%BB%80%E4%B9%88%E7%89%B9%E7%82%B9%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">MXHR(Multipart XHR) 有什么特点？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Beacons%EF%BC%88%E7%BD%91%E7%BB%9C%E4%BF%A1%E6%A0%87%EF%BC%89-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">4.</span> <span class="nav-text">Beacons（网络信标） 是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JSON-JSON-P-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">5.</span> <span class="nav-text">JSON JSON-P 的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%BC%E5%BC%8F"><span class="nav-number">6.</span> <span class="nav-text">关于自定义格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%E4%BC%98%E5%8C%96Ajax%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="nav-number">7.</span> <span class="nav-text">总结优化Ajax的方法：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%87%8F%E5%B0%91%E8%AF%B7%E6%B1%82%E6%95%B0%EF%BC%8C%E5%90%88%E5%B9%B6JS%E5%92%8Ccss%E6%96%87%E4%BB%B6%EF%BC%8C%E6%88%96%E8%80%85%E4%BD%BF%E7%94%A8MXHR"><span class="nav-number">7.1.</span> <span class="nav-text">减少请求数，合并JS和css文件，或者使用MXHR</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BC%A9%E7%9F%AD%E9%A1%B5%E9%9D%A2%E7%9A%84%E5%8A%A0%E8%BD%BD%E6%97%B6%E9%97%B4%EF%BC%8C%E9%A1%B5%E9%9D%A2%E4%B8%BB%E8%A6%81%E5%86%85%E5%AE%B9%E5%8A%A0%E8%BD%BD%E4%B9%8B%E5%90%8E%EF%BC%8C%E4%BD%BF%E7%94%A8Ajax%E8%8E%B7%E5%8F%96%E6%AC%A1%E8%A6%81%E7%9A%84"><span class="nav-number">7.2.</span> <span class="nav-text">缩短页面的加载时间，页面主要内容加载之后，使用Ajax获取次要的</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A5%E9%81%93%E4%BD%95%E6%97%B6%E4%BD%BF%E7%94%A8%E6%88%90%E7%86%9F%E7%9A%84Ajax%E7%B1%BB%E5%BA%93%EF%BC%8C%E4%BB%A5%E5%8F%8A%E4%BD%95%E6%97%B6%E7%BC%96%E5%86%99%E8%87%AA%E5%B7%B1%E7%9A%84%E5%BA%95%E5%B1%82Ajax%E4%BB%A3%E7%A0%81%EF%BC%88%E5%A4%A7%E5%A4%9A%E6%95%B0javascrpt%E7%B1%BB%E5%BA%93%E4%B8%8D%E5%85%81%E8%AE%B8%E7%9B%B4%E6%8E%A5%E8%AE%BF%E9%97%AEreadystatechange%E4%BA%8B%E4%BB%B6%EF%BC%89"><span class="nav-number">7.3.</span> <span class="nav-text">知道何时使用成熟的Ajax类库，以及何时编写自己的底层Ajax代码（大多数javascrpt类库不允许直接访问readystatechange事件）</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-XHR-%E6%97%B6%EF%BC%8CPOST-%E5%92%8C-GET-%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="nav-number">1.</span> <span class="nav-text">使用 XHR 时，POST 和 GET 的对比</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E8%84%9A%E6%9C%AC%E6%B3%A8%E5%85%A5%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E6%9C%89%E4%BB%80%E4%B9%88%E7%89%B9%E7%82%B9%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">动态脚本注入是什么？有什么特点？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MXHR-Multipart-XHR-%E6%9C%89%E4%BB%80%E4%B9%88%E7%89%B9%E7%82%B9%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">MXHR(Multipart XHR) 有什么特点？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Beacons%EF%BC%88%E7%BD%91%E7%BB%9C%E4%BF%A1%E6%A0%87%EF%BC%89-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">4.</span> <span class="nav-text">Beacons（网络信标） 是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JSON-JSON-P-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">5.</span> <span class="nav-text">JSON JSON-P 的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%BC%E5%BC%8F"><span class="nav-number">6.</span> <span class="nav-text">关于自定义格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%E4%BC%98%E5%8C%96-Ajax-%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%9A"><span class="nav-number">7.</span> <span class="nav-text">总结优化 Ajax 的方法：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%87%8F%E5%B0%91%E8%AF%B7%E6%B1%82%E6%95%B0%EF%BC%8C%E5%90%88%E5%B9%B6-JS-%E5%92%8C-css-%E6%96%87%E4%BB%B6%EF%BC%8C%E6%88%96%E8%80%85%E4%BD%BF%E7%94%A8-MXHR"><span class="nav-number">7.1.</span> <span class="nav-text">减少请求数，合并 JS 和 css 文件，或者使用 MXHR</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BC%A9%E7%9F%AD%E9%A1%B5%E9%9D%A2%E7%9A%84%E5%8A%A0%E8%BD%BD%E6%97%B6%E9%97%B4%EF%BC%8C%E9%A1%B5%E9%9D%A2%E4%B8%BB%E8%A6%81%E5%86%85%E5%AE%B9%E5%8A%A0%E8%BD%BD%E4%B9%8B%E5%90%8E%EF%BC%8C%E4%BD%BF%E7%94%A8-Ajax-%E8%8E%B7%E5%8F%96%E6%AC%A1%E8%A6%81%E7%9A%84"><span class="nav-number">7.2.</span> <span class="nav-text">缩短页面的加载时间，页面主要内容加载之后，使用 Ajax 获取次要的</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%9F%A5%E9%81%93%E4%BD%95%E6%97%B6%E4%BD%BF%E7%94%A8%E6%88%90%E7%86%9F%E7%9A%84-Ajax-%E7%B1%BB%E5%BA%93%EF%BC%8C%E4%BB%A5%E5%8F%8A%E4%BD%95%E6%97%B6%E7%BC%96%E5%86%99%E8%87%AA%E5%B7%B1%E7%9A%84%E5%BA%95%E5%B1%82-Ajax-%E4%BB%A3%E7%A0%81%EF%BC%88%E5%A4%A7%E5%A4%9A%E6%95%B0-javascrpt-%E7%B1%BB%E5%BA%93%E4%B8%8D%E5%85%81%E8%AE%B8%E7%9B%B4%E6%8E%A5%E8%AE%BF%E9%97%AE-readystatechange-%E4%BA%8B%E4%BB%B6%EF%BC%89"><span class="nav-number">7.3.</span> <span class="nav-text">知道何时使用成熟的 Ajax 类库，以及何时编写自己的底层 Ajax 代码（大多数 javascrpt 类库不允许直接访问 readystatechange 事件）</span></a></li></ol></li></ol></div>
             
 
           </div>

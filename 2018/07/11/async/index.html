@@ -87,7 +87,7 @@
 <meta property="og:description" content="《ES6标准入门》 知识点整理">
 <meta property="og:locale">
 <meta property="article:published_time" content="2018-07-11T06:47:05.000Z">
-<meta property="article:modified_time" content="2019-03-16T07:36:43.000Z">
+<meta property="article:modified_time" content="2020-12-31T01:25:36.744Z">
 <meta property="article:author" content="yosgi">
 <meta property="article:tag" content="Javascript">
 <meta property="article:tag" content="ES6">
@@ -286,8 +286,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ES6/" itemprop="url" rel="index">
-                    <span itemprop="name">ES6</span>
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
                   </a>
                 </span>
 
@@ -338,7 +338,7 @@
       
 
       
-        <h4 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h4><p>例1 控制按顺序完成异步操作</p>
+        <h4 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h4><p>例 1 控制按顺序完成异步操作</p>
 <pre><code>var fetchData = function(id)&#123;
 return new Promise((reslove,reject)=&gt;&#123;
     setTimeout(function()&#123;
@@ -368,8 +368,8 @@ tasksList().then((res)=&gt;&#123;
 任务5执行
 任务3执行
 [&quot;执行结果1&quot;, &quot;执行结果2&quot;, &quot;执行结果3&quot;, &quot;执行结果4&quot;, &quot;执行结果5&quot;]</code></pre>
-<p> 可以看到很类似promise，结果的输出是按照list的顺序的，区别是promise在函数执行之前就已经在执行异步请求了。</p>
-<p>例2 继发完成异步操作</p>
+<p>可以看到很类似 promise，结果的输出是按照 list 的顺序的，区别是 promise 在函数执行之前就已经在执行异步请求了。</p>
+<p>例 2 继发完成异步操作</p>
 <pre><code>//fetchData和例1相同
 async function tasksList()&#123;
     //这里面的任务继发执行
@@ -395,11 +395,11 @@ tasksList().then((res)=&gt;&#123;
 任务3执行
 [&quot;执行结果0&quot;, &quot;执行结果1&quot;, &quot;执行结果2&quot;, &quot;执行结果3&quot;, &quot;执行结果4&quot;]
 全部任务完成</code></pre>
-<h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><p>async是Generator函数的语法糖。<br>async相比于Gennerator改进的地方在于:</p>
-<h5 id="内置执行器"><a href="#内置执行器" class="headerlink" title="内置执行器"></a>内置执行器</h5><p>asycn不像Generator需要执行器(co模块)</p>
-<h5 id="更好的语义"><a href="#更好的语义" class="headerlink" title="更好的语义"></a>更好的语义</h5><p>async表示函数里有异步操作，await表示是紧跟在后面的表达式需要等待结果</p>
-<h5 id="更广的适用性"><a href="#更广的适用性" class="headerlink" title="更广的适用性"></a>更广的适用性</h5><p>async函数的await命令后面，可以使Promise对象和原始类型的值，原始类型的值会返回一个立即resolved的promise对象</p>
-<h5 id="返回值是promise"><a href="#返回值是promise" class="headerlink" title="返回值是promise"></a>返回值是promise</h5><p>可以用then方法指定下一步的操作</p>
+<h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><p>async 是 Generator 函数的语法糖。<br>async 相比于 Gennerator 改进的地方在于:</p>
+<h5 id="内置执行器"><a href="#内置执行器" class="headerlink" title="内置执行器"></a>内置执行器</h5><p>asycn 不像 Generator 需要执行器(co 模块)</p>
+<h5 id="更好的语义"><a href="#更好的语义" class="headerlink" title="更好的语义"></a>更好的语义</h5><p>async 表示函数里有异步操作，await 表示是紧跟在后面的表达式需要等待结果</p>
+<h5 id="更广的适用性"><a href="#更广的适用性" class="headerlink" title="更广的适用性"></a>更广的适用性</h5><p>async 函数的 await 命令后面，可以使 Promise 对象和原始类型的值，原始类型的值会返回一个立即 resolved 的 promise 对象</p>
+<h5 id="返回值是-promise"><a href="#返回值是-promise" class="headerlink" title="返回值是 promise"></a>返回值是 promise</h5><p>可以用 then 方法指定下一步的操作</p>
 
       
     </div>
@@ -542,7 +542,7 @@ tasksList().then((res)=&gt;&#123;
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -553,7 +553,7 @@ tasksList().then((res)=&gt;&#123;
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -586,7 +586,7 @@ tasksList().then((res)=&gt;&#123;
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%A8%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">用法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">2.</span> <span class="nav-text">概念</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%86%85%E7%BD%AE%E6%89%A7%E8%A1%8C%E5%99%A8"><span class="nav-number">2.1.</span> <span class="nav-text">内置执行器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9B%B4%E5%A5%BD%E7%9A%84%E8%AF%AD%E4%B9%89"><span class="nav-number">2.2.</span> <span class="nav-text">更好的语义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9B%B4%E5%B9%BF%E7%9A%84%E9%80%82%E7%94%A8%E6%80%A7"><span class="nav-number">2.3.</span> <span class="nav-text">更广的适用性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC%E6%98%AFpromise"><span class="nav-number">2.4.</span> <span class="nav-text">返回值是promise</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%A8%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">用法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">2.</span> <span class="nav-text">概念</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%86%85%E7%BD%AE%E6%89%A7%E8%A1%8C%E5%99%A8"><span class="nav-number">2.1.</span> <span class="nav-text">内置执行器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9B%B4%E5%A5%BD%E7%9A%84%E8%AF%AD%E4%B9%89"><span class="nav-number">2.2.</span> <span class="nav-text">更好的语义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%9B%B4%E5%B9%BF%E7%9A%84%E9%80%82%E7%94%A8%E6%80%A7"><span class="nav-number">2.3.</span> <span class="nav-text">更广的适用性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC%E6%98%AF-promise"><span class="nav-number">2.4.</span> <span class="nav-text">返回值是 promise</span></a></li></ol></li></ol></div>
             
 
           </div>

@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Javascript," />
+  <meta name="keywords" content="Javascript,性能优化," />
 
 
 
@@ -87,9 +87,10 @@
 <meta property="og:description" content="《高性能Javascript》 知识点整理">
 <meta property="og:locale">
 <meta property="article:published_time" content="2018-11-06T07:48:14.000Z">
-<meta property="article:modified_time" content="2019-03-16T07:36:43.000Z">
+<meta property="article:modified_time" content="2020-12-31T01:26:08.557Z">
 <meta property="article:author" content="yosgi">
 <meta property="article:tag" content="Javascript">
+<meta property="article:tag" content="性能优化">
 <meta name="twitter:card" content="summary">
 
 
@@ -285,19 +286,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">Javascript</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Javascript/Javascript-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" itemprop="url" rel="index">
-                    <span itemprop="name">Javascript 性能优化</span>
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
                   </a>
                 </span>
 
@@ -359,9 +349,9 @@
 <pre><code>let reg = /&lt;html&gt;[\s\S]*?&lt;head&gt;[\s\S]*?&lt;title&gt;[\s\S]*?&lt;\/title&gt;[\s\S]*?&lt;\/head&gt;[\s\S]*?&lt;body&gt;[\s\S]*?&lt;\/body&gt;[\s\S]*?&lt;\/html&gt;/</code></pre>
 <p>对字符串</p>
 <pre><code>let str = `&lt;html&gt;&lt;head&gt;&lt;title&gt;&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;/body&gt;`</code></pre>
-<p>进行匹配，当最后一个[\s\S]*?扩展到字符串末尾，因为最后html闭合标签的缺失，正则表达式会尝试扩展到倒数第二个[\s\S]*?来匹配最后的body闭合标签，然后继续查找第二个闭合的body标签，直到字符串末尾，以此类推</p>
-<h4 id="惰性量词和贪婪量词"><a href="#惰性量词和贪婪量词" class="headerlink" title="惰性量词和贪婪量词"></a>惰性量词和贪婪量词</h4><p>贪婪量词(*)表示重复0次或者多次，并尽可能匹配多次。</p>
-<p>惰性量词(*?)会重复匹配0次会多次，并尽可能匹配0次</p>
+<p>进行匹配，当最后一个[\s\S]*?扩展到字符串末尾，因为最后 html 闭合标签的缺失，正则表达式会尝试扩展到倒数第二个[\s\S]*?来匹配最后的 body 闭合标签，然后继续查找第二个闭合的 body 标签，直到字符串末尾，以此类推</p>
+<h4 id="惰性量词和贪婪量词"><a href="#惰性量词和贪婪量词" class="headerlink" title="惰性量词和贪婪量词"></a>惰性量词和贪婪量词</h4><p>贪婪量词(*)表示重复 0 次或者多次，并尽可能匹配多次。</p>
+<p>惰性量词(*?)会重复匹配 0 次会多次，并尽可能匹配 0 次</p>
 <p>例子：</p>
 <pre><code>let reg1 = /&lt;html&gt;[\s\S]*?&lt;\/html&gt;/
 let reg2 = /&lt;html&gt;[\s\S]*&lt;\/html&gt;/
@@ -413,13 +403,13 @@ str.match(reg2)//[&#39;&lt;html&gt;&lt;html&gt;sdasds&lt;/html&gt;&lt;/html&gt;&
 <p>该方案在循环中使用一个正则表达式来检查字符串的末尾是否为空白，能直接使用浏览器定义的空白字符列表。</p>
 <h5 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h5><p>在基于正则表达式的方案中，字符串的总长度比修剪掉的字符数量更加影响性能。非正则表达式从末尾开始查找，不受字符总长的影响，但是受到修剪空格数量的影响。</p>
 <p>简单的使用两次正则是不错的方案，混合方案在处理长字符串的时候特别快，代价是代码稍长，在处理尾部长空白时稍有不足。</p>
-<h4 id="有哪些提高正则表达式效率的方法？"><a href="#有哪些提高正则表达式效率的方法？" class="headerlink" title="有哪些提高正则表达式效率的方法？"></a>有哪些提高正则表达式效率的方法？</h4><h5 id="正则表达式以简单，必须的字元开始"><a href="#正则表达式以简单，必须的字元开始" class="headerlink" title="正则表达式以简单，必须的字元开始"></a>正则表达式以简单，必须的字元开始</h5><p>好的起始标记通常是一个锚(^或$),特定字符串，字符类([a-z]或\d速记符)。<br>避免以分组或者选择字元开头/one|two/</p>
+<h4 id="有哪些提高正则表达式效率的方法？"><a href="#有哪些提高正则表达式效率的方法？" class="headerlink" title="有哪些提高正则表达式效率的方法？"></a>有哪些提高正则表达式效率的方法？</h4><h5 id="正则表达式以简单，必须的字元开始"><a href="#正则表达式以简单，必须的字元开始" class="headerlink" title="正则表达式以简单，必须的字元开始"></a>正则表达式以简单，必须的字元开始</h5><p>好的起始标记通常是一个锚(^或$),特定字符串，字符类([a-z]或\d 速记符)。<br>避免以分组或者选择字元开头/one|two/</p>
 <h5 id="减少分支数量，缩小分支范围"><a href="#减少分支数量，缩小分支范围" class="headerlink" title="减少分支数量，缩小分支范围"></a>减少分支数量，缩小分支范围</h5><p>可以通过使用字符集来减少对分支的需求比如将(.|\r|\n)替换成[\s\S],因为字符集比分支更快。当分支必不可少时，将常用分支放在最前面，这样可能可以被尽快检测到。</p>
 <h5 id="使用非捕获数组"><a href="#使用非捕获数组" class="headerlink" title="使用非捕获数组"></a>使用非捕获数组</h5><p>捕获数组小号时间和内存记录反向引用</p>
-<h4 id="只捕获感兴趣的文本以减少后续处理"><a href="#只捕获感兴趣的文本以减少后续处理" class="headerlink" title="只捕获感兴趣的文本以减少后续处理"></a>只捕获感兴趣的文本以减少后续处理</h4><p>如果需要引用匹配的一部分，应该捕获那些必要的部分再用反向引用处理。<br>比如需要匹配引号括起来的字符串内容，应该使用/“([^&quot;]<em>)&quot;/<br>而不是/“[^&quot;]\</em>“/再从结果中处理引号。</p>
+<h4 id="只捕获感兴趣的文本以减少后续处理"><a href="#只捕获感兴趣的文本以减少后续处理" class="headerlink" title="只捕获感兴趣的文本以减少后续处理"></a>只捕获感兴趣的文本以减少后续处理</h4><p>如果需要引用匹配的一部分，应该捕获那些必要的部分再用反向引用处理。<br>比如需要匹配引号括起来的字符串内容，应该使用/“([^&quot;]*)&quot;/<br>而不是/“[^&quot;]*“/再从结果中处理引号。</p>
 <h5 id="使用合适的量词"><a href="#使用合适的量词" class="headerlink" title="使用合适的量词"></a>使用合适的量词</h5><p>贪婪和惰性量词的匹配过程有很大的区别</p>
 <h5 id="将正则表达式赋值给变量并重用"><a href="#将正则表达式赋值给变量并重用" class="headerlink" title="将正则表达式赋值给变量并重用"></a>将正则表达式赋值给变量并重用</h5><p>避免在循环体内重复编译正则表达式</p>
-<h5 id="将复杂正则表达式拆分成简单的片段"><a href="#将复杂正则表达式拆分成简单的片段" class="headerlink" title="将复杂正则表达式拆分成简单的片段"></a>将复杂正则表达式拆分成简单的片段</h5><p>比如去除首尾空字符的两次replace</p>
+<h5 id="将复杂正则表达式拆分成简单的片段"><a href="#将复杂正则表达式拆分成简单的片段" class="headerlink" title="将复杂正则表达式拆分成简单的片段"></a>将复杂正则表达式拆分成简单的片段</h5><p>比如去除首尾空字符的两次 replace</p>
 
       
     </div>
@@ -438,6 +428,8 @@ str.match(reg2)//[&#39;&lt;html&gt;&lt;html&gt;sdasds&lt;/html&gt;&lt;/html&gt;&
         <div class="post-tags">
           
             <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          
+            <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="tag"># 性能优化</a>
           
         </div>
       
@@ -560,7 +552,7 @@ str.match(reg2)//[&#39;&lt;html&gt;&lt;html&gt;sdasds&lt;/html&gt;&lt;/html&gt;&
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -571,7 +563,7 @@ str.match(reg2)//[&#39;&lt;html&gt;&lt;html&gt;sdasds&lt;/html&gt;&lt;/html&gt;&
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>

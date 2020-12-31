@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Javascript," />
+  <meta name="keywords" content="Javascript,数据结构," />
 
 
 
@@ -88,9 +88,10 @@
 <meta property="og:locale">
 <meta property="og:image" content="https://yosgi.github.io/.io//img1.png">
 <meta property="article:published_time" content="2018-08-22T07:09:45.000Z">
-<meta property="article:modified_time" content="2019-03-16T07:36:43.000Z">
+<meta property="article:modified_time" content="2020-12-31T01:26:38.699Z">
 <meta property="article:author" content="yosgi">
 <meta property="article:tag" content="Javascript">
+<meta property="article:tag" content="数据结构">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://yosgi.github.io/.io//img1.png">
 
@@ -287,8 +288,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Js%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
-                    <span itemprop="name">Js数据结构学习</span>
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
                   </a>
                 </span>
 
@@ -344,19 +345,19 @@
 <p>以下是一些容易记错或者记混的常用方法</p>
 <h4 id="map"><a href="#map" class="headerlink" title="map"></a>map</h4><p>在一个坑爹面试题中见过</p>
 <pre><code>[&quot;1&quot;, &quot;2&quot;, &quot;3&quot;].map(parseInt)</code></pre>
-<p>就拿这道题复习吧，先看一下通常map中的参数</p>
+<p>就拿这道题复习吧，先看一下通常 map 中的参数</p>
 <pre><code>var new_array = arr.map(function callback(currentValue[, index[, array]]) &#123;
     // Return element for new_array
 &#125;[, thisArg])</code></pre>
-<p>可以看到需要传参callback和thisArg，分别是生成新数组元素的函数，执行 callback 函数时 使用的this 值。</p>
-<p>其中callback接受三个参数，</p>
+<p>可以看到需要传参 callback 和 thisArg，分别是生成新数组元素的函数，执行 callback 函数时 使用的 this 值。</p>
+<p>其中 callback 接受三个参数，</p>
 <p>currentValue：数组中正在处理的当前元素。</p>
 <p>index：数组中正在处理的当前元素的索引。</p>
 <p>array：map 方法被调用的数组。</p>
-<p>再看一下parseInt</p>
+<p>再看一下 parseInt</p>
 <pre><code>parseInt(string, radix)
 //string    必需。要被解析的字符串。
-//radix    
+//radix
 可选。表示要解析的数字的基数。该值介于 2 ~ 36 之间。
 
 如果省略该参数或其值为 0，则数字将以 10 为基础来解析。如果它以 “0x” 或 “0X” 开头，将以 16 为基数。
@@ -366,8 +367,8 @@
 parseInt(&#39;2&#39;,1) = NaN,
 parseInt(&#39;3&#39;,2) = NaN</code></pre>
 <p>就可以得出[1,NaN,NaN]的结果；</p>
-<h4 id="solice和split"><a href="#solice和split" class="headerlink" title="solice和split"></a>solice和split</h4><pre><code>array.splice(start[, deleteCount[, item1[, item2[, ...]]]])</code></pre>
-<p>splice的作用是在数组的任意位置添加或删除元素。<br>其中第一个参数表示想要删除或插入的元素的索引值，第二个参数是删除元素的个数(添加则传入0)，第三个参数之后就是要添加到数组里的值。</p>
+<h4 id="solice-和-split"><a href="#solice-和-split" class="headerlink" title="solice 和 split"></a>solice 和 split</h4><pre><code>array.splice(start[, deleteCount[, item1[, item2[, ...]]]])</code></pre>
+<p>splice 的作用是在数组的任意位置添加或删除元素。<br>其中第一个参数表示想要删除或插入的元素的索引值，第二个参数是删除元素的个数(添加则传入 0)，第三个参数之后就是要添加到数组里的值。</p>
 <pre><code>array.slice(start,end)</code></pre>
 <p>slice() 方法返回一个从开始到结束（不包括结束）选择的数组的一部分浅拷贝到一个新数组对象。且原始数组不会被修改。</p>
 <h3 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h3><p>栈是遵循后进先出原则的集合</p>
@@ -451,12 +452,12 @@ let result1 = baseConverter(105,16)//69</code></pre>
     while (queue.size()&gt;1)&#123;
       //num个玩家排列到队列末尾
       for(let i=0;i&lt;num;i++)&#123;
-        queue.enqueue(queue.dequeue())    
+        queue.enqueue(queue.dequeue())
       &#125;
       eliminated = queue.dequeue()
       console.log(eliminated + &#39;淘汰&#39;)
     &#125;
-    return queue.dequeue() 
+    return queue.dequeue()
 &#125;
 let nameList = [&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;]
 hotPotato(nameList, 3)</code></pre>
@@ -478,6 +479,8 @@ hotPotato(nameList, 3)</code></pre>
         <div class="post-tags">
           
             <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag"># 数据结构</a>
           
         </div>
       
@@ -600,7 +603,7 @@ hotPotato(nameList, 3)</code></pre>
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -611,7 +614,7 @@ hotPotato(nameList, 3)</code></pre>
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -644,7 +647,7 @@ hotPotato(nameList, 3)</code></pre>
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84"><span class="nav-number">1.</span> <span class="nav-text">数组</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#map"><span class="nav-number">1.1.</span> <span class="nav-text">map</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#solice%E5%92%8Csplit"><span class="nav-number">1.2.</span> <span class="nav-text">solice和split</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%88"><span class="nav-number">2.</span> <span class="nav-text">栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%9F%E5%88%97"><span class="nav-number">3.</span> <span class="nav-text">队列</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84"><span class="nav-number">1.</span> <span class="nav-text">数组</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#map"><span class="nav-number">1.1.</span> <span class="nav-text">map</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#solice-%E5%92%8C-split"><span class="nav-number">1.2.</span> <span class="nav-text">solice 和 split</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%88"><span class="nav-number">2.</span> <span class="nav-text">栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%9F%E5%88%97"><span class="nav-number">3.</span> <span class="nav-text">队列</span></a></li></ol></div>
             
 
           </div>

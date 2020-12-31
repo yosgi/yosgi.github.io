@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Javascript," />
+  <meta name="keywords" content="Javascript,性能优化," />
 
 
 
@@ -87,9 +87,10 @@
 <meta property="og:description" content="《高性能Javascript》 知识点整理">
 <meta property="og:locale">
 <meta property="article:published_time" content="2018-09-12T07:09:33.000Z">
-<meta property="article:modified_time" content="2019-03-16T07:36:43.000Z">
+<meta property="article:modified_time" content="2020-12-31T01:25:11.498Z">
 <meta property="article:author" content="yosgi">
 <meta property="article:tag" content="Javascript">
+<meta property="article:tag" content="性能优化">
 <meta name="twitter:card" content="summary">
 
 
@@ -285,19 +286,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Javascript/" itemprop="url" rel="index">
-                    <span itemprop="name">Javascript</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Javascript/Javascript-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" itemprop="url" rel="index">
-                    <span itemprop="name">Javascript 性能优化</span>
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
                   </a>
                 </span>
 
@@ -348,32 +338,32 @@
       
 
       
-        <h4 id="DOM为什么慢？"><a href="#DOM为什么慢？" class="headerlink" title="DOM为什么慢？"></a>DOM为什么慢？</h4><p>因为浏览器中DOM和Javascript是独立实现的，这个分离允许其他技术和语言比如VBScript能共享使用DOM，也造成了性能的消耗</p>
-<h4 id="HTML集合是数组吗-操作HTML集合有什么需要注意的？"><a href="#HTML集合是数组吗-操作HTML集合有什么需要注意的？" class="headerlink" title="HTML集合是数组吗?操作HTML集合有什么需要注意的？"></a>HTML集合是数组吗?操作HTML集合有什么需要注意的？</h4><p>HTML集合对象不是数组，因为没有push()或slice()之类的方法，但提供了length属性，HTML集合以一种“假定实时态”实时存在，当底层文档对象更新时，它也会自动更新。</p>
+        <h4 id="DOM-为什么慢？"><a href="#DOM-为什么慢？" class="headerlink" title="DOM 为什么慢？"></a>DOM 为什么慢？</h4><p>因为浏览器中 DOM 和 Javascript 是独立实现的，这个分离允许其他技术和语言比如 VBScript 能共享使用 DOM，也造成了性能的消耗</p>
+<h4 id="HTML-集合是数组吗-操作-HTML-集合有什么需要注意的？"><a href="#HTML-集合是数组吗-操作-HTML-集合有什么需要注意的？" class="headerlink" title="HTML 集合是数组吗?操作 HTML 集合有什么需要注意的？"></a>HTML 集合是数组吗?操作 HTML 集合有什么需要注意的？</h4><p>HTML 集合对象不是数组，因为没有 push()或 slice()之类的方法，但提供了 length 属性，HTML 集合以一种“假定实时态”实时存在，当底层文档对象更新时，它也会自动更新。</p>
 <pre><code>var alldivs = document.getElementsByTagName(&#39;div&#39;)
 for (var i=0 ; i&lt;alldivs.length; i++) &#123;
     document.body.appendChild(document.createElement(&#39;div&#39;))
 &#125;</code></pre>
-<p>以上的代码是个死循环，因为循环的退出条件alldivs.length在每次迭代都会增加。而且也很慢，因为每次迭代都执行查询操作</p>
-<p>因此操作html集合应该先将其拷贝到普通数组以减少访问次数。且访问集合元素的时候使用局部变量。</p>
-<h4 id="querySelectorAll-和getElementsByTagName-有什么区别？为什么推荐使用第一种？"><a href="#querySelectorAll-和getElementsByTagName-有什么区别？为什么推荐使用第一种？" class="headerlink" title="querySelectorAll()和getElementsByTagName()有什么区别？为什么推荐使用第一种？"></a>querySelectorAll()和getElementsByTagName()有什么区别？为什么推荐使用第一种？</h4><p>querySelectorAll()方法使用CSS选择器作为参数并返回一个NodeList,不会返回HTML集合，因此不会对应实时的文档结构，避免了性能和可能逻辑上产生的问题</p>
-<h4 id="重绘与重排是什么？"><a href="#重绘与重排是什么？" class="headerlink" title="重绘与重排是什么？"></a>重绘与重排是什么？</h4><p>浏览器下载完页面的所有组件，html，css，js，图片 之后会生成两个内部的组件结构，DOM树和渲染树，其中DOM树表示页面结构，渲染树表示DOM节点如何显示</p>
-<p>在DOM树和渲染树构建完成，浏览器就会开始绘制页面元素，当DOM的变化影响了元素的几何属性，浏览器需要重新计算元素的几何属性，同样其它元素的几何属性也会受到影响，浏览器会使原先的渲染树受到影响的部分失效并重新构造渲染树，这个过程称为重排，重排完成后将受影响的部分重新绘制到屏幕中成为重绘。</p>
-<p>它们会导致Web应用的UI反应迟钝，所以尽可能减少这类过程的发生。</p>
+<p>以上的代码是个死循环，因为循环的退出条件 alldivs.length 在每次迭代都会增加。而且也很慢，因为每次迭代都执行查询操作</p>
+<p>因此操作 html 集合应该先将其拷贝到普通数组以减少访问次数。且访问集合元素的时候使用局部变量。</p>
+<h4 id="querySelectorAll-和-getElementsByTagName-有什么区别？为什么推荐使用第一种？"><a href="#querySelectorAll-和-getElementsByTagName-有什么区别？为什么推荐使用第一种？" class="headerlink" title="querySelectorAll()和 getElementsByTagName()有什么区别？为什么推荐使用第一种？"></a>querySelectorAll()和 getElementsByTagName()有什么区别？为什么推荐使用第一种？</h4><p>querySelectorAll()方法使用 CSS 选择器作为参数并返回一个 NodeList,不会返回 HTML 集合，因此不会对应实时的文档结构，避免了性能和可能逻辑上产生的问题</p>
+<h4 id="重绘与重排是什么？"><a href="#重绘与重排是什么？" class="headerlink" title="重绘与重排是什么？"></a>重绘与重排是什么？</h4><p>浏览器下载完页面的所有组件，html，css，js，图片 之后会生成两个内部的组件结构，DOM 树和渲染树，其中 DOM 树表示页面结构，渲染树表示 DOM 节点如何显示</p>
+<p>在 DOM 树和渲染树构建完成，浏览器就会开始绘制页面元素，当 DOM 的变化影响了元素的几何属性，浏览器需要重新计算元素的几何属性，同样其它元素的几何属性也会受到影响，浏览器会使原先的渲染树受到影响的部分失效并重新构造渲染树，这个过程称为重排，重排完成后将受影响的部分重新绘制到屏幕中成为重绘。</p>
+<p>它们会导致 Web 应用的 UI 反应迟钝，所以尽可能减少这类过程的发生。</p>
 <h4 id="什么操作会强制渲染树队列的刷新？"><a href="#什么操作会强制渲染树队列的刷新？" class="headerlink" title="什么操作会强制渲染树队列的刷新？"></a>什么操作会强制渲染树队列的刷新？</h4><p>offsetTop,offsetLeft…（获取偏移量）</p>
 <p>scrollTop,scrollLeft…（获取滚动位置）</p>
 <p>clientTop,clientWidth…</p>
 <p>getComputedStyle（计算样式值）</p>
-<h4 id="重排何时发生？怎么减少重绘和重排带来的影响？"><a href="#重排何时发生？怎么减少重绘和重排带来的影响？" class="headerlink" title="重排何时发生？怎么减少重绘和重排带来的影响？"></a>重排何时发生？怎么减少重绘和重排带来的影响？</h4><p>当页面的布局和几何属性发生变化的时候，例如删除，添加DOM元素；元素的位置改变；元素的尺寸改变；页面渲染器初始化；浏览器窗口发生改变。</p>
-<p>减小重绘和重排带来的影响可以合并多次对DOM样式的修改，然后一次性处理。或者直接修改class。</p>
-<p>当需要对DOM元素进行一系列的操作时，可以通过是使元素脱离文档流-&gt;对元素进行多次改变-&gt;使元素带回文档流中，改过程只会出发两次重排，否则，对于元素进行的任何一次操作都会触发重排。</p>
-<p>其中常见的办法是使用文档片断(document fragment) 在当前DOM之外构建一个子树，再把它拷贝回文档</p>
-<h4 id="关于事件委托"><a href="#关于事件委托" class="headerlink" title="关于事件委托"></a>关于事件委托</h4><p>在前面的<a target="_blank" rel="noopener" href="https://www.yosgi.top/2018/08/29/DOM%E4%BA%8B%E4%BB%B6%E6%B5%81/">DOM事件流</a>中有总结过 </p>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>提高DOM操作的性能总结有以下方法：</p>
-<p>最小化DOM访问次数</p>
-<p>需要多次访问某个DOM节点应该使用局部变量储存引用</p>
-<p>处理HTML集合建议把长度缓存到变量中，如果需要经常操作建议拷贝到数组中</p>
-<p>尽可能使用速度更快的API如querySelectorAll()和firstElementChild</p>
+<h4 id="重排何时发生？怎么减少重绘和重排带来的影响？"><a href="#重排何时发生？怎么减少重绘和重排带来的影响？" class="headerlink" title="重排何时发生？怎么减少重绘和重排带来的影响？"></a>重排何时发生？怎么减少重绘和重排带来的影响？</h4><p>当页面的布局和几何属性发生变化的时候，例如删除，添加 DOM 元素；元素的位置改变；元素的尺寸改变；页面渲染器初始化；浏览器窗口发生改变。</p>
+<p>减小重绘和重排带来的影响可以合并多次对 DOM 样式的修改，然后一次性处理。或者直接修改 class。</p>
+<p>当需要对 DOM 元素进行一系列的操作时，可以通过是使元素脱离文档流-&gt;对元素进行多次改变-&gt;使元素带回文档流中，改过程只会出发两次重排，否则，对于元素进行的任何一次操作都会触发重排。</p>
+<p>其中常见的办法是使用文档片断(document fragment) 在当前 DOM 之外构建一个子树，再把它拷贝回文档</p>
+<h4 id="关于事件委托"><a href="#关于事件委托" class="headerlink" title="关于事件委托"></a>关于事件委托</h4><p>在前面的<a target="_blank" rel="noopener" href="https://www.yosgi.top/2018/08/29/DOM%E4%BA%8B%E4%BB%B6%E6%B5%81/">DOM 事件流</a>中有总结过</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>提高 DOM 操作的性能总结有以下方法：</p>
+<p>最小化 DOM 访问次数</p>
+<p>需要多次访问某个 DOM 节点应该使用局部变量储存引用</p>
+<p>处理 HTML 集合建议把长度缓存到变量中，如果需要经常操作建议拷贝到数组中</p>
+<p>尽可能使用速度更快的 API 如 querySelectorAll()和 firstElementChild</p>
 <p>留意重绘和重排，不要在修改布局信息时去查询布局信息</p>
 <p>动画中使用绝对定位，拖放代理</p>
 <p>使用事件委托</p>
@@ -395,6 +385,8 @@ for (var i=0 ; i&lt;alldivs.length; i++) &#123;
         <div class="post-tags">
           
             <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          
+            <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="tag"># 性能优化</a>
           
         </div>
       
@@ -517,7 +509,7 @@ for (var i=0 ; i&lt;alldivs.length; i++) &#123;
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -528,7 +520,7 @@ for (var i=0 ; i&lt;alldivs.length; i++) &#123;
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -561,7 +553,7 @@ for (var i=0 ; i&lt;alldivs.length; i++) &#123;
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#DOM%E4%B8%BA%E4%BB%80%E4%B9%88%E6%85%A2%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">DOM为什么慢？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTML%E9%9B%86%E5%90%88%E6%98%AF%E6%95%B0%E7%BB%84%E5%90%97-%E6%93%8D%E4%BD%9CHTML%E9%9B%86%E5%90%88%E6%9C%89%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">HTML集合是数组吗?操作HTML集合有什么需要注意的？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#querySelectorAll-%E5%92%8CgetElementsByTagName-%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%E6%8E%A8%E8%8D%90%E4%BD%BF%E7%94%A8%E7%AC%AC%E4%B8%80%E7%A7%8D%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">querySelectorAll()和getElementsByTagName()有什么区别？为什么推荐使用第一种？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E7%BB%98%E4%B8%8E%E9%87%8D%E6%8E%92%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">4.</span> <span class="nav-text">重绘与重排是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%93%8D%E4%BD%9C%E4%BC%9A%E5%BC%BA%E5%88%B6%E6%B8%B2%E6%9F%93%E6%A0%91%E9%98%9F%E5%88%97%E7%9A%84%E5%88%B7%E6%96%B0%EF%BC%9F"><span class="nav-number">5.</span> <span class="nav-text">什么操作会强制渲染树队列的刷新？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E6%8E%92%E4%BD%95%E6%97%B6%E5%8F%91%E7%94%9F%EF%BC%9F%E6%80%8E%E4%B9%88%E5%87%8F%E5%B0%91%E9%87%8D%E7%BB%98%E5%92%8C%E9%87%8D%E6%8E%92%E5%B8%A6%E6%9D%A5%E7%9A%84%E5%BD%B1%E5%93%8D%EF%BC%9F"><span class="nav-number">6.</span> <span class="nav-text">重排何时发生？怎么减少重绘和重排带来的影响？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98"><span class="nav-number">7.</span> <span class="nav-text">关于事件委托</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">8.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#DOM-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%85%A2%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">DOM 为什么慢？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTML-%E9%9B%86%E5%90%88%E6%98%AF%E6%95%B0%E7%BB%84%E5%90%97-%E6%93%8D%E4%BD%9C-HTML-%E9%9B%86%E5%90%88%E6%9C%89%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E7%9A%84%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">HTML 集合是数组吗?操作 HTML 集合有什么需要注意的？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#querySelectorAll-%E5%92%8C-getElementsByTagName-%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F%E4%B8%BA%E4%BB%80%E4%B9%88%E6%8E%A8%E8%8D%90%E4%BD%BF%E7%94%A8%E7%AC%AC%E4%B8%80%E7%A7%8D%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">querySelectorAll()和 getElementsByTagName()有什么区别？为什么推荐使用第一种？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E7%BB%98%E4%B8%8E%E9%87%8D%E6%8E%92%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">4.</span> <span class="nav-text">重绘与重排是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%93%8D%E4%BD%9C%E4%BC%9A%E5%BC%BA%E5%88%B6%E6%B8%B2%E6%9F%93%E6%A0%91%E9%98%9F%E5%88%97%E7%9A%84%E5%88%B7%E6%96%B0%EF%BC%9F"><span class="nav-number">5.</span> <span class="nav-text">什么操作会强制渲染树队列的刷新？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E6%8E%92%E4%BD%95%E6%97%B6%E5%8F%91%E7%94%9F%EF%BC%9F%E6%80%8E%E4%B9%88%E5%87%8F%E5%B0%91%E9%87%8D%E7%BB%98%E5%92%8C%E9%87%8D%E6%8E%92%E5%B8%A6%E6%9D%A5%E7%9A%84%E5%BD%B1%E5%93%8D%EF%BC%9F"><span class="nav-number">6.</span> <span class="nav-text">重排何时发生？怎么减少重绘和重排带来的影响？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E4%BA%8B%E4%BB%B6%E5%A7%94%E6%89%98"><span class="nav-number">7.</span> <span class="nav-text">关于事件委托</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">8.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>

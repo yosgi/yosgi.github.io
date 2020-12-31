@@ -87,7 +87,7 @@
 <meta property="og:description" content="《ES6标准入门》 知识点整理">
 <meta property="og:locale">
 <meta property="article:published_time" content="2018-05-01T16:00:00.000Z">
-<meta property="article:modified_time" content="2019-03-16T07:36:43.000Z">
+<meta property="article:modified_time" content="2020-12-31T01:22:08.899Z">
 <meta property="article:author" content="yosgi">
 <meta property="article:tag" content="Javascript">
 <meta property="article:tag" content="ES6">
@@ -286,8 +286,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ES6/" itemprop="url" rel="index">
-                    <span itemprop="name">ES6</span>
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
                   </a>
                 </span>
 
@@ -338,7 +338,7 @@
       
 
       
-        <h2 id="Set-和-map数据结构"><a href="#Set-和-map数据结构" class="headerlink" title="Set 和 map数据结构"></a>Set 和 map数据结构</h2><h3 id="set"><a href="#set" class="headerlink" title="set"></a>set</h3><p>基本用方法</p>
+        <h2 id="Set-和-map-数据结构"><a href="#Set-和-map-数据结构" class="headerlink" title="Set 和 map 数据结构"></a>Set 和 map 数据结构</h2><h3 id="set"><a href="#set" class="headerlink" title="set"></a>set</h3><p>基本用方法</p>
 <p>ES6 提供了新的数据结构 Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。</p>
 <p>Set 本身是一个构造函数，用来生成 Set 数据结构。</p>
 <pre><code>const s = new Set();
@@ -352,21 +352,21 @@ for (let i of s) &#123;
 <p>Set 函数可以接受一个数组（或者具有 iterable 接口的其他数据结构）作为参数，用来初始化。</p>
 <pre><code>// 数组去重
 [...new Set(array)]</code></pre>
-<p>向 Set 加入值的时候，不会发生类型转换，所以5和”5”是两个不同的值。Set 内部判断两个值是否不同，使用的算法叫做“Same-value-zero equality”，它类似于精确相等运算符（===），主要的区别是NaN等于自身，而精确相等运算符认为NaN不等于自身。</p>
+<p>向 Set 加入值的时候，不会发生类型转换，所以 5 和”5”是两个不同的值。Set 内部判断两个值是否不同，使用的算法叫做“Same-value-zero equality”，它类似于精确相等运算符（===），主要的区别是 NaN 等于自身，而精确相等运算符认为 NaN 不等于自身。</p>
 <p>另外，两个对象总是不相等的。</p>
-<h4 id="Set-实例的属性和方法"><a href="#Set-实例的属性和方法" class="headerlink" title="Set 实例的属性和方法"></a>Set 实例的属性和方法</h4><p>Set.prototype.constructor：构造函数，默认就是Set函数。</p>
-<p>Set.prototype.size：返回Set实例的成员总数。</p>
+<h4 id="Set-实例的属性和方法"><a href="#Set-实例的属性和方法" class="headerlink" title="Set 实例的属性和方法"></a>Set 实例的属性和方法</h4><p>Set.prototype.constructor：构造函数，默认就是 Set 函数。</p>
+<p>Set.prototype.size：返回 Set 实例的成员总数。</p>
 <p>Set 实例的方法分为两大类：操作方法（用于操作数据）和遍历方法（用于遍历成员）。</p>
 <p>add(value)：添加某个值，返回 Set 结构本身。</p>
 <p>delete(value)：删除某个值，返回一个布尔值，表示删除是否成功。</p>
-<p>has(value)：返回一个布尔值，表示该值是否为Set的成员。</p>
+<p>has(value)：返回一个布尔值，表示该值是否为 Set 的成员。</p>
 <p>clear()：清除所有成员，没有返回值。</p>
 <h4 id="遍历操作"><a href="#遍历操作" class="headerlink" title="遍历操作"></a>遍历操作</h4><p>Set 结构的实例有四个遍历方法，可以用于遍历成员。</p>
 <p>keys()：返回键名的遍历器</p>
 <p>values()：返回键值的遍历器</p>
 <p>entries()：返回键值对的遍历器</p>
 <p>forEach()：使用回调函数遍历每个成员</p>
-<h5 id="keys-，values-，entries"><a href="#keys-，values-，entries" class="headerlink" title="keys()，values()，entries()"></a>keys()，values()，entries()</h5><p>由于 Set 结构没有键名，只有键值（或者说键名和键值是同一个值），所以keys方法和values方法的行为完全一致。</p>
+<h5 id="keys-，values-，entries"><a href="#keys-，values-，entries" class="headerlink" title="keys()，values()，entries()"></a>keys()，values()，entries()</h5><p>由于 Set 结构没有键名，只有键值（或者说键名和键值是同一个值），所以 keys 方法和 values 方法的行为完全一致。</p>
 <pre><code>let set = new Set([&#39;red&#39;, &#39;green&#39;, &#39;blue&#39;]);
 
 for (let item of set.keys()) &#123;
@@ -394,12 +394,12 @@ set.forEach((value, key) =&gt; console.log(key + &#39; : &#39; + value))
 // 1 : 1
 // 4 : 4
 // 9 : 9</code></pre>
-<h5 id="遍历的应用"><a href="#遍历的应用" class="headerlink" title="遍历的应用"></a>遍历的应用</h5><p>扩展运算符（…）内部使用for…of循环，所以也可以用于 Set 结构。</p>
+<h5 id="遍历的应用"><a href="#遍历的应用" class="headerlink" title="遍历的应用"></a>遍历的应用</h5><p>扩展运算符（…）内部使用 for…of 循环，所以也可以用于 Set 结构。</p>
 <pre><code>let set = new Set([&#39;red&#39;, &#39;green&#39;, &#39;blue&#39;]);
 let arr = [...set];
 // [&#39;red&#39;, &#39;green&#39;, &#39;blue&#39;]</code></pre>
 <p>扩展运算符和 Set 结构相结合，就可以去除数组的重复成员。</p>
-<p>而且，数组的map和filter方法也可以间接用于 Set 了。</p>
+<p>而且，数组的 map 和 filter 方法也可以间接用于 Set 了。</p>
 <pre><code>let set = new Set([1, 2, 3]);
 set = new Set([...set].map(x =&gt; x * 2));
 // 返回Set结构：&#123;2, 4, 6&#125;
@@ -421,7 +421,7 @@ let intersect = new Set([...a].filter(x =&gt; b.has(x)));
 
 // 差集
 let difference = new Set([...a].filter(x =&gt; !b.has(x)));</code></pre>
-<p>如果想在遍历操作中，同步改变原来的 Set 结构，目前没有直接的方法，但有两种变通方法。一种是利用原 Set 结构映射出一个新的结构，然后赋值给原来的 Set 结构；另一种是利用Array.from方法。</p>
+<p>如果想在遍历操作中，同步改变原来的 Set 结构，目前没有直接的方法，但有两种变通方法。一种是利用原 Set 结构映射出一个新的结构，然后赋值给原来的 Set 结构；另一种是利用 Array.from 方法。</p>
 <pre><code>let set = new Set([1, 2, 3]);
 set = new Set([...set].map(val =&gt; val * 2));
 // set的值是2, 4, 6
@@ -434,7 +434,7 @@ set = new Set(Array.from(set, val =&gt; val * 2));
 <p>首先，WeakSet 的成员只能是对象，而不能是其他类型的值。</p>
 <p>其次，WeakSet 中的对象都是弱引用，即垃圾回收机制不考虑 WeakSet 对该对象的引用，也就是说，如果其他对象都不再引用该对象，那么垃圾回收机制会自动回收该对象所占用的内存，不考虑该对象还存在于 WeakSet 之中。</p>
 <p>由于上面这个特点，WeakSet 的成员是不适合引用的，因为它会随时消失。另外，由于 WeakSet 内部有多少个成员，取决于垃圾回收机制有没有运行，运行前后很可能成员个数是不一样的，而垃圾回收机制何时运行是不可预测的，因此 ES6 规定 WeakSet 不可遍历。</p>
-<h4 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h4><p>WeakSet 是一个构造函数，可以使用new命令，创建 WeakSet 数据结构。</p>
+<h4 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h4><p>WeakSet 是一个构造函数，可以使用 new 命令，创建 WeakSet 数据结构。</p>
 <pre><code>const a = [[1, 2], [3, 4]];
 const ws = new WeakSet(a);
 // WeakSet &#123;[1, 2], [3, 4]&#125;</code></pre>
@@ -466,13 +466,13 @@ map.has(&#39;name&#39;) // true
 map.get(&#39;name&#39;) // &quot;张三&quot;
 map.has(&#39;title&#39;) // true
 map.get(&#39;title&#39;) // &quot;Author&quot;</code></pre>
-<p>Map构造函数接受数组作为参数，实际上执行的是下面的算法。<br>    const items = [<br>      [‘name’, ‘张三’],<br>      [‘title’, ‘Author’]<br>    ];</p>
+<p>Map 构造函数接受数组作为参数，实际上执行的是下面的算法。<br>const items = [<br>[‘name’, ‘张三’],<br>[‘title’, ‘Author’]<br>];</p>
 <pre><code>const map = new Map();
 
 items.forEach(
   ([key, value]) =&gt; map.set(key, value)
 );</code></pre>
-<p>不仅仅是数组，任何具有 Iterator 接口、且每个成员都是一个双元素的数组的数据结构都可以当作Map构造函数的参数。这就是说，Set和Map都可以用来生成新的 Map。</p>
+<p>不仅仅是数组，任何具有 Iterator 接口、且每个成员都是一个双元素的数组的数据结构都可以当作 Map 构造函数的参数。这就是说，Set 和 Map 都可以用来生成新的 Map。</p>
 <pre><code>const set = new Set([
   [&#39;foo&#39;, 1],
   [&#39;bar&#39;, 2]
@@ -483,27 +483,27 @@ m1.get(&#39;foo&#39;) // 1
 const m2 = new Map([[&#39;baz&#39;, 3]]);
 const m3 = new Map(m2);
 m3.get(&#39;baz&#39;) // 3</code></pre>
-<p>如果对同一个键多次赋值，后面的值将覆盖前面的值。如果读取一个未知的键，则返回undefined。只有对同一个对象的引用，Map 结构才将其视为同一个键。</p>
+<p>如果对同一个键多次赋值，后面的值将覆盖前面的值。如果读取一个未知的键，则返回 undefined。只有对同一个对象的引用，Map 结构才将其视为同一个键。</p>
 <p>Map 的键实际上是跟内存地址绑定的，只要内存地址不一样，就视为两个键。这就解决了同名属性碰撞（clash）的问题，我们扩展别人的库的时候，如果使用对象作为键名，就不用担心自己的属性与原作者的属性同名。</p>
-<h4 id="实例的属性和操作方法"><a href="#实例的属性和操作方法" class="headerlink" title="实例的属性和操作方法"></a>实例的属性和操作方法</h4><h5 id="size属性返回-Map-结构的成员总数。"><a href="#size属性返回-Map-结构的成员总数。" class="headerlink" title="size属性返回 Map 结构的成员总数。"></a>size属性返回 Map 结构的成员总数。</h5><pre><code>const map = new Map();
+<h4 id="实例的属性和操作方法"><a href="#实例的属性和操作方法" class="headerlink" title="实例的属性和操作方法"></a>实例的属性和操作方法</h4><h5 id="size-属性返回-Map-结构的成员总数。"><a href="#size-属性返回-Map-结构的成员总数。" class="headerlink" title="size 属性返回 Map 结构的成员总数。"></a>size 属性返回 Map 结构的成员总数。</h5><pre><code>const map = new Map();
 map.set(&#39;foo&#39;, true);</code></pre>
-<h5 id="set方法设置键名key对应的键值为value，然后返回整个-Map-结构。如果key已经有值，则键值会被更新，否则就新生成该键。"><a href="#set方法设置键名key对应的键值为value，然后返回整个-Map-结构。如果key已经有值，则键值会被更新，否则就新生成该键。" class="headerlink" title="set方法设置键名key对应的键值为value，然后返回整个 Map 结构。如果key已经有值，则键值会被更新，否则就新生成该键。"></a>set方法设置键名key对应的键值为value，然后返回整个 Map 结构。如果key已经有值，则键值会被更新，否则就新生成该键。</h5><pre><code>const m = new Map();
+<h5 id="set-方法设置键名-key-对应的键值为-value，然后返回整个-Map-结构。如果-key-已经有值，则键值会被更新，否则就新生成该键。"><a href="#set-方法设置键名-key-对应的键值为-value，然后返回整个-Map-结构。如果-key-已经有值，则键值会被更新，否则就新生成该键。" class="headerlink" title="set 方法设置键名 key 对应的键值为 value，然后返回整个 Map 结构。如果 key 已经有值，则键值会被更新，否则就新生成该键。"></a>set 方法设置键名 key 对应的键值为 value，然后返回整个 Map 结构。如果 key 已经有值，则键值会被更新，否则就新生成该键。</h5><pre><code>const m = new Map();
 
-m.set(&#39;edition&#39;, 6)      
+m.set(&#39;edition&#39;, 6)
 
 let map = new Map()//返回的是整个Map解构所以可以用链式写法
   .set(1, &#39;a&#39;)
   .set(2, &#39;b&#39;)</code></pre>
-<h5 id="get-key-get方法读取key对应的键值，如果找不到key，返回undefined。"><a href="#get-key-get方法读取key对应的键值，如果找不到key，返回undefined。" class="headerlink" title="get(key)  get方法读取key对应的键值，如果找不到key，返回undefined。"></a>get(key)  get方法读取key对应的键值，如果找不到key，返回undefined。</h5><pre><code>const m = new Map();
+<h5 id="get-key-get-方法读取-key-对应的键值，如果找不到-key，返回-undefined。"><a href="#get-key-get-方法读取-key-对应的键值，如果找不到-key，返回-undefined。" class="headerlink" title="get(key) get 方法读取 key 对应的键值，如果找不到 key，返回 undefined。"></a>get(key) get 方法读取 key 对应的键值，如果找不到 key，返回 undefined。</h5><pre><code>const m = new Map();
 
 const hello = function() &#123;console.log(&#39;hello&#39;);&#125;;
 m.set(hello, &#39;Hello ES6!&#39;) // 键是函数
 
 m.get(hello)  // Hello ES6!</code></pre>
-<h5 id="has-key-has方法返回一个布尔值，表示某个键是否在当前-Map-对象之中。"><a href="#has-key-has方法返回一个布尔值，表示某个键是否在当前-Map-对象之中。" class="headerlink" title="has(key) has方法返回一个布尔值，表示某个键是否在当前 Map 对象之中。"></a>has(key) has方法返回一个布尔值，表示某个键是否在当前 Map 对象之中。</h5><pre><code>const m = new Map();
+<h5 id="has-key-has-方法返回一个布尔值，表示某个键是否在当前-Map-对象之中。"><a href="#has-key-has-方法返回一个布尔值，表示某个键是否在当前-Map-对象之中。" class="headerlink" title="has(key) has 方法返回一个布尔值，表示某个键是否在当前 Map 对象之中。"></a>has(key) has 方法返回一个布尔值，表示某个键是否在当前 Map 对象之中。</h5><pre><code>const m = new Map();
 
 m.set(&#39;edition&#39;, 6);</code></pre>
-<h5 id="delete-key-delete方法删除某个键，返回true。如果删除失败，返回false。"><a href="#delete-key-delete方法删除某个键，返回true。如果删除失败，返回false。" class="headerlink" title="delete(key) delete方法删除某个键，返回true。如果删除失败，返回false。"></a>delete(key) delete方法删除某个键，返回true。如果删除失败，返回false。</h5><pre><code>const m = new Map();
+<h5 id="delete-key-delete-方法删除某个键，返回-true。如果删除失败，返回-false。"><a href="#delete-key-delete-方法删除某个键，返回-true。如果删除失败，返回-false。" class="headerlink" title="delete(key) delete 方法删除某个键，返回 true。如果删除失败，返回 false。"></a>delete(key) delete 方法删除某个键，返回 true。如果删除失败，返回 false。</h5><pre><code>const m = new Map();
 m.set(undefined, &#39;nah&#39;);
 m.has(undefined)     // true</code></pre>
 <h5 id="clear-方法清除所有成员，没有返回值。"><a href="#clear-方法清除所有成员，没有返回值。" class="headerlink" title="clear()方法清除所有成员，没有返回值。"></a>clear()方法清除所有成员，没有返回值。</h5><h4 id="遍历方法"><a href="#遍历方法" class="headerlink" title="遍历方法"></a>遍历方法</h4><p>Map 结构原生提供三个遍历器生成函数和一个遍历方法。</p>
@@ -512,7 +512,7 @@ m.has(undefined)     // true</code></pre>
 <p>entries()：返回所有成员的遍历器。</p>
 <p>forEach()：遍历 Map 的所有成员。</p>
 <p>需要特别注意的是，Map 的遍历顺序就是插入顺序。</p>
-<p>与set方法类似</p>
+<p>与 set 方法类似</p>
 <h4 id="与其他数据结构的互相转换"><a href="#与其他数据结构的互相转换" class="headerlink" title="与其他数据结构的互相转换"></a>与其他数据结构的互相转换</h4><h5 id="Map-转为数组"><a href="#Map-转为数组" class="headerlink" title="Map 转为数组"></a>Map 转为数组</h5><pre><code>const myMap = new Map()
   .set(true, 7)
   .set(&#123;foo: 3&#125;, [&#39;abc&#39;]);
@@ -581,23 +581,23 @@ jsonToStrMap(&#39;&#123;&quot;yes&quot;: true, &quot;no&quot;: false&#125;&#39;)
 
 jsonToMap(&#39;[[true,7],[&#123;&quot;foo&quot;:3&#125;,[&quot;abc&quot;]]]&#39;)
 // Map &#123;true =&gt; 7, Object &#123;foo: 3&#125; =&gt; [&#39;abc&#39;]&#125;</code></pre>
-<h3 id="WeakMap"><a href="#WeakMap" class="headerlink" title="WeakMap"></a>WeakMap</h3><p>WeakMap结构与Map结构类似，也是用于生成键值对的集合。</p>
-<p>WeakMap与Map的区别有两点。</p>
-<p>首先，WeakMap只接受对象作为键名（null除外），不接受其他类型的值作为键名。</p>
-<p>其次，WeakMap的键名所指向的对象，不计入垃圾回收机制。</p>
-<p>WeakMap的设计目的在于，有时我们想在某个对象上面存放一些数据，但是这会形成对于这个对象的引用。</p>
+<h3 id="WeakMap"><a href="#WeakMap" class="headerlink" title="WeakMap"></a>WeakMap</h3><p>WeakMap 结构与 Map 结构类似，也是用于生成键值对的集合。</p>
+<p>WeakMap 与 Map 的区别有两点。</p>
+<p>首先，WeakMap 只接受对象作为键名（null 除外），不接受其他类型的值作为键名。</p>
+<p>其次，WeakMap 的键名所指向的对象，不计入垃圾回收机制。</p>
+<p>WeakMap 的设计目的在于，有时我们想在某个对象上面存放一些数据，但是这会形成对于这个对象的引用。</p>
 <pre><code>const e1 = document.getElementById(&#39;foo&#39;);
 const e2 = document.getElementById(&#39;bar&#39;);
 const arr = [
   [e1, &#39;foo 元素&#39;],
   [e2, &#39;bar 元素&#39;],
 ];</code></pre>
-<p>上面代码中，e1和e2是两个对象，我们通过arr数组对这两个对象添加一些文字说明。这就形成了arr对e1和e2的引用。</p>
-<p>一旦不再需要这两个对象，我们就必须手动删除这个引用，否则垃圾回收机制就不会释放e1和e2占用的内存。</p>
+<p>上面代码中，e1 和 e2 是两个对象，我们通过 arr 数组对这两个对象添加一些文字说明。这就形成了 arr 对 e1 和 e2 的引用。</p>
+<p>一旦不再需要这两个对象，我们就必须手动删除这个引用，否则垃圾回收机制就不会释放 e1 和 e2 占用的内存。</p>
 <pre><code>arr [0] = null;
 arr [1] = null;</code></pre>
 <p>WeakMap 就是为了解决这个问题而诞生的，它的键名所引用的对象都是弱引用，即垃圾回收机制不将该引用考虑在内。因此，只要所引用的对象的其他引用都被清除，垃圾回收机制就会释放该对象所占用的内存。也就是说，一旦不再需要，WeakMap 里面的键名对象和所对应的键值对会自动消失，不用手动删除引用。</p>
-<p>基本上，如果你要往对象上添加数据，又不想干扰垃圾回收机制，就可以使用 WeakMap。一个典型应用场景是，在网页的 DOM 元素上添加数据，就可以使用WeakMap结构。当该 DOM 元素被清除，其所对应的WeakMap记录就会自动被移除。</p>
+<p>基本上，如果你要往对象上添加数据，又不想干扰垃圾回收机制，就可以使用 WeakMap。一个典型应用场景是，在网页的 DOM 元素上添加数据，就可以使用 WeakMap 结构。当该 DOM 元素被清除，其所对应的 WeakMap 记录就会自动被移除。</p>
 <pre><code>const wm = new WeakMap();
 
 const element = document.getElementById(&#39;example&#39;);
@@ -613,7 +613,7 @@ wm.set(key, obj);
 obj = null;
 wm.get(key)
 // Object &#123;foo: 1&#125;</code></pre>
-<h4 id="WeakMap-的语法"><a href="#WeakMap-的语法" class="headerlink" title="WeakMap 的语法"></a>WeakMap 的语法</h4><p>WeakMap 与 Map 在 API 上的区别主要是两个，一是没有遍历操作（即没有key()、values()和entries()方法），也没有size属性。因为没有办法列出所有键名，某个键名是否存在完全不可预测，跟垃圾回收机制是否运行相关。这一刻可以取到键名，下一刻垃圾回收机制突然运行了，这个键名就没了，为了防止出现不确定性，就统一规定不能取到键名。二是无法清空，即不支持clear方法。因此，WeakMap只有四个方法可用：get()、set()、has()、delete()。</p>
+<h4 id="WeakMap-的语法"><a href="#WeakMap-的语法" class="headerlink" title="WeakMap 的语法"></a>WeakMap 的语法</h4><p>WeakMap 与 Map 在 API 上的区别主要是两个，一是没有遍历操作（即没有 key()、values()和 entries()方法），也没有 size 属性。因为没有办法列出所有键名，某个键名是否存在完全不可预测，跟垃圾回收机制是否运行相关。这一刻可以取到键名，下一刻垃圾回收机制突然运行了，这个键名就没了，为了防止出现不确定性，就统一规定不能取到键名。二是无法清空，即不支持 clear 方法。因此，WeakMap 只有四个方法可用：get()、set()、has()、delete()。</p>
 
       
     </div>
@@ -756,7 +756,7 @@ wm.get(key)
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -767,7 +767,7 @@ wm.get(key)
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -800,7 +800,7 @@ wm.get(key)
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Set-%E5%92%8C-map%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">Set 和 map数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#set"><span class="nav-number">1.1.</span> <span class="nav-text">set</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Set-%E5%AE%9E%E4%BE%8B%E7%9A%84%E5%B1%9E%E6%80%A7%E5%92%8C%E6%96%B9%E6%B3%95"><span class="nav-number">1.1.1.</span> <span class="nav-text">Set 实例的属性和方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%81%8D%E5%8E%86%E6%93%8D%E4%BD%9C"><span class="nav-number">1.1.2.</span> <span class="nav-text">遍历操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#keys-%EF%BC%8Cvalues-%EF%BC%8Centries"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">keys()，values()，entries()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#forEach"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">forEach()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%81%8D%E5%8E%86%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">遍历的应用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WeakSet"><span class="nav-number">1.2.</span> <span class="nav-text">WeakSet</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95"><span class="nav-number">1.2.1.</span> <span class="nav-text">语法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Map"><span class="nav-number">1.3.</span> <span class="nav-text">Map</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%AB%E4%B9%89%E5%92%8C%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95"><span class="nav-number">1.3.1.</span> <span class="nav-text">含义和基本用法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E7%9A%84%E5%B1%9E%E6%80%A7%E5%92%8C%E6%93%8D%E4%BD%9C%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.2.</span> <span class="nav-text">实例的属性和操作方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#size%E5%B1%9E%E6%80%A7%E8%BF%94%E5%9B%9E-Map-%E7%BB%93%E6%9E%84%E7%9A%84%E6%88%90%E5%91%98%E6%80%BB%E6%95%B0%E3%80%82"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">size属性返回 Map 结构的成员总数。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#set%E6%96%B9%E6%B3%95%E8%AE%BE%E7%BD%AE%E9%94%AE%E5%90%8Dkey%E5%AF%B9%E5%BA%94%E7%9A%84%E9%94%AE%E5%80%BC%E4%B8%BAvalue%EF%BC%8C%E7%84%B6%E5%90%8E%E8%BF%94%E5%9B%9E%E6%95%B4%E4%B8%AA-Map-%E7%BB%93%E6%9E%84%E3%80%82%E5%A6%82%E6%9E%9Ckey%E5%B7%B2%E7%BB%8F%E6%9C%89%E5%80%BC%EF%BC%8C%E5%88%99%E9%94%AE%E5%80%BC%E4%BC%9A%E8%A2%AB%E6%9B%B4%E6%96%B0%EF%BC%8C%E5%90%A6%E5%88%99%E5%B0%B1%E6%96%B0%E7%94%9F%E6%88%90%E8%AF%A5%E9%94%AE%E3%80%82"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">set方法设置键名key对应的键值为value，然后返回整个 Map 结构。如果key已经有值，则键值会被更新，否则就新生成该键。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#get-key-get%E6%96%B9%E6%B3%95%E8%AF%BB%E5%8F%96key%E5%AF%B9%E5%BA%94%E7%9A%84%E9%94%AE%E5%80%BC%EF%BC%8C%E5%A6%82%E6%9E%9C%E6%89%BE%E4%B8%8D%E5%88%B0key%EF%BC%8C%E8%BF%94%E5%9B%9Eundefined%E3%80%82"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">get(key)  get方法读取key对应的键值，如果找不到key，返回undefined。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#has-key-has%E6%96%B9%E6%B3%95%E8%BF%94%E5%9B%9E%E4%B8%80%E4%B8%AA%E5%B8%83%E5%B0%94%E5%80%BC%EF%BC%8C%E8%A1%A8%E7%A4%BA%E6%9F%90%E4%B8%AA%E9%94%AE%E6%98%AF%E5%90%A6%E5%9C%A8%E5%BD%93%E5%89%8D-Map-%E5%AF%B9%E8%B1%A1%E4%B9%8B%E4%B8%AD%E3%80%82"><span class="nav-number">1.3.2.4.</span> <span class="nav-text">has(key) has方法返回一个布尔值，表示某个键是否在当前 Map 对象之中。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#delete-key-delete%E6%96%B9%E6%B3%95%E5%88%A0%E9%99%A4%E6%9F%90%E4%B8%AA%E9%94%AE%EF%BC%8C%E8%BF%94%E5%9B%9Etrue%E3%80%82%E5%A6%82%E6%9E%9C%E5%88%A0%E9%99%A4%E5%A4%B1%E8%B4%A5%EF%BC%8C%E8%BF%94%E5%9B%9Efalse%E3%80%82"><span class="nav-number">1.3.2.5.</span> <span class="nav-text">delete(key) delete方法删除某个键，返回true。如果删除失败，返回false。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#clear-%E6%96%B9%E6%B3%95%E6%B8%85%E9%99%A4%E6%89%80%E6%9C%89%E6%88%90%E5%91%98%EF%BC%8C%E6%B2%A1%E6%9C%89%E8%BF%94%E5%9B%9E%E5%80%BC%E3%80%82"><span class="nav-number">1.3.2.6.</span> <span class="nav-text">clear()方法清除所有成员，没有返回值。</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%81%8D%E5%8E%86%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.3.</span> <span class="nav-text">遍历方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8E%E5%85%B6%E4%BB%96%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9A%84%E4%BA%92%E7%9B%B8%E8%BD%AC%E6%8D%A2"><span class="nav-number">1.3.4.</span> <span class="nav-text">与其他数据结构的互相转换</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Map-%E8%BD%AC%E4%B8%BA%E6%95%B0%E7%BB%84"><span class="nav-number">1.3.4.1.</span> <span class="nav-text">Map 转为数组</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E7%BB%84-%E8%BD%AC%E4%B8%BA-Map"><span class="nav-number">1.3.4.2.</span> <span class="nav-text">数组 转为 Map</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Map-%E8%BD%AC%E4%B8%BA%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.3.4.3.</span> <span class="nav-text">Map 转为对象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E8%BD%AC%E4%B8%BA-Map"><span class="nav-number">1.3.4.4.</span> <span class="nav-text">对象转为 Map</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Map-%E8%BD%AC%E4%B8%BA-JSON"><span class="nav-number">1.3.4.5.</span> <span class="nav-text">Map 转为 JSON</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#JSON-%E8%BD%AC%E4%B8%BA-Map"><span class="nav-number">1.3.4.6.</span> <span class="nav-text">JSON 转为 Map</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WeakMap"><span class="nav-number">1.4.</span> <span class="nav-text">WeakMap</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#WeakMap-%E7%9A%84%E8%AF%AD%E6%B3%95"><span class="nav-number">1.4.1.</span> <span class="nav-text">WeakMap 的语法</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Set-%E5%92%8C-map-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">Set 和 map 数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#set"><span class="nav-number">1.1.</span> <span class="nav-text">set</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Set-%E5%AE%9E%E4%BE%8B%E7%9A%84%E5%B1%9E%E6%80%A7%E5%92%8C%E6%96%B9%E6%B3%95"><span class="nav-number">1.1.1.</span> <span class="nav-text">Set 实例的属性和方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%81%8D%E5%8E%86%E6%93%8D%E4%BD%9C"><span class="nav-number">1.1.2.</span> <span class="nav-text">遍历操作</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#keys-%EF%BC%8Cvalues-%EF%BC%8Centries"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">keys()，values()，entries()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#forEach"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">forEach()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%81%8D%E5%8E%86%E7%9A%84%E5%BA%94%E7%94%A8"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">遍历的应用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WeakSet"><span class="nav-number">1.2.</span> <span class="nav-text">WeakSet</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95"><span class="nav-number">1.2.1.</span> <span class="nav-text">语法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Map"><span class="nav-number">1.3.</span> <span class="nav-text">Map</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%AB%E4%B9%89%E5%92%8C%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95"><span class="nav-number">1.3.1.</span> <span class="nav-text">含义和基本用法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E7%9A%84%E5%B1%9E%E6%80%A7%E5%92%8C%E6%93%8D%E4%BD%9C%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.2.</span> <span class="nav-text">实例的属性和操作方法</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#size-%E5%B1%9E%E6%80%A7%E8%BF%94%E5%9B%9E-Map-%E7%BB%93%E6%9E%84%E7%9A%84%E6%88%90%E5%91%98%E6%80%BB%E6%95%B0%E3%80%82"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">size 属性返回 Map 结构的成员总数。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#set-%E6%96%B9%E6%B3%95%E8%AE%BE%E7%BD%AE%E9%94%AE%E5%90%8D-key-%E5%AF%B9%E5%BA%94%E7%9A%84%E9%94%AE%E5%80%BC%E4%B8%BA-value%EF%BC%8C%E7%84%B6%E5%90%8E%E8%BF%94%E5%9B%9E%E6%95%B4%E4%B8%AA-Map-%E7%BB%93%E6%9E%84%E3%80%82%E5%A6%82%E6%9E%9C-key-%E5%B7%B2%E7%BB%8F%E6%9C%89%E5%80%BC%EF%BC%8C%E5%88%99%E9%94%AE%E5%80%BC%E4%BC%9A%E8%A2%AB%E6%9B%B4%E6%96%B0%EF%BC%8C%E5%90%A6%E5%88%99%E5%B0%B1%E6%96%B0%E7%94%9F%E6%88%90%E8%AF%A5%E9%94%AE%E3%80%82"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">set 方法设置键名 key 对应的键值为 value，然后返回整个 Map 结构。如果 key 已经有值，则键值会被更新，否则就新生成该键。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#get-key-get-%E6%96%B9%E6%B3%95%E8%AF%BB%E5%8F%96-key-%E5%AF%B9%E5%BA%94%E7%9A%84%E9%94%AE%E5%80%BC%EF%BC%8C%E5%A6%82%E6%9E%9C%E6%89%BE%E4%B8%8D%E5%88%B0-key%EF%BC%8C%E8%BF%94%E5%9B%9E-undefined%E3%80%82"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">get(key) get 方法读取 key 对应的键值，如果找不到 key，返回 undefined。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#has-key-has-%E6%96%B9%E6%B3%95%E8%BF%94%E5%9B%9E%E4%B8%80%E4%B8%AA%E5%B8%83%E5%B0%94%E5%80%BC%EF%BC%8C%E8%A1%A8%E7%A4%BA%E6%9F%90%E4%B8%AA%E9%94%AE%E6%98%AF%E5%90%A6%E5%9C%A8%E5%BD%93%E5%89%8D-Map-%E5%AF%B9%E8%B1%A1%E4%B9%8B%E4%B8%AD%E3%80%82"><span class="nav-number">1.3.2.4.</span> <span class="nav-text">has(key) has 方法返回一个布尔值，表示某个键是否在当前 Map 对象之中。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#delete-key-delete-%E6%96%B9%E6%B3%95%E5%88%A0%E9%99%A4%E6%9F%90%E4%B8%AA%E9%94%AE%EF%BC%8C%E8%BF%94%E5%9B%9E-true%E3%80%82%E5%A6%82%E6%9E%9C%E5%88%A0%E9%99%A4%E5%A4%B1%E8%B4%A5%EF%BC%8C%E8%BF%94%E5%9B%9E-false%E3%80%82"><span class="nav-number">1.3.2.5.</span> <span class="nav-text">delete(key) delete 方法删除某个键，返回 true。如果删除失败，返回 false。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#clear-%E6%96%B9%E6%B3%95%E6%B8%85%E9%99%A4%E6%89%80%E6%9C%89%E6%88%90%E5%91%98%EF%BC%8C%E6%B2%A1%E6%9C%89%E8%BF%94%E5%9B%9E%E5%80%BC%E3%80%82"><span class="nav-number">1.3.2.6.</span> <span class="nav-text">clear()方法清除所有成员，没有返回值。</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%81%8D%E5%8E%86%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.3.</span> <span class="nav-text">遍历方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8E%E5%85%B6%E4%BB%96%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9A%84%E4%BA%92%E7%9B%B8%E8%BD%AC%E6%8D%A2"><span class="nav-number">1.3.4.</span> <span class="nav-text">与其他数据结构的互相转换</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Map-%E8%BD%AC%E4%B8%BA%E6%95%B0%E7%BB%84"><span class="nav-number">1.3.4.1.</span> <span class="nav-text">Map 转为数组</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%B0%E7%BB%84-%E8%BD%AC%E4%B8%BA-Map"><span class="nav-number">1.3.4.2.</span> <span class="nav-text">数组 转为 Map</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Map-%E8%BD%AC%E4%B8%BA%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.3.4.3.</span> <span class="nav-text">Map 转为对象</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E8%BD%AC%E4%B8%BA-Map"><span class="nav-number">1.3.4.4.</span> <span class="nav-text">对象转为 Map</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Map-%E8%BD%AC%E4%B8%BA-JSON"><span class="nav-number">1.3.4.5.</span> <span class="nav-text">Map 转为 JSON</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#JSON-%E8%BD%AC%E4%B8%BA-Map"><span class="nav-number">1.3.4.6.</span> <span class="nav-text">JSON 转为 Map</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WeakMap"><span class="nav-number">1.4.</span> <span class="nav-text">WeakMap</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#WeakMap-%E7%9A%84%E8%AF%AD%E6%B3%95"><span class="nav-number">1.4.1.</span> <span class="nav-text">WeakMap 的语法</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

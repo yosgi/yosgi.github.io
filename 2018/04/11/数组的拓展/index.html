@@ -87,7 +87,7 @@
 <meta property="og:description" content="《ES6标准入门》 知识点整理">
 <meta property="og:locale">
 <meta property="article:published_time" content="2018-04-10T16:00:00.000Z">
-<meta property="article:modified_time" content="2019-03-16T07:36:43.000Z">
+<meta property="article:modified_time" content="2020-12-31T01:26:29.080Z">
 <meta property="article:author" content="yosgi">
 <meta property="article:tag" content="Javascript">
 <meta property="article:tag" content="ES6">
@@ -286,8 +286,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ES6/" itemprop="url" rel="index">
-                    <span itemprop="name">ES6</span>
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
                   </a>
                 </span>
 
@@ -344,14 +344,14 @@
 <p>ES6</p>
 <pre><code>let arr2 = Array.from(arraylike)</code></pre>
 <p>需要注意的是这里是浅拷贝(如果元素是对象引用，则拷贝对象引用到新数组)。</p>
-<p>Array.from()可以接受第二个参数 类似于数组的map方法</p>
+<p>Array.from()可以接受第二个参数 类似于数组的 map 方法</p>
 <pre><code>let names1 = Array.prototype.map.call(spans,s=&gt;s.textContent);
 let names2 = Array.from(spans,s=&gt;s.textContent,this);</code></pre>
 <p>拓展运算符(…)也可以将某些数据结构转为数组</p>
 <pre><code>function foo()&#123;
     var args = [...arguments]
 &#125;</code></pre>
-<h5 id="Array-of"><a href="#Array-of" class="headerlink" title="Array.of()"></a>Array.of()</h5><p>用于将一组值转换为数组，可以替代Array()或者new Array()</p>
+<h5 id="Array-of"><a href="#Array-of" class="headerlink" title="Array.of()"></a>Array.of()</h5><p>用于将一组值转换为数组，可以替代 Array()或者 new Array()</p>
 <p>ES5</p>
 <pre><code>function ArrayOf()&#123;
     return [].slice.call(arguments)
@@ -360,7 +360,7 @@ ArrayOf(3,11,8)//[3,11,8]</code></pre>
 <p>ES6</p>
 <pre><code>Array.of(3,11,8)//[3,11,8]</code></pre>
 <h5 id="copyWithin"><a href="#copyWithin" class="headerlink" title="copyWithin()"></a>copyWithin()</h5><p>在当前数组内部将指定位置的成员复制到其他位置(会覆盖原有成员),然后返回当前数组</p>
-<p> ES5</p>
+<p>ES5</p>
 <pre><code>var i32a = new Int32Array([1, 2, 3, 4, 5]);
 i32a.copyWithin(0, 2);
 // Int32Array [3, 4, 5, 4, 5]</code></pre>
@@ -371,14 +371,14 @@ a.copyWithin(0,2)
 
 [].copyWithin.call(&#123;length: 5, 3: 1&#125;, 0, 3);//类数组对象
 // &#123;0: 1, 3: 1, length: 5&#125;</code></pre>
-<h5 id="find-和findIndex"><a href="#find-和findIndex" class="headerlink" title="find()和findIndex()"></a>find()和findIndex()</h5><p>用于找出第一个符合条件的数组成员，弥补IndexOf不能发现NaN的不足</p>
-<p> ES5</p>
+<h5 id="find-和-findIndex"><a href="#find-和-findIndex" class="headerlink" title="find()和 findIndex()"></a>find()和 findIndex()</h5><p>用于找出第一个符合条件的数组成员，弥补 IndexOf 不能发现 NaN 的不足</p>
+<p>ES5</p>
 <pre><code>[1,2,NAN].indexOf(NaN)
 //-1</code></pre>
-<p>  ES6</p>
+<p>ES6</p>
 <pre><code>[1,2,NAN].find(Y=&gt;Object.is(NaN,y))
 //2</code></pre>
-<h5 id="fill"><a href="#fill" class="headerlink" title="fill()"></a>fill()</h5><p>使用给定值填充数组，数组中已有元素会被抹去；如果有第二个和第三个参数，可以指定填充的起始和结束位置  </p>
+<h5 id="fill"><a href="#fill" class="headerlink" title="fill()"></a>fill()</h5><p>使用给定值填充数组，数组中已有元素会被抹去；如果有第二个和第三个参数，可以指定填充的起始和结束位置</p>
 <pre><code>[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;].fill(7,1,2)
 //[a,7,c]</code></pre>
 <h5 id="entries-keys-values"><a href="#entries-keys-values" class="headerlink" title="entries() keys() values()"></a>entries() keys() values()</h5><p>用于遍历数组,它们都返回一个遍历器对象</p>
@@ -531,7 +531,7 @@ for(let [index,ele] of [&quot;a&quot;,&quot;b&quot;].entries())&#123;
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -542,7 +542,7 @@ for(let [index,ele] of [&quot;a&quot;,&quot;b&quot;].entries())&#123;
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -575,7 +575,7 @@ for(let [index,ele] of [&quot;a&quot;,&quot;b&quot;].entries())&#123;
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E6%8B%93%E5%B1%95"><span class="nav-number">1.</span> <span class="nav-text">数组的拓展</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Array-from"><span class="nav-number">1.1.</span> <span class="nav-text">Array.from()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Array-of"><span class="nav-number">1.2.</span> <span class="nav-text">Array.of()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#copyWithin"><span class="nav-number">1.3.</span> <span class="nav-text">copyWithin()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#find-%E5%92%8CfindIndex"><span class="nav-number">1.4.</span> <span class="nav-text">find()和findIndex()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#fill"><span class="nav-number">1.5.</span> <span class="nav-text">fill()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#entries-keys-values"><span class="nav-number">1.6.</span> <span class="nav-text">entries() keys() values()</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E7%BB%84%E7%9A%84%E6%8B%93%E5%B1%95"><span class="nav-number">1.</span> <span class="nav-text">数组的拓展</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Array-from"><span class="nav-number">1.1.</span> <span class="nav-text">Array.from()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Array-of"><span class="nav-number">1.2.</span> <span class="nav-text">Array.of()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#copyWithin"><span class="nav-number">1.3.</span> <span class="nav-text">copyWithin()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#find-%E5%92%8C-findIndex"><span class="nav-number">1.4.</span> <span class="nav-text">find()和 findIndex()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#fill"><span class="nav-number">1.5.</span> <span class="nav-text">fill()</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#entries-keys-values"><span class="nav-number">1.6.</span> <span class="nav-text">entries() keys() values()</span></a></li></ol></li></ol></div>
             
 
           </div>
