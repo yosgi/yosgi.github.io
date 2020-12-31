@@ -4431,7 +4431,7 @@ co(taskList).then(res=&gt;&#123;
   </entry>
   <entry>
     <title>剑指 Offer 42. 连续子数组的最大和</title>
-    <url>/2020/12/12/%E5%89%91%E6%8C%87offer%2042%20%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84%E6%9C%80%E5%A4%A7%E5%92%8C/</url>
+    <url>/2020/12/31/%E5%89%91%E6%8C%87offer%2042%20%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84%E6%9C%80%E5%A4%A7%E5%92%8C/</url>
     <content><![CDATA[<h4 id="剑指-Offer-42-连续子数组的最大和"><a href="#剑指-Offer-42-连续子数组的最大和" class="headerlink" title="剑指 Offer 42. 连续子数组的最大和"></a><a href="https://leetcode-cn.com/problems/lian-xu-zi-shu-zu-de-zui-da-he-lcof/">剑指 Offer 42. 连续子数组的最大和</a></h4><p>用时 10min</p>
 <p>很容易看出来是用动态规划</p>
 <p>求数组长度的最大连续子数组和，可以拆成求[ 0… n] 最大连续子数组和的子问题</p>
