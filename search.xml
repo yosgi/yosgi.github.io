@@ -4467,4 +4467,26 @@ co(taskList).then(res=&gt;&#123;
         <category>感悟</category>
       </categories>
   </entry>
+  <entry>
+    <title>105. 从前序遍历与中序遍历序列构造二叉树</title>
+    <url>/2021/01/27/105-%E4%BB%8E%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86%E4%B8%8E%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97%E6%9E%84%E9%80%A0%E4%BA%8C%E5%8F%89%E6%A0%91-1/</url>
+    <content><![CDATA[<p>耗时：40 min</p>
+<h4 id="105-从前序与中序遍历序列构造二叉树"><a href="#105-从前序与中序遍历序列构造二叉树" class="headerlink" title="105. 从前序与中序遍历序列构造二叉树"></a><a href="https://leetcode-cn.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/">105. 从前序与中序遍历序列构造二叉树</a></h4><h5 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h5><p>前序遍历：根-左-右<br>中序遍历：左-根-右</p>
+<p>因此可以先从前序遍历找到根元素，再由中序确定左右子树的个数</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> buildTree = <span class="function"><span class="keyword">function</span>(<span class="params">preorder, inorder</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (preorder.length === <span class="number">0</span> || inorder.length=== <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">    <span class="keyword">let</span> nodeVal = preorder.shift()</span><br><span class="line">    <span class="keyword">let</span> node = <span class="keyword">new</span> TreeNode(nodeVal)</span><br><span class="line">    <span class="keyword">let</span> index = inorder.indexOf(nodeVal)</span><br><span class="line">    node.left = buildTree(preorder.slice(<span class="number">0</span>,index), inorder.slice(<span class="number">0</span>,index))</span><br><span class="line">    node.right = buildTree(preorder.slice(index),inorder.slice(index + <span class="number">1</span>))</span><br><span class="line">    <span class="keyword">return</span> node</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h5 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h5><p>slice 是很耗性能的，其实没有必要传递数组，函数传递指针即可</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> buildTree = <span class="function"><span class="keyword">function</span>(<span class="params">preorder, inorder</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> helper = <span class="function"><span class="keyword">function</span> (<span class="params">p_start,p_end,i_start,i_end</span>) </span>&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (p_start &gt; p_end || i_start &gt; i_end ) <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">        <span class="keyword">let</span> nodeVal = preorder[p_start]</span><br><span class="line">        <span class="keyword">let</span> node = <span class="keyword">new</span> TreeNode(nodeVal)</span><br><span class="line">        <span class="keyword">let</span> index = inorder.indexOf(nodeVal)</span><br><span class="line">        <span class="keyword">let</span> left = index - i_start </span><br><span class="line">        node.left = helper(p_start + <span class="number">1</span> , p_start + left , i_start ,index - <span class="number">1</span>)</span><br><span class="line">        node.right = helper(p_start + left + <span class="number">1</span>,p_end, index + <span class="number">1</span>,i_end)</span><br><span class="line">        <span class="keyword">return</span> node</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> helper(<span class="number">0</span>,preorder.length - <span class="number">1</span>,<span class="number">0</span>,preorder.length - <span class="number">1</span>)</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>总结：</p>
+<p>利用 前序和中序的性质，定位根节点，求出左右子树的个数。然后递归构建左右子树即可</p>
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>数</tag>
+        <tag>深度优先搜索</tag>
+      </tags>
+  </entry>
 </search>
