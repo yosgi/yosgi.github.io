@@ -4622,4 +4622,27 @@ co(taskList).then(res=&gt;&#123;
         <tag>二叉树</tag>
       </tags>
   </entry>
+  <entry>
+    <title>94.二叉树的中序遍历</title>
+    <url>/2021/02/25/94-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/</url>
+    <content><![CDATA[<h4 id="94-二叉树的中序遍历"><a href="#94-二叉树的中序遍历" class="headerlink" title="94.二叉树的中序遍历"></a>94.二叉树的中序遍历</h4><p>30min</p>
+<p>中序遍历的顺序是 前 - 中 - 后</p>
+<h5 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h5><p>用递归非常容易</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> inorderTraversal = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> res = []</span><br><span class="line">    <span class="keyword">if</span> (!root) &#123;</span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> travel = <span class="function"><span class="keyword">function</span> (<span class="params">node</span>) </span>&#123;</span><br><span class="line">        node.left &amp;&amp; travel(node.left)</span><br><span class="line">        res.push(node.val)</span><br><span class="line">        node.right &amp;&amp; travel(node.right)</span><br><span class="line">    &#125;</span><br><span class="line">    travel(root)</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h5 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h5><p>迭代的步骤复杂一些，因为根节点不是先输出，所以需要保留根节点</p>
+<ol>
+<li>根节点入栈，判断有没有左子节点，如果有，继续入栈，直到叶子结点</li>
+<li>出栈，输出，判断是否有右子节点，有则入栈，继续执行2 </li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> inorderTraversal = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> stack = []</span><br><span class="line">    <span class="keyword">var</span> res = []</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> res  </span><br><span class="line">    stack.push(root)</span><br><span class="line">    <span class="keyword">while</span>(root.left) &#123;</span><br><span class="line">        stack.push(root.left)</span><br><span class="line">        root = root.left</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(stack.length) &#123;</span><br><span class="line">        <span class="keyword">var</span> node = stack.pop()</span><br><span class="line">        res.push(node.val)</span><br><span class="line">        <span class="keyword">if</span> (node.right) &#123;</span><br><span class="line">            node = node.right</span><br><span class="line">            stack.push(node)</span><br><span class="line">            <span class="keyword">while</span>(node.left) &#123;</span><br><span class="line">                stack.push(node.left)</span><br><span class="line">                node = node.left</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>二叉树</tag>
+      </tags>
+  </entry>
 </search>
