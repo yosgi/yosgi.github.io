@@ -260,7 +260,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/02/25/%E7%90%86%E8%A7%A3%20%20%20React%20Hook/" itemprop="url">理解   React Hook</a></h1>
+                <a class="post-title-link" href="/2021/02/25/%E7%90%86%E8%A7%A3%20%20%20React%20Hook/" itemprop="url">理解 React Hook</a></h1>
         
 
         <div class="post-meta">
@@ -344,36 +344,14 @@
 
       
         
-          
-            <p>用过旧版 react 的应该会知道，react 的 class 组件有state 来管理内部的状态，如下示例代码</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Clock</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params">props</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>(props);</span><br><span class="line">    <span class="built_in">this</span>.state = &#123;<span class="attr">date</span>: <span class="keyword">new</span> <span class="built_in">Date</span>()&#125;;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="title">render</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;h1&gt;Hello, world!&lt;/h1&gt;</span><br><span class="line">        &lt;h2&gt;It is &#123;<span class="built_in">this</span>.state.date.toLocaleTimeString()&#125;.&lt;/h2&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>而函数组件没有自己的state，如下示例代码</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Clock</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span>  (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;h1&gt;Hello, world!&lt;/h1&gt;</span><br><span class="line">      &lt;h2&gt;It is &#123;<span class="keyword">new</span> <span class="built_in">Date</span>().toLocaleTimeString()&#125;.&lt;/h2&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>如果我想使用函数组件，而又想对 date 拥有手动修改的控制权，就不得不使用props对组件做如下修改,这样就把控制权转交给了父组件</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Clock</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;h1&gt;Hello, world!&lt;/h1&gt;</span><br><span class="line">      &lt;h2&gt;It is &#123;props.date.toLocaleTimeString()&#125;.&lt;/h2&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>在react 16.8中，Hook的新特性使函数组件能控制自己的 ‘state’</strong></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; useState &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Example</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = useState(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;p&gt;You clicked &#123;count&#125; times&lt;/p&gt;</span><br><span class="line">      &lt;button onClick=&#123;<span class="function">() =&gt;</span> setCount(count + <span class="number">1</span>)&#125;&gt;</span><br><span class="line">        Click me</span><br><span class="line">      &lt;/button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>香吗 ？ 但是 react 对使用 hook 明确了一些规则，<strong>不要在循环，条件或嵌套函数中调用 Hook</strong>，为什么的问题先放一边，要实现 hook 应该怎么做 ？</p>
-<ol>
-<li><p>useState 函数接受一个值作为初始值，并返回一个数组。</p>
-</li>
-<li><p><strong>函数会存在多次的渲染，我们需要保证每次 render 时取到的 count ， setCount 和上一次相同。</strong></p>
-</li>
-</ol>
-<p>其中第二点是 hook 的重点，而实现的方法很简单，是数组</p>
-<p>在第一次渲染时，把 count ，setCount 分别存入数组中，下次渲染按顺序依次拿出来即可</p>
-<p>下面用伪代码实现一个hook</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 存放 state</span></span><br><span class="line"><span class="keyword">let</span> state = [];</span><br><span class="line"><span class="comment">// 存放 state 的修改方法</span></span><br><span class="line"><span class="keyword">let</span> setters = [];</span><br><span class="line"><span class="keyword">let</span> firstRun = <span class="literal">true</span>;</span><br><span class="line"><span class="keyword">let</span> cursor = <span class="number">0</span>;</span><br><span class="line"><span class="comment">// 创建setter </span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createSetter</span>(<span class="params">cursor</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">setterWithCursor</span>(<span class="params">newVal</span>) </span>&#123;</span><br><span class="line">    state[cursor] = newVal;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">useState</span>(<span class="params">initVal</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (firstRun) &#123;</span><br><span class="line">    state.push(initVal);</span><br><span class="line">    setters.push(createSetter(cursor));</span><br><span class="line">    firstRun = <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> setter = setters[cursor];</span><br><span class="line">  <span class="keyword">const</span> value = state[cursor];</span><br><span class="line">	<span class="comment">// cursor 保证了hook的顺序</span></span><br><span class="line">  cursor++;</span><br><span class="line">  <span class="keyword">return</span> [value, setter];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这也解答了前面的问题，如果 hook 在条件语句中，有可能造成第一次渲染存数组的 cursor 和之后不一致，导致state的次序乱掉。 </p>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>hook 并不是什么新东西，相当于在函数外层维护了一个数组，在第一次渲染时把hook 依次塞进去，后面render时再按顺序拿出来使用。</p>
-<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><p><a target="_blank" rel="noopener" href="https://medium.com/@ryardley/react-hooks-not-magic-just-arrays-cd4f1857236e">https://medium.com/@ryardley/react-hooks-not-magic-just-arrays-cd4f1857236e</a></p>
-
-          
+          Hook  ===  数组
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/02/25/%E7%90%86%E8%A7%A3%20%20%20React%20Hook/">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
