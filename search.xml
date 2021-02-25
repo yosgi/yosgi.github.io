@@ -4602,4 +4602,24 @@ co(taskList).then(res=&gt;&#123;
         <tag>ES6</tag>
       </tags>
   </entry>
+  <entry>
+    <title>144.二叉树的前序遍历</title>
+    <url>/2021/02/25/144-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86/</url>
+    <content><![CDATA[<h4 id="144-二叉树的前序遍历"><a href="#144-二叉树的前序遍历" class="headerlink" title="144.二叉树的前序遍历"></a>144.二叉树的前序遍历</h4><p>10min</p>
+<p>二叉树的前序遍历的顺序是根 - 左 - 右</p>
+<p>先遍历完所有的根节点与左节点，然后处理右节点</p>
+<p>可以看出来这是一个递归的行为，递归问题可以用栈来进行简化</p>
+<h5 id="迭代解法"><a href="#迭代解法" class="headerlink" title="迭代解法"></a>迭代解法</h5><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> preorderTraversal = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">    <span class="keyword">var</span> stack = [root]</span><br><span class="line">    <span class="keyword">var</span> res = []</span><br><span class="line">    <span class="keyword">while</span>(stack.length) &#123;</span><br><span class="line">        <span class="keyword">var</span> node = stack.pop()</span><br><span class="line">        res.push(node.val)</span><br><span class="line">        node.right &amp;&amp; stack.push(node.right)</span><br><span class="line">        node.left &amp;&amp; stack.push(node.left)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h5 id="递归解法"><a href="#递归解法" class="headerlink" title="递归解法"></a>递归解法</h5><p>递归问题当然可以递归解决</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> preorderTraversal = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> res = []</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> res</span><br><span class="line">    <span class="keyword">var</span> travel = <span class="function"><span class="keyword">function</span> (<span class="params">node</span>) </span>&#123;</span><br><span class="line">        res.push(node.val)</span><br><span class="line">        node.left &amp;&amp; travel(node.left)</span><br><span class="line">        node.right &amp;&amp; travel(node.right)</span><br><span class="line">    &#125;</span><br><span class="line">    travel(root)</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>二叉树</tag>
+      </tags>
+  </entry>
 </search>
