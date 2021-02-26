@@ -87,7 +87,7 @@
 <meta property="og:description" content="递归解法和利用栈的解，很简单">
 <meta property="og:locale">
 <meta property="article:published_time" content="2021-02-25T09:05:08.000Z">
-<meta property="article:modified_time" content="2021-02-25T09:07:17.558Z">
+<meta property="article:modified_time" content="2021-02-26T01:30:08.987Z">
 <meta property="article:author" content="yosgi">
 <meta property="article:tag" content="二叉树">
 <meta name="twitter:card" content="summary">
@@ -339,7 +339,7 @@
 
       
         <h4 id="144-二叉树的前序遍历"><a href="#144-二叉树的前序遍历" class="headerlink" title="144.二叉树的前序遍历"></a>144.二叉树的前序遍历</h4><p>10min</p>
-<p>二叉树的前序遍历的顺序是根 - 左 - 右</p>
+<p>二叉树的前序遍历的顺序是中 - 左 - 右</p>
 <p>先遍历完所有的根节点与左节点，然后处理右节点</p>
 <p>可以看出来这是一个递归的行为，递归问题可以用栈来进行简化</p>
 <h5 id="迭代解法"><a href="#迭代解法" class="headerlink" title="迭代解法"></a>迭代解法</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> preorderTraversal = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">    <span class="keyword">var</span> stack = [root]</span><br><span class="line">    <span class="keyword">var</span> res = []</span><br><span class="line">    <span class="keyword">while</span>(stack.length) &#123;</span><br><span class="line">        <span class="keyword">var</span> node = stack.pop()</span><br><span class="line">        res.push(node.val)</span><br><span class="line">        node.right &amp;&amp; stack.push(node.right)</span><br><span class="line">        node.left &amp;&amp; stack.push(node.left)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
@@ -466,7 +466,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">48</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

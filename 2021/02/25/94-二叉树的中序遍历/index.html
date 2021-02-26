@@ -87,7 +87,7 @@
 <meta property="og:description" content="比前序复杂一些">
 <meta property="og:locale">
 <meta property="article:published_time" content="2021-02-25T15:57:58.000Z">
-<meta property="article:modified_time" content="2021-02-25T15:59:01.907Z">
+<meta property="article:modified_time" content="2021-02-26T06:16:40.735Z">
 <meta property="article:author" content="yosgi">
 <meta property="article:tag" content="二叉树">
 <meta name="twitter:card" content="summary">
@@ -339,7 +339,7 @@
 
       
         <h4 id="94-二叉树的中序遍历"><a href="#94-二叉树的中序遍历" class="headerlink" title="94.二叉树的中序遍历"></a>94.二叉树的中序遍历</h4><p>30min</p>
-<p>中序遍历的顺序是 前 - 中 - 后</p>
+<p>中序遍历的顺序是 左 - 中 - 右</p>
 <h5 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h5><p>用递归非常容易</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> inorderTraversal = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> res = []</span><br><span class="line">    <span class="keyword">if</span> (!root) &#123;</span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> travel = <span class="function"><span class="keyword">function</span> (<span class="params">node</span>) </span>&#123;</span><br><span class="line">        node.left &amp;&amp; travel(node.left)</span><br><span class="line">        res.push(node.val)</span><br><span class="line">        node.right &amp;&amp; travel(node.right)</span><br><span class="line">    &#125;</span><br><span class="line">    travel(root)</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
@@ -348,7 +348,7 @@
 <li>根节点入栈，判断有没有左子节点，如果有，继续入栈，直到叶子结点</li>
 <li>出栈，输出，判断是否有右子节点，有则入栈，继续执行2 </li>
 </ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> inorderTraversal = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> stack = []</span><br><span class="line">    <span class="keyword">var</span> res = []</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> res  </span><br><span class="line">    stack.push(root)</span><br><span class="line">    <span class="keyword">while</span>(root.left) &#123;</span><br><span class="line">        stack.push(root.left)</span><br><span class="line">        root = root.left</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(stack.length) &#123;</span><br><span class="line">        <span class="keyword">var</span> node = stack.pop()</span><br><span class="line">        res.push(node.val)</span><br><span class="line">        <span class="keyword">if</span> (node.right) &#123;</span><br><span class="line">            node = node.right</span><br><span class="line">            stack.push(node)</span><br><span class="line">            <span class="keyword">while</span>(node.left) &#123;</span><br><span class="line">                stack.push(node.left)</span><br><span class="line">                node = node.left</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> inorderTraversal = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> stack = []</span><br><span class="line">    <span class="keyword">var</span> res = []</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> res  </span><br><span class="line">    stack.push(root)</span><br><span class="line">    <span class="keyword">while</span>(root.left) &#123;</span><br><span class="line">        stack.push(root.left)</span><br><span class="line">        root = root.left</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(stack.length) &#123;</span><br><span class="line">        <span class="comment">// 此时栈顶是树中最左的节点</span></span><br><span class="line">        <span class="keyword">var</span> node = stack.pop()</span><br><span class="line">        res.push(node.val)</span><br><span class="line">        <span class="comment">// 存在右节点，入栈后继续找左节点</span></span><br><span class="line">        <span class="keyword">if</span> (node.right) &#123;</span><br><span class="line">            node = node.right</span><br><span class="line">            stack.push(node)</span><br><span class="line">            <span class="keyword">while</span>(node.left) &#123;</span><br><span class="line">                stack.push(node.left)</span><br><span class="line">                node = node.left</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
       
@@ -389,6 +389,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/02/26/145-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86/" rel="prev" title="145.二叉树的后序遍历">
+                145.二叉树的后序遍历 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -465,7 +469,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">48</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
