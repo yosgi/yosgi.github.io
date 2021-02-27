@@ -4670,4 +4670,26 @@ co(taskList).then(res=&gt;&#123;
         <tag>二叉树</tag>
       </tags>
   </entry>
+  <entry>
+    <title>二叉树前中后总结</title>
+    <url>/2021/02/27/%E4%BA%8C%E5%8F%89%E6%A0%91%E5%89%8D%E4%B8%AD%E5%90%8E%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h4 id="二叉树前中后序遍历总结"><a href="#二叉树前中后序遍历总结" class="headerlink" title="二叉树前中后序遍历总结"></a>二叉树前中后序遍历总结</h4><p>从前面的题目中可以看到，二叉树的前中后序遍历的递归方法是类似的，但是迭代的实现完全不同。</p>
+<p>从垃圾回收的三色标记法得到启发，发现他们的共同点</p>
+<ol>
+<li>节点入栈，标记为 0 （ 未访问 ）</li>
+<li>节点出栈，若已经访问，出栈。若未访问，标记为已访问，入栈。</li>
+<li>节点左右节点 继续到 1 </li>
+</ol>
+<p>这样，我们可以通过控制节点的入栈顺序，用相似的代码来迭代完成二叉树的前中后序遍历。需要额外做的是多开一个On的空间来保存节点的状态</p>
+<p>拿后序遍历做例子</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> postorderTraversal = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> stack = [[root,<span class="number">0</span>]]</span><br><span class="line">    <span class="keyword">var</span> res = []</span><br><span class="line">    <span class="keyword">while</span>(stack.length) &#123;</span><br><span class="line">        <span class="keyword">var</span> [node,color] = stack.pop()</span><br><span class="line">        <span class="keyword">if</span> (color === <span class="number">0</span>) &#123;</span><br><span class="line">        	  <span class="comment">// 在这里通过控制顺序就可以完成前中后序遍历</span></span><br><span class="line">            stack.push([node,<span class="number">1</span>])</span><br><span class="line">            node.right &amp;&amp; stack.push([node.right,<span class="number">0</span>])</span><br><span class="line">            node.left &amp;&amp; stack.push([node.left,<span class="number">0</span>])</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            res.push(node.val)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>二叉树</tag>
+      </tags>
+  </entry>
 </search>
