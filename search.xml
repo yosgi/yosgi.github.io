@@ -4671,8 +4671,32 @@ co(taskList).then(res=&gt;&#123;
       </tags>
   </entry>
   <entry>
-    <title>二叉树前中后总结</title>
-    <url>/2021/02/27/%E4%BA%8C%E5%8F%89%E6%A0%91%E5%89%8D%E4%B8%AD%E5%90%8E%E6%80%BB%E7%BB%93/</url>
+    <title>102.二叉树的层序遍历</title>
+    <url>/2021/02/28/102-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86/</url>
+    <content><![CDATA[<h4 id="102-二叉树的层序遍历"><a href="#102-二叉树的层序遍历" class="headerlink" title="102.二叉树的层序遍历"></a>102.二叉树的层序遍历</h4><p>遍历本身很简单，需要考虑的问题是怎么标示每一层，这里可以用迭代和递归两种思路</p>
+<h5 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h5><ol>
+<li>入队 root ，再入队一个null 表示第 0 层的结束</li>
+<li>出队 root ，入队左右节点 ， 如果出队的是null，说明一层结束，再入队一个 null</li>
+<li>队列不为空，循环 2  </li>
+</ol>
+<p>⚠️ 需要注意的点： 队列最后一项如果不做处理将会一直是null，因此需要增加结束条件</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> levelOrder = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> que = [root,<span class="literal">null</span>]</span><br><span class="line">    <span class="keyword">var</span> res = []</span><br><span class="line">    <span class="keyword">var</span> level = []</span><br><span class="line">    <span class="keyword">if</span> (!root ) <span class="keyword">return</span> []</span><br><span class="line">    <span class="keyword">while</span>(que.length) &#123;</span><br><span class="line">        <span class="keyword">var</span> node = que.shift()</span><br><span class="line">        <span class="keyword">if</span> (node) &#123;</span><br><span class="line">            node.left &amp;&amp; que.push(node.left)</span><br><span class="line">            node.right &amp;&amp; que.push(node.right)</span><br><span class="line">            level.push(node.val)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            res.push([...level])</span><br><span class="line">            level = []</span><br><span class="line">            <span class="keyword">if</span>(que.length) &#123;</span><br><span class="line">                que.push(<span class="literal">null</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>总结 ： 为什么是队列 ？ </p>
+<p>二叉树的前中后序遍历的迭代时，我们用栈来简化操作，因为它们都是DFS的递归结构，也就是从下到上处理，但是我写代码一定是从root节点开始，所以需要栈，而栈正好是先进先出的。这样我才可以把处理root放在最后。</p>
+<p>层序遍历是BFS，由上至下。最先入队的root也是我想最先处理的。这就是为什么DFS 使用栈而BFS使用队列的原因。</p>
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>BFS</tag>
+        <tag>二叉树</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>双色标记法前中后遍历二叉树</title>
+    <url>/2021/02/27/%E5%8F%8C%E8%89%B2%E6%A0%87%E8%AE%B0%E6%B3%95/</url>
     <content><![CDATA[<h4 id="二叉树前中后序遍历总结"><a href="#二叉树前中后序遍历总结" class="headerlink" title="二叉树前中后序遍历总结"></a>二叉树前中后序遍历总结</h4><p>从前面的题目中可以看到，二叉树的前中后序遍历的递归方法是类似的，但是迭代的实现完全不同。</p>
 <p>从垃圾回收的三色标记法得到启发，发现他们的共同点</p>
 <ol>
