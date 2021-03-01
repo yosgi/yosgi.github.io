@@ -87,7 +87,7 @@
 <meta property="og:description" content="Binary Tree Level Order Traversal">
 <meta property="og:locale">
 <meta property="article:published_time" content="2021-02-28T02:14:52.000Z">
-<meta property="article:modified_time" content="2021-02-28T02:18:30.557Z">
+<meta property="article:modified_time" content="2021-02-28T04:25:59.260Z">
 <meta property="article:author" content="yosgi">
 <meta property="article:tag" content="BFS">
 <meta property="article:tag" content="二叉树">
@@ -348,9 +348,17 @@
 <p>⚠️ 需要注意的点： 队列最后一项如果不做处理将会一直是null，因此需要增加结束条件</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> levelOrder = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> que = [root,<span class="literal">null</span>]</span><br><span class="line">    <span class="keyword">var</span> res = []</span><br><span class="line">    <span class="keyword">var</span> level = []</span><br><span class="line">    <span class="keyword">if</span> (!root ) <span class="keyword">return</span> []</span><br><span class="line">    <span class="keyword">while</span>(que.length) &#123;</span><br><span class="line">        <span class="keyword">var</span> node = que.shift()</span><br><span class="line">        <span class="keyword">if</span> (node) &#123;</span><br><span class="line">            node.left &amp;&amp; que.push(node.left)</span><br><span class="line">            node.right &amp;&amp; que.push(node.right)</span><br><span class="line">            level.push(node.val)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            res.push([...level])</span><br><span class="line">            level = []</span><br><span class="line">            <span class="keyword">if</span>(que.length) &#123;</span><br><span class="line">                que.push(<span class="literal">null</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p>总结 ： 为什么是队列 ？ </p>
-<p>二叉树的前中后序遍历的迭代时，我们用栈来简化操作，因为它们都是DFS的递归结构，也就是从下到上处理，但是我写代码一定是从root节点开始，所以需要栈，而栈正好是先进先出的。这样我才可以把处理root放在最后。</p>
-<p>层序遍历是BFS，由上至下。最先入队的root也是我想最先处理的。这就是为什么DFS 使用栈而BFS使用队列的原因。</p>
+
+
+<h5 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h5><p>递归解法的重点是传递层数作为参数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> levelOrder = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> res = []</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> []</span><br><span class="line">    <span class="keyword">var</span> walk = <span class="function"><span class="keyword">function</span> (<span class="params">node,index</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!res[index]) res[index] = []</span><br><span class="line">        res[index].push(node.val)</span><br><span class="line">        node.left &amp;&amp; walk(node.left,index + <span class="number">1</span>)</span><br><span class="line">        node.right &amp;&amp; walk(node.right,index + <span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    walk(root,<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>步骤如代码所示</p>
+<ol>
+<li>为所在的层数开辟一个数组空间</li>
+<li>root 加入数组</li>
+<li>如果存在左节点，或者右节点，继续到1，层数 + 1</li>
+</ol>
 
       
     </div>
@@ -392,6 +400,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/02/28/%E5%85%B3%E4%BA%8E%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%80%BB%E7%BB%93/" rel="prev" title="关于二叉树的总结">
+                关于二叉树的总结 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -468,7 +480,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -523,7 +535,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#102-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="nav-number">1.</span> <span class="nav-text">102.二叉树的层序遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3"><span class="nav-number">1.1.</span> <span class="nav-text">迭代</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#102-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="nav-number">1.</span> <span class="nav-text">102.二叉树的层序遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3"><span class="nav-number">1.1.</span> <span class="nav-text">迭代</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%80%92%E5%BD%92"><span class="nav-number">1.2.</span> <span class="nav-text">递归</span></a></li></ol></li></ol></div>
             
 
           </div>

@@ -4682,9 +4682,17 @@ co(taskList).then(res=&gt;&#123;
 <p>⚠️ 需要注意的点： 队列最后一项如果不做处理将会一直是null，因此需要增加结束条件</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> levelOrder = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> que = [root,<span class="literal">null</span>]</span><br><span class="line">    <span class="keyword">var</span> res = []</span><br><span class="line">    <span class="keyword">var</span> level = []</span><br><span class="line">    <span class="keyword">if</span> (!root ) <span class="keyword">return</span> []</span><br><span class="line">    <span class="keyword">while</span>(que.length) &#123;</span><br><span class="line">        <span class="keyword">var</span> node = que.shift()</span><br><span class="line">        <span class="keyword">if</span> (node) &#123;</span><br><span class="line">            node.left &amp;&amp; que.push(node.left)</span><br><span class="line">            node.right &amp;&amp; que.push(node.right)</span><br><span class="line">            level.push(node.val)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            res.push([...level])</span><br><span class="line">            level = []</span><br><span class="line">            <span class="keyword">if</span>(que.length) &#123;</span><br><span class="line">                que.push(<span class="literal">null</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p>总结 ： 为什么是队列 ？ </p>
-<p>二叉树的前中后序遍历的迭代时，我们用栈来简化操作，因为它们都是DFS的递归结构，也就是从下到上处理，但是我写代码一定是从root节点开始，所以需要栈，而栈正好是先进先出的。这样我才可以把处理root放在最后。</p>
-<p>层序遍历是BFS，由上至下。最先入队的root也是我想最先处理的。这就是为什么DFS 使用栈而BFS使用队列的原因。</p>
+
+
+<h5 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h5><p>递归解法的重点是传递层数作为参数</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> levelOrder = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> res = []</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> []</span><br><span class="line">    <span class="keyword">var</span> walk = <span class="function"><span class="keyword">function</span> (<span class="params">node,index</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!res[index]) res[index] = []</span><br><span class="line">        res[index].push(node.val)</span><br><span class="line">        node.left &amp;&amp; walk(node.left,index + <span class="number">1</span>)</span><br><span class="line">        node.right &amp;&amp; walk(node.right,index + <span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    walk(root,<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>步骤如代码所示</p>
+<ol>
+<li>为所在的层数开辟一个数组空间</li>
+<li>root 加入数组</li>
+<li>如果存在左节点，或者右节点，继续到1，层数 + 1</li>
+</ol>
 ]]></content>
       <categories>
         <category>leetcode</category>
@@ -4707,6 +4715,69 @@ co(taskList).then(res=&gt;&#123;
 <p>这样，我们可以通过控制节点的入栈顺序，用相似的代码来迭代完成二叉树的前中后序遍历。需要额外做的是多开一个On的空间来保存节点的状态</p>
 <p>拿后序遍历做例子</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> postorderTraversal = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> stack = [[root,<span class="number">0</span>]]</span><br><span class="line">    <span class="keyword">var</span> res = []</span><br><span class="line">    <span class="keyword">while</span>(stack.length) &#123;</span><br><span class="line">        <span class="keyword">var</span> [node,color] = stack.pop()</span><br><span class="line">        <span class="keyword">if</span> (color === <span class="number">0</span>) &#123;</span><br><span class="line">        	  <span class="comment">// 在这里通过控制顺序就可以完成前中后序遍历</span></span><br><span class="line">            stack.push([node,<span class="number">1</span>])</span><br><span class="line">            node.right &amp;&amp; stack.push([node.right,<span class="number">0</span>])</span><br><span class="line">            node.left &amp;&amp; stack.push([node.left,<span class="number">0</span>])</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            res.push(node.val)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>二叉树</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>133.路径总和II</title>
+    <url>/2021/02/28/133-%E8%B7%AF%E5%BE%84%E6%80%BB%E5%92%8CII/</url>
+    <content><![CDATA[<p>用时 ：10min</p>
+<p>题意求的是从根节点到子节点相加等于目标值的路径，很容易想到是用到DFS，路径可以作为参数传递下去，只要满足最后的是叶子结点即可</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> pathSum = <span class="function"><span class="keyword">function</span>(<span class="params">root, sum</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> res = []</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> []</span><br><span class="line">    <span class="keyword">var</span> dfs = <span class="function"><span class="keyword">function</span> (<span class="params">node,visited,total</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (sum === total &amp;&amp; (!node.left &amp;&amp; !node.right)) &#123;</span><br><span class="line">            res.push(visited)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        node.left &amp;&amp; dfs(node.left,[...visited,node.left.val],total + node.left.val)</span><br><span class="line">        node.right &amp;&amp; dfs(node.right ,[...visited,node.right.val], total + node.right.val)</span><br><span class="line">    &#125;</span><br><span class="line">    dfs(root,[root.val],root.val)</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>DFS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>关于二叉树的总结</title>
+    <url>/2021/02/28/%E5%85%B3%E4%BA%8E%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h5 id="为什么前中后序遍历用栈，而层序遍历使用队列-？"><a href="#为什么前中后序遍历用栈，而层序遍历使用队列-？" class="headerlink" title="为什么前中后序遍历用栈，而层序遍历使用队列 ？"></a>为什么前中后序遍历用栈，而层序遍历使用队列 ？</h5><p>二叉树的前中后序遍历的迭代时，我们用栈来简化操作，因为它们都是DFS的递归结构，也就是从下到上处理，但是我写代码一定是从root节点开始，所以需要栈，而栈正好是先进先出的。这样我才可以把处理root放在最后。</p>
+<p>层序遍历是BFS，由上至下。最先入队的root也是我想最先处理的。这就是为什么DFS 使用栈而BFS使用队列的原因。</p>
+<h5 id="DFS的算法流程与模板"><a href="#DFS的算法流程与模板" class="headerlink" title="DFS的算法流程与模板"></a>DFS的算法流程与模板</h5><ol>
+<li><p>首先将根节点放入<strong>stack</strong>中。</p>
+</li>
+<li><p>从<em>stack</em>中取出第一个节点，并检验它是否为目标。如果找到所有的节点，则结束搜寻并回传结果。否则将它某一个尚未检验过的直接子节点加入<strong>stack</strong>中。</p>
+</li>
+<li><p>重复步骤 2。</p>
+</li>
+<li><p>如果不存在未检测过的直接子节点。将上一级节点加入<strong>stack</strong>中。</p>
+</li>
+<li><p>重复步骤 2。</p>
+</li>
+<li><p>重复步骤 4。</p>
+</li>
+</ol>
+<p>若<strong>stack</strong>为空，表示整张图都检查过了——亦即图中没有欲搜寻的目标。结束搜寻并回传“找不到目标”。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">dfs</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (满足特定条件）&#123;</span><br><span class="line">        <span class="comment">// 返回结果 or 退出搜索空间</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> child <span class="keyword">of</span> root.children) &#123;</span><br><span class="line">        dfs(child)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="BFS-的算法流程与模板"><a href="#BFS-的算法流程与模板" class="headerlink" title="BFS 的算法流程与模板"></a>BFS 的算法流程与模板</h5><ol>
+<li><p>首先将根节点放入队列中。</p>
+</li>
+<li><p>从队列中取出第一个节点，并检验它是否为目标。</p>
+</li>
+</ol>
+<ul>
+<li>如果找到目标，则结束搜索并回传结果。</li>
+<li>否则将它所有尚未检验过的直接子节点加入队列中。</li>
+</ul>
+<ol start="3">
+<li><p>若队列为空，表示整张图都检查过了——亦即图中没有欲搜索的目标。结束搜索并回传“找不到目标”。</p>
+</li>
+<li><p>重复步骤 2。</p>
+</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bfs</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> que = [root]</span><br><span class="line">  <span class="keyword">while</span>(que.length) &#123;</span><br><span class="line">    <span class="keyword">var</span> node = que.shift()</span><br><span class="line">     <span class="keyword">if</span> (node 是我们要找到的)  <span class="keyword">return</span> node</span><br><span class="line">     node.left &amp;&amp; que.push(node.left)</span><br><span class="line">    	node.right &amp;&amp; que.push(node.right)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <categories>
