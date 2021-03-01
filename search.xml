@@ -4787,4 +4787,21 @@ co(taskList).then(res=&gt;&#123;
         <tag>二叉树</tag>
       </tags>
   </entry>
+  <entry>
+    <title>1372. 二叉树中的最长交错路径</title>
+    <url>/2021/03/01/1372-%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E7%9A%84%E6%9C%80%E9%95%BF%E4%BA%A4%E9%94%99%E8%B7%AF%E5%BE%84/</url>
+    <content><![CDATA[<p>用时：25min</p>
+<p>其实是比较常规的DFS类型题目，之所以用这么久是因为对边界值的判断出了问题。</p>
+<p>从 root 出发时， 因为root 是没有父亲节点的，所以 len 值 为 0</p>
+<p>从子节点出发，因为当前节点到下一节点已经走一条长度为 1 的边 ， 所以是 1 </p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> longestZigZag = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// true left false right </span></span><br><span class="line">    <span class="keyword">var</span> max = <span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> dfs = <span class="function"><span class="keyword">function</span> (<span class="params">node,flag,len</span>) </span>&#123;</span><br><span class="line">        max = <span class="built_in">Math</span>.max(len,max)</span><br><span class="line">        <span class="keyword">if</span> (flag) &#123;</span><br><span class="line">            node.right &amp;&amp; dfs(node.right,!flag,len + <span class="number">1</span>)</span><br><span class="line">            node.left &amp;&amp; dfs(node.left,flag,<span class="number">1</span>)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            node.left &amp;&amp; dfs(node.left,!flag,len + <span class="number">1</span>)</span><br><span class="line">            node.right &amp;&amp; dfs(node.right,flag,<span class="number">1</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    dfs(root,<span class="literal">true</span>,<span class="number">0</span>)</span><br><span class="line">    dfs(root,<span class="literal">false</span>,<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span> max</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>DFS</tag>
+      </tags>
+  </entry>
 </search>
