@@ -4825,4 +4825,52 @@ co(taskList).then(res=&gt;&#123;
         <tag>BFS</tag>
       </tags>
   </entry>
+  <entry>
+    <title>1008. 前序遍历构造二叉搜索树</title>
+    <url>/2021/03/10/1008-%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86%E6%9E%84%E9%80%A0%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/</url>
+    <content><![CDATA[<p>用时 ： 没做出来</p>
+<p>没做出来的主要原因是一直想着怎么用栈来做，写到后面看栈的答案看着看着发现递归最简单</p>
+<h5 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h5><p>思路很简单，首先写出来怎么插入子节点</p>
+<ol>
+<li>如果比父节点小，且父节点左为空，直接做左节点</li>
+<li>如果比父节点大，且父节点右为空，直接做右节点</li>
+<li>比父节点小，则父节点赋值为父节点的左节点，回到 1 </li>
+<li>比父节点大，则父节点赋值为父节点的右节点，回到1</li>
+</ol>
+<p>遍历整个数组，一个个插入即可得到结果</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> bstFromPreorder = <span class="function"><span class="keyword">function</span>(<span class="params">preorder</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> add = <span class="function"><span class="keyword">function</span> (<span class="params">node,val</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (val &lt; node.val &amp;&amp; !node.left) &#123;</span><br><span class="line">            node.left = <span class="keyword">new</span> TreeNode(val)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (val &gt; node.val &amp;&amp; !node.right) &#123;</span><br><span class="line">            node.right = <span class="keyword">new</span> TreeNode(val)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (val &lt; node.val) &#123;</span><br><span class="line">            add(node.left,val)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (val &gt; node.val) &#123;</span><br><span class="line">            add(node.right,val)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> root = <span class="keyword">new</span> TreeNode(preorder.shift())</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span> ; i &lt; preorder.length ; i ++) &#123;</span><br><span class="line">        add(root,preorder[i])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> root</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>二叉树</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>894.所有可能的满二叉树</title>
+    <url>/2021/03/07/894-%E6%89%80%E6%9C%89%E5%8F%AF%E8%83%BD%E7%9A%84%E6%BB%A1%E4%BA%8C%E5%8F%89%E6%A0%91/</url>
+    <content><![CDATA[<p>用时： 抄答案才做出来</p>
+<p>思路很容易看出来是利用递归，但是coding才是真正的问题。</p>
+<p>我们需要返回的是根节点，但是递归是从下至上的</p>
+<p>尝试用动态规划解决，dp(n) 是 dp(x)  与 dp (n - x - 1) 结果的组合</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> allPossibleFBT = <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123; </span><br><span class="line">    <span class="keyword">var</span> dp = []</span><br><span class="line">    <span class="keyword">var</span> buld = <span class="function"><span class="keyword">function</span> (<span class="params">n</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">1</span> ; i &lt;= n ; i ++ ) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i === <span class="number">1</span>) &#123;</span><br><span class="line">                dp[i] = <span class="keyword">new</span> TreeNode(<span class="number">0</span>)</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (i % <span class="number">2</span> === <span class="number">0</span>) &#123;</span><br><span class="line">                dp[i] = <span class="literal">undefined</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                dp[i] = []</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">let</span> left = <span class="number">1</span>; left &lt; i; left ++) &#123;</span><br><span class="line">                    <span class="keyword">var</span> leftNodes = dp[left]</span><br><span class="line">                    <span class="keyword">var</span> rightNodes = dp[i - left - <span class="number">1</span>]</span><br><span class="line">                    <span class="keyword">for</span>(<span class="keyword">let</span> j = <span class="number">0</span> ; j &lt; leftNodes.length ; j ++) &#123;</span><br><span class="line">                        <span class="keyword">for</span>(<span class="keyword">let</span> k = <span class="number">0</span> ; k &lt; rightNodes.length ; k ++) &#123;</span><br><span class="line">                            <span class="keyword">var</span> node  = <span class="keyword">new</span> TreeNode(<span class="number">0</span>)</span><br><span class="line">                            node.left = leftNodes[j]</span><br><span class="line">                            node.right = rightNodes[k]</span><br><span class="line">                            dp[i].push(node)</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">    buld(n)</span><br><span class="line">    <span class="keyword">return</span> dp[n]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>动态规划</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2021/03/09/%E7%94%A8%E6%97%B6%EF%BC%9A%20%E6%8A%84%E7%AD%94%E6%A1%88%E6%89%8D%E5%81%9A%E5%87%BA%E6%9D%A5/</url>
+    <content><![CDATA[<p>用时： 抄答案才做出来</p>
+<p>思路很容易看出来是利用递归，但是coding才是真正的问题。</p>
+<p>我们需要返回的是根节点，但是递归是从下至上的</p>
+<p>尝试用动态规划解决，dp(n) 是 dp(x)  与 dp (n - x - 1) 结果的组合</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> allPossibleFBT = <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123; </span><br><span class="line">    <span class="keyword">var</span> dp = []</span><br><span class="line">    <span class="keyword">var</span> buld = <span class="function"><span class="keyword">function</span> (<span class="params">n</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">1</span> ; i &lt;= n ; i ++ ) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i === <span class="number">1</span>) &#123;</span><br><span class="line">                dp[i] = <span class="keyword">new</span> TreeNode(<span class="number">0</span>)</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (i % <span class="number">2</span> === <span class="number">0</span>) &#123;</span><br><span class="line">                dp[i] = <span class="literal">undefined</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                dp[i] = []</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">let</span> left = <span class="number">1</span>; left &lt; i; left ++) &#123;</span><br><span class="line">                    <span class="keyword">var</span> leftNodes = dp[left]</span><br><span class="line">                    <span class="keyword">var</span> rightNodes = dp[i - left - <span class="number">1</span>]</span><br><span class="line">                    <span class="keyword">for</span>(<span class="keyword">let</span> j = <span class="number">0</span> ; j &lt; leftNodes.length ; j ++) &#123;</span><br><span class="line">                        <span class="keyword">for</span>(<span class="keyword">let</span> k = <span class="number">0</span> ; k &lt; rightNodes.length ; k ++) &#123;</span><br><span class="line">                            <span class="keyword">var</span> node  = <span class="keyword">new</span> TreeNode(<span class="number">0</span>)</span><br><span class="line">                            node.left = leftNodes[j]</span><br><span class="line">                            node.right = rightNodes[k]</span><br><span class="line">                            dp[i].push(node)</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">    buld(n)</span><br><span class="line">    <span class="keyword">return</span> dp[n]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+  </entry>
 </search>
