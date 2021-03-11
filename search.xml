@@ -4893,4 +4893,32 @@ co(taskList).then(res=&gt;&#123;
         <tag>二叉树</tag>
       </tags>
   </entry>
+  <entry>
+    <title>450. 删除二叉搜索树中的节点</title>
+    <url>/2021/03/11/450-%E5%88%A0%E9%99%A4%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E8%8A%82%E7%82%B9/</url>
+    <content><![CDATA[<p>用时:30min</p>
+<p>题目分两个部分需要解决，搜索和删除</p>
+<p>搜索部分就是找到节点，可以根据二叉搜索树的性质来找到需要的节点</p>
+<p>删除分三种情况</p>
+<ol>
+<li>只有左孩子，用左孩子代替</li>
+<li>只有右孩子，用右孩子代替</li>
+<li>都没有，则赋值为null （ 由于前面有递归赋值，所以这边可以成功</li>
+<li>都有，则储存左孩子后，用右孩子代替，然后找到左孩子在右边的位置</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> deleteNode = <span class="function"><span class="keyword">function</span>(<span class="params">root, key</span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span>  <span class="title">insert</span>(<span class="params">root,node</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root.val &gt; node.val) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!root.left) &#123;</span><br><span class="line">                root.left = node</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                insert(root.left,node)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (!root.right) &#123;</span><br><span class="line">                root.right = node</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                insert(root.right,node)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">search</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (!root) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span> </span><br><span class="line">      &#125;</span><br><span class="line">        <span class="keyword">if</span> (root.val &gt; key) &#123;</span><br><span class="line">            root.left = search(root.left)</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (root.val &lt; key)&#123;</span><br><span class="line">            root.right = search(root.right)</span><br><span class="line">        &#125;  <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (!root.left &amp;&amp; !root.right) &#123;</span><br><span class="line">                root = <span class="literal">null</span></span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (root.left &amp;&amp; root.right) &#123;</span><br><span class="line">                <span class="keyword">var</span> left = root.left</span><br><span class="line">                root = root.right</span><br><span class="line">                insert(root,left)</span><br><span class="line">            &#125; </span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (root.left) &#123;</span><br><span class="line">                root = root.left</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (root.right) &#123;</span><br><span class="line">                root = root.right</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> root</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> search(root)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>需要注意的点</p>
+<ol>
+<li>考虑节点不存在的情况</li>
+<li>删除一个节点的方法，可以给左（右 节点赋值为递归的返回值</li>
+</ol>
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>二叉树</tag>
+      </tags>
+  </entry>
 </search>
