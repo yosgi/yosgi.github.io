@@ -4864,4 +4864,33 @@ co(taskList).then(res=&gt;&#123;
         <tag>动态规划</tag>
       </tags>
   </entry>
+  <entry>
+    <title>116. 填充每个节点的下一个右侧节点指针</title>
+    <url>/2021/03/10/116-%E5%A1%AB%E5%85%85%E6%AF%8F%E4%B8%AA%E8%8A%82%E7%82%B9%E7%9A%84%E4%B8%8B%E4%B8%80%E4%B8%AA%E5%8F%B3%E4%BE%A7%E8%8A%82%E7%82%B9%E6%8C%87%E9%92%88/</url>
+    <content><![CDATA[<p>用时 ：25min</p>
+<p>主要思路是利用栈，和普通的层序遍历不同的是每次都把栈清空</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> connect = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">    <span class="keyword">var</span> stack = [root]</span><br><span class="line">    <span class="keyword">while</span>(stack.length) &#123;</span><br><span class="line">        <span class="keyword">var</span> _stack = [...stack,<span class="literal">null</span>]</span><br><span class="line">        stack = []</span><br><span class="line">        <span class="keyword">var</span> pre = _stack.shift()</span><br><span class="line">        <span class="keyword">while</span>(_stack.length || pre) &#123;</span><br><span class="line">            pre.left &amp;&amp; stack.push(pre.left)</span><br><span class="line">            pre.right &amp;&amp; stack.push(pre.right)</span><br><span class="line">            pre.next = _stack.shift()</span><br><span class="line">            pre = pre.next</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> root</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>很显然我使用的 On 的内存空间是不符合题目的常数空间的，考虑到每一层的链接可以依靠父节点，以链表的形式找到。如下代码</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span>(pre) &#123;</span><br><span class="line">        <span class="keyword">var</span> cur = pre</span><br><span class="line">        <span class="keyword">while</span>(cur) &#123;</span><br><span class="line">             cur.left.next = cur.right</span><br><span class="line">             cur.right.next = cur.next.left</span><br><span class="line">             cur = cur.next</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>剩下的需要考虑的有</p>
+<ol>
+<li><p>pre需要保存为最左边的节点，以便于后面以链表的形式进行连接</p>
+</li>
+<li><p>第一层的next为空</p>
+</li>
+<li><p>最后一层没有左右节点</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> connect = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!root) <span class="keyword">return</span> root</span><br><span class="line">    <span class="keyword">var</span> pre = root </span><br><span class="line">    <span class="keyword">while</span>(pre) &#123;</span><br><span class="line">        <span class="keyword">var</span> cur = pre</span><br><span class="line">        pre = pre.left</span><br><span class="line">        <span class="keyword">while</span>(cur) &#123;</span><br><span class="line">            <span class="keyword">if</span> (cur.left) &#123;</span><br><span class="line">                cur.left.next = cur.right</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (cur.right &amp;&amp; cur.next) &#123;</span><br><span class="line">                cur.right.next = cur.next.left</span><br><span class="line">            &#125;</span><br><span class="line">            cur = cur.next</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> root</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>二叉树</tag>
+      </tags>
+  </entry>
 </search>
