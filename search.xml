@@ -4988,4 +4988,20 @@ co(taskList).then(res=&gt;&#123;
         <tag>二叉树</tag>
       </tags>
   </entry>
+  <entry>
+    <title>99. 恢复二叉搜索树</title>
+    <url>/2021/03/13/99-%E6%81%A2%E5%A4%8D%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/</url>
+    <content><![CDATA[<p>用时：60min</p>
+<p>思路还是中序遍历，使用pre缓存前一个节点，因为中序遍历是递增的，所以一定是先找到大的，再找到小的。</p>
+<p>所以第一个出问题的是pre，第二个是root</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> recoverTree = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> left = <span class="literal">null</span></span><br><span class="line">    <span class="keyword">var</span> right = <span class="literal">null</span></span><br><span class="line">    <span class="keyword">var</span> pre = <span class="literal">null</span></span><br><span class="line">    <span class="comment">// 一定是先找到大的，再找到小的，所以第一个出问题的是pre，第二个出问题的是root</span></span><br><span class="line">    <span class="keyword">var</span> DFS = <span class="function"><span class="keyword">function</span> (<span class="params">root</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root.left) &#123;</span><br><span class="line">            DFS(root.left)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (pre) &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(pre.val)</span><br><span class="line">            <span class="keyword">if</span> (pre.val &gt; root.val) &#123;</span><br><span class="line">                <span class="keyword">if</span>(!left) &#123;</span><br><span class="line">                    left = pre</span><br><span class="line">                    right = root</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    right = root</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; </span><br><span class="line">            pre = root</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            pre = root</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (root.right) &#123;</span><br><span class="line">            DFS(root.right)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    DFS(root)</span><br><span class="line">    <span class="keyword">if</span> (left &amp;&amp; right) &#123;</span><br><span class="line">        [left.val,right.val] = [right.val,left.val]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> root</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>二叉树</tag>
+      </tags>
+  </entry>
 </search>
