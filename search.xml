@@ -4965,4 +4965,27 @@ co(taskList).then(res=&gt;&#123;
         <tag>二叉树</tag>
       </tags>
   </entry>
+  <entry>
+    <title>98. 验证二叉搜索树</title>
+    <url>/2021/03/13/98-%E9%AA%8C%E8%AF%81%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/</url>
+    <content><![CDATA[<p>用时 10min</p>
+<p>直接用二叉搜索树中序遍历递增的性质就好了</p>
+<ol>
+<li>中序遍历找到左孩子 </li>
+<li>pre 是否存在</li>
+<li>不存在，赋值 ，找右孩子，返回 1</li>
+<li>存在，是否比 val 小</li>
+<li>是，非递增，返回 false </li>
+<li>否，递增，赋值 pre ，返回 1</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> isValidBST = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> preVal = <span class="literal">null</span></span><br><span class="line">    <span class="keyword">var</span> DFS = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> left = <span class="literal">true</span></span><br><span class="line">        <span class="keyword">var</span> right = <span class="literal">true</span></span><br><span class="line">        <span class="keyword">if</span> (root.left) &#123;</span><br><span class="line">            left =  DFS(root.left)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (preVal !== <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (preVal &gt;= root.val) <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">            preVal = root.val</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            preVal = root.val</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (root.right) &#123;</span><br><span class="line">            right =  DFS(root.right)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> left &amp;&amp; right</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> DFS(root)</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>二叉树</tag>
+      </tags>
+  </entry>
 </search>
