@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="二叉树," />
+  <meta name="keywords" content="DFS,二叉树," />
 
 
 
@@ -79,16 +79,17 @@
 
 
 
-<meta name="description" content="感觉做的有点蒙蔽了，下一期做个总结吧">
+<meta name="description" content="愉快的周末从ac 开始 （并没有">
 <meta property="og:type" content="article">
-<meta property="og:title" content="145.二叉树的后序遍历">
-<meta property="og:url" content="https://yosgi.github.io/2021/02/26/145-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86/index.html">
+<meta property="og:title" content="863. 二叉树中所有距离为 K 的结点">
+<meta property="og:url" content="https://yosgi.github.io/2021/03/13/863-%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E6%89%80%E6%9C%89%E8%B7%9D%E7%A6%BB%E4%B8%BA-K-%E7%9A%84%E7%BB%93%E7%82%B9/index.html">
 <meta property="og:site_name" content="快雪时晴">
-<meta property="og:description" content="感觉做的有点蒙蔽了，下一期做个总结吧">
+<meta property="og:description" content="愉快的周末从ac 开始 （并没有">
 <meta property="og:locale">
-<meta property="article:published_time" content="2021-02-26T07:10:55.000Z">
-<meta property="article:modified_time" content="2021-02-26T07:12:13.110Z">
+<meta property="article:published_time" content="2021-03-13T02:10:10.000Z">
+<meta property="article:modified_time" content="2021-03-13T02:11:00.922Z">
 <meta property="article:author" content="yosgi">
+<meta property="article:tag" content="DFS">
 <meta property="article:tag" content="二叉树">
 <meta name="twitter:card" content="summary">
 
@@ -120,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="https://yosgi.github.io/2021/02/26/145-二叉树的后序遍历/"/>
+  <link rel="canonical" href="https://yosgi.github.io/2021/03/13/863-二叉树中所有距离为-K-的结点/"/>
 
 
 
 
 
-  <title>145.二叉树的后序遍历 | 快雪时晴</title>
+  <title>863. 二叉树中所有距离为 K 的结点 | 快雪时晴</title>
   
 
 
@@ -245,7 +246,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yosgi.github.io/2021/02/26/145-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86/">
+    <link itemprop="mainEntityOfPage" href="https://yosgi.github.io/2021/03/13/863-%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E6%89%80%E6%9C%89%E8%B7%9D%E7%A6%BB%E4%B8%BA-K-%E7%9A%84%E7%BB%93%E7%82%B9/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -262,7 +263,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">145.二叉树的后序遍历</h1>
+          <h1 class="post-title" itemprop="name headline">863. 二叉树中所有距离为 K 的结点</h1>
         
 
         <div class="post-meta">
@@ -274,8 +275,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-26T15:10:55+08:00">
-                2021-02-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-13T10:10:10+08:00">
+                2021-03-13
               </time>
             
 
@@ -321,7 +322,7 @@
 
           
               <div class="post-description">
-                  感觉做的有点蒙蔽了，下一期做个总结吧
+                  愉快的周末从ac 开始 （并没有
               </div>
           
 
@@ -338,20 +339,19 @@
       
 
       
-        <h4 id="145-二叉树的后序遍历"><a href="#145-二叉树的后序遍历" class="headerlink" title="145.二叉树的后序遍历"></a>145.二叉树的后序遍历</h4><p>1h</p>
-<p>中序遍历的顺序是 左 - 右 - 中 </p>
-<h5 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h5><p>用递归非常容易</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> postorderTraversal = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> res = []</span><br><span class="line">    <span class="keyword">if</span> (!root)</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">    <span class="keyword">var</span> travel = <span class="function"><span class="keyword">function</span> (<span class="params">node</span>) </span>&#123;</span><br><span class="line">        node.left &amp;&amp; travel(node.left)</span><br><span class="line">        node.right &amp;&amp; travel(node.right)</span><br><span class="line">        res.push(node.val)</span><br><span class="line">    &#125;</span><br><span class="line">    travel(root)</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+        <p>用时： 60 min</p>
+<p>思路还是很简单的，先用 DFS 给每一个节点加上 parent ，顺便找到需要的target 。</p>
+<p>然后从 target 出发，用DFS找到离target距离为K 的点 。</p>
+<p>依次找到target的所有父级，用 DFS 找到距离为 K 的点。</p>
+<p>花费时间比较多的原因是，找到父级后，又用 DFS 原路找了回来，造成了内存溢出。</p>
+<p>避免的方法是找到父级后，如果自身是左孩子，就去右孩子找（因为左孩子已经找过了），反之则反</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> distanceK = <span class="function"><span class="keyword">function</span>(<span class="params">root, target, K</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> node = <span class="literal">null</span></span><br><span class="line">    <span class="keyword">var</span> res = []</span><br><span class="line">    <span class="keyword">var</span> dfs = <span class="function"><span class="keyword">function</span> (<span class="params">root</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root === target) &#123;</span><br><span class="line">            node = root</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (root.left) &#123;</span><br><span class="line">            root.left.parent = root</span><br><span class="line">            dfs(root.left)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (root.right) &#123;</span><br><span class="line">            root.right.parent = root</span><br><span class="line">            dfs(root.right)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    dfs(root)</span><br><span class="line">    <span class="keyword">var</span> search = <span class="function"><span class="keyword">function</span> (<span class="params">root,index</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!root) <span class="keyword">return</span> </span><br><span class="line">        <span class="keyword">if</span> (index === K) &#123;</span><br><span class="line">            res.push(root.val)</span><br><span class="line">        &#125;</span><br><span class="line">        root.left &amp;&amp; search(root.left,index + <span class="number">1</span>)</span><br><span class="line">        root.right &amp;&amp;  search(root.right,index + <span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    search(node,<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">var</span> index = <span class="number">1</span></span><br><span class="line">    <span class="comment">// 父节点离node 的初始距离是 1</span></span><br><span class="line">    <span class="keyword">while</span>(index &lt;= K &amp;&amp; node.parent) &#123;</span><br><span class="line">        <span class="keyword">if</span>(index === K) &#123;</span><br><span class="line">            res.push(node.parent.val)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">if</span> (node.parent.left === node) &#123;</span><br><span class="line">            search(node.parent.right,++index)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            search(node.parent.left,++index)</span><br><span class="line">        &#125;</span><br><span class="line">        node = node.parent  </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<h5 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h5><ol>
-<li>根节点入栈</li>
-<li>判断是否可以出栈，如果能，则记录自己为上一个出栈节点，出栈</li>
-<li>不能出栈，分别将右节点和左节点入栈</li>
-<li>重复第二个步骤</li>
+<p>需要注意的几个点</p>
+<ol>
+<li>注意判空</li>
+<li>父节点本身可能就是需要找到的节点，如果父节点本身就是距离k，就没必要继续找下去了。</li>
 </ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> postorderTraversal = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> stack = [root]</span><br><span class="line">    <span class="keyword">var</span> res = []</span><br><span class="line">    <span class="keyword">if</span> (!root) &#123;</span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> pre = root</span><br><span class="line">    <span class="keyword">while</span>(stack.length) &#123;</span><br><span class="line">        <span class="keyword">var</span> node = stack[stack.length - <span class="number">1</span>]</span><br><span class="line">        <span class="comment">// 当节点的 左 / 右 节点是上一个被输出的节点，代表左右节点都已经被输出过（因为后序遍历根节点在最后）</span></span><br><span class="line">        <span class="keyword">if</span> ( (!node.left &amp;&amp; !node.right) || (node.left === pre || node.right === pre)) &#123;</span><br><span class="line">             <span class="comment">// 只有在没有 左右节点，或者 左右节点都输出过时才可以输出</span></span><br><span class="line">            node = stack.pop()</span><br><span class="line">            pre = node</span><br><span class="line">            res.push(node.val)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (node.right) &#123;</span><br><span class="line">                stack.push(node.right)</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(node.left) &#123;</span><br><span class="line">                stack.push(node.left)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p>虽然，做完了二叉树的前中后序遍历，但是我有预感用不了多久就会忘记，特别是中序遍历和后序遍历，我完全没有找到两者有什么共同点，所以随后会做一下总结。</p>
 
       
     </div>
@@ -369,6 +369,8 @@
       
         <div class="post-tags">
           
+            <a href="/tags/DFS/" rel="tag"># DFS</a>
+          
             <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag"># 二叉树</a>
           
         </div>
@@ -382,8 +384,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/02/25/94-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/" rel="next" title="94.二叉树的中序遍历">
-                <i class="fa fa-chevron-left"></i> 94.二叉树的中序遍历
+              <a href="/2021/03/11/669-%E4%BF%AE%E5%89%AA%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" rel="next" title="669. 修剪二叉搜索树">
+                <i class="fa fa-chevron-left"></i> 669. 修剪二叉搜索树
               </a>
             
           </div>
@@ -391,10 +393,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2021/02/27/%E5%8F%8C%E8%89%B2%E6%A0%87%E8%AE%B0%E6%B3%95/" rel="prev" title="双色标记法前中后遍历二叉树">
-                双色标记法前中后遍历二叉树 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -446,17 +444,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -516,22 +505,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#145-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="nav-number">1.</span> <span class="nav-text">145.二叉树的后序遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%80%92%E5%BD%92"><span class="nav-number">1.1.</span> <span class="nav-text">递归</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3"><span class="nav-number">1.2.</span> <span class="nav-text">迭代</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.3.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

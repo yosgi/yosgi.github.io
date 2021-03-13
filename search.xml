@@ -4940,4 +4940,29 @@ co(taskList).then(res=&gt;&#123;
         <tag>二叉树</tag>
       </tags>
   </entry>
+  <entry>
+    <title>863. 二叉树中所有距离为 K 的结点</title>
+    <url>/2021/03/13/863-%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E6%89%80%E6%9C%89%E8%B7%9D%E7%A6%BB%E4%B8%BA-K-%E7%9A%84%E7%BB%93%E7%82%B9/</url>
+    <content><![CDATA[<p>用时： 60 min</p>
+<p>思路还是很简单的，先用 DFS 给每一个节点加上 parent ，顺便找到需要的target 。</p>
+<p>然后从 target 出发，用DFS找到离target距离为K 的点 。</p>
+<p>依次找到target的所有父级，用 DFS 找到距离为 K 的点。</p>
+<p>花费时间比较多的原因是，找到父级后，又用 DFS 原路找了回来，造成了内存溢出。</p>
+<p>避免的方法是找到父级后，如果自身是左孩子，就去右孩子找（因为左孩子已经找过了），反之则反</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> distanceK = <span class="function"><span class="keyword">function</span>(<span class="params">root, target, K</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> node = <span class="literal">null</span></span><br><span class="line">    <span class="keyword">var</span> res = []</span><br><span class="line">    <span class="keyword">var</span> dfs = <span class="function"><span class="keyword">function</span> (<span class="params">root</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root === target) &#123;</span><br><span class="line">            node = root</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (root.left) &#123;</span><br><span class="line">            root.left.parent = root</span><br><span class="line">            dfs(root.left)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (root.right) &#123;</span><br><span class="line">            root.right.parent = root</span><br><span class="line">            dfs(root.right)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    dfs(root)</span><br><span class="line">    <span class="keyword">var</span> search = <span class="function"><span class="keyword">function</span> (<span class="params">root,index</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!root) <span class="keyword">return</span> </span><br><span class="line">        <span class="keyword">if</span> (index === K) &#123;</span><br><span class="line">            res.push(root.val)</span><br><span class="line">        &#125;</span><br><span class="line">        root.left &amp;&amp; search(root.left,index + <span class="number">1</span>)</span><br><span class="line">        root.right &amp;&amp;  search(root.right,index + <span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    search(node,<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">var</span> index = <span class="number">1</span></span><br><span class="line">    <span class="comment">// 父节点离node 的初始距离是 1</span></span><br><span class="line">    <span class="keyword">while</span>(index &lt;= K &amp;&amp; node.parent) &#123;</span><br><span class="line">        <span class="keyword">if</span>(index === K) &#123;</span><br><span class="line">            res.push(node.parent.val)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">if</span> (node.parent.left === node) &#123;</span><br><span class="line">            search(node.parent.right,++index)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            search(node.parent.left,++index)</span><br><span class="line">        &#125;</span><br><span class="line">        node = node.parent  </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>需要注意的几个点</p>
+<ol>
+<li>注意判空</li>
+<li>父节点本身可能就是需要找到的节点，如果父节点本身就是距离k，就没必要继续找下去了。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>DFS</tag>
+        <tag>二叉树</tag>
+      </tags>
+  </entry>
 </search>
