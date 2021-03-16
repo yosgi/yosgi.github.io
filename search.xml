@@ -5073,4 +5073,23 @@ co(taskList).then(res=&gt;&#123;
         <tag>二叉树</tag>
       </tags>
   </entry>
+  <entry>
+    <title>面试题 04.12. 求和路径</title>
+    <url>/2021/03/16/%E9%9D%A2%E8%AF%95%E9%A2%98-04-12-%E6%B1%82%E5%92%8C%E8%B7%AF%E5%BE%84/</url>
+    <content><![CDATA[<p>用时：20min</p>
+<p>因为是求 “ 每个节点出发的为sum的路径”</p>
+<p>很明显就想到了回溯，因为是二叉树，所以就双递归。</p>
+<p>外层递归用来找到所有的节点，内层用来算节点的路径</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> pathSum = <span class="function"><span class="keyword">function</span>(<span class="params">root, sum</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> res = <span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> dfs = <span class="function"><span class="keyword">function</span> (<span class="params">root,total,visited</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!root) <span class="keyword">return</span> </span><br><span class="line">        <span class="keyword">if</span> (total + root.val == sum) &#123;</span><br><span class="line">            res++</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (total + root.val &gt; sum) &#123;</span><br><span class="line">            <span class="keyword">return</span> </span><br><span class="line">        &#125; </span><br><span class="line">        dfs(root.left,total + root.val,[...visited,root.val])</span><br><span class="line">        dfs(root.right,total + root.val,[...visited,root.val])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> dfs_outer = <span class="function"><span class="keyword">function</span> (<span class="params">root</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!root )<span class="keyword">return</span> </span><br><span class="line">        root.left &amp;&amp; dfs_outer(root.left)</span><br><span class="line">        dfs(root,<span class="number">0</span>,[])</span><br><span class="line">        root.right &amp;&amp; dfs_outer(root.right)</span><br><span class="line">    &#125;</span><br><span class="line">    dfs_outer(root)</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>DFS</tag>
+        <tag>二叉树</tag>
+        <tag>双递归</tag>
+      </tags>
+  </entry>
 </search>
