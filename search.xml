@@ -5092,4 +5092,23 @@ co(taskList).then(res=&gt;&#123;
         <tag>双递归</tag>
       </tags>
   </entry>
+  <entry>
+    <title>563. 二叉树的坡度</title>
+    <url>/2021/03/16/563-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%9D%A1%E5%BA%A6/</url>
+    <content><![CDATA[<p>用时：15min</p>
+<p>拿到题的第一反应是是用递归，然后直接开始写了后发现</p>
+<p>递归需要满足的条件是问题可以拆分成子问题，但是根据题意，我们需要求的是每个节点左右节点和的差值，这个 “左右节点和” 对于每个节点来说，都是不一样的问题</p>
+<p>所以还是双递归</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> findTilt = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> total = <span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> innerDFS = <span class="function"><span class="keyword">function</span> (<span class="params">root</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!root) <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">var</span> left = <span class="number">0</span> ,right = <span class="number">0</span></span><br><span class="line">        <span class="keyword">if</span> (root.left) &#123;</span><br><span class="line">            left = innerDFS(root.left) </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (root.right) &#123;</span><br><span class="line">            right = innerDFS(root.right)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> root.val + left + right</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> outerDFS = <span class="function"><span class="keyword">function</span> (<span class="params">root</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!root) <span class="keyword">return</span></span><br><span class="line">        root.right &amp;&amp; outerDFS(root.right)</span><br><span class="line">        total += <span class="built_in">Math</span>.abs(innerDFS(root.left) - innerDFS(root.right))</span><br><span class="line">        root.left &amp;&amp; outerDFS(root.left)</span><br><span class="line">    &#125;</span><br><span class="line">    outerDFS(root)</span><br><span class="line">    <span class="keyword">return</span> total</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>DFS</tag>
+        <tag>二叉树</tag>
+        <tag>递归</tag>
+      </tags>
+  </entry>
 </search>
