@@ -5170,4 +5170,21 @@ co(taskList).then(res=&gt;&#123;
         <tag>前序遍历</tag>
       </tags>
   </entry>
+  <entry>
+    <title>814. 二叉树剪枝</title>
+    <url>/2021/03/17/814-%E4%BA%8C%E5%8F%89%E6%A0%91%E5%89%AA%E6%9E%9D/</url>
+    <content><![CDATA[<p>用时：6min</p>
+<p>很简单，中序遍历，计算两边子树是否存在 1 的值，没有就去掉。凡事左右子树或者自身包含 1 ，返回 true 。否则返回 false</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> pruneTree = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> DFS = <span class="function"><span class="keyword">function</span> (<span class="params">root</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!root) <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        <span class="keyword">var</span> left = DFS(root.left)</span><br><span class="line">        <span class="keyword">var</span> right = DFS(root.right)</span><br><span class="line">        <span class="keyword">if</span> (!left) &#123;</span><br><span class="line">            root.left = <span class="literal">null</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!right) &#123;</span><br><span class="line">            root.right = <span class="literal">null</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (left) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (right) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>( root.val === <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> dummp = <span class="keyword">new</span> TreeNode(<span class="number">1</span>)</span><br><span class="line">    dummp.left = root</span><br><span class="line">    DFS(dummp)</span><br><span class="line">    <span class="keyword">return</span> dummp.left</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>一个需要注意的点是，root本身也有可能需要剪掉，所以增加了一个虚拟节点来作为父节点</p>
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>二叉树</tag>
+        <tag>虚拟节点</tag>
+      </tags>
+  </entry>
 </search>
