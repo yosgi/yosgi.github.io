@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="BFS,二叉树," />
+  <meta name="keywords" content="DFS,二叉树," />
 
 
 
@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="Binary Tree Level Order Traversal">
+<meta name="description" content="从上至下判断 + 从下至上计算">
 <meta property="og:type" content="article">
-<meta property="og:title" content="102.二叉树的层序遍历">
-<meta property="og:url" content="https://yosgi.github.io/2021/02/28/102-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86/index.html">
+<meta property="og:title" content="1448. 统计二叉树中好节点的数目">
+<meta property="og:url" content="https://yosgi.github.io/2021/03/17/1448-%E7%BB%9F%E8%AE%A1%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E5%A5%BD%E8%8A%82%E7%82%B9%E7%9A%84%E6%95%B0%E7%9B%AE/index.html">
 <meta property="og:site_name" content="快雪时晴">
-<meta property="og:description" content="Binary Tree Level Order Traversal">
+<meta property="og:description" content="从上至下判断 + 从下至上计算">
 <meta property="og:locale">
-<meta property="article:published_time" content="2021-02-28T02:14:52.000Z">
-<meta property="article:modified_time" content="2021-02-28T04:25:59.260Z">
+<meta property="article:published_time" content="2021-03-17T05:03:40.000Z">
+<meta property="article:modified_time" content="2021-03-17T05:04:32.697Z">
 <meta property="article:author" content="yosgi">
-<meta property="article:tag" content="BFS">
+<meta property="article:tag" content="DFS">
 <meta property="article:tag" content="二叉树">
 <meta name="twitter:card" content="summary">
 
@@ -121,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="https://yosgi.github.io/2021/02/28/102-二叉树的层序遍历/"/>
+  <link rel="canonical" href="https://yosgi.github.io/2021/03/17/1448-统计二叉树中好节点的数目/"/>
 
 
 
 
 
-  <title>102.二叉树的层序遍历 | 快雪时晴</title>
+  <title>1448. 统计二叉树中好节点的数目 | 快雪时晴</title>
   
 
 
@@ -246,7 +246,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yosgi.github.io/2021/02/28/102-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86/">
+    <link itemprop="mainEntityOfPage" href="https://yosgi.github.io/2021/03/17/1448-%E7%BB%9F%E8%AE%A1%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E5%A5%BD%E8%8A%82%E7%82%B9%E7%9A%84%E6%95%B0%E7%9B%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="">
@@ -263,7 +263,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">102.二叉树的层序遍历</h1>
+          <h1 class="post-title" itemprop="name headline">1448. 统计二叉树中好节点的数目</h1>
         
 
         <div class="post-meta">
@@ -275,8 +275,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-28T10:14:52+08:00">
-                2021-02-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-17T13:03:40+08:00">
+                2021-03-17
               </time>
             
 
@@ -322,7 +322,7 @@
 
           
               <div class="post-description">
-                  Binary Tree Level Order Traversal
+                  从上至下判断 + 从下至上计算
               </div>
           
 
@@ -339,26 +339,11 @@
       
 
       
-        <h4 id="102-二叉树的层序遍历"><a href="#102-二叉树的层序遍历" class="headerlink" title="102.二叉树的层序遍历"></a>102.二叉树的层序遍历</h4><p>遍历本身很简单，需要考虑的问题是怎么标示每一层，这里可以用迭代和递归两种思路</p>
-<h5 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h5><ol>
-<li>入队 root ，再入队一个null 表示第 0 层的结束</li>
-<li>出队 root ，入队左右节点 ， 如果出队的是null，说明一层结束，再入队一个 null</li>
-<li>队列不为空，循环 2  </li>
-</ol>
-<p>⚠️ 需要注意的点： 队列最后一项如果不做处理将会一直是null，因此需要增加结束条件</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> levelOrder = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> que = [root,<span class="literal">null</span>]</span><br><span class="line">    <span class="keyword">var</span> res = []</span><br><span class="line">    <span class="keyword">var</span> level = []</span><br><span class="line">    <span class="keyword">if</span> (!root ) <span class="keyword">return</span> []</span><br><span class="line">    <span class="keyword">while</span>(que.length) &#123;</span><br><span class="line">        <span class="keyword">var</span> node = que.shift()</span><br><span class="line">        <span class="keyword">if</span> (node) &#123;</span><br><span class="line">            node.left &amp;&amp; que.push(node.left)</span><br><span class="line">            node.right &amp;&amp; que.push(node.right)</span><br><span class="line">            level.push(node.val)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            res.push([...level])</span><br><span class="line">            level = []</span><br><span class="line">            <span class="keyword">if</span>(que.length) &#123;</span><br><span class="line">                que.push(<span class="literal">null</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+        <p>用时： 偷偷看了答案</p>
+<p>本来把问题想复杂了，想着维护一个最大堆，从上往下传递然后每次判断是否大于最大值</p>
+<p>看了答案后发现只需要传递一个max，判断是否比max大，然后从下到上获取左右节点的值，返回左右节点和 加自身是否符合就好了</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> goodNodes = <span class="function"><span class="keyword">function</span>(<span class="params">root,max = root.val</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> left = <span class="number">0</span></span><br><span class="line">    max = <span class="built_in">Math</span>.max(max,root.val)</span><br><span class="line">    <span class="keyword">if</span> (root.left) &#123;</span><br><span class="line">        left = goodNodes(root.left,max)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> right = <span class="number">0</span></span><br><span class="line">    <span class="keyword">if</span> (root.right) &#123;</span><br><span class="line">        right = goodNodes(root.right,max)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">console</span>.log(left,right,root.val)</span><br><span class="line">    <span class="keyword">return</span> (left + right) + (root.val &gt;= max ? <span class="number">1</span> : <span class="number">0</span>) </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-
-
-<h5 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h5><p>递归解法的重点是传递层数作为参数</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> levelOrder = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> res = []</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> []</span><br><span class="line">    <span class="keyword">var</span> walk = <span class="function"><span class="keyword">function</span> (<span class="params">node,index</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!res[index]) res[index] = []</span><br><span class="line">        res[index].push(node.val)</span><br><span class="line">        node.left &amp;&amp; walk(node.left,index + <span class="number">1</span>)</span><br><span class="line">        node.right &amp;&amp; walk(node.right,index + <span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    walk(root,<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>步骤如代码所示</p>
-<ol>
-<li>为所在的层数开辟一个数组空间</li>
-<li>root 加入数组</li>
-<li>如果存在左节点，或者右节点，继续到1，层数 + 1</li>
-</ol>
 
       
     </div>
@@ -376,7 +361,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/BFS/" rel="tag"># BFS</a>
+            <a href="/tags/DFS/" rel="tag"># DFS</a>
           
             <a href="/tags/%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="tag"># 二叉树</a>
           
@@ -391,8 +376,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/02/27/%E5%8F%8C%E8%89%B2%E6%A0%87%E8%AE%B0%E6%B3%95/" rel="next" title="双色标记法前中后遍历二叉树">
-                <i class="fa fa-chevron-left"></i> 双色标记法前中后遍历二叉树
+              <a href="/2021/03/16/129-%E6%B1%82%E6%A0%B9%E8%8A%82%E7%82%B9%E5%88%B0%E5%8F%B6%E8%8A%82%E7%82%B9%E6%95%B0%E5%AD%97%E4%B9%8B%E5%92%8C/" rel="next" title="129. 求根节点到叶节点数字之和">
+                <i class="fa fa-chevron-left"></i> 129. 求根节点到叶节点数字之和
               </a>
             
           </div>
@@ -400,10 +385,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2021/02/28/%E5%85%B3%E4%BA%8E%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%80%BB%E7%BB%93/" rel="prev" title="关于二叉树的总结">
-                关于二叉树的总结 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -455,17 +436,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -525,22 +497,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#102-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="nav-number">1.</span> <span class="nav-text">102.二叉树的层序遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%BF%AD%E4%BB%A3"><span class="nav-number">1.1.</span> <span class="nav-text">迭代</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%80%92%E5%BD%92"><span class="nav-number">1.2.</span> <span class="nav-text">递归</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
