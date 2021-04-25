@@ -5390,9 +5390,9 @@ co(taskList).then(res=&gt;&#123;
       </tags>
   </entry>
   <entry>
-    <title>Interview:Refactor the code</title>
+    <title>Refactor the code</title>
     <url>/2021/04/25/Interview-Refactor-the-code/</url>
-    <content><![CDATA[<h1 id="Refactor-the-code"><a href="#Refactor-the-code" class="headerlink" title="Refactor the code"></a>Refactor the code</h1><p>Refactoring code is definitely a dirty and tiring job for me . </p>
+    <content><![CDATA[<p>Refactoring code is definitely a dirty and tiring job for me . </p>
 <p>There is no method that can greatly improve efficiency.</p>
 <p>The code I refectory is not the code I wrote, but also the ancient code.</p>
 <p>Using an outdated technology stack .</p>
