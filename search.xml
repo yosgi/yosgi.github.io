@@ -25,6 +25,24 @@
       </tags>
   </entry>
   <entry>
+    <title>1022. 从根到叶的二进制数之和</title>
+    <url>/2021/03/17/1022-%E4%BB%8E%E6%A0%B9%E5%88%B0%E5%8F%B6%E7%9A%84%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%95%B0%E4%B9%8B%E5%92%8C/</url>
+    <content><![CDATA[<p>用时：10min</p>
+<p>前序从上至下计算，没什么好说的</p>
+<p>二进制转10 进制挺费劲的，我直接<code>parseInt(path, 2)</code></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> sumRootToLeaf = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> ans = <span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> dfs = <span class="function"><span class="keyword">function</span> (<span class="params">root,path</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!root) <span class="keyword">return</span></span><br><span class="line">        path += root.val</span><br><span class="line">        <span class="keyword">if</span> (!root.left &amp;&amp; !root.right) &#123;</span><br><span class="line">            ans += <span class="built_in">parseInt</span>(path, <span class="number">2</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        root.left &amp;&amp; dfs(root.left,path)</span><br><span class="line">        root.right &amp;&amp; dfs(root.right,path)</span><br><span class="line">    &#125;</span><br><span class="line">    dfs(root,<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> ans</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>二叉树</tag>
+        <tag>DFS</tag>
+        <tag>前序遍历</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>102.二叉树的层序遍历</title>
     <url>/2021/02/28/102-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86/</url>
     <content><![CDATA[<h4 id="102-二叉树的层序遍历"><a href="#102-二叉树的层序遍历" class="headerlink" title="102.二叉树的层序遍历"></a>102.二叉树的层序遍历</h4><p>遍历本身很简单，需要考虑的问题是怎么标示每一层，这里可以用迭代和递归两种思路</p>
@@ -54,24 +72,6 @@
       <tags>
         <tag>二叉树</tag>
         <tag>BFS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>1022. 从根到叶的二进制数之和</title>
-    <url>/2021/03/17/1022-%E4%BB%8E%E6%A0%B9%E5%88%B0%E5%8F%B6%E7%9A%84%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%95%B0%E4%B9%8B%E5%92%8C/</url>
-    <content><![CDATA[<p>用时：10min</p>
-<p>前序从上至下计算，没什么好说的</p>
-<p>二进制转10 进制挺费劲的，我直接<code>parseInt(path, 2)</code></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> sumRootToLeaf = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> ans = <span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> dfs = <span class="function"><span class="keyword">function</span> (<span class="params">root,path</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!root) <span class="keyword">return</span></span><br><span class="line">        path += root.val</span><br><span class="line">        <span class="keyword">if</span> (!root.left &amp;&amp; !root.right) &#123;</span><br><span class="line">            ans += <span class="built_in">parseInt</span>(path, <span class="number">2</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        root.left &amp;&amp; dfs(root.left,path)</span><br><span class="line">        root.right &amp;&amp; dfs(root.right,path)</span><br><span class="line">    &#125;</span><br><span class="line">    dfs(root,<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> ans</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>二叉树</tag>
-        <tag>DFS</tag>
-        <tag>前序遍历</tag>
       </tags>
   </entry>
   <entry>
@@ -141,6 +141,23 @@
       </tags>
   </entry>
   <entry>
+    <title>129. 求根节点到叶节点数字之和</title>
+    <url>/2021/03/16/129-%E6%B1%82%E6%A0%B9%E8%8A%82%E7%82%B9%E5%88%B0%E5%8F%B6%E8%8A%82%E7%82%B9%E6%95%B0%E5%AD%97%E4%B9%8B%E5%92%8C/</url>
+    <content><![CDATA[<p>看题型是求从根节点出发的，首先想到的是自顶向下的DFS，带着参数向下传递，结束条件没有左右儿子</p>
+<p>直接前序遍历走起，可以认为是前面的节点都处理好了</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> sumNumbers = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> ans = <span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> DFS = <span class="function"><span class="keyword">function</span> (<span class="params">root,path</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!root) <span class="keyword">return</span></span><br><span class="line">        path += root.val</span><br><span class="line">        <span class="keyword">if</span> (!root.left &amp;&amp; !root.right) &#123;</span><br><span class="line">            ans += <span class="built_in">Number</span>(path)</span><br><span class="line">        &#125;</span><br><span class="line">        root.left &amp;&amp; DFS(root.left,path)</span><br><span class="line">        DFS(root.right, path)</span><br><span class="line">    &#125;</span><br><span class="line">    DFS(root,<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> ans</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>二叉树</tag>
+        <tag>DFS</tag>
+        <tag>自顶向下</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>124. 二叉树中的最大路径和</title>
     <url>/2021/03/15/124-%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E7%9A%84%E6%9C%80%E5%A4%A7%E8%B7%AF%E5%BE%84%E5%92%8C/</url>
     <content><![CDATA[<p>用时 ：30min</p>
@@ -159,23 +176,6 @@
       </categories>
       <tags>
         <tag>二叉树</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>129. 求根节点到叶节点数字之和</title>
-    <url>/2021/03/16/129-%E6%B1%82%E6%A0%B9%E8%8A%82%E7%82%B9%E5%88%B0%E5%8F%B6%E8%8A%82%E7%82%B9%E6%95%B0%E5%AD%97%E4%B9%8B%E5%92%8C/</url>
-    <content><![CDATA[<p>看题型是求从根节点出发的，首先想到的是自顶向下的DFS，带着参数向下传递，结束条件没有左右儿子</p>
-<p>直接前序遍历走起，可以认为是前面的节点都处理好了</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> sumNumbers = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> ans = <span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> DFS = <span class="function"><span class="keyword">function</span> (<span class="params">root,path</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!root) <span class="keyword">return</span></span><br><span class="line">        path += root.val</span><br><span class="line">        <span class="keyword">if</span> (!root.left &amp;&amp; !root.right) &#123;</span><br><span class="line">            ans += <span class="built_in">Number</span>(path)</span><br><span class="line">        &#125;</span><br><span class="line">        root.left &amp;&amp; DFS(root.left,path)</span><br><span class="line">        DFS(root.right, path)</span><br><span class="line">    &#125;</span><br><span class="line">    DFS(root,<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> ans</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>二叉树</tag>
-        <tag>DFS</tag>
-        <tag>自顶向下</tag>
       </tags>
   </entry>
   <entry>
@@ -251,8 +251,8 @@
         <category>leetcode</category>
       </categories>
       <tags>
-        <tag>BFS</tag>
         <tag>DFS</tag>
+        <tag>BFS</tag>
         <tag>拓扑排序</tag>
         <tag>图</tag>
       </tags>
@@ -390,8 +390,8 @@
         <category>leetcode</category>
       </categories>
       <tags>
-        <tag>BFS</tag>
         <tag>DFS</tag>
+        <tag>BFS</tag>
         <tag>拓扑排序</tag>
         <tag>图</tag>
       </tags>
@@ -484,21 +484,6 @@
       </tags>
   </entry>
   <entry>
-    <title>347. 前 K 个高频元素</title>
-    <url>/2021/04/08/347-%E5%89%8D-K-%E4%B8%AA%E9%AB%98%E9%A2%91%E5%85%83%E7%B4%A0/</url>
-    <content><![CDATA[<p>用时：30min</p>
-<p>思路是先用On 的时间复杂度去计数， 然后用最小堆的方式求解</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Heap</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params">list, compare = (a, b) =&gt; a - b</span>)</span> &#123;</span><br><span class="line">      <span class="built_in">this</span>.left = <span class="function"><span class="params">index</span> =&gt;</span> <span class="number">2</span> * index + <span class="number">1</span></span><br><span class="line">      <span class="built_in">this</span>.right = <span class="function"><span class="params">index</span> =&gt;</span> <span class="number">2</span> * index + <span class="number">2</span></span><br><span class="line">      <span class="built_in">this</span>.parent = <span class="function"><span class="params">index</span> =&gt;</span> <span class="built_in">Math</span>.floor((index - <span class="number">1</span>) / <span class="number">2</span>)</span><br><span class="line">      <span class="built_in">this</span>.heapify = <span class="function">(<span class="params">index = <span class="number">0</span></span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> &#123; list &#125; = <span class="built_in">this</span></span><br><span class="line">        <span class="keyword">const</span> leftIndex = <span class="built_in">this</span>.left(index)</span><br><span class="line">        <span class="keyword">const</span> rightIndex = <span class="built_in">this</span>.right(index)</span><br><span class="line">        <span class="keyword">let</span> maxIndex = index</span><br><span class="line">        <span class="keyword">if</span> (list[leftIndex] !== <span class="literal">undefined</span></span><br><span class="line">          &amp;&amp; <span class="built_in">this</span>.compare(list[maxIndex], list[leftIndex]) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">          maxIndex = leftIndex</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (list[rightIndex] !== <span class="literal">undefined</span></span><br><span class="line">          &amp;&amp; <span class="built_in">this</span>.compare(list[maxIndex], list[rightIndex]) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">          maxIndex = rightIndex</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (index !== maxIndex) &#123;</span><br><span class="line">          <span class="keyword">const</span> temp = list[index]</span><br><span class="line">          list[index] = list[maxIndex]</span><br><span class="line">          list[maxIndex] = temp</span><br><span class="line">          <span class="built_in">this</span>.heapify(maxIndex)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="built_in">this</span>.buildHeap = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="built_in">Math</span>.floor(<span class="built_in">this</span>.list.length / <span class="number">2</span>); i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">          <span class="built_in">this</span>.heapify(i)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.list</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="built_in">this</span>.extract = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> temp = <span class="built_in">this</span>.list[<span class="number">0</span>]</span><br><span class="line">        <span class="built_in">this</span>.list[<span class="number">0</span>] = <span class="built_in">this</span>.list[<span class="built_in">this</span>.list.length - <span class="number">1</span>]</span><br><span class="line">        <span class="built_in">this</span>.list[<span class="built_in">this</span>.list.length - <span class="number">1</span>] = temp</span><br><span class="line">        <span class="keyword">const</span> result = <span class="built_in">this</span>.list.pop()</span><br><span class="line">        <span class="built_in">this</span>.heapify(<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="built_in">this</span>.top = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="built_in">this</span>.list[<span class="number">0</span>]</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="built_in">this</span>.insert = <span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> &#123; list &#125; = <span class="built_in">this</span></span><br><span class="line">        list.push(item)</span><br><span class="line">        <span class="keyword">let</span> index = list.length - <span class="number">1</span></span><br><span class="line">        <span class="keyword">let</span> parentIndex = <span class="built_in">this</span>.parent(index)</span><br><span class="line">        <span class="keyword">while</span> (list[parentIndex] !== <span class="literal">undefined</span> &amp;&amp; <span class="built_in">this</span>.compare(list[parentIndex], list[index]) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">          <span class="keyword">const</span> temp = list[index]</span><br><span class="line">          list[index] = list[parentIndex]</span><br><span class="line">          list[parentIndex] = temp</span><br><span class="line">          index = parentIndex</span><br><span class="line">          parentIndex = <span class="built_in">this</span>.parent(index)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="built_in">this</span>.list = list</span><br><span class="line">      <span class="built_in">this</span>.compare = compare</span><br><span class="line">      <span class="built_in">this</span>.buildHeap()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> topKFrequent = <span class="function"><span class="keyword">function</span>(<span class="params">nums, k</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> map = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span> ; i &lt; nums.length ; i ++) &#123;</span><br><span class="line">        <span class="keyword">var</span> num = nums[i]</span><br><span class="line">        <span class="keyword">if</span> (map[num] == <span class="literal">undefined</span>) &#123;</span><br><span class="line">            map[num] = <span class="number">1</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            map[num] ++</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 使用最小堆 ，维护 K 个最高的元素</span></span><br><span class="line">    <span class="keyword">var</span> heap = <span class="keyword">new</span> Heap([],<span class="function">(<span class="params">a,b</span>) =&gt;</span> a[<span class="number">1</span>] - b[<span class="number">1</span>])</span><br><span class="line">    <span class="keyword">var</span> K = <span class="number">0</span> </span><br><span class="line">    <span class="comment">// 因为api是最大堆，所以要取相反数</span></span><br><span class="line">    <span class="built_in">Object</span>.entries(map).forEach(<span class="function">(<span class="params">[key,val]</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (K &lt; k) &#123;</span><br><span class="line">            heap.insert([key,-val]) </span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">var</span> top = heap.top()</span><br><span class="line">            <span class="keyword">if</span> (val &gt; - top[<span class="number">1</span>]) &#123;</span><br><span class="line">                heap.extract()</span><br><span class="line">                heap.insert([key,-val]) </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> heap.list.map(<span class="function">(<span class="params">v</span>) =&gt;</span> v[<span class="number">0</span>]).slice(<span class="number">0</span>,k)</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>堆排序</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>297. 二叉树的序列化与反序列化</title>
     <url>/2021/03/04/297-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</url>
     <content><![CDATA[<p>用时：30min</p>
@@ -517,6 +502,21 @@
       </categories>
       <tags>
         <tag>BFS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>347. 前 K 个高频元素</title>
+    <url>/2021/04/08/347-%E5%89%8D-K-%E4%B8%AA%E9%AB%98%E9%A2%91%E5%85%83%E7%B4%A0/</url>
+    <content><![CDATA[<p>用时：30min</p>
+<p>思路是先用On 的时间复杂度去计数， 然后用最小堆的方式求解</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Heap</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params">list, compare = (a, b) =&gt; a - b</span>)</span> &#123;</span><br><span class="line">      <span class="built_in">this</span>.left = <span class="function"><span class="params">index</span> =&gt;</span> <span class="number">2</span> * index + <span class="number">1</span></span><br><span class="line">      <span class="built_in">this</span>.right = <span class="function"><span class="params">index</span> =&gt;</span> <span class="number">2</span> * index + <span class="number">2</span></span><br><span class="line">      <span class="built_in">this</span>.parent = <span class="function"><span class="params">index</span> =&gt;</span> <span class="built_in">Math</span>.floor((index - <span class="number">1</span>) / <span class="number">2</span>)</span><br><span class="line">      <span class="built_in">this</span>.heapify = <span class="function">(<span class="params">index = <span class="number">0</span></span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> &#123; list &#125; = <span class="built_in">this</span></span><br><span class="line">        <span class="keyword">const</span> leftIndex = <span class="built_in">this</span>.left(index)</span><br><span class="line">        <span class="keyword">const</span> rightIndex = <span class="built_in">this</span>.right(index)</span><br><span class="line">        <span class="keyword">let</span> maxIndex = index</span><br><span class="line">        <span class="keyword">if</span> (list[leftIndex] !== <span class="literal">undefined</span></span><br><span class="line">          &amp;&amp; <span class="built_in">this</span>.compare(list[maxIndex], list[leftIndex]) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">          maxIndex = leftIndex</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (list[rightIndex] !== <span class="literal">undefined</span></span><br><span class="line">          &amp;&amp; <span class="built_in">this</span>.compare(list[maxIndex], list[rightIndex]) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">          maxIndex = rightIndex</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (index !== maxIndex) &#123;</span><br><span class="line">          <span class="keyword">const</span> temp = list[index]</span><br><span class="line">          list[index] = list[maxIndex]</span><br><span class="line">          list[maxIndex] = temp</span><br><span class="line">          <span class="built_in">this</span>.heapify(maxIndex)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="built_in">this</span>.buildHeap = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="built_in">Math</span>.floor(<span class="built_in">this</span>.list.length / <span class="number">2</span>); i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">          <span class="built_in">this</span>.heapify(i)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.list</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="built_in">this</span>.extract = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> temp = <span class="built_in">this</span>.list[<span class="number">0</span>]</span><br><span class="line">        <span class="built_in">this</span>.list[<span class="number">0</span>] = <span class="built_in">this</span>.list[<span class="built_in">this</span>.list.length - <span class="number">1</span>]</span><br><span class="line">        <span class="built_in">this</span>.list[<span class="built_in">this</span>.list.length - <span class="number">1</span>] = temp</span><br><span class="line">        <span class="keyword">const</span> result = <span class="built_in">this</span>.list.pop()</span><br><span class="line">        <span class="built_in">this</span>.heapify(<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="built_in">this</span>.top = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="built_in">this</span>.list[<span class="number">0</span>]</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="built_in">this</span>.insert = <span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> &#123; list &#125; = <span class="built_in">this</span></span><br><span class="line">        list.push(item)</span><br><span class="line">        <span class="keyword">let</span> index = list.length - <span class="number">1</span></span><br><span class="line">        <span class="keyword">let</span> parentIndex = <span class="built_in">this</span>.parent(index)</span><br><span class="line">        <span class="keyword">while</span> (list[parentIndex] !== <span class="literal">undefined</span> &amp;&amp; <span class="built_in">this</span>.compare(list[parentIndex], list[index]) &gt; <span class="number">0</span>) &#123;</span><br><span class="line">          <span class="keyword">const</span> temp = list[index]</span><br><span class="line">          list[index] = list[parentIndex]</span><br><span class="line">          list[parentIndex] = temp</span><br><span class="line">          index = parentIndex</span><br><span class="line">          parentIndex = <span class="built_in">this</span>.parent(index)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="built_in">this</span>.list = list</span><br><span class="line">      <span class="built_in">this</span>.compare = compare</span><br><span class="line">      <span class="built_in">this</span>.buildHeap()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> topKFrequent = <span class="function"><span class="keyword">function</span>(<span class="params">nums, k</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> map = &#123;&#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span> ; i &lt; nums.length ; i ++) &#123;</span><br><span class="line">        <span class="keyword">var</span> num = nums[i]</span><br><span class="line">        <span class="keyword">if</span> (map[num] == <span class="literal">undefined</span>) &#123;</span><br><span class="line">            map[num] = <span class="number">1</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            map[num] ++</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 使用最小堆 ，维护 K 个最高的元素</span></span><br><span class="line">    <span class="keyword">var</span> heap = <span class="keyword">new</span> Heap([],<span class="function">(<span class="params">a,b</span>) =&gt;</span> a[<span class="number">1</span>] - b[<span class="number">1</span>])</span><br><span class="line">    <span class="keyword">var</span> K = <span class="number">0</span> </span><br><span class="line">    <span class="comment">// 因为api是最大堆，所以要取相反数</span></span><br><span class="line">    <span class="built_in">Object</span>.entries(map).forEach(<span class="function">(<span class="params">[key,val]</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (K &lt; k) &#123;</span><br><span class="line">            heap.insert([key,-val]) </span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">var</span> top = heap.top()</span><br><span class="line">            <span class="keyword">if</span> (val &gt; - top[<span class="number">1</span>]) &#123;</span><br><span class="line">                heap.extract()</span><br><span class="line">                heap.insert([key,-val]) </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> heap.list.map(<span class="function">(<span class="params">v</span>) =&gt;</span> v[<span class="number">0</span>]).slice(<span class="number">0</span>,k)</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>堆排序</tag>
       </tags>
   </entry>
   <entry>
@@ -549,15 +549,19 @@
   </entry>
   <entry>
     <title>475. 供暖器</title>
-    <url>/2021/05/10/475-%E4%BE%9B%E6%9A%96%E5%99%A8/</url>
-    <content><![CDATA[<h4 id="207-课程表"><a href="#207-课程表" class="headerlink" title="207. 课程表"></a><a href="https://leetcode-cn.com/problems/course-schedule/">207. 课程表</a></h4><h5 id="动态规划"><a href="#动态规划" class="headerlink" title="动态规划"></a>动态规划</h5><p>dp[i] 表示 [0 … i - 1] 是否能被拆分为单词，求 dp[s.length] 是否为 true</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> wordBreak = <span class="function"><span class="keyword">function</span> (<span class="params">s, wordDict</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> dp = [<span class="literal">true</span>];</span><br><span class="line">  <span class="keyword">let</span> len = s.length;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = i + <span class="number">1</span>; j &lt;= len; j++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (dp[i] &amp;&amp; wordDict.indexOf(s.substring(i, j)) &gt; -<span class="number">1</span>) &#123;</span><br><span class="line">        dp[j] = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> dp[len] === <span class="literal">true</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+    <url>/2021/06/10/475-%E4%BE%9B%E6%9A%96%E5%99%A8/</url>
+    <content><![CDATA[<p>首先想到的就是找到所有距离房屋最短距离的heater的距离 r ，然后返回最大的 r</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> findRadius = <span class="function"><span class="keyword">function</span>(<span class="params">houses, heaters</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> max = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span> ; i &lt; houses.length ; i ++) &#123;</span><br><span class="line">        <span class="keyword">var</span> house_position = houses[i]</span><br><span class="line">        <span class="keyword">var</span> r = <span class="literal">Infinity</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> j = <span class="number">0</span> ; j &lt; heaters.length ; j ++) &#123;</span><br><span class="line">            <span class="keyword">var</span> heat_position = heaters[j]</span><br><span class="line">            <span class="keyword">var</span> reduce = <span class="built_in">Math</span>.abs(house_position - heat_position)</span><br><span class="line">            r = <span class="built_in">Math</span>.min(r,reduce)</span><br><span class="line">        &#125;</span><br><span class="line">        max = <span class="built_in">Math</span>.max(r,max)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> max</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>既然这样，那么也可以利用二分法找到heater</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> findRadius = <span class="function"><span class="keyword">function</span>(<span class="params">houses, heaters</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> r = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span> ; i &lt; houses.length ; i ++) &#123;</span><br><span class="line">        <span class="keyword">var</span> house_position = houses[i]</span><br><span class="line">        <span class="keyword">let</span> left = <span class="number">0</span> , right = heaters.length - <span class="number">1</span></span><br><span class="line">        <span class="comment">//  查找离 house_position 最近的 heat_position</span></span><br><span class="line">        <span class="comment">//  也就是查找 house_position 的最右插入点</span></span><br><span class="line">        <span class="keyword">while</span>(left &lt;= right &amp;&amp; right &lt; heaters.length) &#123;</span><br><span class="line">            <span class="keyword">let</span> mid = left + <span class="built_in">Math</span>.floor((right - left) / <span class="number">2</span>)</span><br><span class="line">            <span class="keyword">var</span> heat_position = heaters[mid]</span><br><span class="line">            <span class="comment">// 找到的不大于，再往右边找</span></span><br><span class="line">            <span class="keyword">if</span>(heat_position &lt;=  house_position) &#123;</span><br><span class="line">                left = mid + <span class="number">1</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                right = mid - <span class="number">1</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 这时候找到的插入点不一定是最近的,左边的比他小，所以需要比较一下</span></span><br><span class="line">        <span class="keyword">var</span>  R = <span class="built_in">Math</span>.abs(heaters[right] - house_position)</span><br><span class="line">        <span class="keyword">if</span>(right &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            R = <span class="built_in">Math</span>.min( <span class="built_in">Math</span>.abs( heaters[right - <span class="number">1</span>] - house_position) , R)</span><br><span class="line">        &#125;</span><br><span class="line">        r = <span class="built_in">Math</span>.max(r,R)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> r</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>leetcode</category>
       </categories>
       <tags>
-        <tag>拓扑排序</tag>
+        <tag>二分查找</tag>
       </tags>
   </entry>
   <entry>
@@ -746,6 +750,21 @@
       </tags>
   </entry>
   <entry>
+    <title>894.所有可能的满二叉树</title>
+    <url>/2021/03/07/894-%E6%89%80%E6%9C%89%E5%8F%AF%E8%83%BD%E7%9A%84%E6%BB%A1%E4%BA%8C%E5%8F%89%E6%A0%91/</url>
+    <content><![CDATA[<p>用时： 抄答案才做出来</p>
+<p>思路很容易看出来是利用递归，但是coding才是真正的问题。</p>
+<p>我们需要返回的是根节点，但是递归是从下至上的</p>
+<p>尝试用动态规划解决，dp(n) 是 dp(x)  与 dp (n - x - 1) 结果的组合</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> allPossibleFBT = <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123; </span><br><span class="line">    <span class="keyword">var</span> dp = []</span><br><span class="line">    <span class="keyword">var</span> buld = <span class="function"><span class="keyword">function</span> (<span class="params">n</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">1</span> ; i &lt;= n ; i ++ ) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i === <span class="number">1</span>) &#123;</span><br><span class="line">                dp[i] = <span class="keyword">new</span> TreeNode(<span class="number">0</span>)</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (i % <span class="number">2</span> === <span class="number">0</span>) &#123;</span><br><span class="line">                dp[i] = <span class="literal">undefined</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                dp[i] = []</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">let</span> left = <span class="number">1</span>; left &lt; i; left ++) &#123;</span><br><span class="line">                    <span class="keyword">var</span> leftNodes = dp[left]</span><br><span class="line">                    <span class="keyword">var</span> rightNodes = dp[i - left - <span class="number">1</span>]</span><br><span class="line">                    <span class="keyword">for</span>(<span class="keyword">let</span> j = <span class="number">0</span> ; j &lt; leftNodes.length ; j ++) &#123;</span><br><span class="line">                        <span class="keyword">for</span>(<span class="keyword">let</span> k = <span class="number">0</span> ; k &lt; rightNodes.length ; k ++) &#123;</span><br><span class="line">                            <span class="keyword">var</span> node  = <span class="keyword">new</span> TreeNode(<span class="number">0</span>)</span><br><span class="line">                            node.left = leftNodes[j]</span><br><span class="line">                            node.right = rightNodes[k]</span><br><span class="line">                            dp[i].push(node)</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">    buld(n)</span><br><span class="line">    <span class="keyword">return</span> dp[n]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>动态规划</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>94.二叉树的中序遍历</title>
     <url>/2021/02/25/94-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86/</url>
     <content><![CDATA[<h4 id="94-二叉树的中序遍历"><a href="#94-二叉树的中序遍历" class="headerlink" title="94.二叉树的中序遍历"></a>94.二叉树的中序遍历</h4><p>30min</p>
@@ -766,21 +785,6 @@
       </categories>
       <tags>
         <tag>二叉树</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>894.所有可能的满二叉树</title>
-    <url>/2021/03/07/894-%E6%89%80%E6%9C%89%E5%8F%AF%E8%83%BD%E7%9A%84%E6%BB%A1%E4%BA%8C%E5%8F%89%E6%A0%91/</url>
-    <content><![CDATA[<p>用时： 抄答案才做出来</p>
-<p>思路很容易看出来是利用递归，但是coding才是真正的问题。</p>
-<p>我们需要返回的是根节点，但是递归是从下至上的</p>
-<p>尝试用动态规划解决，dp(n) 是 dp(x)  与 dp (n - x - 1) 结果的组合</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> allPossibleFBT = <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123; </span><br><span class="line">    <span class="keyword">var</span> dp = []</span><br><span class="line">    <span class="keyword">var</span> buld = <span class="function"><span class="keyword">function</span> (<span class="params">n</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">1</span> ; i &lt;= n ; i ++ ) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i === <span class="number">1</span>) &#123;</span><br><span class="line">                dp[i] = <span class="keyword">new</span> TreeNode(<span class="number">0</span>)</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (i % <span class="number">2</span> === <span class="number">0</span>) &#123;</span><br><span class="line">                dp[i] = <span class="literal">undefined</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                dp[i] = []</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">let</span> left = <span class="number">1</span>; left &lt; i; left ++) &#123;</span><br><span class="line">                    <span class="keyword">var</span> leftNodes = dp[left]</span><br><span class="line">                    <span class="keyword">var</span> rightNodes = dp[i - left - <span class="number">1</span>]</span><br><span class="line">                    <span class="keyword">for</span>(<span class="keyword">let</span> j = <span class="number">0</span> ; j &lt; leftNodes.length ; j ++) &#123;</span><br><span class="line">                        <span class="keyword">for</span>(<span class="keyword">let</span> k = <span class="number">0</span> ; k &lt; rightNodes.length ; k ++) &#123;</span><br><span class="line">                            <span class="keyword">var</span> node  = <span class="keyword">new</span> TreeNode(<span class="number">0</span>)</span><br><span class="line">                            node.left = leftNodes[j]</span><br><span class="line">                            node.right = rightNodes[k]</span><br><span class="line">                            dp[i].push(node)</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">    buld(n)</span><br><span class="line">    <span class="keyword">return</span> dp[n]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>动态规划</tag>
       </tags>
   </entry>
   <entry>
@@ -3746,28 +3750,6 @@ factorial(6)  //720</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>双色标记法前中后遍历二叉树</title>
-    <url>/2021/02/27/%E5%8F%8C%E8%89%B2%E6%A0%87%E8%AE%B0%E6%B3%95/</url>
-    <content><![CDATA[<h4 id="二叉树前中后序遍历总结"><a href="#二叉树前中后序遍历总结" class="headerlink" title="二叉树前中后序遍历总结"></a>二叉树前中后序遍历总结</h4><p>从前面的题目中可以看到，二叉树的前中后序遍历的递归方法是类似的，但是迭代的实现完全不同。</p>
-<p>从垃圾回收的三色标记法得到启发，发现他们的共同点</p>
-<ol>
-<li>节点入栈，标记为 0 （ 未访问 ）</li>
-<li>节点出栈，若已经访问，出栈。若未访问，标记为已访问，入栈。</li>
-<li>节点左右节点 继续到 1 </li>
-</ol>
-<p>这样，我们可以通过控制节点的入栈顺序，用相似的代码来迭代完成二叉树的前中后序遍历。需要额外做的是多开一个On的空间来保存节点的状态</p>
-<p>拿后序遍历做例子</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> postorderTraversal = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> stack = [[root,<span class="number">0</span>]]</span><br><span class="line">    <span class="keyword">var</span> res = []</span><br><span class="line">    <span class="keyword">while</span>(stack.length) &#123;</span><br><span class="line">        <span class="keyword">var</span> [node,color] = stack.pop()</span><br><span class="line">        <span class="keyword">if</span> (color === <span class="number">0</span>) &#123;</span><br><span class="line">        	  <span class="comment">// 在这里通过控制顺序就可以完成前中后序遍历</span></span><br><span class="line">            stack.push([node,<span class="number">1</span>])</span><br><span class="line">            node.right &amp;&amp; stack.push([node.right,<span class="number">0</span>])</span><br><span class="line">            node.left &amp;&amp; stack.push([node.left,<span class="number">0</span>])</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            res.push(node.val)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>二叉树</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Js单例模式</title>
     <url>/2018/04/13/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</url>
     <content><![CDATA[<h3 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h3><h4 id="简单的单例模式实现"><a href="#简单的单例模式实现" class="headerlink" title="简单的单例模式实现"></a>简单的单例模式实现</h4><p>需要用一个变量来标记是否已经创建过一个实例对象</p>
@@ -3925,6 +3907,28 @@ render()</code></pre>
       <tags>
         <tag>Javascript</tag>
         <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>双色标记法前中后遍历二叉树</title>
+    <url>/2021/02/27/%E5%8F%8C%E8%89%B2%E6%A0%87%E8%AE%B0%E6%B3%95/</url>
+    <content><![CDATA[<h4 id="二叉树前中后序遍历总结"><a href="#二叉树前中后序遍历总结" class="headerlink" title="二叉树前中后序遍历总结"></a>二叉树前中后序遍历总结</h4><p>从前面的题目中可以看到，二叉树的前中后序遍历的递归方法是类似的，但是迭代的实现完全不同。</p>
+<p>从垃圾回收的三色标记法得到启发，发现他们的共同点</p>
+<ol>
+<li>节点入栈，标记为 0 （ 未访问 ）</li>
+<li>节点出栈，若已经访问，出栈。若未访问，标记为已访问，入栈。</li>
+<li>节点左右节点 继续到 1 </li>
+</ol>
+<p>这样，我们可以通过控制节点的入栈顺序，用相似的代码来迭代完成二叉树的前中后序遍历。需要额外做的是多开一个On的空间来保存节点的状态</p>
+<p>拿后序遍历做例子</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> postorderTraversal = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> stack = [[root,<span class="number">0</span>]]</span><br><span class="line">    <span class="keyword">var</span> res = []</span><br><span class="line">    <span class="keyword">while</span>(stack.length) &#123;</span><br><span class="line">        <span class="keyword">var</span> [node,color] = stack.pop()</span><br><span class="line">        <span class="keyword">if</span> (color === <span class="number">0</span>) &#123;</span><br><span class="line">        	  <span class="comment">// 在这里通过控制顺序就可以完成前中后序遍历</span></span><br><span class="line">            stack.push([node,<span class="number">1</span>])</span><br><span class="line">            node.right &amp;&amp; stack.push([node.right,<span class="number">0</span>])</span><br><span class="line">            node.left &amp;&amp; stack.push([node.left,<span class="number">0</span>])</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            res.push(node.val)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>二叉树</tag>
       </tags>
   </entry>
   <entry>
@@ -4524,46 +4528,6 @@ for(let [index,ele] of [&quot;a&quot;,&quot;b&quot;].entries())&#123;
       </tags>
   </entry>
   <entry>
-    <title>时隔一年的更新</title>
-    <url>/2020/12/11/%E6%97%B6%E9%9A%94%E5%BE%88%E4%B9%85%E7%9A%84%E6%9B%B4%E6%96%B0/</url>
-    <content><![CDATA[<p>时隔一年的更新</p>
-<p>去年入职大华之后就一直偷懒没有更新了。</p>
-<p>马上到 2021 年了，觉得自己有必要对过去做一个总结。想到哪就写到哪里吧</p>
-<h4 id="关于前端"><a href="#关于前端" class="headerlink" title="关于前端"></a>关于前端</h4><p>面试的时候，总是被问到自己怎么理解前端，有什么规划</p>
-<p>花了四年时间我应该是还没有搞清楚这个问题</p>
-<p>什么都不会的时候，想着学会 xxx 框架，理解 xxx 的源码，自己就会离真相再进一步</p>
-<p>于是开始看 vue， 看 react ， 开始用 ts ，开始玄学配 webpack ，用 nodeJs ，开始刷算法题。</p>
-<p>然后又渐渐喜欢简单 ， ts 写着太麻烦，弃了 ； 配什么 webpack，umi 不香吗 ；imgcook 自动生成代码不快么；写个脚本然后 egg 无脑 curd 不好吗。</p>
-<p>可能这就是大部分小厂前端的处境吧 ，并没有什么值得一提的项目亮点，在写业务与学习新知识中周而复始，又时不时被大佬开发出来的工具惊艳，npm i ， npm start 之后发出真香的感叹。</p>
-<h4 id="关于组件"><a href="#关于组件" class="headerlink" title="关于组件"></a>关于组件</h4><p>参与大华组件库的建设让我获得了一些宝贵的经验。我觉得难点大部分不在于怎么把业务功能实现出来，而是怎么让组件在后面的修改与扩展中可维护。</p>
-<p>举个一个用鼠标滑动设定多个时间段组件的例子。</p>
-<p>本来的需求是 3 _ 个的时间段，后面加了 1 _ 个时间段的需求。还好时间段的逻辑是抽出来的，所以实现没用太久。</p>
-<p>本来需求是时间段区间 00:00:00 - 24:00:00 ，后来又加了 23:59:59 的需求 。只好增加一个配置，又修改了时间标尺的显示。</p>
-<p>本来是一个按钮用来弹窗复制时间段，后面陆续加了好几个不同功能的按钮。这就麻烦了，本身为了计算方便设置的定宽组件，只好改成自适应，影响到了很多地方的计算。</p>
-<p>后来又出现了加锁 ，主题可定制，按日修改 变成 按月 ….的各种需求</p>
-<p>总结起来有几点</p>
-<p>做好解藕，不要和数据产生耦合，拆分成的各个组件之间也减少依赖。否则需求稍微一变更就需要在几千行的组件代码中埋头改。</p>
-<p>不要相信一开始提需求的人 “用在这个页面就好”，要考虑组件作为子组件，作为小屏幕，作为弹窗内容的情况。</p>
-<p>利用好 React 中的高阶组件，有利于简化组件代码。</p>
-<p>做好单元测试。</p>
-<h4 id="关于数据结构-算法"><a href="#关于数据结构-算法" class="headerlink" title="关于数据结构 / 算法"></a>关于数据结构 / 算法</h4><p>一年前跟大部分前端一样，想着算法根本不可能用在项目中，写了没什么用处。</p>
-<p>今年由于想去苏州微软。开始刷 lc 题目。</p>
-<p>在自己刷了一百多题之后，改变了这个看法。</p>
-<p>首先就是多了一种思维方式，举个例子，如果我写了三层的循环，我会去考虑要不要优化时间复杂度，或者要不要剪枝，遇到一些后端传过来的很难用的数据，会去考虑有没有什么数据结构比如字典树，图类去优化。</p>
-<p>对于面试，小厂很难有值得一提的亮点可以说出来，而由于消息的闭塞，自己千辛万苦做出来的东西，可能是人家早就实现出来的轮子，考虑的还比我更好。而八股文背的再好，也只是不扣分而已。但是做题，至少能为我提供一个能跟大厂出来的同学一战的机会。</p>
-<p>这些如果不去尝试，一味听别人说前端用不到算法，是不能体会到的。</p>
-<h4 id="未来计划"><a href="#未来计划" class="headerlink" title="未来计划"></a>未来计划</h4><p>继续佛系写算法题，后面会更新到文章里。</p>
-<p>最近被 imgcook 惊艳到 ，在工作使用之余，想看看相关的 AI 识别的知识。</p>
-]]></content>
-      <categories>
-        <category>感悟</category>
-      </categories>
-      <tags>
-        <tag>Javascript</tag>
-        <tag>前端</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>数组，栈，队列</title>
     <url>/2018/08/22/%E6%95%B0%E7%BB%84%EF%BC%8C%E6%A0%88%EF%BC%8C%E9%98%9F%E5%88%97/</url>
     <content><![CDATA[<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><p>对于数组并不陌生，下面来总结一下数组的方法。</p>
@@ -4694,6 +4658,46 @@ hotPotato(nameList, 3)</code></pre>
       <tags>
         <tag>Javascript</tag>
         <tag>数据结构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>时隔一年的更新</title>
+    <url>/2020/12/11/%E6%97%B6%E9%9A%94%E5%BE%88%E4%B9%85%E7%9A%84%E6%9B%B4%E6%96%B0/</url>
+    <content><![CDATA[<p>时隔一年的更新</p>
+<p>去年入职大华之后就一直偷懒没有更新了。</p>
+<p>马上到 2021 年了，觉得自己有必要对过去做一个总结。想到哪就写到哪里吧</p>
+<h4 id="关于前端"><a href="#关于前端" class="headerlink" title="关于前端"></a>关于前端</h4><p>面试的时候，总是被问到自己怎么理解前端，有什么规划</p>
+<p>花了四年时间我应该是还没有搞清楚这个问题</p>
+<p>什么都不会的时候，想着学会 xxx 框架，理解 xxx 的源码，自己就会离真相再进一步</p>
+<p>于是开始看 vue， 看 react ， 开始用 ts ，开始玄学配 webpack ，用 nodeJs ，开始刷算法题。</p>
+<p>然后又渐渐喜欢简单 ， ts 写着太麻烦，弃了 ； 配什么 webpack，umi 不香吗 ；imgcook 自动生成代码不快么；写个脚本然后 egg 无脑 curd 不好吗。</p>
+<p>可能这就是大部分小厂前端的处境吧 ，并没有什么值得一提的项目亮点，在写业务与学习新知识中周而复始，又时不时被大佬开发出来的工具惊艳，npm i ， npm start 之后发出真香的感叹。</p>
+<h4 id="关于组件"><a href="#关于组件" class="headerlink" title="关于组件"></a>关于组件</h4><p>参与大华组件库的建设让我获得了一些宝贵的经验。我觉得难点大部分不在于怎么把业务功能实现出来，而是怎么让组件在后面的修改与扩展中可维护。</p>
+<p>举个一个用鼠标滑动设定多个时间段组件的例子。</p>
+<p>本来的需求是 3 _ 个的时间段，后面加了 1 _ 个时间段的需求。还好时间段的逻辑是抽出来的，所以实现没用太久。</p>
+<p>本来需求是时间段区间 00:00:00 - 24:00:00 ，后来又加了 23:59:59 的需求 。只好增加一个配置，又修改了时间标尺的显示。</p>
+<p>本来是一个按钮用来弹窗复制时间段，后面陆续加了好几个不同功能的按钮。这就麻烦了，本身为了计算方便设置的定宽组件，只好改成自适应，影响到了很多地方的计算。</p>
+<p>后来又出现了加锁 ，主题可定制，按日修改 变成 按月 ….的各种需求</p>
+<p>总结起来有几点</p>
+<p>做好解藕，不要和数据产生耦合，拆分成的各个组件之间也减少依赖。否则需求稍微一变更就需要在几千行的组件代码中埋头改。</p>
+<p>不要相信一开始提需求的人 “用在这个页面就好”，要考虑组件作为子组件，作为小屏幕，作为弹窗内容的情况。</p>
+<p>利用好 React 中的高阶组件，有利于简化组件代码。</p>
+<p>做好单元测试。</p>
+<h4 id="关于数据结构-算法"><a href="#关于数据结构-算法" class="headerlink" title="关于数据结构 / 算法"></a>关于数据结构 / 算法</h4><p>一年前跟大部分前端一样，想着算法根本不可能用在项目中，写了没什么用处。</p>
+<p>今年由于想去苏州微软。开始刷 lc 题目。</p>
+<p>在自己刷了一百多题之后，改变了这个看法。</p>
+<p>首先就是多了一种思维方式，举个例子，如果我写了三层的循环，我会去考虑要不要优化时间复杂度，或者要不要剪枝，遇到一些后端传过来的很难用的数据，会去考虑有没有什么数据结构比如字典树，图类去优化。</p>
+<p>对于面试，小厂很难有值得一提的亮点可以说出来，而由于消息的闭塞，自己千辛万苦做出来的东西，可能是人家早就实现出来的轮子，考虑的还比我更好。而八股文背的再好，也只是不扣分而已。但是做题，至少能为我提供一个能跟大厂出来的同学一战的机会。</p>
+<p>这些如果不去尝试，一味听别人说前端用不到算法，是不能体会到的。</p>
+<h4 id="未来计划"><a href="#未来计划" class="headerlink" title="未来计划"></a>未来计划</h4><p>继续佛系写算法题，后面会更新到文章里。</p>
+<p>最近被 imgcook 惊艳到 ，在工作使用之余，想看看相关的 AI 识别的知识。</p>
+]]></content>
+      <categories>
+        <category>感悟</category>
+      </categories>
+      <tags>
+        <tag>Javascript</tag>
+        <tag>前端</tag>
       </tags>
   </entry>
   <entry>
@@ -4863,6 +4867,29 @@ function fib(num) &#123;
       </tags>
   </entry>
   <entry>
+    <title>祭日 01-22</title>
+    <url>/2021/01/22/%E7%BA%AA%E5%BF%B5/</url>
+    <content><![CDATA[<p>—————— 当再没有人记得，人才会真正逝去 ——————</p>
+<p>奶奶在我心里一直是优秀知性而善良的女性。</p>
+<p>奶奶叫候淑香，退休前的工作是小学校长。和爷爷一样，写得一手好看的硬笔书法，会把熟人，亲戚的电话号码，和电视的那些频道放什么台，都工工整整的记下来。</p>
+<p>奶奶老家是天津，在国家的号召下，来到江汉油田和爷爷一起参加建设，之后就再也没出过远门。</p>
+<p>退休之后经常会去广场练舞剑，是几十个爱好者的领舞者。脾气也非常好，记忆中从来没有发过火。</p>
+<p>她和爷爷一直是令我羡慕的对象，我常常想，到底是一个什么样的神仙爱情，和爷爷奶奶生活了好几年，我从来没有见过吵架。</p>
+<p>小时候我是个特别调皮的孩子，下课经常玩到很晚才回去，奶奶好几次会去学校找我。总是磨磨蹭蹭作业写好很晚，十点多的时候奶奶会过来催我，怎么还没写完，都亿点啦！因为她睡着会打呼噜，所以总是等我先入睡之后再睡。我在外面打完篮球之后，浑身酸疼，奶奶会用烧着的酒精帮我涂抹背，告诉我能舒经活血。小时候会给我做我最爱吃的红烧肉，那里面的鸡蛋是我最喜欢的。</p>
+<p>爷爷在八年前走了，那时候我还在青岛上大学。有一次回家，我说起非常喜欢青岛的环境，毕业以后会在那里定居，奶奶问我那里有没有养老院，以后把她一起接过去。那时候毕业对我来说还是很遥远的事，我以为自己毕业了以后就会赚很多钱，我说好呀。</p>
+<p>这两年看着大伯和爸爸为了赡养奶奶的问题吵架，奶奶一定很难过吧，看着亲人把自己当成了累赘。我也有查过附近的养老院，但是看着高额的费用和我 996 的工作望而怯步。几天前路过一家养老院，我和女朋友说，要是能把我奶奶接过来就好了。</p>
+<p>我一直记着奶奶问我的话，想问问她是不是真的愿意，想让她能生活的更好，可惜已经再也没有机会。</p>
+<p>奶奶小时后从来没有拆穿过爱说谎的我，红包总是发给我最多的，长大后在我和父母的争执中，奶奶一次又一次的袒护我。</p>
+<p>她最疼爱的孙子对她并不好。</p>
+<p>以前对奶奶说过，会一个星期给奶奶打一次电话。我给奶奶的手机开了自动续费，闹钟定在了每个周五下午的三点三十分。可惜我并没有很好的去执行，很多次都是看了一眼就关闭了闹钟。从去年十月份开始，因为父母和大伯闹不和的原因，我再也没打电话过去问候奶奶。她一定很失落吧。</p>
+<p>一天过去了，我还是很恍惚，感到不真实，觉得奶奶只是去了很远的地方。</p>
+<p>想您了</p>
+]]></content>
+      <categories>
+        <category>感悟</category>
+      </categories>
+  </entry>
+  <entry>
     <title>观察者模式和vue监听对象变化</title>
     <url>/2018/05/05/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E5%92%8Cvue%E7%9B%91%E5%90%AC%E5%AF%B9%E8%B1%A1%E5%8F%98%E5%8C%96/</url>
     <content><![CDATA[<h4 id="发布订阅模式"><a href="#发布订阅模式" class="headerlink" title="发布订阅模式"></a>发布订阅模式</h4><p>发布订阅模式又叫观察者模式，他定义对象间的一种一对多的依赖关系，当一个对象状态发生改变时，所有依赖于他的对象都将得到通知，在 Js 开发中我们一般用事件模式代替传统的发布订阅模式。</p>
@@ -4896,29 +4923,6 @@ function fib(num) &#123;
         <tag>Javascript</tag>
         <tag>设计模式</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>祭日 01-22</title>
-    <url>/2021/01/22/%E7%BA%AA%E5%BF%B5/</url>
-    <content><![CDATA[<p>—————— 当再没有人记得，人才会真正逝去 ——————</p>
-<p>奶奶在我心里一直是优秀知性而善良的女性。</p>
-<p>奶奶叫候淑香，退休前的工作是小学校长。和爷爷一样，写得一手好看的硬笔书法，会把熟人，亲戚的电话号码，和电视的那些频道放什么台，都工工整整的记下来。</p>
-<p>奶奶老家是天津，在国家的号召下，来到江汉油田和爷爷一起参加建设，之后就再也没出过远门。</p>
-<p>退休之后经常会去广场练舞剑，是几十个爱好者的领舞者。脾气也非常好，记忆中从来没有发过火。</p>
-<p>她和爷爷一直是令我羡慕的对象，我常常想，到底是一个什么样的神仙爱情，和爷爷奶奶生活了好几年，我从来没有见过吵架。</p>
-<p>小时候我是个特别调皮的孩子，下课经常玩到很晚才回去，奶奶好几次会去学校找我。总是磨磨蹭蹭作业写好很晚，十点多的时候奶奶会过来催我，怎么还没写完，都亿点啦！因为她睡着会打呼噜，所以总是等我先入睡之后再睡。我在外面打完篮球之后，浑身酸疼，奶奶会用烧着的酒精帮我涂抹背，告诉我能舒经活血。小时候会给我做我最爱吃的红烧肉，那里面的鸡蛋是我最喜欢的。</p>
-<p>爷爷在八年前走了，那时候我还在青岛上大学。有一次回家，我说起非常喜欢青岛的环境，毕业以后会在那里定居，奶奶问我那里有没有养老院，以后把她一起接过去。那时候毕业对我来说还是很遥远的事，我以为自己毕业了以后就会赚很多钱，我说好呀。</p>
-<p>这两年看着大伯和爸爸为了赡养奶奶的问题吵架，奶奶一定很难过吧，看着亲人把自己当成了累赘。我也有查过附近的养老院，但是看着高额的费用和我 996 的工作望而怯步。几天前路过一家养老院，我和女朋友说，要是能把我奶奶接过来就好了。</p>
-<p>我一直记着奶奶问我的话，想问问她是不是真的愿意，想让她能生活的更好，可惜已经再也没有机会。</p>
-<p>奶奶小时后从来没有拆穿过爱说谎的我，红包总是发给我最多的，长大后在我和父母的争执中，奶奶一次又一次的袒护我。</p>
-<p>她最疼爱的孙子对她并不好。</p>
-<p>以前对奶奶说过，会一个星期给奶奶打一次电话。我给奶奶的手机开了自动续费，闹钟定在了每个周五下午的三点三十分。可惜我并没有很好的去执行，很多次都是看了一眼就关闭了闹钟。从去年十月份开始，因为父母和大伯闹不和的原因，我再也没打电话过去问候奶奶。她一定很失落吧。</p>
-<p>一天过去了，我还是很恍惚，感到不真实，觉得奶奶只是去了很远的地方。</p>
-<p>想您了</p>
-]]></content>
-      <categories>
-        <category>感悟</category>
-      </categories>
   </entry>
   <entry>
     <title>迭代器模式</title>
