@@ -141,6 +141,22 @@
       </tags>
   </entry>
   <entry>
+    <title>1202. 交换字符串中的元素</title>
+    <url>/2021/07/06/1202-%E4%BA%A4%E6%8D%A2%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E5%85%83%E7%B4%A0/</url>
+    <content><![CDATA[<p>主要是用来学习并查集的思路，看了答案才下手的。</p>
+<p>思路就是先对可交换的字符串进行分组，分组排序之后再组合起来</p>
+<p>并查集就是用递归或者while循环实现find ， 然后 再用数组和下标的方式实现union</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> smallestStringWithSwaps = <span class="function"><span class="keyword">function</span>(<span class="params">s, pairs</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> fa = []</span><br><span class="line">  <span class="keyword">var</span> find = <span class="function"><span class="keyword">function</span> (<span class="params">x</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (x === fa[x]) &#123;</span><br><span class="line">      <span class="keyword">return</span> x</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> fa[x] = find(fa[x])</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; s.length; i++) &#123;</span><br><span class="line">      fa[i] = i</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span> ; i &lt; pairs.length ; i ++) &#123;</span><br><span class="line">    <span class="keyword">const</span> [x,y] = pairs[i]</span><br><span class="line">    fa[find(x)] = find(y)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> n = s.length</span><br><span class="line">  <span class="comment">// 计算分组后的map</span></span><br><span class="line">  <span class="keyword">const</span> vec = <span class="keyword">new</span> <span class="built_in">Array</span>(n).fill(<span class="number">0</span>).map(<span class="function">() =&gt;</span> <span class="keyword">new</span> <span class="built_in">Array</span>());</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">      </span><br><span class="line">      fa[i] = find(i);</span><br><span class="line">      vec[fa[i]].push(s[i]);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">console</span>.log(fa)</span><br><span class="line">  <span class="comment">// 对分组后的map 进行排序</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123; </span><br><span class="line">      <span class="keyword">if</span> (vec[i].length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">          vec[i].sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a.charCodeAt() - b.charCodeAt());</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 组合成ans</span></span><br><span class="line">  <span class="keyword">const</span> ans = <span class="keyword">new</span> <span class="built_in">Array</span>(n).fill(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">      <span class="keyword">var</span> group = fa[i]</span><br><span class="line">      <span class="keyword">if</span> ( group!= <span class="literal">undefined</span> &amp;&amp; vec[group].length) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 取出每个组中序号最小的</span></span><br><span class="line">        ans[i] = vec[fa[i]].shift()</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        ans[i] = s[i]</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> ans.join(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">&#125;;  </span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>并查集</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>124. 二叉树中的最大路径和</title>
     <url>/2021/03/15/124-%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E7%9A%84%E6%9C%80%E5%A4%A7%E8%B7%AF%E5%BE%84%E5%92%8C/</url>
     <content><![CDATA[<p>用时 ：30min</p>
@@ -397,6 +413,30 @@
       </tags>
   </entry>
   <entry>
+    <title>222. 完全二叉树的节点个数</title>
+    <url>/2021/03/13/222-%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E8%8A%82%E7%82%B9%E4%B8%AA%E6%95%B0/</url>
+    <content><![CDATA[<p>用时：80min</p>
+<p>拿到题的第一个反应当然是DFS解决….</p>
+<p>但是这是一个完全二叉树，怎么说也应该把完全二叉树的性质用上才行</p>
+<p>可以考察二叉树的左右子树深度</p>
+<p>如果左深度 大于 右  ， 说明右边已经满了，满了的个数是 2 的 n 次方 - 1，加上root 是 2 的 n次方，继续递归左边</p>
+<p>如果右深度大于左， 说明左边满了，同样，继续递归右边</p>
+<p>至于怎么求二叉树的深度，可以从下往上递归</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> count = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root === <span class="literal">null</span>) <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Math</span>.max(count(root.left),count(root.right)) + <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>那么总体的代码就是</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> countNodes = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!root) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> count = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root === <span class="literal">null</span>) <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Math</span>.max(count(root.left),count(root.right)) + <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> leftLevel = count(root.left)</span><br><span class="line">    <span class="keyword">var</span> rightLevel = count(root.right)</span><br><span class="line">    <span class="keyword">if</span> (leftLevel === rightLevel) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Math</span>.pow(<span class="number">2</span>,leftLevel) + countNodes(root.right)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Math</span>.pow(<span class="number">2</span>,rightLevel ) + countNodes(root.left)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>二叉树</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>215. 数组中的第K个最大元素</title>
     <url>/2021/02/25/215.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E7%AC%ACK%E4%B8%AA%E6%9C%80%E5%A4%A7%E5%85%83%E7%B4%A0/</url>
     <content><![CDATA[<h4 id="215-数组中的第K个最大元素"><a href="#215-数组中的第K个最大元素" class="headerlink" title="215. 数组中的第K个最大元素"></a><a href="https://leetcode-cn.com/problems/kth-largest-element-in-an-array/">215. 数组中的第K个最大元素</a></h4><p>30min</p>
@@ -433,30 +473,6 @@
       <tags>
         <tag>堆</tag>
         <tag>快速排序</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>222. 完全二叉树的节点个数</title>
-    <url>/2021/03/13/222-%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E8%8A%82%E7%82%B9%E4%B8%AA%E6%95%B0/</url>
-    <content><![CDATA[<p>用时：80min</p>
-<p>拿到题的第一个反应当然是DFS解决….</p>
-<p>但是这是一个完全二叉树，怎么说也应该把完全二叉树的性质用上才行</p>
-<p>可以考察二叉树的左右子树深度</p>
-<p>如果左深度 大于 右  ， 说明右边已经满了，满了的个数是 2 的 n 次方 - 1，加上root 是 2 的 n次方，继续递归左边</p>
-<p>如果右深度大于左， 说明左边满了，同样，继续递归右边</p>
-<p>至于怎么求二叉树的深度，可以从下往上递归</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> count = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root === <span class="literal">null</span>) <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Math</span>.max(count(root.left),count(root.right)) + <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>那么总体的代码就是</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> countNodes = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!root) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> count = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root === <span class="literal">null</span>) <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Math</span>.max(count(root.left),count(root.right)) + <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> leftLevel = count(root.left)</span><br><span class="line">    <span class="keyword">var</span> rightLevel = count(root.right)</span><br><span class="line">    <span class="keyword">if</span> (leftLevel === rightLevel) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Math</span>.pow(<span class="number">2</span>,leftLevel) + countNodes(root.right)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Math</span>.pow(<span class="number">2</span>,rightLevel ) + countNodes(root.left)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>二叉树</tag>
       </tags>
   </entry>
   <entry>
@@ -631,6 +647,40 @@
       </categories>
       <tags>
         <tag>二叉树</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>778. 水位上升的泳池中游泳</title>
+    <url>/2021/07/05/778-%E6%B0%B4%E4%BD%8D%E4%B8%8A%E5%8D%87%E7%9A%84%E6%B3%B3%E6%B1%A0%E4%B8%AD%E6%B8%B8%E6%B3%B3/</url>
+    <content><![CDATA[<p>用时：20min</p>
+<p>首先能看出来是一个考察DFS的题目</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> swimInWater = <span class="function"><span class="keyword">function</span>(<span class="params">grid</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> row = grid.length;</span><br><span class="line">  <span class="keyword">let</span> col = grid[<span class="number">0</span>].length; </span><br><span class="line">  <span class="keyword">var</span> step = <span class="number">0</span></span><br><span class="line">  <span class="keyword">while</span>(<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span> ; i &lt; row ; i ++) &#123;</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">let</span> j = <span class="number">0</span> ; j &lt; col ; j ++)&#123;</span><br><span class="line">        grid[i][j] --</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> visited = []</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span> ; i &lt; row ; i ++) &#123;</span><br><span class="line">      <span class="keyword">let</span> arr = []</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">let</span> j = <span class="number">0</span> ; j &lt; col ; j ++) &#123;</span><br><span class="line">        arr.push(<span class="literal">false</span>)</span><br><span class="line">      &#125;</span><br><span class="line">      visited.push(arr)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> dfs = <span class="function"><span class="keyword">function</span> (<span class="params">i,j</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> ( i&lt; <span class="number">0</span> || j &lt; <span class="number">0</span> || i &gt;= row || j &gt;= col) <span class="keyword">return</span> <span class="literal">false</span> </span><br><span class="line">        <span class="keyword">if</span> (visited[i][j]) &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          visited[i][j] = <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (grid[i][j] &gt; <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        <span class="keyword">if</span> (i === row - <span class="number">1</span> &amp;&amp; j === col - <span class="number">1</span> &amp;&amp; grid[i][j] &lt;= <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">        <span class="keyword">return</span> dfs(i+<span class="number">1</span>,j) || dfs(i-<span class="number">1</span>,j) || dfs(i,j-<span class="number">1</span>)|| dfs(i,j + <span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    step++</span><br><span class="line">    <span class="keyword">if</span> (dfs(<span class="number">0</span>,<span class="number">0</span>) === <span class="literal">true</span>) <span class="keyword">break</span>  </span><br><span class="line">    </span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> step</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>想到我们不必从 1 开始尝试，可以用二分法找到最左插入点</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> swimInWater = <span class="function"><span class="keyword">function</span>(<span class="params">grid</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> row = grid.length;</span><br><span class="line">  <span class="keyword">let</span> col = grid[<span class="number">0</span>].length; </span><br><span class="line">  <span class="keyword">let</span> right = -<span class="literal">Infinity</span></span><br><span class="line">  <span class="keyword">let</span> left = <span class="literal">Infinity</span></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span> ; i &lt; row ; i ++) &#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> j = <span class="number">0</span> ; j &lt; col ; j ++ )&#123;</span><br><span class="line">      <span class="keyword">let</span> num = grid[i][j]</span><br><span class="line">      right = <span class="built_in">Math</span>.max(right,num)</span><br><span class="line">      left = <span class="built_in">Math</span>.min(left,num)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">let</span> mid = left + <span class="built_in">Math</span>.floor( (right - left) / <span class="number">2</span> )</span><br><span class="line">  <span class="keyword">while</span>(left &lt;= right) &#123;</span><br><span class="line">    mid = left + <span class="built_in">Math</span>.floor( (right - left) / <span class="number">2</span> )</span><br><span class="line">    <span class="keyword">var</span> visited = []</span><br><span class="line">    <span class="keyword">var</span> new_grid = []</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span> ; i &lt; row ; i ++) &#123;</span><br><span class="line">      <span class="keyword">let</span> arr = []</span><br><span class="line">      <span class="keyword">let</span> _grid = []</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">let</span> j = <span class="number">0</span> ; j &lt; col ; j ++) &#123;</span><br><span class="line">        arr.push(<span class="literal">false</span>)</span><br><span class="line">        _grid.push(grid[i][j] - mid)</span><br><span class="line">      &#125;</span><br><span class="line">      visited.push(arr)</span><br><span class="line">      new_grid.push(_grid)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> dfs = <span class="function"><span class="keyword">function</span> (<span class="params">i,j</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> ( i &lt; <span class="number">0</span> || j &lt; <span class="number">0</span> || i &gt;= row || j &gt;= col) <span class="keyword">return</span> <span class="literal">false</span> </span><br><span class="line">      <span class="keyword">if</span> (visited[i][j]) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        visited[i][j] = <span class="literal">true</span></span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (new_grid[i][j] &gt; <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">      <span class="keyword">if</span> (i === row - <span class="number">1</span> &amp;&amp; j === col - <span class="number">1</span> &amp;&amp; new_grid[i][j] &lt;= <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">      <span class="keyword">return</span> dfs(i+<span class="number">1</span>,j) || dfs(i-<span class="number">1</span>,j) || dfs(i,j-<span class="number">1</span>)|| dfs(i,j + <span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(dfs(<span class="number">0</span>,<span class="number">0</span>)) &#123;</span><br><span class="line">      <span class="comment">// 找到了备胎，继续看能不能更小 </span></span><br><span class="line">      right = mid - <span class="number">1</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      left =  mid + <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> left</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>二分法</tag>
+        <tag>dfs</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>684. 冗余连接</title>
+    <url>/2021/07/07/684-%E5%86%97%E4%BD%99%E8%BF%9E%E6%8E%A5/</url>
+    <content><![CDATA[<p>用时:15min</p>
+<p>利用并查集模板即可</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> findRedundantConnection = <span class="function"><span class="keyword">function</span>(<span class="params">edges</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> n = edges.length</span><br><span class="line">  <span class="keyword">var</span> fa = <span class="keyword">new</span> <span class="built_in">Array</span>(n + <span class="number">1</span>)</span><br><span class="line">  <span class="keyword">var</span> find = <span class="function"><span class="keyword">function</span> (<span class="params">x</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (x != fa[x]) &#123;</span><br><span class="line">      fa[x] = find(fa[x])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> fa[x]</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">1</span> ; i &lt;= n ; i ++) &#123;</span><br><span class="line">    fa[i] = i</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span> ; i &lt; n ; i ++) &#123;</span><br><span class="line">    <span class="keyword">var</span> [x,y] = edges[i]</span><br><span class="line">    <span class="keyword">if</span> (find(x) === find(y)) &#123;</span><br><span class="line">      <span class="keyword">return</span> [x,y]</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      fa[find(x)] = find(y)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>并查集</tag>
       </tags>
   </entry>
   <entry>
@@ -2482,51 +2532,6 @@ tasksList().then((res)=&gt;&#123;
       </tags>
   </entry>
   <entry>
-    <title>css伪类选择器nth-child</title>
-    <url>/2019/03/07/css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child/</url>
-    <content><![CDATA[<h1 id="关于-css-伪类选择器-nth-child-n"><a href="#关于-css-伪类选择器-nth-child-n" class="headerlink" title="关于 css 伪类选择器:nth-child(n)"></a>关于 css 伪类选择器:nth-child(n)</h1><p>这几天面试在一个简单的问题上翻车了。</p>
-<p>问题大概是这样，问我哪个部分被标红</p>
-<p><img src="/.io//css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child%5C1.png"></p>
-<p>天真的我回答的是 p 元素 。</p>
-<p>答案当然是没有任何元素被标红，原因是 <strong>nth-child 会先找到所有父元素下第 n 个子元素，再找其中的 p</strong>，</p>
-<p>也就是它第一步找到的集合是两个 span，其中没有 p 元素。</p>
-<p>如果要标红那个 p，须要这么写选择器：</p>
-<p><code>p:nth-of-type(1)</code></p>
-<p>这样是 <strong>先选择父元素下的 p，再找到其中的第一个 p</strong>。</p>
-<p>但是</p>
-<p>故事到这里并没有完结，我尝试去选择嵌套 p 标签下的 p 标签</p>
-<p><img src="/.io//css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child%5C2.png"></p>
-<p>令人震惊的是没有任何元素被选中，</p>
-<p>尝试了 <code>p &gt; p :nth-child(1)</code>也没有元素被选中<code>p:nth-of-type(1)</code>也不能选择到元素。</p>
-<p><img src="/.io//css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child%5C3.png"></p>
-<p>只有这样才能成功选择到 p1 。</p>
-<p>在这里我已经想到可能是违背了 HTML 标准之类的东西，但 p 是块状元素，不知道为什么不能嵌套另外一个 p 呢？所以去 mozilla 查看一下。看到了</p>
-<blockquote>
-<p>每一个 HTML 元素都必须遵循定义了它可以包含哪一类内容的规则。 这些规则被归类为几个常见的元素内容模型（content model）。每个 HTML 元素都属于 0 个、1 个或多个内容模型，每个模型都有一些规则使得元素中的内容必须遵循一个 HTML 规范文档( HTML-conformant document)。</p>
-</blockquote>
-<p>其中关于 p 元素的定义</p>
-<p><img src="/.io//css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child%5C4.png"></p>
-<p>描述是 p 元素表示文本的一个段落，重点是允许的内容是 <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Content_categories#Phrasing_content">Phrasing content</a>，再看这个 Phrasing content。</p>
-<p><img src="/.io//css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child%5C5.png"></p>
-<p>其中不包含 p 标签，所以我认为是 <code>nth-child</code> 选择器 按照 HTML 规范进行了选择上的优化，所以不会在 p 元素下面再去找 p 元素了,吗？</p>
-<p>我们再看一下这个结构</p>
-<p><img src="/.io//css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child%5C6.png"></p>
-<p>在浏览器是怎么渲染的</p>
-<p><img src="/.io//css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child%5C7.png"></p>
-<p>可以看到，外面包裹的 p，被浏览器渲染成了两个 p 元素。可以猜想到，如果 CSS 写成</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">p &#123;</span><br><span class="line">        color:red</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p>span2 也不会被选择中的。</p>
-<p>所以最后的总结就是，HTML 代码不规范会使浏览器做出错误的渲染，所以选择器选择出现问题 。</p>
-]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>CSS</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>promise</title>
     <url>/2018/06/27/promise/</url>
     <content><![CDATA[<p><img src="/.io//img1.png" alt="image"></p>
@@ -2572,6 +2577,51 @@ const p2 = new Promise(function (resolve, reject) &#123;
       <tags>
         <tag>ES6</tag>
         <tag>Javascript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>css伪类选择器nth-child</title>
+    <url>/2019/03/07/css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child/</url>
+    <content><![CDATA[<h1 id="关于-css-伪类选择器-nth-child-n"><a href="#关于-css-伪类选择器-nth-child-n" class="headerlink" title="关于 css 伪类选择器:nth-child(n)"></a>关于 css 伪类选择器:nth-child(n)</h1><p>这几天面试在一个简单的问题上翻车了。</p>
+<p>问题大概是这样，问我哪个部分被标红</p>
+<p><img src="/.io//css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child%5C1.png"></p>
+<p>天真的我回答的是 p 元素 。</p>
+<p>答案当然是没有任何元素被标红，原因是 <strong>nth-child 会先找到所有父元素下第 n 个子元素，再找其中的 p</strong>，</p>
+<p>也就是它第一步找到的集合是两个 span，其中没有 p 元素。</p>
+<p>如果要标红那个 p，须要这么写选择器：</p>
+<p><code>p:nth-of-type(1)</code></p>
+<p>这样是 <strong>先选择父元素下的 p，再找到其中的第一个 p</strong>。</p>
+<p>但是</p>
+<p>故事到这里并没有完结，我尝试去选择嵌套 p 标签下的 p 标签</p>
+<p><img src="/.io//css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child%5C2.png"></p>
+<p>令人震惊的是没有任何元素被选中，</p>
+<p>尝试了 <code>p &gt; p :nth-child(1)</code>也没有元素被选中<code>p:nth-of-type(1)</code>也不能选择到元素。</p>
+<p><img src="/.io//css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child%5C3.png"></p>
+<p>只有这样才能成功选择到 p1 。</p>
+<p>在这里我已经想到可能是违背了 HTML 标准之类的东西，但 p 是块状元素，不知道为什么不能嵌套另外一个 p 呢？所以去 mozilla 查看一下。看到了</p>
+<blockquote>
+<p>每一个 HTML 元素都必须遵循定义了它可以包含哪一类内容的规则。 这些规则被归类为几个常见的元素内容模型（content model）。每个 HTML 元素都属于 0 个、1 个或多个内容模型，每个模型都有一些规则使得元素中的内容必须遵循一个 HTML 规范文档( HTML-conformant document)。</p>
+</blockquote>
+<p>其中关于 p 元素的定义</p>
+<p><img src="/.io//css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child%5C4.png"></p>
+<p>描述是 p 元素表示文本的一个段落，重点是允许的内容是 <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Content_categories#Phrasing_content">Phrasing content</a>，再看这个 Phrasing content。</p>
+<p><img src="/.io//css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child%5C5.png"></p>
+<p>其中不包含 p 标签，所以我认为是 <code>nth-child</code> 选择器 按照 HTML 规范进行了选择上的优化，所以不会在 p 元素下面再去找 p 元素了,吗？</p>
+<p>我们再看一下这个结构</p>
+<p><img src="/.io//css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child%5C6.png"></p>
+<p>在浏览器是怎么渲染的</p>
+<p><img src="/.io//css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child%5C7.png"></p>
+<p>可以看到，外面包裹的 p，被浏览器渲染成了两个 p 元素。可以猜想到，如果 CSS 写成</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">p &#123;</span><br><span class="line">        color:red</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>span2 也不会被选择中的。</p>
+<p>所以最后的总结就是，HTML 代码不规范会使浏览器做出错误的渲染，所以选择器选择出现问题 。</p>
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
       </tags>
   </entry>
   <entry>
@@ -5536,56 +5586,6 @@ co(taskList).then(res=&gt;&#123;
       <tags>
         <tag>ES6</tag>
         <tag>Javascript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>778. 水位上升的泳池中游泳</title>
-    <url>/2021/07/05/778-%E6%B0%B4%E4%BD%8D%E4%B8%8A%E5%8D%87%E7%9A%84%E6%B3%B3%E6%B1%A0%E4%B8%AD%E6%B8%B8%E6%B3%B3/</url>
-    <content><![CDATA[<p>用时：20min</p>
-<p>首先能看出来是一个考察DFS的题目</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> swimInWater = <span class="function"><span class="keyword">function</span>(<span class="params">grid</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> row = grid.length;</span><br><span class="line">  <span class="keyword">let</span> col = grid[<span class="number">0</span>].length; </span><br><span class="line">  <span class="keyword">var</span> step = <span class="number">0</span></span><br><span class="line">  <span class="keyword">while</span>(<span class="literal">true</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span> ; i &lt; row ; i ++) &#123;</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">let</span> j = <span class="number">0</span> ; j &lt; col ; j ++)&#123;</span><br><span class="line">        grid[i][j] --</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> visited = []</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span> ; i &lt; row ; i ++) &#123;</span><br><span class="line">      <span class="keyword">let</span> arr = []</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">let</span> j = <span class="number">0</span> ; j &lt; col ; j ++) &#123;</span><br><span class="line">        arr.push(<span class="literal">false</span>)</span><br><span class="line">      &#125;</span><br><span class="line">      visited.push(arr)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> dfs = <span class="function"><span class="keyword">function</span> (<span class="params">i,j</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> ( i&lt; <span class="number">0</span> || j &lt; <span class="number">0</span> || i &gt;= row || j &gt;= col) <span class="keyword">return</span> <span class="literal">false</span> </span><br><span class="line">        <span class="keyword">if</span> (visited[i][j]) &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          visited[i][j] = <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (grid[i][j] &gt; <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        <span class="keyword">if</span> (i === row - <span class="number">1</span> &amp;&amp; j === col - <span class="number">1</span> &amp;&amp; grid[i][j] &lt;= <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">        <span class="keyword">return</span> dfs(i+<span class="number">1</span>,j) || dfs(i-<span class="number">1</span>,j) || dfs(i,j-<span class="number">1</span>)|| dfs(i,j + <span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    step++</span><br><span class="line">    <span class="keyword">if</span> (dfs(<span class="number">0</span>,<span class="number">0</span>) === <span class="literal">true</span>) <span class="keyword">break</span>  </span><br><span class="line">    </span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> step</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>想到我们不必从 1 开始尝试，可以用二分法找到最左插入点</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> swimInWater = <span class="function"><span class="keyword">function</span>(<span class="params">grid</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> row = grid.length;</span><br><span class="line">  <span class="keyword">let</span> col = grid[<span class="number">0</span>].length; </span><br><span class="line">  <span class="keyword">let</span> right = -<span class="literal">Infinity</span></span><br><span class="line">  <span class="keyword">let</span> left = <span class="literal">Infinity</span></span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span> ; i &lt; row ; i ++) &#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> j = <span class="number">0</span> ; j &lt; col ; j ++ )&#123;</span><br><span class="line">      <span class="keyword">let</span> num = grid[i][j]</span><br><span class="line">      right = <span class="built_in">Math</span>.max(right,num)</span><br><span class="line">      left = <span class="built_in">Math</span>.min(left,num)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">let</span> mid = left + <span class="built_in">Math</span>.floor( (right - left) / <span class="number">2</span> )</span><br><span class="line">  <span class="keyword">while</span>(left &lt;= right) &#123;</span><br><span class="line">    mid = left + <span class="built_in">Math</span>.floor( (right - left) / <span class="number">2</span> )</span><br><span class="line">    <span class="keyword">var</span> visited = []</span><br><span class="line">    <span class="keyword">var</span> new_grid = []</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span> ; i &lt; row ; i ++) &#123;</span><br><span class="line">      <span class="keyword">let</span> arr = []</span><br><span class="line">      <span class="keyword">let</span> _grid = []</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">let</span> j = <span class="number">0</span> ; j &lt; col ; j ++) &#123;</span><br><span class="line">        arr.push(<span class="literal">false</span>)</span><br><span class="line">        _grid.push(grid[i][j] - mid)</span><br><span class="line">      &#125;</span><br><span class="line">      visited.push(arr)</span><br><span class="line">      new_grid.push(_grid)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> dfs = <span class="function"><span class="keyword">function</span> (<span class="params">i,j</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> ( i &lt; <span class="number">0</span> || j &lt; <span class="number">0</span> || i &gt;= row || j &gt;= col) <span class="keyword">return</span> <span class="literal">false</span> </span><br><span class="line">      <span class="keyword">if</span> (visited[i][j]) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        visited[i][j] = <span class="literal">true</span></span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> (new_grid[i][j] &gt; <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">      <span class="keyword">if</span> (i === row - <span class="number">1</span> &amp;&amp; j === col - <span class="number">1</span> &amp;&amp; new_grid[i][j] &lt;= <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">      <span class="keyword">return</span> dfs(i+<span class="number">1</span>,j) || dfs(i-<span class="number">1</span>,j) || dfs(i,j-<span class="number">1</span>)|| dfs(i,j + <span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(dfs(<span class="number">0</span>,<span class="number">0</span>)) &#123;</span><br><span class="line">      <span class="comment">// 找到了备胎，继续看能不能更小 </span></span><br><span class="line">      right = mid - <span class="number">1</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      left =  mid + <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> left</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>二分法</tag>
-        <tag>dfs</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>1202. 交换字符串中的元素</title>
-    <url>/2021/07/06/1202-%E4%BA%A4%E6%8D%A2%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E5%85%83%E7%B4%A0/</url>
-    <content><![CDATA[<p>主要是用来学习并查集的思路，看了答案才下手的。</p>
-<p>思路就是先对可交换的字符串进行分组，分组排序之后再组合起来</p>
-<p>并查集就是用递归或者while循环实现find ， 然后 再用数组和下标的方式实现union</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> smallestStringWithSwaps = <span class="function"><span class="keyword">function</span>(<span class="params">s, pairs</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> fa = []</span><br><span class="line">  <span class="keyword">var</span> find = <span class="function"><span class="keyword">function</span> (<span class="params">x</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (x === fa[x]) &#123;</span><br><span class="line">      <span class="keyword">return</span> x</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> fa[x] = find(fa[x])</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; s.length; i++) &#123;</span><br><span class="line">      fa[i] = i</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span> ; i &lt; pairs.length ; i ++) &#123;</span><br><span class="line">    <span class="keyword">const</span> [x,y] = pairs[i]</span><br><span class="line">    fa[find(x)] = find(y)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> n = s.length</span><br><span class="line">  <span class="comment">// 计算分组后的map</span></span><br><span class="line">  <span class="keyword">const</span> vec = <span class="keyword">new</span> <span class="built_in">Array</span>(n).fill(<span class="number">0</span>).map(<span class="function">() =&gt;</span> <span class="keyword">new</span> <span class="built_in">Array</span>());</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">      </span><br><span class="line">      fa[i] = find(i);</span><br><span class="line">      vec[fa[i]].push(s[i]);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">console</span>.log(fa)</span><br><span class="line">  <span class="comment">// 对分组后的map 进行排序</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123; </span><br><span class="line">      <span class="keyword">if</span> (vec[i].length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">          vec[i].sort(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a.charCodeAt() - b.charCodeAt());</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 组合成ans</span></span><br><span class="line">  <span class="keyword">const</span> ans = <span class="keyword">new</span> <span class="built_in">Array</span>(n).fill(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">      <span class="keyword">var</span> group = fa[i]</span><br><span class="line">      <span class="keyword">if</span> ( group!= <span class="literal">undefined</span> &amp;&amp; vec[group].length) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 取出每个组中序号最小的</span></span><br><span class="line">        ans[i] = vec[fa[i]].shift()</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        ans[i] = s[i]</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> ans.join(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">&#125;;  </span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>并查集</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>684. 冗余连接</title>
-    <url>/2021/07/07/684-%E5%86%97%E4%BD%99%E8%BF%9E%E6%8E%A5/</url>
-    <content><![CDATA[<p>用时:15min</p>
-<p>利用并查集模板即可</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> findRedundantConnection = <span class="function"><span class="keyword">function</span>(<span class="params">edges</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> n = edges.length</span><br><span class="line">  <span class="keyword">var</span> fa = <span class="keyword">new</span> <span class="built_in">Array</span>(n + <span class="number">1</span>)</span><br><span class="line">  <span class="keyword">var</span> find = <span class="function"><span class="keyword">function</span> (<span class="params">x</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (x != fa[x]) &#123;</span><br><span class="line">      fa[x] = find(fa[x])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> fa[x]</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">1</span> ; i &lt;= n ; i ++) &#123;</span><br><span class="line">    fa[i] = i</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span> ; i &lt; n ; i ++) &#123;</span><br><span class="line">    <span class="keyword">var</span> [x,y] = edges[i]</span><br><span class="line">    <span class="keyword">if</span> (find(x) === find(y)) &#123;</span><br><span class="line">      <span class="keyword">return</span> [x,y]</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      fa[find(x)] = find(y)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>并查集</tag>
       </tags>
   </entry>
 </search>
