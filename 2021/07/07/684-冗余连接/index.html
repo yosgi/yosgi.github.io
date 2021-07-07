@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="并查集," />
 
 
 
@@ -79,12 +79,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="快雪时晴">
-<meta property="og:url" content="https://yosgi.github.io/archives/2018/09/index.html">
+<meta name="description" content="并查集">
+<meta property="og:type" content="article">
+<meta property="og:title" content="684. 冗余连接">
+<meta property="og:url" content="https://yosgi.github.io/2021/07/07/684-%E5%86%97%E4%BD%99%E8%BF%9E%E6%8E%A5/index.html">
 <meta property="og:site_name" content="快雪时晴">
+<meta property="og:description" content="并查集">
 <meta property="og:locale">
+<meta property="article:published_time" content="2021-07-07T05:51:01.000Z">
+<meta property="article:modified_time" content="2021-07-07T05:51:38.639Z">
 <meta property="article:author" content="yosgi">
+<meta property="article:tag" content="并查集">
 <meta name="twitter:card" content="summary">
 
 
@@ -115,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://yosgi.github.io/archives/2018/09/"/>
+  <link rel="canonical" href="https://yosgi.github.io/2021/07/07/684-冗余连接/"/>
 
 
 
 
 
-  <title>归档 | 快雪时晴</title>
+  <title>684. 冗余连接 | 快雪时晴</title>
   
 
 
@@ -140,7 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -226,147 +231,176 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yosgi.github.io/2021/07/07/684-%E5%86%97%E4%BD%99%E8%BF%9E%E6%8E%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="快雪时晴">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
-         
+          <h1 class="post-title" itemprop="name headline">684. 冗余连接</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-07T13:51:01+08:00">
+                2021-07-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        很好! 目前共计 89 篇日志。 继续努力。
-      </span>
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
+                  </a>
+                </span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2018">2018</h1>
-          </div>
-        
-        
 
-        
+          
+            
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/09/12/DOM%E6%93%8D%E4%BD%9C%E7%9A%84%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" itemprop="url">
-              
-                <span itemprop="name">DOM操作的性能优化</span>
-              
-            </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-09-12T15:09:33+08:00"
-              content="2018-09-12" >
-          09-12
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+          
+              <div class="post-description">
+                  并查集
+              </div>
+          
 
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>用时:15min</p>
+<p>利用并查集模板即可</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> findRedundantConnection = <span class="function"><span class="keyword">function</span>(<span class="params">edges</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> n = edges.length</span><br><span class="line">  <span class="keyword">var</span> fa = <span class="keyword">new</span> <span class="built_in">Array</span>(n + <span class="number">1</span>)</span><br><span class="line">  <span class="keyword">var</span> find = <span class="function"><span class="keyword">function</span> (<span class="params">x</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (x != fa[x]) &#123;</span><br><span class="line">      fa[x] = find(fa[x])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> fa[x]</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">1</span> ; i &lt;= n ; i ++) &#123;</span><br><span class="line">    fa[i] = i</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span> ; i &lt; n ; i ++) &#123;</span><br><span class="line">    <span class="keyword">var</span> [x,y] = edges[i]</span><br><span class="line">    <span class="keyword">if</span> (find(x) === find(y)) &#123;</span><br><span class="line">      <span class="keyword">return</span> [x,y]</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      fa[find(x)] = find(y)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/09/10/vue%E6%98%93%E9%94%99%E6%98%93%E6%B7%B7%E7%9F%A5%E8%AF%86%E7%82%B9%E6%95%B4%E7%90%86/" itemprop="url">
-              
-                <span itemprop="name">vue易错易混知识点整理</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-09-10T18:30:10+08:00"
-              content="2018-09-10" >
-          09-10
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/09/04/Js%E5%8A%A0%E8%BD%BD%E4%BC%98%E5%8C%96/" itemprop="url">
-              
-                <span itemprop="name">Js加载优化</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-09-04T09:23:11+08:00"
-              content="2018-09-04" >
-          09-04
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/" rel="tag"># 并查集</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/07/06/1202-%E4%BA%A4%E6%8D%A2%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E5%85%83%E7%B4%A0/" rel="next" title="1202. 交换字符串中的元素">
+                <i class="fa fa-chevron-left"></i> 1202. 交换字符串中的元素
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -374,6 +408,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -588,6 +626,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 

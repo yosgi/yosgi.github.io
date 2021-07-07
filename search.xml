@@ -5566,4 +5566,19 @@ co(taskList).then(res=&gt;&#123;
         <tag>并查集</tag>
       </tags>
   </entry>
+  <entry>
+    <title>684. 冗余连接</title>
+    <url>/2021/07/07/684-%E5%86%97%E4%BD%99%E8%BF%9E%E6%8E%A5/</url>
+    <content><![CDATA[<p>用时:15min</p>
+<p>利用并查集模板即可</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> findRedundantConnection = <span class="function"><span class="keyword">function</span>(<span class="params">edges</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> n = edges.length</span><br><span class="line">  <span class="keyword">var</span> fa = <span class="keyword">new</span> <span class="built_in">Array</span>(n + <span class="number">1</span>)</span><br><span class="line">  <span class="keyword">var</span> find = <span class="function"><span class="keyword">function</span> (<span class="params">x</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (x != fa[x]) &#123;</span><br><span class="line">      fa[x] = find(fa[x])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> fa[x]</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">1</span> ; i &lt;= n ; i ++) &#123;</span><br><span class="line">    fa[i] = i</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span> ; i &lt; n ; i ++) &#123;</span><br><span class="line">    <span class="keyword">var</span> [x,y] = edges[i]</span><br><span class="line">    <span class="keyword">if</span> (find(x) === find(y)) &#123;</span><br><span class="line">      <span class="keyword">return</span> [x,y]</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      fa[find(x)] = find(y)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>并查集</tag>
+      </tags>
+  </entry>
 </search>
