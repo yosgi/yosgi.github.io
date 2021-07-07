@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Interview Refactor," />
+  <meta name="keywords" content="面试 / 项目总结," />
 
 
 
@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="interview prepare">
+<meta name="description" content="怎么进行代码重构">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Refactor the code">
+<meta property="og:title" content="关于代码重构">
 <meta property="og:url" content="https://yosgi.github.io/2021/04/25/Interview-Refactor-the-code/index.html">
 <meta property="og:site_name" content="快雪时晴">
-<meta property="og:description" content="interview prepare">
+<meta property="og:description" content="怎么进行代码重构">
 <meta property="og:locale">
 <meta property="article:published_time" content="2021-04-25T09:11:16.000Z">
-<meta property="article:modified_time" content="2021-04-25T09:14:30.409Z">
+<meta property="article:modified_time" content="2021-07-07T06:20:26.642Z">
 <meta property="article:author" content="yosgi">
-<meta property="article:tag" content="Interview Refactor">
+<meta property="article:tag" content="面试 &#x2F; 项目总结">
 <meta name="twitter:card" content="summary">
 
 
@@ -126,7 +126,7 @@
 
 
 
-  <title>Refactor the code | 快雪时晴</title>
+  <title>关于代码重构 | 快雪时晴</title>
   
 
 
@@ -262,7 +262,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Refactor the code</h1>
+          <h1 class="post-title" itemprop="name headline">关于代码重构</h1>
         
 
         <div class="post-meta">
@@ -297,8 +297,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/interview/" itemprop="url" rel="index">
-                    <span itemprop="name">interview</span>
+                  <a href="/categories/%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/" itemprop="url" rel="index">
+                    <span itemprop="name">项目总结</span>
                   </a>
                 </span>
 
@@ -321,7 +321,7 @@
 
           
               <div class="post-description">
-                  interview prepare
+                  怎么进行代码重构
               </div>
           
 
@@ -338,7 +338,14 @@
       
 
       
-        <p>Refactoring code is definitely a dirty and tiring job for me . </p>
+        <h3 id="关于-代码重构"><a href="#关于-代码重构" class="headerlink" title="关于 代码重构"></a>关于 代码重构</h3><p>经过几次的代码重构经验，我总结下来，代码重构的难点并不在于技术部分，而在与对项目时间的把握 和 项目质量的管控。</p>
+<h5 id="评估阶段"><a href="#评估阶段" class="headerlink" title="评估阶段"></a>评估阶段</h5><p>拿到需要重构的项目后，先对项目中各个页面进行评估，进行优先级划分，筛选。</p>
+<p>对于低频使用的展示页面，可以选择不要进行重构。</p>
+<p>对于高频使用且存在数据存取的页面，优先级较高，因为如果存入的数据和以前不匹配，可能会存进错误的数据。 这类页面需要还原之前的需求，并且理解测试用例。</p>
+<h5 id="测试阶段"><a href="#测试阶段" class="headerlink" title="测试阶段"></a>测试阶段</h5><p>重构结束后，自测和交叉测试同样重要，避免引进太多的低级错误。同时因为现在的测试可能对之前的测试用例的理解和开发存在一些误差，需要和测试进行沟通，同步对于之前需求的理解。</p>
+<h5 id="发布阶段"><a href="#发布阶段" class="headerlink" title="发布阶段"></a>发布阶段</h5><p>新旧页面的路由设计需要一致，这样才能不影响参数的传递。</p>
+<p>灰度发布，并提供给用户返回到旧版本的按钮。当用户回到旧版本，判断用户是否是灰度发布中的命中用户，如果是命中的用户，了解新版本存在的问题，改善扩大用户灰度发布命中率，直到旧版本PV 为 0，删除旧版本的进入路径以及路由。</p>
+<h3 id="Refactor-the-code"><a href="#Refactor-the-code" class="headerlink" title="Refactor the code"></a>Refactor the code</h3><p>Refactoring code is definitely a dirty and tiring job for me . </p>
 <p>There is no method that can greatly improve efficiency.</p>
 <p>The code I refectory is not the code I wrote, but also the ancient code.</p>
 <p>Using an outdated technology stack .</p>
@@ -381,7 +388,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Interview-Refactor/" rel="tag"># Interview Refactor</a>
+            <a href="/tags/%E9%9D%A2%E8%AF%95-%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/" rel="tag"># 面试 / 项目总结</a>
           
         </div>
       
@@ -458,8 +465,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -519,6 +535,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E-%E4%BB%A3%E7%A0%81%E9%87%8D%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">关于 代码重构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AF%84%E4%BC%B0%E9%98%B6%E6%AE%B5"><span class="nav-number">1.0.1.</span> <span class="nav-text">评估阶段</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E9%98%B6%E6%AE%B5"><span class="nav-number">1.0.2.</span> <span class="nav-text">测试阶段</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%91%E5%B8%83%E9%98%B6%E6%AE%B5"><span class="nav-number">1.0.3.</span> <span class="nav-text">发布阶段</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Refactor-the-code"><span class="nav-number">2.</span> <span class="nav-text">Refactor the code</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
