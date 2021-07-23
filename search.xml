@@ -243,6 +243,25 @@
       </tags>
   </entry>
   <entry>
+    <title>138-复制带随机指针的链表</title>
+    <url>/2021/07/22/138-%E5%A4%8D%E5%88%B6%E5%B8%A6%E9%9A%8F%E6%9C%BA%E6%8C%87%E9%92%88%E7%9A%84%E9%93%BE%E8%A1%A8/</url>
+    <content><![CDATA[<h4 id="138-复制带随机指针的链表"><a href="#138-复制带随机指针的链表" class="headerlink" title="138. 复制带随机指针的链表"></a><a href="https://leetcode-cn.com/problems/copy-list-with-random-pointer/">138. 复制带随机指针的链表</a></h4><p>拿到题目的想法是使用双指针指向新旧节点，再加上一个 map 用来映射旧节点和新节点。</p>
+<p>递归</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> listMap = <span class="keyword">new</span> <span class="built_in">Map</span>()</span><br><span class="line"><span class="keyword">var</span> copyRandomList = <span class="function"><span class="keyword">function</span>(<span class="params">head</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(head === <span class="literal">null</span>) <span class="keyword">return</span> head</span><br><span class="line">    <span class="keyword">if</span> (listMap.get(head)) &#123;</span><br><span class="line">        <span class="keyword">return</span> listMap.get(head)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> newNode = <span class="keyword">new</span> Node(head.val,<span class="literal">null</span>,<span class="literal">null</span>)</span><br><span class="line">    listMap.set(head, newNode)</span><br><span class="line">    newNode.next = copyRandomList(head.next)</span><br><span class="line">    newNode.random = copyRandomList(head.random)</span><br><span class="line">    <span class="keyword">return</span> newNode</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>迭代</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> copyRandomList = <span class="function"><span class="keyword">function</span>(<span class="params">head</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(head == <span class="literal">null</span>) <span class="keyword">return</span> head</span><br><span class="line">    <span class="keyword">var</span> listMap = <span class="keyword">new</span> <span class="built_in">Map</span>()</span><br><span class="line">    listMap.set(<span class="literal">null</span>,<span class="literal">null</span>)</span><br><span class="line">    <span class="keyword">var</span> cur = head</span><br><span class="line">    <span class="keyword">while</span> (cur!= <span class="literal">null</span>) &#123;</span><br><span class="line">        listMap.set(cur,<span class="keyword">new</span> Node(cur.val,<span class="literal">null</span>,<span class="literal">null</span>))</span><br><span class="line">        cur = cur.next</span><br><span class="line">    &#125;</span><br><span class="line">    cur = head</span><br><span class="line">    <span class="keyword">while</span> (cur!= <span class="literal">null</span>) &#123;</span><br><span class="line">        listMap.get(cur).next = listMap.get(cur.next)</span><br><span class="line">        listMap.get(cur).random = listMap.get(cur.random)</span><br><span class="line">        cur = cur.next</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> listMap.get(head)</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>链表 map</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>leetcode 139.单词拆分</title>
     <url>/2020/12/12/139.%20%E5%8D%95%E8%AF%8D%E6%8B%86%E5%88%86/</url>
     <content><![CDATA[<p>用时 20 min</p>
@@ -384,6 +403,20 @@
       </tags>
   </entry>
   <entry>
+    <title>1893. 检查是否区域内所有整数都被覆盖</title>
+    <url>/2021/07/23/1893-%E6%A3%80%E6%9F%A5%E6%98%AF%E5%90%A6%E5%8C%BA%E5%9F%9F%E5%86%85%E6%89%80%E6%9C%89%E6%95%B4%E6%95%B0%E9%83%BD%E8%A2%AB%E8%A6%86%E7%9B%96/</url>
+    <content><![CDATA[<h4 id="1893-检查是否区域内所有整数都被覆盖"><a href="#1893-检查是否区域内所有整数都被覆盖" class="headerlink" title="1893. 检查是否区域内所有整数都被覆盖"></a><a href="https://leetcode-cn.com/problems/check-if-all-the-integers-in-a-range-are-covered/">1893. 检查是否区域内所有整数都被覆盖</a></h4><p>拿到没想到什么好方法，先暴力解</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> isCovered = <span class="function"><span class="keyword">function</span>(<span class="params">ranges, left, right</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = left ; i &lt;= right ; i ++) &#123;</span><br><span class="line">        <span class="keyword">let</span> include = <span class="literal">false</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> index = <span class="number">0</span> ; index &lt; ranges.length ; index ++) &#123;</span><br><span class="line">            <span class="keyword">let</span> [start,end] = ranges[index]</span><br><span class="line">            <span class="keyword">if</span> (i &gt;=start &amp;&amp; i &lt;=end) &#123;</span><br><span class="line">                include = <span class="literal">true</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!include) <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>思考优化，可以通过start ，end  ，当 start &lt;= left 时， [left …  end] 集合已经包含在内了，继续压缩 [end + 1 , right ] 直到集合里面没有元素</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> isCovered = <span class="function"><span class="keyword">function</span>(<span class="params">ranges, left, right</span>) </span>&#123;</span><br><span class="line">    ranges = ranges.sort(<span class="function">(<span class="params">a,b</span>) =&gt;</span> a - b)</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span> ; i &lt; ranges.length;i++) &#123;</span><br><span class="line">        <span class="keyword">let</span> [start,end] = ranges[i];</span><br><span class="line">        <span class="comment">// 根据范围收缩左边界</span></span><br><span class="line">        <span class="keyword">if</span> (start &lt;= left) &#123;</span><br><span class="line">            left = <span class="built_in">Math</span>.max(end,right)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (left &gt;= right) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> left &gt;= right</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+  </entry>
+  <entry>
     <title>leetcode 207.课程表</title>
     <url>/2020/12/11/207.%E8%AF%BE%E7%A8%8B%E8%A1%A8/</url>
     <content><![CDATA[<h4 id="207-课程表"><a href="#207-课程表" class="headerlink" title="207. 课程表"></a><a href="https://leetcode-cn.com/problems/course-schedule/">207. 课程表</a></h4><p>用时 1h 30min</p>
@@ -410,30 +443,6 @@
         <tag>DFS</tag>
         <tag>拓扑排序</tag>
         <tag>图</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>222. 完全二叉树的节点个数</title>
-    <url>/2021/03/13/222-%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E8%8A%82%E7%82%B9%E4%B8%AA%E6%95%B0/</url>
-    <content><![CDATA[<p>用时：80min</p>
-<p>拿到题的第一个反应当然是DFS解决….</p>
-<p>但是这是一个完全二叉树，怎么说也应该把完全二叉树的性质用上才行</p>
-<p>可以考察二叉树的左右子树深度</p>
-<p>如果左深度 大于 右  ， 说明右边已经满了，满了的个数是 2 的 n 次方 - 1，加上root 是 2 的 n次方，继续递归左边</p>
-<p>如果右深度大于左， 说明左边满了，同样，继续递归右边</p>
-<p>至于怎么求二叉树的深度，可以从下往上递归</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> count = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root === <span class="literal">null</span>) <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Math</span>.max(count(root.left),count(root.right)) + <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>那么总体的代码就是</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> countNodes = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!root) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> count = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root === <span class="literal">null</span>) <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Math</span>.max(count(root.left),count(root.right)) + <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> leftLevel = count(root.left)</span><br><span class="line">    <span class="keyword">var</span> rightLevel = count(root.right)</span><br><span class="line">    <span class="keyword">if</span> (leftLevel === rightLevel) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Math</span>.pow(<span class="number">2</span>,leftLevel) + countNodes(root.right)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Math</span>.pow(<span class="number">2</span>,rightLevel ) + countNodes(root.left)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>二叉树</tag>
       </tags>
   </entry>
   <entry>
@@ -473,6 +482,30 @@
       <tags>
         <tag>堆</tag>
         <tag>快速排序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>222. 完全二叉树的节点个数</title>
+    <url>/2021/03/13/222-%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E8%8A%82%E7%82%B9%E4%B8%AA%E6%95%B0/</url>
+    <content><![CDATA[<p>用时：80min</p>
+<p>拿到题的第一个反应当然是DFS解决….</p>
+<p>但是这是一个完全二叉树，怎么说也应该把完全二叉树的性质用上才行</p>
+<p>可以考察二叉树的左右子树深度</p>
+<p>如果左深度 大于 右  ， 说明右边已经满了，满了的个数是 2 的 n 次方 - 1，加上root 是 2 的 n次方，继续递归左边</p>
+<p>如果右深度大于左， 说明左边满了，同样，继续递归右边</p>
+<p>至于怎么求二叉树的深度，可以从下往上递归</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> count = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root === <span class="literal">null</span>) <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Math</span>.max(count(root.left),count(root.right)) + <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>那么总体的代码就是</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> countNodes = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!root) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> count = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (root === <span class="literal">null</span>) <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Math</span>.max(count(root.left),count(root.right)) + <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> leftLevel = count(root.left)</span><br><span class="line">    <span class="keyword">var</span> rightLevel = count(root.right)</span><br><span class="line">    <span class="keyword">if</span> (leftLevel === rightLevel) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Math</span>.pow(<span class="number">2</span>,leftLevel) + countNodes(root.right)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Math</span>.pow(<span class="number">2</span>,rightLevel ) + countNodes(root.left)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>二叉树</tag>
       </tags>
   </entry>
   <entry>
@@ -650,6 +683,21 @@
       </tags>
   </entry>
   <entry>
+    <title>684. 冗余连接</title>
+    <url>/2021/07/07/684-%E5%86%97%E4%BD%99%E8%BF%9E%E6%8E%A5/</url>
+    <content><![CDATA[<p>用时:15min</p>
+<p>利用并查集模板即可</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> findRedundantConnection = <span class="function"><span class="keyword">function</span>(<span class="params">edges</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> n = edges.length</span><br><span class="line">  <span class="keyword">var</span> fa = <span class="keyword">new</span> <span class="built_in">Array</span>(n + <span class="number">1</span>)</span><br><span class="line">  <span class="keyword">var</span> find = <span class="function"><span class="keyword">function</span> (<span class="params">x</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (x != fa[x]) &#123;</span><br><span class="line">      fa[x] = find(fa[x])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> fa[x]</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">1</span> ; i &lt;= n ; i ++) &#123;</span><br><span class="line">    fa[i] = i</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span> ; i &lt; n ; i ++) &#123;</span><br><span class="line">    <span class="keyword">var</span> [x,y] = edges[i]</span><br><span class="line">    <span class="keyword">if</span> (find(x) === find(y)) &#123;</span><br><span class="line">      <span class="keyword">return</span> [x,y]</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      fa[find(x)] = find(y)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>并查集</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>778. 水位上升的泳池中游泳</title>
     <url>/2021/07/05/778-%E6%B0%B4%E4%BD%8D%E4%B8%8A%E5%8D%87%E7%9A%84%E6%B3%B3%E6%B1%A0%E4%B8%AD%E6%B8%B8%E6%B3%B3/</url>
     <content><![CDATA[<p>用时：20min</p>
@@ -666,21 +714,6 @@
       <tags>
         <tag>二分法</tag>
         <tag>dfs</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>684. 冗余连接</title>
-    <url>/2021/07/07/684-%E5%86%97%E4%BD%99%E8%BF%9E%E6%8E%A5/</url>
-    <content><![CDATA[<p>用时:15min</p>
-<p>利用并查集模板即可</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> findRedundantConnection = <span class="function"><span class="keyword">function</span>(<span class="params">edges</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> n = edges.length</span><br><span class="line">  <span class="keyword">var</span> fa = <span class="keyword">new</span> <span class="built_in">Array</span>(n + <span class="number">1</span>)</span><br><span class="line">  <span class="keyword">var</span> find = <span class="function"><span class="keyword">function</span> (<span class="params">x</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (x != fa[x]) &#123;</span><br><span class="line">      fa[x] = find(fa[x])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> fa[x]</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">1</span> ; i &lt;= n ; i ++) &#123;</span><br><span class="line">    fa[i] = i</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span> ; i &lt; n ; i ++) &#123;</span><br><span class="line">    <span class="keyword">var</span> [x,y] = edges[i]</span><br><span class="line">    <span class="keyword">if</span> (find(x) === find(y)) &#123;</span><br><span class="line">      <span class="keyword">return</span> [x,y]</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      fa[find(x)] = find(y)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>并查集</tag>
       </tags>
   </entry>
   <entry>
@@ -1451,54 +1484,6 @@ Cache-Control:max-age=300                                      #缓存的最长�
       </tags>
   </entry>
   <entry>
-    <title>Iterator</title>
-    <url>/2018/07/04/Iterator/</url>
-    <content><![CDATA[<p><img src="/.io//img1.png" alt="image"></p>
-<h4 id="Iterator-的遍历过程"><a href="#Iterator-的遍历过程" class="headerlink" title="Iterator 的遍历过程"></a>Iterator 的遍历过程</h4><ol>
-<li>创建一个指针对象，指向当前数据结构的起始位置。也就是说，遍历器对象本质上，就是一个指针对象。</li>
-<li>第一次调用指针对象的 next 方法，可以将指针指向数据结构的第一个成员。</li>
-<li>第二次调用指针对象的 next 方法，指针就指向数据结构的第二个成员。</li>
-<li>不断调用指针对象的 next 方法，直到它指向数据结构的结束位置。</li>
-</ol>
-<h4 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h4><p>默认的 Iterator 接口部署在数据结构的 Symbol.iterator 属性</p>
-<p>下面是一个模拟 next 方法返回值的例子。</p>
-<pre><code>var it = makeIterator([&#39;a&#39;, &#39;b&#39;]);
-
-it.next() // &#123; value: &quot;a&quot;, done: false &#125;
-it.next() // &#123; value: &quot;b&quot;, done: false &#125;
-it.next() // &#123; value: undefined, done: true &#125;
-
-function makeIterator(array) &#123;
-  var nextIndex = 0;
-  return &#123;
-    next: function() &#123;
-      return nextIndex &lt; array.length ?
-        &#123;value: array[nextIndex++], done: false&#125; :
-        &#123;value: undefined, done: true&#125;;
-    &#125;
-  &#125;;
-&#125;</code></pre>
-<p>类似数组的对象调用数组的 Symbol.iterator 方法的例子。</p>
-<pre><code>let iterable = &#123;
-  0: &#39;a&#39;,
-  1: &#39;b&#39;,
-  2: &#39;c&#39;,
-  length: 3,
-  [Symbol.iterator]: Array.prototype[Symbol.iterator]
-&#125;;
-for (let item of iterable) &#123;
-  console.log(item); // &#39;a&#39;, &#39;b&#39;, &#39;c&#39;
-&#125;</code></pre>
-]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>ES6</tag>
-        <tag>Javascript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Javascript排序算法</title>
     <url>/2018/06/25/Javascript%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</url>
     <content><![CDATA[<h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><p>冒泡排序比较任何两个相邻的项，如果第一个比第二个大，则交换它们。元素项向上移动至确的顺序，就好像气泡升至表面一样，冒泡排序因此得名。</p>
@@ -1549,6 +1534,54 @@ for (let item of iterable) &#123;
       <tags>
         <tag>Javascript</tag>
         <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Iterator</title>
+    <url>/2018/07/04/Iterator/</url>
+    <content><![CDATA[<p><img src="/.io//img1.png" alt="image"></p>
+<h4 id="Iterator-的遍历过程"><a href="#Iterator-的遍历过程" class="headerlink" title="Iterator 的遍历过程"></a>Iterator 的遍历过程</h4><ol>
+<li>创建一个指针对象，指向当前数据结构的起始位置。也就是说，遍历器对象本质上，就是一个指针对象。</li>
+<li>第一次调用指针对象的 next 方法，可以将指针指向数据结构的第一个成员。</li>
+<li>第二次调用指针对象的 next 方法，指针就指向数据结构的第二个成员。</li>
+<li>不断调用指针对象的 next 方法，直到它指向数据结构的结束位置。</li>
+</ol>
+<h4 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h4><p>默认的 Iterator 接口部署在数据结构的 Symbol.iterator 属性</p>
+<p>下面是一个模拟 next 方法返回值的例子。</p>
+<pre><code>var it = makeIterator([&#39;a&#39;, &#39;b&#39;]);
+
+it.next() // &#123; value: &quot;a&quot;, done: false &#125;
+it.next() // &#123; value: &quot;b&quot;, done: false &#125;
+it.next() // &#123; value: undefined, done: true &#125;
+
+function makeIterator(array) &#123;
+  var nextIndex = 0;
+  return &#123;
+    next: function() &#123;
+      return nextIndex &lt; array.length ?
+        &#123;value: array[nextIndex++], done: false&#125; :
+        &#123;value: undefined, done: true&#125;;
+    &#125;
+  &#125;;
+&#125;</code></pre>
+<p>类似数组的对象调用数组的 Symbol.iterator 方法的例子。</p>
+<pre><code>let iterable = &#123;
+  0: &#39;a&#39;,
+  1: &#39;b&#39;,
+  2: &#39;c&#39;,
+  length: 3,
+  [Symbol.iterator]: Array.prototype[Symbol.iterator]
+&#125;;
+for (let item of iterable) &#123;
+  console.log(item); // &#39;a&#39;, &#39;b&#39;, &#39;c&#39;
+&#125;</code></pre>
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>ES6</tag>
+        <tag>Javascript</tag>
       </tags>
   </entry>
   <entry>
@@ -2532,6 +2565,51 @@ tasksList().then((res)=&gt;&#123;
       </tags>
   </entry>
   <entry>
+    <title>css伪类选择器nth-child</title>
+    <url>/2019/03/07/css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child/</url>
+    <content><![CDATA[<h1 id="关于-css-伪类选择器-nth-child-n"><a href="#关于-css-伪类选择器-nth-child-n" class="headerlink" title="关于 css 伪类选择器:nth-child(n)"></a>关于 css 伪类选择器:nth-child(n)</h1><p>这几天面试在一个简单的问题上翻车了。</p>
+<p>问题大概是这样，问我哪个部分被标红</p>
+<p><img src="/.io//css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child%5C1.png"></p>
+<p>天真的我回答的是 p 元素 。</p>
+<p>答案当然是没有任何元素被标红，原因是 <strong>nth-child 会先找到所有父元素下第 n 个子元素，再找其中的 p</strong>，</p>
+<p>也就是它第一步找到的集合是两个 span，其中没有 p 元素。</p>
+<p>如果要标红那个 p，须要这么写选择器：</p>
+<p><code>p:nth-of-type(1)</code></p>
+<p>这样是 <strong>先选择父元素下的 p，再找到其中的第一个 p</strong>。</p>
+<p>但是</p>
+<p>故事到这里并没有完结，我尝试去选择嵌套 p 标签下的 p 标签</p>
+<p><img src="/.io//css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child%5C2.png"></p>
+<p>令人震惊的是没有任何元素被选中，</p>
+<p>尝试了 <code>p &gt; p :nth-child(1)</code>也没有元素被选中<code>p:nth-of-type(1)</code>也不能选择到元素。</p>
+<p><img src="/.io//css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child%5C3.png"></p>
+<p>只有这样才能成功选择到 p1 。</p>
+<p>在这里我已经想到可能是违背了 HTML 标准之类的东西，但 p 是块状元素，不知道为什么不能嵌套另外一个 p 呢？所以去 mozilla 查看一下。看到了</p>
+<blockquote>
+<p>每一个 HTML 元素都必须遵循定义了它可以包含哪一类内容的规则。 这些规则被归类为几个常见的元素内容模型（content model）。每个 HTML 元素都属于 0 个、1 个或多个内容模型，每个模型都有一些规则使得元素中的内容必须遵循一个 HTML 规范文档( HTML-conformant document)。</p>
+</blockquote>
+<p>其中关于 p 元素的定义</p>
+<p><img src="/.io//css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child%5C4.png"></p>
+<p>描述是 p 元素表示文本的一个段落，重点是允许的内容是 <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Content_categories#Phrasing_content">Phrasing content</a>，再看这个 Phrasing content。</p>
+<p><img src="/.io//css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child%5C5.png"></p>
+<p>其中不包含 p 标签，所以我认为是 <code>nth-child</code> 选择器 按照 HTML 规范进行了选择上的优化，所以不会在 p 元素下面再去找 p 元素了,吗？</p>
+<p>我们再看一下这个结构</p>
+<p><img src="/.io//css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child%5C6.png"></p>
+<p>在浏览器是怎么渲染的</p>
+<p><img src="/.io//css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child%5C7.png"></p>
+<p>可以看到，外面包裹的 p，被浏览器渲染成了两个 p 元素。可以猜想到，如果 CSS 写成</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">p &#123;</span><br><span class="line">        color:red</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>span2 也不会被选择中的。</p>
+<p>所以最后的总结就是，HTML 代码不规范会使浏览器做出错误的渲染，所以选择器选择出现问题 。</p>
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>promise</title>
     <url>/2018/06/27/promise/</url>
     <content><![CDATA[<p><img src="/.io//img1.png" alt="image"></p>
@@ -2577,51 +2655,6 @@ const p2 = new Promise(function (resolve, reject) &#123;
       <tags>
         <tag>ES6</tag>
         <tag>Javascript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>css伪类选择器nth-child</title>
-    <url>/2019/03/07/css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child/</url>
-    <content><![CDATA[<h1 id="关于-css-伪类选择器-nth-child-n"><a href="#关于-css-伪类选择器-nth-child-n" class="headerlink" title="关于 css 伪类选择器:nth-child(n)"></a>关于 css 伪类选择器:nth-child(n)</h1><p>这几天面试在一个简单的问题上翻车了。</p>
-<p>问题大概是这样，问我哪个部分被标红</p>
-<p><img src="/.io//css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child%5C1.png"></p>
-<p>天真的我回答的是 p 元素 。</p>
-<p>答案当然是没有任何元素被标红，原因是 <strong>nth-child 会先找到所有父元素下第 n 个子元素，再找其中的 p</strong>，</p>
-<p>也就是它第一步找到的集合是两个 span，其中没有 p 元素。</p>
-<p>如果要标红那个 p，须要这么写选择器：</p>
-<p><code>p:nth-of-type(1)</code></p>
-<p>这样是 <strong>先选择父元素下的 p，再找到其中的第一个 p</strong>。</p>
-<p>但是</p>
-<p>故事到这里并没有完结，我尝试去选择嵌套 p 标签下的 p 标签</p>
-<p><img src="/.io//css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child%5C2.png"></p>
-<p>令人震惊的是没有任何元素被选中，</p>
-<p>尝试了 <code>p &gt; p :nth-child(1)</code>也没有元素被选中<code>p:nth-of-type(1)</code>也不能选择到元素。</p>
-<p><img src="/.io//css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child%5C3.png"></p>
-<p>只有这样才能成功选择到 p1 。</p>
-<p>在这里我已经想到可能是违背了 HTML 标准之类的东西，但 p 是块状元素，不知道为什么不能嵌套另外一个 p 呢？所以去 mozilla 查看一下。看到了</p>
-<blockquote>
-<p>每一个 HTML 元素都必须遵循定义了它可以包含哪一类内容的规则。 这些规则被归类为几个常见的元素内容模型（content model）。每个 HTML 元素都属于 0 个、1 个或多个内容模型，每个模型都有一些规则使得元素中的内容必须遵循一个 HTML 规范文档( HTML-conformant document)。</p>
-</blockquote>
-<p>其中关于 p 元素的定义</p>
-<p><img src="/.io//css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child%5C4.png"></p>
-<p>描述是 p 元素表示文本的一个段落，重点是允许的内容是 <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Content_categories#Phrasing_content">Phrasing content</a>，再看这个 Phrasing content。</p>
-<p><img src="/.io//css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child%5C5.png"></p>
-<p>其中不包含 p 标签，所以我认为是 <code>nth-child</code> 选择器 按照 HTML 规范进行了选择上的优化，所以不会在 p 元素下面再去找 p 元素了,吗？</p>
-<p>我们再看一下这个结构</p>
-<p><img src="/.io//css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child%5C6.png"></p>
-<p>在浏览器是怎么渲染的</p>
-<p><img src="/.io//css%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8nth-child%5C7.png"></p>
-<p>可以看到，外面包裹的 p，被浏览器渲染成了两个 p 元素。可以猜想到，如果 CSS 写成</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">p &#123;</span><br><span class="line">        color:red</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p>span2 也不会被选择中的。</p>
-<p>所以最后的总结就是，HTML 代码不规范会使浏览器做出错误的渲染，所以选择器选择出现问题 。</p>
-]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>CSS</tag>
       </tags>
   </entry>
   <entry>
@@ -3986,6 +4019,22 @@ render()</code></pre>
       </categories>
       <tags>
         <tag>二叉树</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>反转链表2</title>
+    <url>/2021/07/23/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A82/</url>
+    <content><![CDATA[<h4 id="92-反转链表-II"><a href="#92-反转链表-II" class="headerlink" title="92. 反转链表 II"></a><a href="https://leetcode-cn.com/problems/reverse-linked-list-ii/">92. 反转链表 II</a></h4><p>考虑到头部也可能产生反转，所以需要一个虚拟头。</p>
+<p>在遍历的过程中记录反转后的尾节点和之前的节点。</p>
+<p>最后进行节点的链接处理。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> reverseBetween = <span class="function"><span class="keyword">function</span>(<span class="params">head, m, n</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> noob = <span class="keyword">new</span> ListNode(<span class="number">0</span>)</span><br><span class="line">    noob.next = head</span><br><span class="line">    <span class="keyword">let</span> cur = noob</span><br><span class="line">    <span class="keyword">let</span> index = <span class="number">0</span></span><br><span class="line">    <span class="keyword">let</span> A,B</span><br><span class="line">    <span class="keyword">while</span> (index &lt; m) &#123;</span><br><span class="line">        A = cur <span class="comment">// A 记录反转子链的前一个节点 </span></span><br><span class="line">        cur = cur.next     </span><br><span class="line">        index++   </span><br><span class="line">    &#125;</span><br><span class="line">    B = cur <span class="comment">// B 记录反转之后的尾节点</span></span><br><span class="line">    <span class="keyword">let</span> pre = cur</span><br><span class="line">    <span class="keyword">while</span> (index &lt;= n) &#123;</span><br><span class="line">        <span class="keyword">let</span> next = cur.next</span><br><span class="line">        cur.next = pre</span><br><span class="line">        pre = cur</span><br><span class="line">        cur = next</span><br><span class="line">        index++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 执行完后cur 指针在反转子链的下一个节点</span></span><br><span class="line">    B.next = cur</span><br><span class="line">    A.next = pre</span><br><span class="line">    <span class="keyword">return</span> noob.next</span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>链表</tag>
       </tags>
   </entry>
   <entry>
@@ -5587,54 +5636,5 @@ co(taskList).then(res=&gt;&#123;
         <tag>ES6</tag>
         <tag>Javascript</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>138-复制带随机指针的链表</title>
-    <url>/2021/07/22/138-%E5%A4%8D%E5%88%B6%E5%B8%A6%E9%9A%8F%E6%9C%BA%E6%8C%87%E9%92%88%E7%9A%84%E9%93%BE%E8%A1%A8/</url>
-    <content><![CDATA[<h4 id="138-复制带随机指针的链表"><a href="#138-复制带随机指针的链表" class="headerlink" title="138. 复制带随机指针的链表"></a><a href="https://leetcode-cn.com/problems/copy-list-with-random-pointer/">138. 复制带随机指针的链表</a></h4><p>拿到题目的想法是使用双指针指向新旧节点，再加上一个 map 用来映射旧节点和新节点。</p>
-<p>递归</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> listMap = <span class="keyword">new</span> <span class="built_in">Map</span>()</span><br><span class="line"><span class="keyword">var</span> copyRandomList = <span class="function"><span class="keyword">function</span>(<span class="params">head</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(head === <span class="literal">null</span>) <span class="keyword">return</span> head</span><br><span class="line">    <span class="keyword">if</span> (listMap.get(head)) &#123;</span><br><span class="line">        <span class="keyword">return</span> listMap.get(head)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> newNode = <span class="keyword">new</span> Node(head.val,<span class="literal">null</span>,<span class="literal">null</span>)</span><br><span class="line">    listMap.set(head, newNode)</span><br><span class="line">    newNode.next = copyRandomList(head.next)</span><br><span class="line">    newNode.random = copyRandomList(head.random)</span><br><span class="line">    <span class="keyword">return</span> newNode</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>迭代</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> copyRandomList = <span class="function"><span class="keyword">function</span>(<span class="params">head</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(head == <span class="literal">null</span>) <span class="keyword">return</span> head</span><br><span class="line">    <span class="keyword">var</span> listMap = <span class="keyword">new</span> <span class="built_in">Map</span>()</span><br><span class="line">    listMap.set(<span class="literal">null</span>,<span class="literal">null</span>)</span><br><span class="line">    <span class="keyword">var</span> cur = head</span><br><span class="line">    <span class="keyword">while</span> (cur!= <span class="literal">null</span>) &#123;</span><br><span class="line">        listMap.set(cur,<span class="keyword">new</span> Node(cur.val,<span class="literal">null</span>,<span class="literal">null</span>))</span><br><span class="line">        cur = cur.next</span><br><span class="line">    &#125;</span><br><span class="line">    cur = head</span><br><span class="line">    <span class="keyword">while</span> (cur!= <span class="literal">null</span>) &#123;</span><br><span class="line">        listMap.get(cur).next = listMap.get(cur.next)</span><br><span class="line">        listMap.get(cur).random = listMap.get(cur.random)</span><br><span class="line">        cur = cur.next</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> listMap.get(head)</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>链表 map</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>反转链表2</title>
-    <url>/2021/07/23/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A82/</url>
-    <content><![CDATA[<h4 id="92-反转链表-II"><a href="#92-反转链表-II" class="headerlink" title="92. 反转链表 II"></a><a href="https://leetcode-cn.com/problems/reverse-linked-list-ii/">92. 反转链表 II</a></h4><p>考虑到头部也可能产生反转，所以需要一个虚拟头。</p>
-<p>在遍历的过程中记录反转后的尾节点和之前的节点。</p>
-<p>最后进行节点的链接处理。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> reverseBetween = <span class="function"><span class="keyword">function</span>(<span class="params">head, m, n</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> noob = <span class="keyword">new</span> ListNode(<span class="number">0</span>)</span><br><span class="line">    noob.next = head</span><br><span class="line">    <span class="keyword">let</span> cur = noob</span><br><span class="line">    <span class="keyword">let</span> index = <span class="number">0</span></span><br><span class="line">    <span class="keyword">let</span> A,B</span><br><span class="line">    <span class="keyword">while</span> (index &lt; m) &#123;</span><br><span class="line">        A = cur <span class="comment">// A 记录反转子链的前一个节点 </span></span><br><span class="line">        cur = cur.next     </span><br><span class="line">        index++   </span><br><span class="line">    &#125;</span><br><span class="line">    B = cur <span class="comment">// B 记录反转之后的尾节点</span></span><br><span class="line">    <span class="keyword">let</span> pre = cur</span><br><span class="line">    <span class="keyword">while</span> (index &lt;= n) &#123;</span><br><span class="line">        <span class="keyword">let</span> next = cur.next</span><br><span class="line">        cur.next = pre</span><br><span class="line">        pre = cur</span><br><span class="line">        cur = next</span><br><span class="line">        index++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 执行完后cur 指针在反转子链的下一个节点</span></span><br><span class="line">    B.next = cur</span><br><span class="line">    A.next = pre</span><br><span class="line">    <span class="keyword">return</span> noob.next</span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>链表</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>1893. 检查是否区域内所有整数都被覆盖</title>
-    <url>/2021/07/23/1893-%E6%A3%80%E6%9F%A5%E6%98%AF%E5%90%A6%E5%8C%BA%E5%9F%9F%E5%86%85%E6%89%80%E6%9C%89%E6%95%B4%E6%95%B0%E9%83%BD%E8%A2%AB%E8%A6%86%E7%9B%96/</url>
-    <content><![CDATA[<h4 id="1893-检查是否区域内所有整数都被覆盖"><a href="#1893-检查是否区域内所有整数都被覆盖" class="headerlink" title="1893. 检查是否区域内所有整数都被覆盖"></a><a href="https://leetcode-cn.com/problems/check-if-all-the-integers-in-a-range-are-covered/">1893. 检查是否区域内所有整数都被覆盖</a></h4><p>拿到没想到什么好方法，先暴力解</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> isCovered = <span class="function"><span class="keyword">function</span>(<span class="params">ranges, left, right</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = left ; i &lt;= right ; i ++) &#123;</span><br><span class="line">        <span class="keyword">let</span> include = <span class="literal">false</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> index = <span class="number">0</span> ; index &lt; ranges.length ; index ++) &#123;</span><br><span class="line">            <span class="keyword">let</span> [start,end] = ranges[index]</span><br><span class="line">            <span class="keyword">if</span> (i &gt;=start &amp;&amp; i &lt;=end) &#123;</span><br><span class="line">                include = <span class="literal">true</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!include) <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>思考优化，可以通过start ，end  ，当 start &lt;= left 时， [left …  end] 集合已经包含在内了，继续压缩 [end + 1 , right ] 直到集合里面没有元素</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> isCovered = <span class="function"><span class="keyword">function</span>(<span class="params">ranges, left, right</span>) </span>&#123;</span><br><span class="line">    ranges = ranges.sort(<span class="function">(<span class="params">a,b</span>) =&gt;</span> a - b)</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span> ; i &lt; ranges.length;i++) &#123;</span><br><span class="line">        <span class="keyword">let</span> [start,end] = ranges[i];</span><br><span class="line">        <span class="comment">// 根据范围收缩左边界</span></span><br><span class="line">        <span class="keyword">if</span> (start &lt;= left) &#123;</span><br><span class="line">            left = <span class="built_in">Math</span>.max(end,right)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (left &gt;= right) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> left &gt;= right</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
   </entry>
 </search>
