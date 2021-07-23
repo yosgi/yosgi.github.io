@@ -5607,4 +5607,20 @@ co(taskList).then(res=&gt;&#123;
         <tag>链表 map</tag>
       </tags>
   </entry>
+  <entry>
+    <title>反转链表2</title>
+    <url>/2021/07/23/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A82/</url>
+    <content><![CDATA[<h4 id="92-反转链表-II"><a href="#92-反转链表-II" class="headerlink" title="92. 反转链表 II"></a><a href="https://leetcode-cn.com/problems/reverse-linked-list-ii/">92. 反转链表 II</a></h4><p>考虑到头部也可能产生反转，所以需要一个虚拟头。</p>
+<p>在遍历的过程中记录反转后的尾节点和之前的节点。</p>
+<p>最后进行节点的链接处理。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> reverseBetween = <span class="function"><span class="keyword">function</span>(<span class="params">head, m, n</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> noob = <span class="keyword">new</span> ListNode(<span class="number">0</span>)</span><br><span class="line">    noob.next = head</span><br><span class="line">    <span class="keyword">let</span> cur = noob</span><br><span class="line">    <span class="keyword">let</span> index = <span class="number">0</span></span><br><span class="line">    <span class="keyword">let</span> A,B</span><br><span class="line">    <span class="keyword">while</span> (index &lt; m) &#123;</span><br><span class="line">        A = cur <span class="comment">// A 记录反转子链的前一个节点 </span></span><br><span class="line">        cur = cur.next     </span><br><span class="line">        index++   </span><br><span class="line">    &#125;</span><br><span class="line">    B = cur <span class="comment">// B 记录反转之后的尾节点</span></span><br><span class="line">    <span class="keyword">let</span> pre = cur</span><br><span class="line">    <span class="keyword">while</span> (index &lt;= n) &#123;</span><br><span class="line">        <span class="keyword">let</span> next = cur.next</span><br><span class="line">        cur.next = pre</span><br><span class="line">        pre = cur</span><br><span class="line">        cur = next</span><br><span class="line">        index++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 执行完后cur 指针在反转子链的下一个节点</span></span><br><span class="line">    B.next = cur</span><br><span class="line">    A.next = pre</span><br><span class="line">    <span class="keyword">return</span> noob.next</span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>链表</tag>
+      </tags>
+  </entry>
 </search>
