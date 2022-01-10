@@ -5660,9 +5660,9 @@ co(taskList).then(res=&gt;&#123;
       </tags>
   </entry>
   <entry>
-    <title>关于 Octopus torum 相关信息的面试整理</title>
+    <title>关于 Octopus torum</title>
     <url>/2021/11/26/%E5%85%B3%E4%BA%8E-Octopus-torum-%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF%E7%9A%84%E9%9D%A2%E8%AF%95%E6%95%B4%E7%90%86/</url>
-    <content><![CDATA[<h1 id="关于-Octopus-torum-相关信息的面试整理"><a href="#关于-Octopus-torum-相关信息的面试整理" class="headerlink" title="关于 Octopus torum 相关信息的面试整理"></a>关于 Octopus torum 相关信息的面试整理</h1><h4 id="Octopus-Network"><a href="#Octopus-Network" class="headerlink" title="Octopus Network"></a><strong>Octopus Network</strong></h4><ul>
+    <content><![CDATA[<h3 id="关于-Octopus-torum-相关信息的面试整理"><a href="#关于-Octopus-torum-相关信息的面试整理" class="headerlink" title="关于 Octopus torum 相关信息的面试整理"></a>关于 Octopus torum 相关信息的面试整理</h3><h4 id="Octopus-Network"><a href="#Octopus-Network" class="headerlink" title="Octopus Network"></a><strong>Octopus Network</strong></h4><ul>
 <li><strong>Octopus Network 要解决什么问题 ？</strong>  </li>
 </ul>
 <p>应用链的安全自举需要耗费大量资金的问题，不灵活且成本高。</p>
@@ -5695,7 +5695,7 @@ co(taskList).then(res=&gt;&#123;
 </ul>
 <p>初体验注册发现使用中国手机号会停留在 等待界面不能完成注册，用其它国家手机号注册后得以登陆。</p>
 <p>从用户体验上来说存在首屏加载时间5s以上，有DeFi、NFT 等多个功能用户指引不够完善，UI界面略显杂乱， Icon 语义不明等问题。</p>
-<h2 id="My-Portfolio"><a href="#My-Portfolio" class="headerlink" title="My Portfolio"></a>My Portfolio</h2><h4 id="奥德赛阅读-（亚月科技-2016-2019）"><a href="#奥德赛阅读-（亚月科技-2016-2019）" class="headerlink" title="奥德赛阅读 （亚月科技 / 2016 - 2019）"></a>奥德赛阅读 （亚月科技 / 2016 - 2019）</h4><ul>
+<h3 id="My-Portfolio"><a href="#My-Portfolio" class="headerlink" title="My Portfolio"></a>My Portfolio</h3><h4 id="奥德赛阅读-（亚月科技-2016-2019）"><a href="#奥德赛阅读-（亚月科技-2016-2019）" class="headerlink" title="奥德赛阅读 （亚月科技 / 2016 - 2019）"></a>奥德赛阅读 （亚月科技 / 2016 - 2019）</h4><ul>
 <li>初创团队的第一个项目，也是自己第一个自己独立开发的前端项目。主要服务于英语的进阶者，提供阅读，听力，口语和写作四个类别的服务，目的是解决英语学习者在学习中原著阅读不顺畅，英语内容写作不能得到很好的反馈等问题。</li>
 <li>负责 原著阅读，写作互评，口语互评四个工程的前端开发，及其后台的内容管理，用户管理，产品管理，学生评分模块的开发。</li>
 <li>用户前端采用Vue + vuex 的技术栈，不同工程采用不同的 SPA工程，部署在不同的域名，使用单点登陆。不同前端工程共用一套封装后的 mintUI 进行组件复用。 组件库采用私有 npm 包管理。</li>
@@ -5709,10 +5709,9 @@ co(taskList).then(res=&gt;&#123;
 </ul>
 ]]></content>
       <categories>
-        <category>面试</category>
+        <category>区块链</category>
       </categories>
       <tags>
-        <tag>面试</tag>
         <tag>区块链</tag>
       </tags>
   </entry>
