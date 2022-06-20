@@ -1,30 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>1008. 前序遍历构造二叉搜索树</title>
-    <url>/2021/03/10/1008-%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86%E6%9E%84%E9%80%A0%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/</url>
-    <content><![CDATA[<p>用时 ： 没做出来</p>
-<p>没做出来的主要原因是一直想着怎么用栈来做，写到后面看栈的答案看着看着发现递归最简单</p>
-<h5 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h5><p>思路很简单，首先写出来怎么插入子节点</p>
-<ol>
-<li>如果比父节点小，且父节点左为空，直接做左节点</li>
-<li>如果比父节点大，且父节点右为空，直接做右节点</li>
-<li>比父节点小，则父节点赋值为父节点的左节点，回到 1 </li>
-<li>比父节点大，则父节点赋值为父节点的右节点，回到1</li>
-</ol>
-<p>遍历整个数组，一个个插入即可得到结果</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> bstFromPreorder = <span class="function"><span class="keyword">function</span>(<span class="params">preorder</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> add = <span class="function"><span class="keyword">function</span> (<span class="params">node,val</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (val &lt; node.val &amp;&amp; !node.left) &#123;</span><br><span class="line">            node.left = <span class="keyword">new</span> TreeNode(val)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (val &gt; node.val &amp;&amp; !node.right) &#123;</span><br><span class="line">            node.right = <span class="keyword">new</span> TreeNode(val)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (val &lt; node.val) &#123;</span><br><span class="line">            add(node.left,val)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (val &gt; node.val) &#123;</span><br><span class="line">            add(node.right,val)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> root = <span class="keyword">new</span> TreeNode(preorder.shift())</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span> ; i &lt; preorder.length ; i ++) &#123;</span><br><span class="line">        add(root,preorder[i])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> root</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>二叉树</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>102.二叉树的层序遍历</title>
     <url>/2021/02/28/102-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86/</url>
     <content><![CDATA[<h4 id="102-二叉树的层序遍历"><a href="#102-二叉树的层序遍历" class="headerlink" title="102.二叉树的层序遍历"></a>102.二叉树的层序遍历</h4><p>遍历本身很简单，需要考虑的问题是怎么标示每一层，这里可以用迭代和递归两种思路</p>
@@ -72,6 +48,30 @@
         <tag>二叉树</tag>
         <tag>DFS</tag>
         <tag>前序遍历</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>1008. 前序遍历构造二叉搜索树</title>
+    <url>/2021/03/10/1008-%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86%E6%9E%84%E9%80%A0%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/</url>
+    <content><![CDATA[<p>用时 ： 没做出来</p>
+<p>没做出来的主要原因是一直想着怎么用栈来做，写到后面看栈的答案看着看着发现递归最简单</p>
+<h5 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h5><p>思路很简单，首先写出来怎么插入子节点</p>
+<ol>
+<li>如果比父节点小，且父节点左为空，直接做左节点</li>
+<li>如果比父节点大，且父节点右为空，直接做右节点</li>
+<li>比父节点小，则父节点赋值为父节点的左节点，回到 1 </li>
+<li>比父节点大，则父节点赋值为父节点的右节点，回到1</li>
+</ol>
+<p>遍历整个数组，一个个插入即可得到结果</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> bstFromPreorder = <span class="function"><span class="keyword">function</span>(<span class="params">preorder</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> add = <span class="function"><span class="keyword">function</span> (<span class="params">node,val</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (val &lt; node.val &amp;&amp; !node.left) &#123;</span><br><span class="line">            node.left = <span class="keyword">new</span> TreeNode(val)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (val &gt; node.val &amp;&amp; !node.right) &#123;</span><br><span class="line">            node.right = <span class="keyword">new</span> TreeNode(val)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (val &lt; node.val) &#123;</span><br><span class="line">            add(node.left,val)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (val &gt; node.val) &#123;</span><br><span class="line">            add(node.right,val)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> root = <span class="keyword">new</span> TreeNode(preorder.shift())</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span> ; i &lt; preorder.length ; i ++) &#123;</span><br><span class="line">        add(root,preorder[i])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> root</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>二叉树</tag>
       </tags>
   </entry>
   <entry>
@@ -134,27 +134,6 @@
       </tags>
   </entry>
   <entry>
-    <title>124. 二叉树中的最大路径和</title>
-    <url>/2021/03/15/124-%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E7%9A%84%E6%9C%80%E5%A4%A7%E8%B7%AF%E5%BE%84%E5%92%8C/</url>
-    <content><![CDATA[<p>用时 ：30min</p>
-<p>看懂题目的意思之后其实就能很快的做出来</p>
-<p>题意是要求从任意节点出发的值，我们可以把每个节点的值求出来的过程中，选择最大的</p>
-<p>又因为路径不能返回，可以知道我们出发的根节点的子节点的路径只能选择左或者右，或者都不要，结果为 x</p>
-<p>求max 的时候再 把 x 和 左右都选的情况进行比较</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> maxPathSum = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> max = -<span class="literal">Infinity</span></span><br><span class="line">    <span class="keyword">var</span> DFS = <span class="function"><span class="keyword">function</span> (<span class="params">root</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!root) <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">var</span> leftSum = DFS(root.left)</span><br><span class="line">        <span class="keyword">var</span> rightSum = DFS(root.right)</span><br><span class="line">        <span class="keyword">var</span> res =  <span class="built_in">Math</span>.max(leftSum + root.val  ,rightSum + root.val ,root.val)</span><br><span class="line">        max = <span class="built_in">Math</span>.max(max,res,root.val + leftSum + rightSum)</span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line">    &#125;</span><br><span class="line">    DFS(root)</span><br><span class="line">    <span class="keyword">return</span> max</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
-
-
-]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>二叉树</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>116. 填充每个节点的下一个右侧节点指针</title>
     <url>/2021/03/10/116-%E5%A1%AB%E5%85%85%E6%AF%8F%E4%B8%AA%E8%8A%82%E7%82%B9%E7%9A%84%E4%B8%8B%E4%B8%80%E4%B8%AA%E5%8F%B3%E4%BE%A7%E8%8A%82%E7%82%B9%E6%8C%87%E9%92%88/</url>
     <content><![CDATA[<p>用时 ：25min</p>
@@ -200,6 +179,27 @@
       </tags>
   </entry>
   <entry>
+    <title>124. 二叉树中的最大路径和</title>
+    <url>/2021/03/15/124-%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E7%9A%84%E6%9C%80%E5%A4%A7%E8%B7%AF%E5%BE%84%E5%92%8C/</url>
+    <content><![CDATA[<p>用时 ：30min</p>
+<p>看懂题目的意思之后其实就能很快的做出来</p>
+<p>题意是要求从任意节点出发的值，我们可以把每个节点的值求出来的过程中，选择最大的</p>
+<p>又因为路径不能返回，可以知道我们出发的根节点的子节点的路径只能选择左或者右，或者都不要，结果为 x</p>
+<p>求max 的时候再 把 x 和 左右都选的情况进行比较</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> maxPathSum = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> max = -<span class="literal">Infinity</span></span><br><span class="line">    <span class="keyword">var</span> DFS = <span class="function"><span class="keyword">function</span> (<span class="params">root</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!root) <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">var</span> leftSum = DFS(root.left)</span><br><span class="line">        <span class="keyword">var</span> rightSum = DFS(root.right)</span><br><span class="line">        <span class="keyword">var</span> res =  <span class="built_in">Math</span>.max(leftSum + root.val  ,rightSum + root.val ,root.val)</span><br><span class="line">        max = <span class="built_in">Math</span>.max(max,res,root.val + leftSum + rightSum)</span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line">    &#125;</span><br><span class="line">    DFS(root)</span><br><span class="line">    <span class="keyword">return</span> max</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>二叉树</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>129. 求根节点到叶节点数字之和</title>
     <url>/2021/03/16/129-%E6%B1%82%E6%A0%B9%E8%8A%82%E7%82%B9%E5%88%B0%E5%8F%B6%E8%8A%82%E7%82%B9%E6%95%B0%E5%AD%97%E4%B9%8B%E5%92%8C/</url>
     <content><![CDATA[<p>看题型是求从根节点出发的，首先想到的是自顶向下的DFS，带着参数向下传递，结束条件没有左右儿子</p>
@@ -217,6 +217,21 @@
       </tags>
   </entry>
   <entry>
+    <title>133.路径总和II</title>
+    <url>/2021/02/28/133-%E8%B7%AF%E5%BE%84%E6%80%BB%E5%92%8CII/</url>
+    <content><![CDATA[<p>用时 ：10min</p>
+<p>题意求的是从根节点到子节点相加等于目标值的路径，很容易想到是用到DFS，路径可以作为参数传递下去，只要满足最后的是叶子结点即可</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> pathSum = <span class="function"><span class="keyword">function</span>(<span class="params">root, sum</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> res = []</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> []</span><br><span class="line">    <span class="keyword">var</span> dfs = <span class="function"><span class="keyword">function</span> (<span class="params">node,visited,total</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (sum === total &amp;&amp; (!node.left &amp;&amp; !node.right)) &#123;</span><br><span class="line">            res.push(visited)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        node.left &amp;&amp; dfs(node.left,[...visited,node.left.val],total + node.left.val)</span><br><span class="line">        node.right &amp;&amp; dfs(node.right ,[...visited,node.right.val], total + node.right.val)</span><br><span class="line">    &#125;</span><br><span class="line">    dfs(root,[root.val],root.val)</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>DFS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>1325. 删除给定值的叶子节点</title>
     <url>/2021/03/17/1325-%E5%88%A0%E9%99%A4%E7%BB%99%E5%AE%9A%E5%80%BC%E7%9A%84%E5%8F%B6%E5%AD%90%E8%8A%82%E7%82%B9/</url>
     <content><![CDATA[<p>用时：5min</p>
@@ -230,21 +245,6 @@
       <tags>
         <tag>二叉树</tag>
         <tag>虚拟节点</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>133.路径总和II</title>
-    <url>/2021/02/28/133-%E8%B7%AF%E5%BE%84%E6%80%BB%E5%92%8CII/</url>
-    <content><![CDATA[<p>用时 ：10min</p>
-<p>题意求的是从根节点到子节点相加等于目标值的路径，很容易想到是用到DFS，路径可以作为参数传递下去，只要满足最后的是叶子结点即可</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> pathSum = <span class="function"><span class="keyword">function</span>(<span class="params">root, sum</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> res = []</span><br><span class="line">    <span class="keyword">if</span> (!root) <span class="keyword">return</span> []</span><br><span class="line">    <span class="keyword">var</span> dfs = <span class="function"><span class="keyword">function</span> (<span class="params">node,visited,total</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (sum === total &amp;&amp; (!node.left &amp;&amp; !node.right)) &#123;</span><br><span class="line">            res.push(visited)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        node.left &amp;&amp; dfs(node.left,[...visited,node.left.val],total + node.left.val)</span><br><span class="line">        node.right &amp;&amp; dfs(node.right ,[...visited,node.right.val], total + node.right.val)</span><br><span class="line">    &#125;</span><br><span class="line">    dfs(root,[root.val],root.val)</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>DFS</tag>
       </tags>
   </entry>
   <entry>
@@ -352,31 +352,6 @@
       </tags>
   </entry>
   <entry>
-    <title>145.二叉树的后序遍历</title>
-    <url>/2021/02/26/145-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86/</url>
-    <content><![CDATA[<h4 id="145-二叉树的后序遍历"><a href="#145-二叉树的后序遍历" class="headerlink" title="145.二叉树的后序遍历"></a>145.二叉树的后序遍历</h4><p>1h</p>
-<p>中序遍历的顺序是 左 - 右 - 中 </p>
-<h5 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h5><p>用递归非常容易</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> postorderTraversal = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> res = []</span><br><span class="line">    <span class="keyword">if</span> (!root)</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">    <span class="keyword">var</span> travel = <span class="function"><span class="keyword">function</span> (<span class="params">node</span>) </span>&#123;</span><br><span class="line">        node.left &amp;&amp; travel(node.left)</span><br><span class="line">        node.right &amp;&amp; travel(node.right)</span><br><span class="line">        res.push(node.val)</span><br><span class="line">    &#125;</span><br><span class="line">    travel(root)</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h5 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h5><ol>
-<li>根节点入栈</li>
-<li>判断是否可以出栈，如果能，则记录自己为上一个出栈节点，出栈</li>
-<li>不能出栈，分别将右节点和左节点入栈</li>
-<li>重复第二个步骤</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> postorderTraversal = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> stack = [root]</span><br><span class="line">    <span class="keyword">var</span> res = []</span><br><span class="line">    <span class="keyword">if</span> (!root) &#123;</span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> pre = root</span><br><span class="line">    <span class="keyword">while</span>(stack.length) &#123;</span><br><span class="line">        <span class="keyword">var</span> node = stack[stack.length - <span class="number">1</span>]</span><br><span class="line">        <span class="comment">// 当节点的 左 / 右 节点是上一个被输出的节点，代表左右节点都已经被输出过（因为后序遍历根节点在最后）</span></span><br><span class="line">        <span class="keyword">if</span> ( (!node.left &amp;&amp; !node.right) || (node.left === pre || node.right === pre)) &#123;</span><br><span class="line">             <span class="comment">// 只有在没有 左右节点，或者 左右节点都输出过时才可以输出</span></span><br><span class="line">            node = stack.pop()</span><br><span class="line">            pre = node</span><br><span class="line">            res.push(node.val)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (node.right) &#123;</span><br><span class="line">                stack.push(node.right)</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(node.left) &#123;</span><br><span class="line">                stack.push(node.left)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p>虽然，做完了二叉树的前中后序遍历，但是我有预感用不了多久就会忘记，特别是中序遍历和后序遍历，我完全没有找到两者有什么共同点，所以随后会做一下总结。</p>
-]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>二叉树</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>1738. 找出第 K 大的异或坐标值</title>
     <url>/2021/03/22/1738-%E6%89%BE%E5%87%BA%E7%AC%AC-K-%E5%A4%A7%E7%9A%84%E5%BC%82%E6%88%96%E5%9D%90%E6%A0%87%E5%80%BC/</url>
     <content><![CDATA[<p>用时 ： 参考了答案</p>
@@ -422,6 +397,31 @@
         <tag>堆</tag>
         <tag>动态规划</tag>
         <tag>异或</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>145.二叉树的后序遍历</title>
+    <url>/2021/02/26/145-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%90%8E%E5%BA%8F%E9%81%8D%E5%8E%86/</url>
+    <content><![CDATA[<h4 id="145-二叉树的后序遍历"><a href="#145-二叉树的后序遍历" class="headerlink" title="145.二叉树的后序遍历"></a>145.二叉树的后序遍历</h4><p>1h</p>
+<p>中序遍历的顺序是 左 - 右 - 中 </p>
+<h5 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h5><p>用递归非常容易</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> postorderTraversal = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> res = []</span><br><span class="line">    <span class="keyword">if</span> (!root)</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">    <span class="keyword">var</span> travel = <span class="function"><span class="keyword">function</span> (<span class="params">node</span>) </span>&#123;</span><br><span class="line">        node.left &amp;&amp; travel(node.left)</span><br><span class="line">        node.right &amp;&amp; travel(node.right)</span><br><span class="line">        res.push(node.val)</span><br><span class="line">    &#125;</span><br><span class="line">    travel(root)</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h5 id="迭代"><a href="#迭代" class="headerlink" title="迭代"></a>迭代</h5><ol>
+<li>根节点入栈</li>
+<li>判断是否可以出栈，如果能，则记录自己为上一个出栈节点，出栈</li>
+<li>不能出栈，分别将右节点和左节点入栈</li>
+<li>重复第二个步骤</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> postorderTraversal = <span class="function"><span class="keyword">function</span>(<span class="params">root</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> stack = [root]</span><br><span class="line">    <span class="keyword">var</span> res = []</span><br><span class="line">    <span class="keyword">if</span> (!root) &#123;</span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> pre = root</span><br><span class="line">    <span class="keyword">while</span>(stack.length) &#123;</span><br><span class="line">        <span class="keyword">var</span> node = stack[stack.length - <span class="number">1</span>]</span><br><span class="line">        <span class="comment">// 当节点的 左 / 右 节点是上一个被输出的节点，代表左右节点都已经被输出过（因为后序遍历根节点在最后）</span></span><br><span class="line">        <span class="keyword">if</span> ( (!node.left &amp;&amp; !node.right) || (node.left === pre || node.right === pre)) &#123;</span><br><span class="line">             <span class="comment">// 只有在没有 左右节点，或者 左右节点都输出过时才可以输出</span></span><br><span class="line">            node = stack.pop()</span><br><span class="line">            pre = node</span><br><span class="line">            res.push(node.val)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (node.right) &#123;</span><br><span class="line">                stack.push(node.right)</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(node.left) &#123;</span><br><span class="line">                stack.push(node.left)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p>虽然，做完了二叉树的前中后序遍历，但是我有预感用不了多久就会忘记，特别是中序遍历和后序遍历，我完全没有找到两者有什么共同点，所以随后会做一下总结。</p>
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>二叉树</tag>
       </tags>
   </entry>
   <entry>
@@ -2035,6 +2035,59 @@ for (let item of iterable) &#123;
       </tags>
   </entry>
   <entry>
+    <title>Javascript排序算法</title>
+    <url>/2018/06/25/Javascript%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><p>冒泡排序比较任何两个相邻的项，如果第一个比第二个大，则交换它们。元素项向上移动至确的顺序，就好像气泡升至表面一样，冒泡排序因此得名。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> bubbleSort = <span class="function"><span class="keyword">function</span> (<span class="params">array</span>) </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">swap</span>(<span class="params">index1, index2</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> aux = array[index1];</span><br><span class="line">    array[index1] = array[index2];</span><br><span class="line">    array[index2] = aux;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; array.length; i++) &#123;</span><br><span class="line">    <span class="comment">//外循环会从数组的第一位迭代到最后一位，控制了数组经过了多少轮排序</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; array.length - <span class="number">1</span>; j++) &#123;</span><br><span class="line">      <span class="comment">//内循环从第一位迭代到倒数第二位，进行当前项和下一项的比较和交换</span></span><br><span class="line">      <span class="keyword">if</span> (array[j] &gt; array[j + <span class="number">1</span>]) &#123;</span><br><span class="line">        swap(j, j + <span class="number">1</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> array;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>它在所有排序算法中最简单。然而，<br>从运行时间的角度来看，冒泡排序是最差的一个，</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> bubbleSort = <span class="function"><span class="keyword">function</span> (<span class="params">array</span>) </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">swap</span>(<span class="params">index1, index2</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> aux = array[index1];</span><br><span class="line">    array[index1] = array[index2];</span><br><span class="line">    array[index2] = aux;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> cost = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; array.length; i++) &#123;</span><br><span class="line">    cost++;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; array.length - <span class="number">1</span>; j++) &#123;</span><br><span class="line">      cost++;</span><br><span class="line">      <span class="keyword">if</span> (array[j] &gt; array[j + <span class="number">1</span>]) &#123;</span><br><span class="line">        swap(j, j + <span class="number">1</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">console</span>.log(</span><br><span class="line">    <span class="string">&quot;cost for bubbleSort with input size &quot;</span> + array.length + <span class="string">&quot; is&quot;</span> + cost</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br><span class="line">bubbleSort([<span class="number">5</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>]); <span class="comment">//cost for bubbleSort with input size 5  is 25</span></span><br></pre></td></tr></table></figure>
+
+<p>如果用大小为 10 的数组执行 bubbleSort，开销是 100，所以复杂度是 O(n^2)</p>
+<p>注意当算法执行外循环的第二轮的时候，数字 4 和 5 已经是正确排序的了。在后续<br>比较中，它们还一直在进行着比较，即使这是不必要的。因此，我们可以稍稍改进一下冒泡排序<br>算法。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> bubbleSort = <span class="function"><span class="keyword">function</span> (<span class="params">array</span>) </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">swap</span>(<span class="params">index1, index2</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> aux = array[index1];</span><br><span class="line">    array[index1] = array[index2];</span><br><span class="line">    array[index2] = aux;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> cost = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; array.length; i++) &#123;</span><br><span class="line">    cost++;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; array.length - <span class="number">1</span> - i; j++) &#123;</span><br><span class="line">      cost++;</span><br><span class="line">      <span class="keyword">if</span> (array[j] &gt; array[j + <span class="number">1</span>]) &#123;</span><br><span class="line">        swap(j, j + <span class="number">1</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(</span><br><span class="line">    <span class="string">&quot;cost for bubbleSort with input size &quot;</span> + array.length + <span class="string">&quot; is&quot;</span> + cost</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br><span class="line">bubbleSort([<span class="number">5</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>]); <span class="comment">////cost for bubbleSort with input size 5  is 15</span></span><br></pre></td></tr></table></figure>
+
+<p>大小为 5 的数组开销为 15 复杂度是 O(n^2-(1+2+..+n))</p>
+<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><p>选择排序算法是一种原址比较排序算法。选择排序大致的思路是找到数据结构中的最小值并<br>将其放置在第一位，接着找到第二小的值并将其放在第二位，以此类推。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> swap = <span class="function"><span class="keyword">function</span> (<span class="params">array, index1, index2</span>) </span>&#123;</span><br><span class="line">  [array[index1], array[index2]] = [array[index2], array[index1]];</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> selectionSort = <span class="function"><span class="keyword">function</span> (<span class="params">array</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; array.length; i++) &#123;</span><br><span class="line">    <span class="comment">// 外层每一次循环结束后 第i个都是i之后数组项中的最小</span></span><br><span class="line">    <span class="keyword">let</span> minIndex = i;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = i; j &lt; array.length; j++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (array[minIndex] &gt; array[j]) &#123;</span><br><span class="line">        swap(array, minIndex, j);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> array;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>选择排序同样也是一个复杂度为 O(n2)的算法。和冒泡排序一样，它包含有嵌套的两个循环，<br>这导致了二次方的复杂度。</p>
+<h2 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h2><p>插入排序每次排一个数组项，以此方式构建最后的排序数组。假定第一项已经排序了，接着，<br>它和第二项进行比较，第二项是应该待在原位还是插到第一项之前呢？</p>
+<p>如果是之前，那么第一项应该向后移动一个位置，如果是之后，那么不用动。</p>
+<p>这样，头两项就已正确排序，接着和第三项比较，以此类推。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> insertionSort = <span class="function"><span class="keyword">function</span> (<span class="params">array</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> length = array.length;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt; length; i++) &#123;</span><br><span class="line">    <span class="comment">//数组的第一项默认已经排序好</span></span><br><span class="line">    <span class="keyword">var</span> temp = array[i];</span><br><span class="line">    <span class="comment">//插入新的一项并排序</span></span><br><span class="line">    <span class="keyword">var</span> j = i;</span><br><span class="line">    <span class="comment">//如果之前的项大于新插入的则向后移动一位</span></span><br><span class="line">    <span class="keyword">while</span> (j &gt; <span class="number">0</span> &amp;&amp; array[j - <span class="number">1</span>] &gt; temp) &#123;</span><br><span class="line">      array[j] = array[j - <span class="number">1</span>];</span><br><span class="line">      j--;</span><br><span class="line">    &#125;</span><br><span class="line">    array[j] = temp;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> array;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>复杂度为 O(n-1+(2+3+..n-1))<br>排序小型数组时，此算法比选择排序和冒泡排序性能要好。</p>
+<h2 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h2><p>归并排序是一种分治算法。其思想是将原始数组切分成较小的数组，直到每个小数组只有一个位置，接着将小数组归并成较大的数组，直到最后只有一个排序完毕的大数组。</p>
+<p>因为已经排序好的两个数组 处于数组最左边的总是最小的，而只剩一项的数组是已经排序好的数组，<br>所以最后的大数组也是排序完毕的</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> merge = <span class="function"><span class="keyword">function</span> (<span class="params">left, right</span>) </span>&#123;</span><br><span class="line">  <span class="comment">//它负责合并和排序小数组来产生大数组，直到回到原始数组并已排序完成</span></span><br><span class="line">  <span class="keyword">var</span> result = [],</span><br><span class="line">    il = <span class="number">0</span>,</span><br><span class="line">    ir = <span class="number">0</span>;</span><br><span class="line">  <span class="comment">//比较来自left数组的项是否比来自right数组的项小</span></span><br><span class="line">  <span class="keyword">while</span> (il &lt; left.length &amp;&amp; ir &lt; right.length) &#123;</span><br><span class="line">    <span class="comment">//如果是，将该项从left数组添加至归并结果数组</span></span><br><span class="line">    <span class="keyword">if</span> (left[il] &lt; right[ir]) &#123;</span><br><span class="line">      <span class="comment">//并递增迭代数组的控制变量（</span></span><br><span class="line">      result.push(left[il++]);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">//否则，从right数组添加项并递增相应的迭代数组的控制变量</span></span><br><span class="line">      result.push(right[ir++]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//接下来，将left数组或者right数组所有剩余的项添加到归并数组中。</span></span><br><span class="line">  <span class="keyword">while</span> (il &lt; left.length) &#123;</span><br><span class="line">    result.push(left[il++]);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">while</span> (ir &lt; right.length) &#123;</span><br><span class="line">    <span class="comment">// &#123;12&#125;</span></span><br><span class="line">    result.push(right[ir++]);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> mergeSortRec = <span class="function"><span class="keyword">function</span> (<span class="params">array</span>) </span>&#123;</span><br><span class="line">  <span class="comment">//将大数组递归至只有一项的数组，因为它已排序了。</span></span><br><span class="line">  <span class="keyword">var</span> length = array.length;</span><br><span class="line">  <span class="keyword">if</span> (length == <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> array;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> mid = <span class="built_in">Math</span>.floor(length / <span class="number">2</span>),</span><br><span class="line">    left = array.slice(<span class="number">0</span>, mid),</span><br><span class="line">    right = array.slice(mid, length);</span><br><span class="line">  <span class="built_in">console</span>.log(left, right);</span><br><span class="line">  <span class="comment">//为了不断将原始数组分成小数组，我们得再次对left数组和right数组递归调用mergeSortRec，并同时作为参数传递给merge函数。</span></span><br><span class="line">  <span class="keyword">return</span> merge(mergeSortRec(left), mergeSortRec(right));</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>归并排序是可以被实际使用的排序算法，归并排序性能不错，其复杂度为 O(nlog^n)。</p>
+<h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><p>先看一下一个平民版的快速排序</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> quickSort = <span class="function"><span class="keyword">function</span> (<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (arr.length &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> pivotIndex = <span class="built_in">Math</span>.floor((arr.length - <span class="number">1</span>) / <span class="number">2</span>);</span><br><span class="line">  <span class="keyword">var</span> pivot = arr[pivotIndex];</span><br><span class="line">  <span class="comment">//原代码用的splice,</span></span><br><span class="line">  <span class="comment">//在v8中splice是时间复杂度为O(n),先不管了改回来</span></span><br><span class="line">  <span class="keyword">var</span> left = [];</span><br><span class="line">  <span class="keyword">var</span> right = [];</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (i != pivotIndex) &#123;</span><br><span class="line">      <span class="keyword">if</span> (arr[i] &lt; pivot) &#123;</span><br><span class="line">        left.push(arr[i]);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        right.push(arr[i]);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> quickSort(left).concat([pivot], quickSort(right));</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> arr = quickSort([<span class="number">85</span>, <span class="number">24</span>, <span class="number">63</span>, <span class="number">45</span>, <span class="number">17</span>, <span class="number">31</span>, <span class="number">96</span>, <span class="number">50</span>]);</span><br><span class="line"><span class="comment">//[17, 24, 31, 45, 50, 63, 85, 96]</span></span><br></pre></td></tr></table></figure>
+
+<p>可以看到快速排序的过程是三步</p>
+<ol>
+<li>在数据集之中，选择一个元素作为”基准”（pivot）。</li>
+<li>所有小于”基准”的元素，都移到”基准”的左边；所有大于”基准”的元素，都移到”基准”的右边。</li>
+<li>对”基准”左边和右边的两个子集，不断重复第一步和第二步，直到所有子集只剩下一个元素为止。</li>
+</ol>
+<p><a href="http://www.ruanyifeng.com/blog/2011/04/quicksort_in_javascript.html">快速排序</a></p>
+<p>上面排序方法的的问题是每次递归都需要开了 2 个临时数组，导致了空间复杂度增大。不过对于快速排序的理解是有帮助的；</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> swap = <span class="function"><span class="keyword">function</span> (<span class="params">arr, i, j</span>) </span>&#123;</span><br><span class="line">  [arr[i], arr[j]] = [arr[j], arr[i]];</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> quickSort = <span class="function"><span class="keyword">function</span> (<span class="params">arr, left, right</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (left &gt;= right) <span class="keyword">return</span>;</span><br><span class="line">  <span class="comment">// 以最左边的项为基准</span></span><br><span class="line">  <span class="keyword">var</span> base = arr[left];</span><br><span class="line">  <span class="keyword">var</span> i = left,</span><br><span class="line">    j = right;</span><br><span class="line">  <span class="keyword">while</span> (i &lt; j) &#123;</span><br><span class="line">    <span class="comment">// 左边为基准时j需要先变，这点很重要。</span></span><br><span class="line">    <span class="comment">// 这样才能保证最后归位时，被移动到左边的是小于基准的数</span></span><br><span class="line">    <span class="keyword">while</span> (i &lt; j &amp;&amp; arr[j] &gt;= base) &#123;</span><br><span class="line">      j--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (i &lt; j &amp;&amp; arr[i] &lt;= base) &#123;</span><br><span class="line">      i++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// j找到比基准小的数，i找到比基准大的数</span></span><br><span class="line">    <span class="keyword">if</span> (i &lt; j) &#123;</span><br><span class="line">      swap(arr, i, j);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 这一步我叫它归位，讲基准和最后找到的比它小的数对换（可能是本身）</span></span><br><span class="line">  <span class="keyword">if</span> (i == j) &#123;</span><br><span class="line">    swap(arr, j, left);</span><br><span class="line">  &#125;</span><br><span class="line">  quickSort(arr, left, j - <span class="number">1</span>);</span><br><span class="line">  quickSort(arr, j + <span class="number">1</span>, right);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> arr = [<span class="number">3</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">6</span>, <span class="number">3</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">1</span>, <span class="number">8</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">6</span>, <span class="number">78</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">19</span>, <span class="number">23</span>, <span class="number">432</span>, <span class="number">1</span>];</span><br><span class="line"><span class="keyword">var</span> sortFunc = <span class="function"><span class="keyword">function</span> (<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> left = <span class="number">0</span>,</span><br><span class="line">    right = arr.length - <span class="number">1</span>;</span><br><span class="line">  quickSort(arr, left, right);</span><br><span class="line">  <span class="keyword">return</span> arr;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>快速排序复杂度为 O(nlogn)，且它的性能通常比其他的复杂度为 O(nlogn)的排序算法要好。</p>
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>Javascript</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Javascript深拷贝实现</title>
     <url>/2018/06/26/Javascript%E6%B7%B1%E6%8B%B7%E8%B4%9D%E5%AE%9E%E7%8E%B0/</url>
     <content><![CDATA[<h4 id="如何实现深拷贝"><a href="#如何实现深拷贝" class="headerlink" title="如何实现深拷贝"></a>如何实现深拷贝</h4><h5 id="Object-assign"><a href="#Object-assign" class="headerlink" title="Object.assign()"></a>Object.assign()</h5><p>只能处理一层的深拷贝</p>
@@ -2308,59 +2361,6 @@ console.log(oldObj,newObj)//&#123;a: &#123;…&#125;&#125; &#123;a: &#123;…&#1
       <tags>
         <tag>Javascript</tag>
         <tag>性能优化</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Javascript排序算法</title>
-    <url>/2018/06/25/Javascript%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><p>冒泡排序比较任何两个相邻的项，如果第一个比第二个大，则交换它们。元素项向上移动至确的顺序，就好像气泡升至表面一样，冒泡排序因此得名。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> bubbleSort = <span class="function"><span class="keyword">function</span> (<span class="params">array</span>) </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">swap</span>(<span class="params">index1, index2</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> aux = array[index1];</span><br><span class="line">    array[index1] = array[index2];</span><br><span class="line">    array[index2] = aux;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; array.length; i++) &#123;</span><br><span class="line">    <span class="comment">//外循环会从数组的第一位迭代到最后一位，控制了数组经过了多少轮排序</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; array.length - <span class="number">1</span>; j++) &#123;</span><br><span class="line">      <span class="comment">//内循环从第一位迭代到倒数第二位，进行当前项和下一项的比较和交换</span></span><br><span class="line">      <span class="keyword">if</span> (array[j] &gt; array[j + <span class="number">1</span>]) &#123;</span><br><span class="line">        swap(j, j + <span class="number">1</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> array;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>它在所有排序算法中最简单。然而，<br>从运行时间的角度来看，冒泡排序是最差的一个，</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> bubbleSort = <span class="function"><span class="keyword">function</span> (<span class="params">array</span>) </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">swap</span>(<span class="params">index1, index2</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> aux = array[index1];</span><br><span class="line">    array[index1] = array[index2];</span><br><span class="line">    array[index2] = aux;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> cost = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; array.length; i++) &#123;</span><br><span class="line">    cost++;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; array.length - <span class="number">1</span>; j++) &#123;</span><br><span class="line">      cost++;</span><br><span class="line">      <span class="keyword">if</span> (array[j] &gt; array[j + <span class="number">1</span>]) &#123;</span><br><span class="line">        swap(j, j + <span class="number">1</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">console</span>.log(</span><br><span class="line">    <span class="string">&quot;cost for bubbleSort with input size &quot;</span> + array.length + <span class="string">&quot; is&quot;</span> + cost</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br><span class="line">bubbleSort([<span class="number">5</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>]); <span class="comment">//cost for bubbleSort with input size 5  is 25</span></span><br></pre></td></tr></table></figure>
-
-<p>如果用大小为 10 的数组执行 bubbleSort，开销是 100，所以复杂度是 O(n^2)</p>
-<p>注意当算法执行外循环的第二轮的时候，数字 4 和 5 已经是正确排序的了。在后续<br>比较中，它们还一直在进行着比较，即使这是不必要的。因此，我们可以稍稍改进一下冒泡排序<br>算法。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> bubbleSort = <span class="function"><span class="keyword">function</span> (<span class="params">array</span>) </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">swap</span>(<span class="params">index1, index2</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> aux = array[index1];</span><br><span class="line">    array[index1] = array[index2];</span><br><span class="line">    array[index2] = aux;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> cost = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; array.length; i++) &#123;</span><br><span class="line">    cost++;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; array.length - <span class="number">1</span> - i; j++) &#123;</span><br><span class="line">      cost++;</span><br><span class="line">      <span class="keyword">if</span> (array[j] &gt; array[j + <span class="number">1</span>]) &#123;</span><br><span class="line">        swap(j, j + <span class="number">1</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(</span><br><span class="line">    <span class="string">&quot;cost for bubbleSort with input size &quot;</span> + array.length + <span class="string">&quot; is&quot;</span> + cost</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br><span class="line">bubbleSort([<span class="number">5</span>, <span class="number">4</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>]); <span class="comment">////cost for bubbleSort with input size 5  is 15</span></span><br></pre></td></tr></table></figure>
-
-<p>大小为 5 的数组开销为 15 复杂度是 O(n^2-(1+2+..+n))</p>
-<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><p>选择排序算法是一种原址比较排序算法。选择排序大致的思路是找到数据结构中的最小值并<br>将其放置在第一位，接着找到第二小的值并将其放在第二位，以此类推。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> swap = <span class="function"><span class="keyword">function</span> (<span class="params">array, index1, index2</span>) </span>&#123;</span><br><span class="line">  [array[index1], array[index2]] = [array[index2], array[index1]];</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> selectionSort = <span class="function"><span class="keyword">function</span> (<span class="params">array</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; array.length; i++) &#123;</span><br><span class="line">    <span class="comment">// 外层每一次循环结束后 第i个都是i之后数组项中的最小</span></span><br><span class="line">    <span class="keyword">let</span> minIndex = i;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = i; j &lt; array.length; j++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (array[minIndex] &gt; array[j]) &#123;</span><br><span class="line">        swap(array, minIndex, j);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> array;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>选择排序同样也是一个复杂度为 O(n2)的算法。和冒泡排序一样，它包含有嵌套的两个循环，<br>这导致了二次方的复杂度。</p>
-<h2 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h2><p>插入排序每次排一个数组项，以此方式构建最后的排序数组。假定第一项已经排序了，接着，<br>它和第二项进行比较，第二项是应该待在原位还是插到第一项之前呢？</p>
-<p>如果是之前，那么第一项应该向后移动一个位置，如果是之后，那么不用动。</p>
-<p>这样，头两项就已正确排序，接着和第三项比较，以此类推。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> insertionSort = <span class="function"><span class="keyword">function</span> (<span class="params">array</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> length = array.length;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt; length; i++) &#123;</span><br><span class="line">    <span class="comment">//数组的第一项默认已经排序好</span></span><br><span class="line">    <span class="keyword">var</span> temp = array[i];</span><br><span class="line">    <span class="comment">//插入新的一项并排序</span></span><br><span class="line">    <span class="keyword">var</span> j = i;</span><br><span class="line">    <span class="comment">//如果之前的项大于新插入的则向后移动一位</span></span><br><span class="line">    <span class="keyword">while</span> (j &gt; <span class="number">0</span> &amp;&amp; array[j - <span class="number">1</span>] &gt; temp) &#123;</span><br><span class="line">      array[j] = array[j - <span class="number">1</span>];</span><br><span class="line">      j--;</span><br><span class="line">    &#125;</span><br><span class="line">    array[j] = temp;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> array;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>复杂度为 O(n-1+(2+3+..n-1))<br>排序小型数组时，此算法比选择排序和冒泡排序性能要好。</p>
-<h2 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h2><p>归并排序是一种分治算法。其思想是将原始数组切分成较小的数组，直到每个小数组只有一个位置，接着将小数组归并成较大的数组，直到最后只有一个排序完毕的大数组。</p>
-<p>因为已经排序好的两个数组 处于数组最左边的总是最小的，而只剩一项的数组是已经排序好的数组，<br>所以最后的大数组也是排序完毕的</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> merge = <span class="function"><span class="keyword">function</span> (<span class="params">left, right</span>) </span>&#123;</span><br><span class="line">  <span class="comment">//它负责合并和排序小数组来产生大数组，直到回到原始数组并已排序完成</span></span><br><span class="line">  <span class="keyword">var</span> result = [],</span><br><span class="line">    il = <span class="number">0</span>,</span><br><span class="line">    ir = <span class="number">0</span>;</span><br><span class="line">  <span class="comment">//比较来自left数组的项是否比来自right数组的项小</span></span><br><span class="line">  <span class="keyword">while</span> (il &lt; left.length &amp;&amp; ir &lt; right.length) &#123;</span><br><span class="line">    <span class="comment">//如果是，将该项从left数组添加至归并结果数组</span></span><br><span class="line">    <span class="keyword">if</span> (left[il] &lt; right[ir]) &#123;</span><br><span class="line">      <span class="comment">//并递增迭代数组的控制变量（</span></span><br><span class="line">      result.push(left[il++]);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">//否则，从right数组添加项并递增相应的迭代数组的控制变量</span></span><br><span class="line">      result.push(right[ir++]);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">//接下来，将left数组或者right数组所有剩余的项添加到归并数组中。</span></span><br><span class="line">  <span class="keyword">while</span> (il &lt; left.length) &#123;</span><br><span class="line">    result.push(left[il++]);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">while</span> (ir &lt; right.length) &#123;</span><br><span class="line">    <span class="comment">// &#123;12&#125;</span></span><br><span class="line">    result.push(right[ir++]);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> mergeSortRec = <span class="function"><span class="keyword">function</span> (<span class="params">array</span>) </span>&#123;</span><br><span class="line">  <span class="comment">//将大数组递归至只有一项的数组，因为它已排序了。</span></span><br><span class="line">  <span class="keyword">var</span> length = array.length;</span><br><span class="line">  <span class="keyword">if</span> (length == <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> array;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> mid = <span class="built_in">Math</span>.floor(length / <span class="number">2</span>),</span><br><span class="line">    left = array.slice(<span class="number">0</span>, mid),</span><br><span class="line">    right = array.slice(mid, length);</span><br><span class="line">  <span class="built_in">console</span>.log(left, right);</span><br><span class="line">  <span class="comment">//为了不断将原始数组分成小数组，我们得再次对left数组和right数组递归调用mergeSortRec，并同时作为参数传递给merge函数。</span></span><br><span class="line">  <span class="keyword">return</span> merge(mergeSortRec(left), mergeSortRec(right));</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>归并排序是可以被实际使用的排序算法，归并排序性能不错，其复杂度为 O(nlog^n)。</p>
-<h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><p>先看一下一个平民版的快速排序</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> quickSort = <span class="function"><span class="keyword">function</span> (<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (arr.length &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">var</span> pivotIndex = <span class="built_in">Math</span>.floor((arr.length - <span class="number">1</span>) / <span class="number">2</span>);</span><br><span class="line">  <span class="keyword">var</span> pivot = arr[pivotIndex];</span><br><span class="line">  <span class="comment">//原代码用的splice,</span></span><br><span class="line">  <span class="comment">//在v8中splice是时间复杂度为O(n),先不管了改回来</span></span><br><span class="line">  <span class="keyword">var</span> left = [];</span><br><span class="line">  <span class="keyword">var</span> right = [];</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (i != pivotIndex) &#123;</span><br><span class="line">      <span class="keyword">if</span> (arr[i] &lt; pivot) &#123;</span><br><span class="line">        left.push(arr[i]);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        right.push(arr[i]);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> quickSort(left).concat([pivot], quickSort(right));</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> arr = quickSort([<span class="number">85</span>, <span class="number">24</span>, <span class="number">63</span>, <span class="number">45</span>, <span class="number">17</span>, <span class="number">31</span>, <span class="number">96</span>, <span class="number">50</span>]);</span><br><span class="line"><span class="comment">//[17, 24, 31, 45, 50, 63, 85, 96]</span></span><br></pre></td></tr></table></figure>
-
-<p>可以看到快速排序的过程是三步</p>
-<ol>
-<li>在数据集之中，选择一个元素作为”基准”（pivot）。</li>
-<li>所有小于”基准”的元素，都移到”基准”的左边；所有大于”基准”的元素，都移到”基准”的右边。</li>
-<li>对”基准”左边和右边的两个子集，不断重复第一步和第二步，直到所有子集只剩下一个元素为止。</li>
-</ol>
-<p><a href="http://www.ruanyifeng.com/blog/2011/04/quicksort_in_javascript.html">快速排序</a></p>
-<p>上面排序方法的的问题是每次递归都需要开了 2 个临时数组，导致了空间复杂度增大。不过对于快速排序的理解是有帮助的；</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> swap = <span class="function"><span class="keyword">function</span> (<span class="params">arr, i, j</span>) </span>&#123;</span><br><span class="line">  [arr[i], arr[j]] = [arr[j], arr[i]];</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">var</span> quickSort = <span class="function"><span class="keyword">function</span> (<span class="params">arr, left, right</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (left &gt;= right) <span class="keyword">return</span>;</span><br><span class="line">  <span class="comment">// 以最左边的项为基准</span></span><br><span class="line">  <span class="keyword">var</span> base = arr[left];</span><br><span class="line">  <span class="keyword">var</span> i = left,</span><br><span class="line">    j = right;</span><br><span class="line">  <span class="keyword">while</span> (i &lt; j) &#123;</span><br><span class="line">    <span class="comment">// 左边为基准时j需要先变，这点很重要。</span></span><br><span class="line">    <span class="comment">// 这样才能保证最后归位时，被移动到左边的是小于基准的数</span></span><br><span class="line">    <span class="keyword">while</span> (i &lt; j &amp;&amp; arr[j] &gt;= base) &#123;</span><br><span class="line">      j--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (i &lt; j &amp;&amp; arr[i] &lt;= base) &#123;</span><br><span class="line">      i++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// j找到比基准小的数，i找到比基准大的数</span></span><br><span class="line">    <span class="keyword">if</span> (i &lt; j) &#123;</span><br><span class="line">      swap(arr, i, j);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 这一步我叫它归位，讲基准和最后找到的比它小的数对换（可能是本身）</span></span><br><span class="line">  <span class="keyword">if</span> (i == j) &#123;</span><br><span class="line">    swap(arr, j, left);</span><br><span class="line">  &#125;</span><br><span class="line">  quickSort(arr, left, j - <span class="number">1</span>);</span><br><span class="line">  quickSort(arr, j + <span class="number">1</span>, right);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> arr = [<span class="number">3</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">6</span>, <span class="number">3</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">1</span>, <span class="number">8</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">6</span>, <span class="number">78</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">19</span>, <span class="number">23</span>, <span class="number">432</span>, <span class="number">1</span>];</span><br><span class="line"><span class="keyword">var</span> sortFunc = <span class="function"><span class="keyword">function</span> (<span class="params">arr</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> left = <span class="number">0</span>,</span><br><span class="line">    right = arr.length - <span class="number">1</span>;</span><br><span class="line">  quickSort(arr, left, right);</span><br><span class="line">  <span class="keyword">return</span> arr;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>快速排序复杂度为 O(nlogn)，且它的性能通常比其他的复杂度为 O(nlogn)的排序算法要好。</p>
-]]></content>
-      <categories>
-        <category>前端</category>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>Javascript</tag>
-        <tag>算法</tag>
       </tags>
   </entry>
   <entry>
@@ -3113,54 +3113,6 @@ tasksList().then((res)=&gt;&#123;
       </tags>
   </entry>
   <entry>
-    <title>promise</title>
-    <url>/2018/06/27/promise/</url>
-    <content><![CDATA[<p><img src="/.io//img1.png" alt="image"></p>
-<h5 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h5><pre><code>const promise = new Promise(function(resolve, reject) &#123;
-  // ... some code
-  if (/* 异步操作成功 */)&#123;
-    resolve(value);
-  &#125; else &#123;
-    reject(error);
-  &#125;
-&#125;);</code></pre>
-<h5 id="Promise-参数"><a href="#Promise-参数" class="headerlink" title="Promise 参数"></a>Promise 参数</h5><p>resolve 函数的作用是，将 Promise 对象的状态从“pending”变为“resolved”，在异步操作成功时调用，并将异步操作的结果，作为参数传递出去；</p>
-<p>reject 函数的作用是，将 Promise 对象的状态从“pending”变为“rejected”，在异步操作失败时调用，并将异步操作报出的错误，作为参数传递出去。</p>
-<p>resolve 函数的参数除了正常的值以外，还可能是另一个 Promise 实例</p>
-<pre><code>const p1 = new Promise(function (resolve, reject) &#123;
-  // ...
-&#125;);
-
-const p2 = new Promise(function (resolve, reject) &#123;
-  // ...
-  resolve(p1);
-&#125;)</code></pre>
-<p>p1 和 p2 都是 Promise 的实例，但是 p2 的 resolve 方法将 p1 作为参数，即一个异步操作的结果是返回另一个异步操作。<br>这时 p1 的状态就会传递给 p2，也就是说，p1 的状态决定了 p2 的状态。</p>
-<p>如果 p1 的状态是 pending，那么 p2 的回调函数就会等待 p1 的状态改变；如果 p1 的状态已经是 resolved 或者 rejected，那么 p2 的回调函数将会立刻执行。</p>
-<hr>
-<p>一般来说，调用 resolve 或 reject 以后，Promise 的使命就完成了，后继操作应该放到 then 方法里面，而不应该直接写在 resolve 或 reject 的后面。所以，最好在它们前面加上 return 语句，这样就不会有意外。</p>
-<h5 id="链式调用"><a href="#链式调用" class="headerlink" title="链式调用"></a>链式调用</h5><p>then 方法返回的是一个新的 Promise 实例，。因此可以采用链式写法，即 then 方法后面再调用另一个 then 方法。</p>
-<pre><code>getJSON(&quot;/post/1.json&quot;).then(
-  post =&gt; getJSON(post.commentURL)
-).then(
-  comments =&gt; console.log(&quot;resolved: &quot;, comments),
-  err =&gt; console.log(&quot;rejected: &quot;, err)
-);</code></pre>
-<h5 id="错误捕获"><a href="#错误捕获" class="headerlink" title="错误捕获"></a>错误捕获</h5><p>promise 抛出错误，会被 catch 方法指定的回调函数捕获。</p>
-<p>Promise 在 resolve 语句后面，再抛出错误，不会被捕获。因为 Promise 的状态一旦改变，就永久保持该状态，不会再变了。</p>
-<p>Promise 对象的错误具有“冒泡”性质，会一直向后传递，直到被捕获为止。也就是说，错误总是会被下一个 catch 语句捕获。</p>
-<p>一般来说，不要在 then 方法里面定义 Reject 状态的回调函数（即 then 的第二个参数），总是使用 catch 方法。</p>
-<p>跟传统的 try/catch 代码块不同的是，如果没有使用 catch 方法指定错误处理的回调函数，Promise 对象抛出的错误不会传递到外层代码，即不会有任何反应。</p>
-]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>ES6</tag>
-        <tag>Javascript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>proxy</title>
     <url>/2018/05/18/proxy/</url>
     <content><![CDATA[<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>Proxy 用于修改某些操作的默认行为，等同于在语言层面做出修改，所以属于一种“元编程”（meta programming），即对编程语言进行编程。</p>
@@ -3421,6 +3373,54 @@ const handler = &#123;
 const proxy = new Proxy(target, handler);
 
 proxy.getDate() // 1</code></pre>
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>ES6</tag>
+        <tag>Javascript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>promise</title>
+    <url>/2018/06/27/promise/</url>
+    <content><![CDATA[<p><img src="/.io//img1.png" alt="image"></p>
+<h5 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h5><pre><code>const promise = new Promise(function(resolve, reject) &#123;
+  // ... some code
+  if (/* 异步操作成功 */)&#123;
+    resolve(value);
+  &#125; else &#123;
+    reject(error);
+  &#125;
+&#125;);</code></pre>
+<h5 id="Promise-参数"><a href="#Promise-参数" class="headerlink" title="Promise 参数"></a>Promise 参数</h5><p>resolve 函数的作用是，将 Promise 对象的状态从“pending”变为“resolved”，在异步操作成功时调用，并将异步操作的结果，作为参数传递出去；</p>
+<p>reject 函数的作用是，将 Promise 对象的状态从“pending”变为“rejected”，在异步操作失败时调用，并将异步操作报出的错误，作为参数传递出去。</p>
+<p>resolve 函数的参数除了正常的值以外，还可能是另一个 Promise 实例</p>
+<pre><code>const p1 = new Promise(function (resolve, reject) &#123;
+  // ...
+&#125;);
+
+const p2 = new Promise(function (resolve, reject) &#123;
+  // ...
+  resolve(p1);
+&#125;)</code></pre>
+<p>p1 和 p2 都是 Promise 的实例，但是 p2 的 resolve 方法将 p1 作为参数，即一个异步操作的结果是返回另一个异步操作。<br>这时 p1 的状态就会传递给 p2，也就是说，p1 的状态决定了 p2 的状态。</p>
+<p>如果 p1 的状态是 pending，那么 p2 的回调函数就会等待 p1 的状态改变；如果 p1 的状态已经是 resolved 或者 rejected，那么 p2 的回调函数将会立刻执行。</p>
+<hr>
+<p>一般来说，调用 resolve 或 reject 以后，Promise 的使命就完成了，后继操作应该放到 then 方法里面，而不应该直接写在 resolve 或 reject 的后面。所以，最好在它们前面加上 return 语句，这样就不会有意外。</p>
+<h5 id="链式调用"><a href="#链式调用" class="headerlink" title="链式调用"></a>链式调用</h5><p>then 方法返回的是一个新的 Promise 实例，。因此可以采用链式写法，即 then 方法后面再调用另一个 then 方法。</p>
+<pre><code>getJSON(&quot;/post/1.json&quot;).then(
+  post =&gt; getJSON(post.commentURL)
+).then(
+  comments =&gt; console.log(&quot;resolved: &quot;, comments),
+  err =&gt; console.log(&quot;rejected: &quot;, err)
+);</code></pre>
+<h5 id="错误捕获"><a href="#错误捕获" class="headerlink" title="错误捕获"></a>错误捕获</h5><p>promise 抛出错误，会被 catch 方法指定的回调函数捕获。</p>
+<p>Promise 在 resolve 语句后面，再抛出错误，不会被捕获。因为 Promise 的状态一旦改变，就永久保持该状态，不会再变了。</p>
+<p>Promise 对象的错误具有“冒泡”性质，会一直向后传递，直到被捕获为止。也就是说，错误总是会被下一个 catch 语句捕获。</p>
+<p>一般来说，不要在 then 方法里面定义 Reject 状态的回调函数（即 then 的第二个参数），总是使用 catch 方法。</p>
+<p>跟传统的 try/catch 代码块不同的是，如果没有使用 catch 方法指定错误处理的回调函数，Promise 对象抛出的错误不会传递到外层代码，即不会有任何反应。</p>
 ]]></content>
       <categories>
         <category>前端</category>
@@ -4343,6 +4343,22 @@ factorial(6)  //720</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>反转链表2</title>
+    <url>/2021/07/23/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A82/</url>
+    <content><![CDATA[<h4 id="92-反转链表-II"><a href="#92-反转链表-II" class="headerlink" title="92. 反转链表 II"></a><a href="https://leetcode-cn.com/problems/reverse-linked-list-ii/">92. 反转链表 II</a></h4><p>考虑到头部也可能产生反转，所以需要一个虚拟头。</p>
+<p>在遍历的过程中记录反转后的尾节点和之前的节点。</p>
+<p>最后进行节点的链接处理。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> reverseBetween = <span class="function"><span class="keyword">function</span>(<span class="params">head, m, n</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> noob = <span class="keyword">new</span> ListNode(<span class="number">0</span>)</span><br><span class="line">    noob.next = head</span><br><span class="line">    <span class="keyword">let</span> cur = noob</span><br><span class="line">    <span class="keyword">let</span> index = <span class="number">0</span></span><br><span class="line">    <span class="keyword">let</span> A,B</span><br><span class="line">    <span class="keyword">while</span> (index &lt; m) &#123;</span><br><span class="line">        A = cur <span class="comment">// A 记录反转子链的前一个节点 </span></span><br><span class="line">        cur = cur.next     </span><br><span class="line">        index++   </span><br><span class="line">    &#125;</span><br><span class="line">    B = cur <span class="comment">// B 记录反转之后的尾节点</span></span><br><span class="line">    <span class="keyword">let</span> pre = cur</span><br><span class="line">    <span class="keyword">while</span> (index &lt;= n) &#123;</span><br><span class="line">        <span class="keyword">let</span> next = cur.next</span><br><span class="line">        cur.next = pre</span><br><span class="line">        pre = cur</span><br><span class="line">        cur = next</span><br><span class="line">        index++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 执行完后cur 指针在反转子链的下一个节点</span></span><br><span class="line">    B.next = cur</span><br><span class="line">    A.next = pre</span><br><span class="line">    <span class="keyword">return</span> noob.next</span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Js单例模式</title>
     <url>/2018/04/13/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</url>
     <content><![CDATA[<h3 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h3><h4 id="简单的单例模式实现"><a href="#简单的单例模式实现" class="headerlink" title="简单的单例模式实现"></a>简单的单例模式实现</h4><p>需要用一个变量来标记是否已经创建过一个实例对象</p>
@@ -4525,22 +4541,6 @@ render()</code></pre>
       </tags>
   </entry>
   <entry>
-    <title>反转链表2</title>
-    <url>/2021/07/23/%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A82/</url>
-    <content><![CDATA[<h4 id="92-反转链表-II"><a href="#92-反转链表-II" class="headerlink" title="92. 反转链表 II"></a><a href="https://leetcode-cn.com/problems/reverse-linked-list-ii/">92. 反转链表 II</a></h4><p>考虑到头部也可能产生反转，所以需要一个虚拟头。</p>
-<p>在遍历的过程中记录反转后的尾节点和之前的节点。</p>
-<p>最后进行节点的链接处理。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> reverseBetween = <span class="function"><span class="keyword">function</span>(<span class="params">head, m, n</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> noob = <span class="keyword">new</span> ListNode(<span class="number">0</span>)</span><br><span class="line">    noob.next = head</span><br><span class="line">    <span class="keyword">let</span> cur = noob</span><br><span class="line">    <span class="keyword">let</span> index = <span class="number">0</span></span><br><span class="line">    <span class="keyword">let</span> A,B</span><br><span class="line">    <span class="keyword">while</span> (index &lt; m) &#123;</span><br><span class="line">        A = cur <span class="comment">// A 记录反转子链的前一个节点 </span></span><br><span class="line">        cur = cur.next     </span><br><span class="line">        index++   </span><br><span class="line">    &#125;</span><br><span class="line">    B = cur <span class="comment">// B 记录反转之后的尾节点</span></span><br><span class="line">    <span class="keyword">let</span> pre = cur</span><br><span class="line">    <span class="keyword">while</span> (index &lt;= n) &#123;</span><br><span class="line">        <span class="keyword">let</span> next = cur.next</span><br><span class="line">        cur.next = pre</span><br><span class="line">        pre = cur</span><br><span class="line">        cur = next</span><br><span class="line">        index++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 执行完后cur 指针在反转子链的下一个节点</span></span><br><span class="line">    B.next = cur</span><br><span class="line">    A.next = pre</span><br><span class="line">    <span class="keyword">return</span> noob.next</span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>链表</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>变量的解构赋值</title>
     <url>/2018/04/10/%E5%8F%98%E9%87%8F%E7%9A%84%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC/</url>
     <content><![CDATA[<h4 id="变量的解构赋值"><a href="#变量的解构赋值" class="headerlink" title="变量的解构赋值"></a>变量的解构赋值</h4><p>定义:允许按照一定的模式，从数组的对象中提取值</p>
@@ -4594,34 +4594,6 @@ let &#123;id,status,data&#125; = json</code></pre>
       <tags>
         <tag>ES6</tag>
         <tag>Javascript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>字节跳动一面</title>
-    <url>/2021/06/29/%E5%AD%97%E8%8A%82%E8%B7%B3%E5%8A%A8%E4%B8%80%E9%9D%A2/</url>
-    <content><![CDATA[<h2 id="字节面试一面"><a href="#字节面试一面" class="headerlink" title="字节面试一面"></a>字节面试一面</h2><p>全程给一个编辑器，写完之后面试官会问思路，难度中规中矩</p>
-<h4 id="写一个bachrequest-并发请求，最多同时请求max个，当第一个请求resolve，加入第二个请求，以此类推"><a href="#写一个bachrequest-并发请求，最多同时请求max个，当第一个请求resolve，加入第二个请求，以此类推" class="headerlink" title="写一个bachrequest 并发请求，最多同时请求max个，当第一个请求resolve，加入第二个请求，以此类推"></a>写一个bachrequest 并发请求，最多同时请求max个，当第一个请求resolve，加入第二个请求，以此类推</h4><p>思路： 递归</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> urls = [<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>,<span class="string">&#x27;d&#x27;</span>,<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>,<span class="string">&#x27;d&#x27;</span>]</span><br><span class="line"><span class="keyword">var</span> max = <span class="number">2</span></span><br><span class="line"><span class="keyword">var</span> bach  = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (max &gt; <span class="number">0</span> &amp;&amp; urls.length) &#123;</span><br><span class="line">        <span class="keyword">let</span> id = urls.shift()</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">            <span class="comment">// 执行请求</span></span><br><span class="line">            <span class="built_in">console</span>.log(id)</span><br><span class="line">            <span class="comment">// 请求执行后可以进行下一个</span></span><br><span class="line">            bach(max++)</span><br><span class="line">        &#125;,<span class="number">1000</span>)</span><br><span class="line">        bach(max--)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">bach()</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="react-组件实现-modal-show-durance-39-1000-39-message-39-hello-39"><a href="#react-组件实现-modal-show-durance-39-1000-39-message-39-hello-39" class="headerlink" title="react 组件实现 modal.show({durance:&#39;1000&#39;,message:&#39;hello&#39;})"></a>react 组件实现 <code>modal.show(&#123;durance:&#39;1000&#39;,message:&#39;hello&#39;&#125;)</code></h4><p> 考察： createPortal ？ 单例模式 ？ 这题我不是太有把握</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span>  CreateModal = (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> instance = <span class="literal">null</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">Modal</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="class"><span class="keyword">class</span> <span class="title">Modal</span> </span>&#123;</span><br><span class="line">            <span class="function"><span class="title">show</span>(<span class="params">&#123;durance,message&#125;</span>)</span> &#123;</span><br><span class="line">                <span class="keyword">let</span> el = <span class="built_in">document</span>.getElementsByTagName(<span class="string">&#x27;body&#x27;</span>)[<span class="number">0</span>];</span><br><span class="line">                <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">                    <span class="built_in">this</span>.setState(&#123;<span class="attr">visible</span>:<span class="literal">false</span>&#125;)</span><br><span class="line">                &#125;,<span class="number">1000</span>)</span><br><span class="line">                <span class="keyword">return</span> visible ? ReactDOM.createPortal(</span><br><span class="line">                    (<span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>message<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>) : <span class="string">&#x27;&#x27;</span> ,</span><br><span class="line">                    el)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (!instance) &#123;</span><br><span class="line">            instance = <span class="keyword">new</span> Modal()</span><br><span class="line">       &#125; </span><br><span class="line">        <span class="keyword">return</span>  instance</span><br><span class="line">    &#125;</span><br><span class="line">   <span class="keyword">return</span> Modal </span><br><span class="line">&#125;) ()</span><br><span class="line"><span class="comment">// 单例</span></span><br><span class="line"><span class="keyword">var</span> modal = <span class="keyword">new</span> Modal()</span><br><span class="line"></span><br><span class="line">modal.show(&#123;<span class="attr">durance</span>:<span class="string">&#x27;1000&#x27;</span>,<span class="attr">message</span>:<span class="string">&#x27;hello&#x27;</span>&#125;)</span><br><span class="line">modal.show(&#123;<span class="attr">durance</span>:<span class="string">&#x27;1000&#x27;</span>,<span class="attr">message</span>:<span class="string">&#x27;hello2&#x27;</span>&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="给一个dom-树-例如"><a href="#给一个dom-树-例如" class="headerlink" title="给一个dom 树 例如"></a>给一个dom 树 例如</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"> &lt;div data&#x3D;&quot;3&quot;&gt;</span><br><span class="line">   &lt;div data&#x3D;&quot;1&quot;&gt;</span><br><span class="line">     	&lt;img data&#x3D;&quot;2&quot;&gt;</span><br><span class="line">   		&lt;p data&#x3D;&quot;5&quot;&gt;&lt;&#x2F;p&gt;</span><br><span class="line">   &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
-
-<p>要求返回 div div img 3   ;div div p 5</p>
-<p>即返回路径和路径中的最大值</p>
-<p>思路：回溯算法</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> res = []</span><br><span class="line"><span class="keyword">var</span> backTrak = <span class="function">(<span class="params">dom,path,max</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="comment">// 获取dom子元素，子元素为 0 则 为路径终点</span></span><br><span class="line">        <span class="keyword">var</span> children = dom.children</span><br><span class="line">        <span class="keyword">if</span> (!children.length) &#123;</span><br><span class="line">            res.push(path.join(<span class="string">&#x27; &#x27;</span>) + max)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span> ; i &lt; children.length ; i ++) &#123;</span><br><span class="line">            <span class="keyword">let</span> child = children[i]</span><br><span class="line">            <span class="keyword">var</span> tagName = child.tagName</span><br><span class="line">            <span class="keyword">var</span> digital = child.digital</span><br><span class="line">            backTrak(child,[...path,tagName],math.max(max,digital))</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>面试</category>
-      </categories>
-      <tags>
-        <tag>Javascript</tag>
-        <tag>面试</tag>
       </tags>
   </entry>
   <entry>
@@ -4961,69 +4933,6 @@ setTimeout(function() &#123;
       </tags>
   </entry>
   <entry>
-    <title>数组的拓展</title>
-    <url>/2018/04/11/%E6%95%B0%E7%BB%84%E7%9A%84%E6%8B%93%E5%B1%95/</url>
-    <content><![CDATA[<h4 id="数组的拓展"><a href="#数组的拓展" class="headerlink" title="数组的拓展"></a>数组的拓展</h4><h5 id="Array-from"><a href="#Array-from" class="headerlink" title="Array.from()"></a>Array.from()</h5><p>将似数组对象(array-like object) 和可遍历例对象(iterable)转为真正的数组</p>
-<p>ES5</p>
-<pre><code>var arr1 = [].slice.call(arraylike)</code></pre>
-<p>ES6</p>
-<pre><code>let arr2 = Array.from(arraylike)</code></pre>
-<p>需要注意的是这里是浅拷贝(如果元素是对象引用，则拷贝对象引用到新数组)。</p>
-<p>Array.from()可以接受第二个参数 类似于数组的 map 方法</p>
-<pre><code>let names1 = Array.prototype.map.call(spans,s=&gt;s.textContent);
-let names2 = Array.from(spans,s=&gt;s.textContent,this);</code></pre>
-<p>拓展运算符(…)也可以将某些数据结构转为数组</p>
-<pre><code>function foo()&#123;
-    var args = [...arguments]
-&#125;</code></pre>
-<h5 id="Array-of"><a href="#Array-of" class="headerlink" title="Array.of()"></a>Array.of()</h5><p>用于将一组值转换为数组，可以替代 Array()或者 new Array()</p>
-<p>ES5</p>
-<pre><code>function ArrayOf()&#123;
-    return [].slice.call(arguments)
-&#125;
-ArrayOf(3,11,8)//[3,11,8]</code></pre>
-<p>ES6</p>
-<pre><code>Array.of(3,11,8)//[3,11,8]</code></pre>
-<h5 id="copyWithin"><a href="#copyWithin" class="headerlink" title="copyWithin()"></a>copyWithin()</h5><p>在当前数组内部将指定位置的成员复制到其他位置(会覆盖原有成员),然后返回当前数组</p>
-<p>ES5</p>
-<pre><code>var i32a = new Int32Array([1, 2, 3, 4, 5]);
-i32a.copyWithin(0, 2);
-// Int32Array [3, 4, 5, 4, 5]</code></pre>
-<p>ES6</p>
-<pre><code>let a = [1,2,3,4,5];
-a.copyWithin(0,2)
-// [3, 4, 5, 4, 5]
-
-[].copyWithin.call(&#123;length: 5, 3: 1&#125;, 0, 3);//类数组对象
-// &#123;0: 1, 3: 1, length: 5&#125;</code></pre>
-<h5 id="find-和-findIndex"><a href="#find-和-findIndex" class="headerlink" title="find()和 findIndex()"></a>find()和 findIndex()</h5><p>用于找出第一个符合条件的数组成员，弥补 IndexOf 不能发现 NaN 的不足</p>
-<p>ES5</p>
-<pre><code>[1,2,NAN].indexOf(NaN)
-//-1</code></pre>
-<p>ES6</p>
-<pre><code>[1,2,NAN].find(Y=&gt;Object.is(NaN,y))
-//2</code></pre>
-<h5 id="fill"><a href="#fill" class="headerlink" title="fill()"></a>fill()</h5><p>使用给定值填充数组，数组中已有元素会被抹去；如果有第二个和第三个参数，可以指定填充的起始和结束位置</p>
-<pre><code>[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;].fill(7,1,2)
-//[a,7,c]</code></pre>
-<h5 id="entries-keys-values"><a href="#entries-keys-values" class="headerlink" title="entries() keys() values()"></a>entries() keys() values()</h5><p>用于遍历数组,它们都返回一个遍历器对象</p>
-<pre><code>for(let index of [&quot;a&quot;,&quot;b&quot;].keys())&#123;
-cobsole.log(index)
-&#125;//0 1
-
-for(let [index,ele] of [&quot;a&quot;,&quot;b&quot;].entries())&#123;
-    console.log(index,ele)
-&#125;//0 &quot;a&quot;  1 &quot;b&quot;</code></pre>
-]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>ES6</tag>
-        <tag>Javascript</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>数据响应的Proxy实现</title>
     <url>/2018/07/27/%E6%95%B0%E6%8D%AE%E5%93%8D%E5%BA%94%E7%9A%84Proxy%E5%AE%9E%E7%8E%B0/</url>
     <content><![CDATA[<p>在之前我利用 Object.defineProperty 以及闭包完成的这个任务</p>
@@ -5134,6 +5043,69 @@ console.log(app._data.text2.text4)//Proxy &#123;0: 1, 1: 2, length: 2&#125;
         <tag>Javascript</tag>
         <tag>vue</tag>
         <tag>源码</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数组的拓展</title>
+    <url>/2018/04/11/%E6%95%B0%E7%BB%84%E7%9A%84%E6%8B%93%E5%B1%95/</url>
+    <content><![CDATA[<h4 id="数组的拓展"><a href="#数组的拓展" class="headerlink" title="数组的拓展"></a>数组的拓展</h4><h5 id="Array-from"><a href="#Array-from" class="headerlink" title="Array.from()"></a>Array.from()</h5><p>将似数组对象(array-like object) 和可遍历例对象(iterable)转为真正的数组</p>
+<p>ES5</p>
+<pre><code>var arr1 = [].slice.call(arraylike)</code></pre>
+<p>ES6</p>
+<pre><code>let arr2 = Array.from(arraylike)</code></pre>
+<p>需要注意的是这里是浅拷贝(如果元素是对象引用，则拷贝对象引用到新数组)。</p>
+<p>Array.from()可以接受第二个参数 类似于数组的 map 方法</p>
+<pre><code>let names1 = Array.prototype.map.call(spans,s=&gt;s.textContent);
+let names2 = Array.from(spans,s=&gt;s.textContent,this);</code></pre>
+<p>拓展运算符(…)也可以将某些数据结构转为数组</p>
+<pre><code>function foo()&#123;
+    var args = [...arguments]
+&#125;</code></pre>
+<h5 id="Array-of"><a href="#Array-of" class="headerlink" title="Array.of()"></a>Array.of()</h5><p>用于将一组值转换为数组，可以替代 Array()或者 new Array()</p>
+<p>ES5</p>
+<pre><code>function ArrayOf()&#123;
+    return [].slice.call(arguments)
+&#125;
+ArrayOf(3,11,8)//[3,11,8]</code></pre>
+<p>ES6</p>
+<pre><code>Array.of(3,11,8)//[3,11,8]</code></pre>
+<h5 id="copyWithin"><a href="#copyWithin" class="headerlink" title="copyWithin()"></a>copyWithin()</h5><p>在当前数组内部将指定位置的成员复制到其他位置(会覆盖原有成员),然后返回当前数组</p>
+<p>ES5</p>
+<pre><code>var i32a = new Int32Array([1, 2, 3, 4, 5]);
+i32a.copyWithin(0, 2);
+// Int32Array [3, 4, 5, 4, 5]</code></pre>
+<p>ES6</p>
+<pre><code>let a = [1,2,3,4,5];
+a.copyWithin(0,2)
+// [3, 4, 5, 4, 5]
+
+[].copyWithin.call(&#123;length: 5, 3: 1&#125;, 0, 3);//类数组对象
+// &#123;0: 1, 3: 1, length: 5&#125;</code></pre>
+<h5 id="find-和-findIndex"><a href="#find-和-findIndex" class="headerlink" title="find()和 findIndex()"></a>find()和 findIndex()</h5><p>用于找出第一个符合条件的数组成员，弥补 IndexOf 不能发现 NaN 的不足</p>
+<p>ES5</p>
+<pre><code>[1,2,NAN].indexOf(NaN)
+//-1</code></pre>
+<p>ES6</p>
+<pre><code>[1,2,NAN].find(Y=&gt;Object.is(NaN,y))
+//2</code></pre>
+<h5 id="fill"><a href="#fill" class="headerlink" title="fill()"></a>fill()</h5><p>使用给定值填充数组，数组中已有元素会被抹去；如果有第二个和第三个参数，可以指定填充的起始和结束位置</p>
+<pre><code>[&#39;a&#39;,&#39;b&#39;,&#39;c&#39;].fill(7,1,2)
+//[a,7,c]</code></pre>
+<h5 id="entries-keys-values"><a href="#entries-keys-values" class="headerlink" title="entries() keys() values()"></a>entries() keys() values()</h5><p>用于遍历数组,它们都返回一个遍历器对象</p>
+<pre><code>for(let index of [&quot;a&quot;,&quot;b&quot;].keys())&#123;
+cobsole.log(index)
+&#125;//0 1
+
+for(let [index,ele] of [&quot;a&quot;,&quot;b&quot;].entries())&#123;
+    console.log(index,ele)
+&#125;//0 &quot;a&quot;  1 &quot;b&quot;</code></pre>
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>ES6</tag>
+        <tag>Javascript</tag>
       </tags>
   </entry>
   <entry>
@@ -5435,6 +5407,29 @@ str.match(reg2)//[&#39;&lt;html&gt;&lt;html&gt;sdasds&lt;/html&gt;&lt;/html&gt;&
       </tags>
   </entry>
   <entry>
+    <title>祭日 01-22</title>
+    <url>/2021/01/22/%E7%BA%AA%E5%BF%B5/</url>
+    <content><![CDATA[<p>—————— 当再没有人记得，人才会真正逝去 ——————</p>
+<p>奶奶在我心里一直是优秀知性而善良的女性。</p>
+<p>奶奶叫候淑香，退休前的工作是小学校长。和爷爷一样，写得一手好看的硬笔书法，会把熟人，亲戚的电话号码，和电视的那些频道放什么台，都工工整整的记下来。</p>
+<p>奶奶老家是天津，在国家的号召下，来到江汉油田和爷爷一起参加建设，之后就再也没出过远门。</p>
+<p>退休之后经常会去广场练舞剑，是几十个爱好者的领舞者。脾气也非常好，记忆中从来没有发过火。</p>
+<p>她和爷爷一直是令我羡慕的对象，我常常想，到底是一个什么样的神仙爱情，和爷爷奶奶生活了好几年，我从来没有见过吵架。</p>
+<p>小时候我是个特别调皮的孩子，下课经常玩到很晚才回去，奶奶好几次会去学校找我。总是磨磨蹭蹭作业写好很晚，十点多的时候奶奶会过来催我，怎么还没写完，都亿点啦！因为她睡着会打呼噜，所以总是等我先入睡之后再睡。我在外面打完篮球之后，浑身酸疼，奶奶会用烧着的酒精帮我涂抹背，告诉我能舒经活血。小时候会给我做我最爱吃的红烧肉，那里面的鸡蛋是我最喜欢的。</p>
+<p>爷爷在八年前走了，那时候我还在青岛上大学。有一次回家，我说起非常喜欢青岛的环境，毕业以后会在那里定居，奶奶问我那里有没有养老院，以后把她一起接过去。那时候毕业对我来说还是很遥远的事，我以为自己毕业了以后就会赚很多钱，我说好呀。</p>
+<p>这两年看着大伯和爸爸为了赡养奶奶的问题吵架，奶奶一定很难过吧，看着亲人把自己当成了累赘。我也有查过附近的养老院，但是看着高额的费用和我 996 的工作望而怯步。几天前路过一家养老院，我和女朋友说，要是能把我奶奶接过来就好了。</p>
+<p>我一直记着奶奶问我的话，想问问她是不是真的愿意，想让她能生活的更好，可惜已经再也没有机会。</p>
+<p>奶奶小时后从来没有拆穿过爱说谎的我，红包总是发给我最多的，长大后在我和父母的争执中，奶奶一次又一次的袒护我。</p>
+<p>她最疼爱的孙子对她并不好。</p>
+<p>以前对奶奶说过，会一个星期给奶奶打一次电话。我给奶奶的手机开了自动续费，闹钟定在了每个周五下午的三点三十分。可惜我并没有很好的去执行，很多次都是看了一眼就关闭了闹钟。从去年十月份开始，因为父母和大伯闹不和的原因，我再也没打电话过去问候奶奶。她一定很失落吧。</p>
+<p>一天过去了，我还是很恍惚，感到不真实，觉得奶奶只是去了很远的地方。</p>
+<p>想您了</p>
+]]></content>
+      <categories>
+        <category>感悟</category>
+      </categories>
+  </entry>
+  <entry>
     <title>算法和流程控制优化</title>
     <url>/2018/10/25/%E7%AE%97%E6%B3%95%E5%92%8C%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E4%BC%98%E5%8C%96/</url>
     <content><![CDATA[<h4 id="for-while-do-while-三种循环方式的性能对比？怎么改善"><a href="#for-while-do-while-三种循环方式的性能对比？怎么改善" class="headerlink" title="for ,while, do-while 三种循环方式的性能对比？怎么改善?"></a>for ,while, do-while 三种循环方式的性能对比？怎么改善?</h4><p>三种循环性能相当。需要避免使用 for-in 循环。</p>
@@ -5474,70 +5469,6 @@ function fib(num) &#123;
         <tag>Javascript</tag>
         <tag>性能优化</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>西门子一面</title>
-    <url>/2021/06/30/%E8%A5%BF%E9%97%A8%E5%AD%90%E4%B8%80%E9%9D%A2/</url>
-    <content><![CDATA[<h4 id="vue-和-react-的区别"><a href="#vue-和-react-的区别" class="headerlink" title="vue 和 react 的区别"></a>vue 和 react 的区别</h4><p>我用的 vue 2 版本，开发过程感觉是对象编程，react 有函数式编程的感觉。总体来说其实 vue 比较顺手。 </p>
-<h4 id="函数的节流与防抖。"><a href="#函数的节流与防抖。" class="headerlink" title="函数的节流与防抖。"></a>函数的节流与防抖。</h4><p>都是防止函数的多次调用。  防抖是延迟执行（执行最后一次的调用），节流是每隔一段时间执行一次（执行第一次的调用）</p>
-<h4 id="http-优化相关，-例如图片怎么优化"><a href="#http-优化相关，-例如图片怎么优化" class="headerlink" title="http 优化相关， 例如图片怎么优化"></a>http 优化相关， 例如图片怎么优化</h4><p>DNS 预解析，可以预先获得ip</p>
-<p>图片 CDN 加载，请求裁剪后的图片</p>
-<p>小图使用base64 ，雪碧图 ，有WebP 选 WebP，因为 WebP 格式具有更好的图像数据压缩算法。 </p>
-<p>缓存  预加载  预渲染</p>
-<h4 id="公共组件库，less"><a href="#公共组件库，less" class="headerlink" title="公共组件库，less"></a>公共组件库，less</h4><p>因为之前有参与公共组件库的项目，所以被问了 开发公共组件需要注意什么，比如换肤功能要怎么做</p>
-<p>需要注意的点我觉得除了通用性和 可扩展之外，方法命名很重要，需要让使用者看到方法名称就能猜出来你这个方法是有什么功能的。除此之外还要考虑到是提供一个方法给使用者，还是需要使用者传参数。过多的参数会使配置变得复杂，过多的方法也会让使用者望而却步。</p>
-<p>至于换肤功能，之前的换肤是参照了ant ， 一个颜色变量对应多个颜色，在换肤的时候改变颜色变量即可</p>
-<h4 id="css预编译的区别"><a href="#css预编译的区别" class="headerlink" title="css预编译的区别"></a>css预编译的区别</h4><p>这我真没了解过，查询后知道   Less是基于JavaScript，是在客户端处理的，   Sass是基于Ruby的，是在服务器端处理的。</p>
-<h4 id="双token-刷新，access-token-和-refresh-token"><a href="#双token-刷新，access-token-和-refresh-token" class="headerlink" title="双token 刷新，access_token 和 refresh_token"></a>双token 刷新，access_token 和 refresh_token</h4><p>不了解</p>
-<h4 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h4><p>我答了 算法层面的性能优化， webpack 多核性能优化，使用 web-worker进行大运算内容，懒加载， loader 编译优化，当然还有很多我当场没记起来的。</p>
-<h4 id="怎么保证代码的规范？"><a href="#怎么保证代码的规范？" class="headerlink" title="怎么保证代码的规范？"></a>怎么保证代码的规范？</h4><p>eslint + pre-commit</p>
-<p>当然，这种规范项目随着开发时间推移和开发人员水平的参差不齐，最后的代码不尽人意</p>
-<p> 所以需要加上代码 review</p>
-<h4 id="继承与原型链，原型链污染是什么，什么造成的"><a href="#继承与原型链，原型链污染是什么，什么造成的" class="headerlink" title="继承与原型链，原型链污染是什么，什么造成的"></a>继承与原型链，原型链污染是什么，什么造成的</h4><p>简单来说，对象有个<em>proto</em> 指向 构造函数 的 原型，原型本身也是对象，原型<em>proto</em> 指向  它的构造函数的原型，直到找到 Object.prototype 这个原生对象。</p>
-<p>原型链污染 我真没听过 差了下 就是控制实例对象的proto属性，修改这个类所有对象的 <em>proto</em> ，此外还需 要使<em>proto</em> 作为key被赋值，还需要一个条件为传递的参数需要是以json来做解析，否则_proto_会被当作原型而不是一个key，举例</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let o1 &#x3D; &#123;&#125;</span><br><span class="line">let o2 &#x3D; JSON.parse(&#39;&#123;&quot;a&quot;:1,&quot;__proto__&quot;:&#123;&quot;b&quot;:2&#125;&#125;&#39;)</span><br><span class="line">o3 &#x3D; &#123;&#125;</span><br><span class="line">o3.b</span><br></pre></td></tr></table></figure>
-
-<p>我并没有成功，难道漏洞修复了？ </p>
-<h4 id="call-apply-bind-是什么"><a href="#call-apply-bind-是什么" class="headerlink" title="call apply bind 是什么"></a>call apply bind 是什么</h4><p>送分题，应该都会手写原理的吧</p>
-<h4 id="内存泄漏在哪里出现，怎么避免"><a href="#内存泄漏在哪里出现，怎么避免" class="headerlink" title="内存泄漏在哪里出现，怎么避免"></a>内存泄漏在哪里出现，怎么避免</h4><p>没有销毁的定时器，闭包，递归无出口</p>
-<p>避免我只能说注意写法</p>
-<h4 id="如果你接手一个项目，怎么做，怎么估计工时-？举个例子"><a href="#如果你接手一个项目，怎么做，怎么估计工时-？举个例子" class="headerlink" title="如果你接手一个项目，怎么做，怎么估计工时 ？举个例子"></a>如果你接手一个项目，怎么做，怎么估计工时 ？举个例子</h4><p>我举了之前重构代码的例子，首先让领导明白你重构过程可能会很艰难。把需要重构的页面分成 几个维度 1. 输入输出 使用 高频 2. 使用高频，输入输出低频 3. 使用低频</p>
-<p>第一类需要 严格按照测试用例测试输入输出的数据，拉测试来检查之前用例的用意；第二类需要 按照用例和原代码对照； 第三类可以考虑不重构节省工时。</p>
-<h4 id="了解的设计模式"><a href="#了解的设计模式" class="headerlink" title="了解的设计模式"></a>了解的设计模式</h4><p>用的比较多的其实就是 单例 ， 观察者， 代理模式</p>
-<p>其他的多说了个 策略模式，装饰器模式</p>
-<p>应该是有九大模式，其他的前端用的确实不多</p>
-<h4 id="设计模式对工程化的应用"><a href="#设计模式对工程化的应用" class="headerlink" title="设计模式对工程化的应用"></a>设计模式对工程化的应用</h4><p>我就想到webpack 的插件原理，tapable 是使用的观察者模式，提供给调用者一hook 进行开发</p>
-]]></content>
-      <categories>
-        <category>面试</category>
-      </categories>
-      <tags>
-        <tag>Javascript</tag>
-        <tag>面试</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>祭日 01-22</title>
-    <url>/2021/01/22/%E7%BA%AA%E5%BF%B5/</url>
-    <content><![CDATA[<p>—————— 当再没有人记得，人才会真正逝去 ——————</p>
-<p>奶奶在我心里一直是优秀知性而善良的女性。</p>
-<p>奶奶叫候淑香，退休前的工作是小学校长。和爷爷一样，写得一手好看的硬笔书法，会把熟人，亲戚的电话号码，和电视的那些频道放什么台，都工工整整的记下来。</p>
-<p>奶奶老家是天津，在国家的号召下，来到江汉油田和爷爷一起参加建设，之后就再也没出过远门。</p>
-<p>退休之后经常会去广场练舞剑，是几十个爱好者的领舞者。脾气也非常好，记忆中从来没有发过火。</p>
-<p>她和爷爷一直是令我羡慕的对象，我常常想，到底是一个什么样的神仙爱情，和爷爷奶奶生活了好几年，我从来没有见过吵架。</p>
-<p>小时候我是个特别调皮的孩子，下课经常玩到很晚才回去，奶奶好几次会去学校找我。总是磨磨蹭蹭作业写好很晚，十点多的时候奶奶会过来催我，怎么还没写完，都亿点啦！因为她睡着会打呼噜，所以总是等我先入睡之后再睡。我在外面打完篮球之后，浑身酸疼，奶奶会用烧着的酒精帮我涂抹背，告诉我能舒经活血。小时候会给我做我最爱吃的红烧肉，那里面的鸡蛋是我最喜欢的。</p>
-<p>爷爷在八年前走了，那时候我还在青岛上大学。有一次回家，我说起非常喜欢青岛的环境，毕业以后会在那里定居，奶奶问我那里有没有养老院，以后把她一起接过去。那时候毕业对我来说还是很遥远的事，我以为自己毕业了以后就会赚很多钱，我说好呀。</p>
-<p>这两年看着大伯和爸爸为了赡养奶奶的问题吵架，奶奶一定很难过吧，看着亲人把自己当成了累赘。我也有查过附近的养老院，但是看着高额的费用和我 996 的工作望而怯步。几天前路过一家养老院，我和女朋友说，要是能把我奶奶接过来就好了。</p>
-<p>我一直记着奶奶问我的话，想问问她是不是真的愿意，想让她能生活的更好，可惜已经再也没有机会。</p>
-<p>奶奶小时后从来没有拆穿过爱说谎的我，红包总是发给我最多的，长大后在我和父母的争执中，奶奶一次又一次的袒护我。</p>
-<p>她最疼爱的孙子对她并不好。</p>
-<p>以前对奶奶说过，会一个星期给奶奶打一次电话。我给奶奶的手机开了自动续费，闹钟定在了每个周五下午的三点三十分。可惜我并没有很好的去执行，很多次都是看了一眼就关闭了闹钟。从去年十月份开始，因为父母和大伯闹不和的原因，我再也没打电话过去问候奶奶。她一定很失落吧。</p>
-<p>一天过去了，我还是很恍惚，感到不真实，觉得奶奶只是去了很远的地方。</p>
-<p>想您了</p>
-]]></content>
-      <categories>
-        <category>感悟</category>
-      </categories>
   </entry>
   <entry>
     <title>观察者模式和vue监听对象变化</title>
@@ -5627,6 +5558,20 @@ compare(iterator1, iterator2)//相等</code></pre>
       </tags>
   </entry>
   <entry>
+    <title>面试题 17.14. 最小K个数</title>
+    <url>/2021/04/08/%E9%9D%A2%E8%AF%95%E9%A2%98-17-14-%E6%9C%80%E5%B0%8FK%E4%B8%AA%E6%95%B0/</url>
+    <content><![CDATA[<p>用时 ：10min</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> swap = <span class="function"><span class="keyword">function</span> (<span class="params">arr,i,j</span>) </span>&#123;</span><br><span class="line">    [arr[i],arr[j]] = [arr[j],arr[i]]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MaxHeap</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.count = <span class="number">0</span></span><br><span class="line">        <span class="built_in">this</span>.data = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="built_in">this</span>.count + <span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">shiftUp</span>(<span class="params">k</span>)</span> &#123;</span><br><span class="line">        <span class="comment">// 把新的元素往上排</span></span><br><span class="line">        <span class="keyword">while</span>(k&gt;=<span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">let</span> father = <span class="built_in">Math</span>.floor(k / <span class="number">2</span>)</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">this</span>.data[k] &gt; <span class="built_in">this</span>.data[father]) &#123;</span><br><span class="line">                swap(<span class="built_in">this</span>.data,k,father)</span><br><span class="line">                k = father</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">shiftDown</span>(<span class="params">k</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">while</span>( k * <span class="number">2</span>  &lt;= <span class="built_in">this</span>.count) &#123; <span class="comment">// 表示k 有孩子</span></span><br><span class="line">            <span class="keyword">let</span> j = k</span><br><span class="line">            <span class="keyword">if</span> (k * <span class="number">2</span> + <span class="number">1</span> &lt;= <span class="built_in">this</span>.count &amp;&amp; <span class="built_in">this</span>.data[k * <span class="number">2</span> + <span class="number">1</span>] &gt; <span class="built_in">this</span>.data[k] &amp;&amp; <span class="built_in">this</span>.data[k * <span class="number">2</span> + <span class="number">1</span>] &gt; <span class="built_in">this</span>.data[k * <span class="number">2</span>]) &#123;</span><br><span class="line">                j = k * <span class="number">2</span> + <span class="number">1</span></span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">this</span>.data[k * <span class="number">2</span>] &gt; <span class="built_in">this</span>.data[k]) &#123;</span><br><span class="line">                j = k * <span class="number">2</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">            swap(<span class="built_in">this</span>.data,j,k)</span><br><span class="line">            k = j</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">size</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.count</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">isEmpty</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.count === <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">insert</span>(<span class="params">item</span>)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.data[++<span class="built_in">this</span>.count] = item </span><br><span class="line">        <span class="built_in">this</span>.shiftUp(<span class="built_in">this</span>.count)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">extractMax</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">this</span>.count &lt; <span class="number">0</span>) <span class="keyword">return</span> </span><br><span class="line">        <span class="keyword">let</span> ret = <span class="built_in">this</span>.data[<span class="number">1</span>]</span><br><span class="line">        swap(<span class="built_in">this</span>.data,<span class="number">1</span>,<span class="built_in">this</span>.count--)</span><br><span class="line">        <span class="built_in">this</span>.shiftDown(<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> ret</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">top</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.data[<span class="number">1</span>]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> smallestK = <span class="function"><span class="keyword">function</span>(<span class="params">arr, k</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> heap = <span class="keyword">new</span> MaxHeap()</span><br><span class="line">    <span class="keyword">var</span> K = <span class="number">0</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span>(K &lt; k) &#123;</span><br><span class="line">        heap.insert(arr[K])</span><br><span class="line">        K++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 将堆维持在K的大小</span></span><br><span class="line">    <span class="keyword">while</span>(K &lt; arr.length) &#123;</span><br><span class="line">        <span class="keyword">var</span> max = heap.top()</span><br><span class="line">        <span class="keyword">if</span> (arr[K] &lt; max) &#123;</span><br><span class="line">            heap.extractMax()</span><br><span class="line">            heap.insert(arr[K])</span><br><span class="line">        &#125;</span><br><span class="line">        K++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> size = heap.size()</span><br><span class="line">    <span class="keyword">return</span> heap.data.slice(<span class="number">1</span>, <span class="number">1</span> + size )</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>leetcode</category>
+      </categories>
+      <tags>
+        <tag>最大堆</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>面试题 04.12. 求和路径</title>
     <url>/2021/03/16/%E9%9D%A2%E8%AF%95%E9%A2%98-04-12-%E6%B1%82%E5%92%8C%E8%B7%AF%E5%BE%84/</url>
     <content><![CDATA[<p>用时：20min</p>
@@ -5643,20 +5588,6 @@ compare(iterator1, iterator2)//相等</code></pre>
         <tag>二叉树</tag>
         <tag>DFS</tag>
         <tag>双递归</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>面试题 17.14. 最小K个数</title>
-    <url>/2021/04/08/%E9%9D%A2%E8%AF%95%E9%A2%98-17-14-%E6%9C%80%E5%B0%8FK%E4%B8%AA%E6%95%B0/</url>
-    <content><![CDATA[<p>用时 ：10min</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> swap = <span class="function"><span class="keyword">function</span> (<span class="params">arr,i,j</span>) </span>&#123;</span><br><span class="line">    [arr[i],arr[j]] = [arr[j],arr[i]]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MaxHeap</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.count = <span class="number">0</span></span><br><span class="line">        <span class="built_in">this</span>.data = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="built_in">this</span>.count + <span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">shiftUp</span>(<span class="params">k</span>)</span> &#123;</span><br><span class="line">        <span class="comment">// 把新的元素往上排</span></span><br><span class="line">        <span class="keyword">while</span>(k&gt;=<span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">let</span> father = <span class="built_in">Math</span>.floor(k / <span class="number">2</span>)</span><br><span class="line">            <span class="keyword">if</span> (<span class="built_in">this</span>.data[k] &gt; <span class="built_in">this</span>.data[father]) &#123;</span><br><span class="line">                swap(<span class="built_in">this</span>.data,k,father)</span><br><span class="line">                k = father</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">shiftDown</span>(<span class="params">k</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">while</span>( k * <span class="number">2</span>  &lt;= <span class="built_in">this</span>.count) &#123; <span class="comment">// 表示k 有孩子</span></span><br><span class="line">            <span class="keyword">let</span> j = k</span><br><span class="line">            <span class="keyword">if</span> (k * <span class="number">2</span> + <span class="number">1</span> &lt;= <span class="built_in">this</span>.count &amp;&amp; <span class="built_in">this</span>.data[k * <span class="number">2</span> + <span class="number">1</span>] &gt; <span class="built_in">this</span>.data[k] &amp;&amp; <span class="built_in">this</span>.data[k * <span class="number">2</span> + <span class="number">1</span>] &gt; <span class="built_in">this</span>.data[k * <span class="number">2</span>]) &#123;</span><br><span class="line">                j = k * <span class="number">2</span> + <span class="number">1</span></span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">this</span>.data[k * <span class="number">2</span>] &gt; <span class="built_in">this</span>.data[k]) &#123;</span><br><span class="line">                j = k * <span class="number">2</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">            swap(<span class="built_in">this</span>.data,j,k)</span><br><span class="line">            k = j</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">size</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.count</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">isEmpty</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.count === <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">insert</span>(<span class="params">item</span>)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.data[++<span class="built_in">this</span>.count] = item </span><br><span class="line">        <span class="built_in">this</span>.shiftUp(<span class="built_in">this</span>.count)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">extractMax</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">this</span>.count &lt; <span class="number">0</span>) <span class="keyword">return</span> </span><br><span class="line">        <span class="keyword">let</span> ret = <span class="built_in">this</span>.data[<span class="number">1</span>]</span><br><span class="line">        swap(<span class="built_in">this</span>.data,<span class="number">1</span>,<span class="built_in">this</span>.count--)</span><br><span class="line">        <span class="built_in">this</span>.shiftDown(<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> ret</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">top</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.data[<span class="number">1</span>]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> smallestK = <span class="function"><span class="keyword">function</span>(<span class="params">arr, k</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> heap = <span class="keyword">new</span> MaxHeap()</span><br><span class="line">    <span class="keyword">var</span> K = <span class="number">0</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">while</span>(K &lt; k) &#123;</span><br><span class="line">        heap.insert(arr[K])</span><br><span class="line">        K++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 将堆维持在K的大小</span></span><br><span class="line">    <span class="keyword">while</span>(K &lt; arr.length) &#123;</span><br><span class="line">        <span class="keyword">var</span> max = heap.top()</span><br><span class="line">        <span class="keyword">if</span> (arr[K] &lt; max) &#123;</span><br><span class="line">            heap.extractMax()</span><br><span class="line">            heap.insert(arr[K])</span><br><span class="line">        &#125;</span><br><span class="line">        K++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> size = heap.size()</span><br><span class="line">    <span class="keyword">return</span> heap.data.slice(<span class="number">1</span>, <span class="number">1</span> + size )</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>leetcode</category>
-      </categories>
-      <tags>
-        <tag>最大堆</tag>
       </tags>
   </entry>
 </search>
