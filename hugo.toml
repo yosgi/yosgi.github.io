@@ -1,0 +1,74 @@
+baseURL = 'https://example.org/'
+defaultContentLanguage = 'en'
+defaultContentLanguageInSubdir = false
+languageCode = 'en-us'
+title = 'My Personal Blog'
+theme = 'github-style'
+pygmentsCodeFences = true
+pygmentsUseClasses = true
+
+# Multilingual configuration
+[languages]
+  [languages.en]
+    languageName = "English"
+    weight = 1
+    contentDir = "content/en"
+    
+  [languages.zh]
+    languageName = "中文"
+    weight = 2
+    contentDir = "content/zh"
+
+# English language configuration
+[languages.en.params]
+  author = "Yosgi"
+  description = "A personal blog sharing technology, life, and thoughts"
+  github = "your-github-username"
+  email = "your-email@example.com"
+  url = "https://example.org"
+  keywords = ["blog", "technology", "life", "thoughts"]
+  rss = true
+  lastmod = true
+  userStatusEmoji = "😀"
+  favicon = "/favicon.svg"
+  avatar = "/favicon.svg"
+  headerIcon = "/favicon.svg"
+  location = "World"
+  enableGitalk = false
+  custom_css = ["css/custom.css"]
+
+# Chinese language configuration
+[languages.zh.params]
+  author = "Yosgi"
+  description = "分享技术、生活和思考的个人博客"
+  github = "your-github-username"
+  email = "your-email@example.com"
+  url = "https://example.org"
+  keywords = ["博客", "技术", "生活", "思考"]
+  rss = true
+  lastmod = true
+  userStatusEmoji = "😀"
+  favicon = "/favicon.svg"
+  avatar = "/favicon.svg"
+  headerIcon = "/favicon.svg"
+  location = "世界"
+  enableGitalk = false
+  custom_css = ["css/custom.css"]
+
+# Pagination configuration
+[pagination]
+  pageSize = 5
+
+# Build configuration
+[build]
+  writeStats = true
+
+# Markdown configuration
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+# Frontmatter configuration
+[frontmatter]
+  lastmod = ["lastmod", ":fileModTime", ":default"]
