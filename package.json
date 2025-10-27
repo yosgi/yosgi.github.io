@@ -1,0 +1,43 @@
+{
+  "name": "notion-hugo-sync",
+  "version": "1.0.0",
+  "description": "Advanced Notion to Hugo blog synchronization tools",
+  "main": "scripts/advanced-notion-sync.js",
+  "scripts": {
+    "validate-key": "node scripts/validate-api-key.js",
+    "test-api": "node scripts/test-notion-api.js",
+    "test-sync": "node scripts/test-advanced-sync.js",
+    "sync": "node scripts/advanced-notion-sync.js",
+    "sync:clear-cache": "node scripts/advanced-notion-sync.js --clear-cache",
+    "sync:help": "node scripts/advanced-notion-sync.js --help",
+    "setup": "node scripts/notion-sync.js --setup"
+  },
+  "keywords": [
+    "notion",
+    "hugo",
+    "blog",
+    "sync",
+    "automation"
+  ],
+  "author": "Yosgi",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "cli-progress": "^3.12.0",
+    "dotenv": "^17.2.3"
+  },
+  "devDependencies": {
+    "eslint": "^8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-username/your-hugo-blog.git"
+  },
+  "bugs": {
+    "url": "https://github.com/your-username/your-hugo-blog/issues"
+  },
+  "homepage": "https://github.com/your-username/your-hugo-blog#readme"
+}

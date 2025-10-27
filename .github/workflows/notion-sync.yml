@@ -1,0 +1,94 @@
+name: Advanced Notion to Hugo Sync
+
+on:
+  schedule:
+    # 每天上午9点检查更新
+    - cron: '0 9 * * *'
+  workflow_dispatch: # 允许手动触发
+    inputs:
+      clear_cache:
+        description: 'Clear sync cache'
+        required: false
+        default: 'false'
+        type: boolean
+
+jobs:
+  sync-notion:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 0
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: |
+        npm ci
+    
+    - name: Test Notion API Connection
+      env:
+        NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+        NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+      run: |
+        npm run test-api
+    
+    - name: Clear cache (if requested)
+      if: ${{ github.event.inputs.clear_cache == 'true' }}
+      env:
+        NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+        NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+      run: |
+        npm run sync:clear-cache
+    
+    - name: Sync from Notion API
+      env:
+        NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
+        NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+      run: |
+        npm run sync
+    
+    - name: Check for changes
+      id: changes
+      run: |
+        if git diff --quiet HEAD~1 HEAD -- content/; then
+          echo "changed=false" >> $GITHUB_OUTPUT
+        else
+          echo "changed=true" >> $GITHUB_OUTPUT
+        fi
+    
+    - name: Build Hugo site
+      if: steps.changes.outputs.changed == 'true'
+      uses: peaceiris/actions-hugo@v2
+      with:
+        hugo-version: 'latest'
+        extended: true
+    
+    - name: Build
+      if: steps.changes.outputs.changed == 'true'
+      run: |
+        hugo --minify --gc
+    
+    - name: Deploy to GitHub Pages
+      if: steps.changes.outputs.changed == 'true' && github.ref == 'refs/heads/master'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./public
+        cname: ${{ secrets.CUSTOM_DOMAIN }}
+    
+    - name: Commit cache changes
+      if: steps.changes.outputs.changed == 'true'
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add .notion-sync-cache.json
+        git diff --staged --quiet || git commit -m "Update Notion sync cache"
+        git push
