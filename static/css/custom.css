@@ -109,6 +109,41 @@ a[href*="/zh/tags/"] {
   display: none !important;
 }
 
+/* Fix pinned items text preview and code overflow */
+.pinned-item-desc {
+  /* Limit text preview to 10 lines maximum */
+  display: -webkit-box;
+  -webkit-line-clamp: 10;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.4;
+  max-height: calc(1.4em * 10); /* 10 lines * line-height */
+  word-wrap: break-word;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+/* Handle code blocks within pinned item descriptions */
+.pinned-item-desc pre {
+  max-height: 120px;
+  overflow-y: auto;
+  font-size: 0.8em;
+  margin: 0.5em 0;
+  padding: 0.5em;
+  background-color: var(--color-canvas-subtle);
+  border-radius: 4px;
+  border: 1px solid var(--color-border-default);
+}
+
+.pinned-item-desc code {
+  font-size: 0.85em;
+  background-color: var(--color-canvas-subtle);
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+  border: 1px solid var(--color-border-default);
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
   .language-toggle {
@@ -119,5 +154,16 @@ a[href*="/zh/tags/"] {
   
   .language-toggle-link {
     font-size: 12px;
+  }
+  
+  /* Mobile adjustments for pinned items */
+  .pinned-item-desc {
+    -webkit-line-clamp: 2;
+    max-height: calc(1.4em * 2); /* 2 lines on mobile */
+  }
+  
+  .pinned-item-desc pre {
+    max-height: 80px;
+    font-size: 0.75em;
   }
 }
