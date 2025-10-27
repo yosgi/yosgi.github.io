@@ -2,8 +2,8 @@
 title: "Hugo 静态网站生成器入门指南"
 date: 2024-01-02T14:30:00+08:00
 draft: false
-tags: ["Hugo", "静态网站", "教程", "技术"]
-categories: ["技术"]
+tags: ["Static Site", "Tutorial", "Technology"]
+categories: ["Technology"]
 summary: "详细介绍如何使用 Hugo 快速搭建个人博客网站"
 ---
 

@@ -2,8 +2,8 @@
 title: "Welcome to My Blog"
 date: 2024-01-01T10:00:00+08:00
 draft: false
-tags: ["welcome", "blog", "introduction"]
-categories: ["life"]
+tags: ["Welcome", "Blog", "Introduction"]
+categories: ["Life"]
 summary: "This is my first blog post, welcome to my personal space!"
 ---
 

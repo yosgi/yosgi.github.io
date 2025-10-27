@@ -2,8 +2,8 @@
 title: "Hugo Static Site Generator Getting Started Guide"
 date: 2024-01-02T14:30:00+08:00
 draft: false
-tags: ["Hugo", "static-site", "tutorial", "technology"]
-categories: ["technology"]
+tags: ["Static Site", "Tutorial", "Technology"]
+categories: ["Technology"]
 summary: "Detailed guide on how to quickly build a personal blog website using Hugo"
 ---
 
