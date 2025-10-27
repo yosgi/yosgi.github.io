@@ -22,11 +22,11 @@ pygmentsUseClasses = true
 
 # English language configuration
 [languages.en.params]
-  author = "Yosgi"
+  author = "Siqi Liu"
   description = "A personal blog sharing technology, life, and thoughts"
-  github = "your-github-username"
-  email = "your-email@example.com"
-  url = "https://example.org"
+  github = "Yosgi"
+  email = "hiyosgi@gmail.com"
+  url = "https://www.linkedin.com/in/siqi-l-262b61200/"
   keywords = ["blog", "technology", "life", "thoughts"]
   rss = true
   lastmod = true
@@ -36,15 +36,37 @@ pygmentsUseClasses = true
   headerIcon = "/favicon.svg"
   location = "World"
   enableGitalk = false
+  enableSearch = true
   custom_css = ["css/custom.css"]
+  
+  # Projects configuration
+  [[languages.en.params.projects]]
+    name = "Nice Resume"
+    url = "https://nice-resume.vercel.app/"
+    icon = ""
+  
+  [[languages.en.params.projects]]
+    name = "Property NFT"
+    url = "https://property-nft-4dg3.vercel.app/"
+    icon = ""
+  
+  [[languages.en.params.projects]]
+    name = "DeFi Forge"
+    url = "https://de-fi-forge.vercel.app/"
+    icon = ""
+  
+  [[languages.en.params.projects]]
+    name = "Crypto Whale"
+    url = "https://crypto-whale-sny7.vercel.app/"
+    icon = ""
 
 # Chinese language configuration
 [languages.zh.params]
-  author = "Yosgi"
+  author = "Siqi Liu"
   description = "分享技术、生活和思考的个人博客"
-  github = "your-github-username"
-  email = "your-email@example.com"
-  url = "https://example.org"
+  github = "Yosgi"
+  email = "hiyosgi@gmail.com"
+  url = "https://www.linkedin.com/in/siqi-l-262b61200/"
   keywords = ["博客", "技术", "生活", "思考"]
   rss = true
   lastmod = true
@@ -54,7 +76,29 @@ pygmentsUseClasses = true
   headerIcon = "/favicon.svg"
   location = "世界"
   enableGitalk = false
+  enableSearch = true
   custom_css = ["css/custom.css"]
+  
+  # Projects configuration
+  [[languages.zh.params.projects]]
+    name = "Nice Resume"
+    url = "https://nice-resume.vercel.app/"
+    icon = ""
+  
+  [[languages.zh.params.projects]]
+    name = "Property NFT"
+    url = "https://property-nft-4dg3.vercel.app/"
+    icon = ""
+  
+  [[languages.zh.params.projects]]
+    name = "DeFi Forge"
+    url = "https://de-fi-forge.vercel.app/"
+    icon = ""
+  
+  [[languages.zh.params.projects]]
+    name = "Crypto Whale"
+    url = "https://crypto-whale-sny7.vercel.app/"
+    icon = ""
 
 # Pagination configuration
 [pagination]
@@ -63,6 +107,15 @@ pygmentsUseClasses = true
 # Build configuration
 [build]
   writeStats = true
+
+# Output configuration for search
+[outputs]
+  home = ["html", "json"]
+
+[outputFormats.json]
+  mediaType = "application/json"
+  baseName = "index"
+  isPlainText = false
 
 # Markdown configuration
 [markup]
