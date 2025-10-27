@@ -1,6 +1,7 @@
-baseURL = 'https://example.org/'
+baseURL = 'http://localhost:1317/'
 defaultContentLanguage = 'en'
-defaultContentLanguageInSubdir = false
+defaultContentLanguageInSubdir = true
+disableLanguages = []
 languageCode = 'en-us'
 title = 'My Personal Blog'
 theme = 'github-style'
@@ -72,3 +73,14 @@ pygmentsUseClasses = true
 # Frontmatter configuration
 [frontmatter]
   lastmod = ["lastmod", ":fileModTime", ":default"]
+
+# Redirects for backward compatibility
+[[redirects]]
+  from = "/post"
+  to = "/en/post/"
+  status = 301
+
+[[redirects]]
+  from = "/post/"
+  to = "/en/post/"
+  status = 301
