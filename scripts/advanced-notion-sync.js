@@ -178,7 +178,7 @@ class ImageDownloader {
       return `/images/${filename}`;
     } catch (error) {
       console.error(`Failed to download image ${url}:`, error.message);
-      return url; // 返回原始URL作为fallback
+      return url; // return original URL as fallback
     }
   }
 
@@ -320,7 +320,7 @@ class NotionConverter {
 
   async convertTable(tableBlock) {
     try {
-      // 获取表格的详细信息
+      // get detailed information of the table
       const tableId = tableBlock.id;
       const tableResponse = await this.httpClient.request(`/blocks/${tableId}/children`);
       const rows = tableResponse.results;
@@ -329,7 +329,7 @@ class NotionConverter {
         return '';
       }
       
-      // 检查是否是代码表格（通常只有一行或两行，且包含代码）
+      // check if it is a code table (usually only one or two rows, and contains code)
       const isCodeTable = this.isCodeTable(rows);
       
       if (isCodeTable) {
@@ -345,11 +345,11 @@ class NotionConverter {
   }
 
   isCodeTable(rows) {
-    // 检查表格是否包含代码
-    // 通常代码表格的特征：
-    // 1. 行数较少（1-2行）
-    // 2. 包含大量代码内容
-    // 3. 单元格内容较长
+    // check if table contains code
+    // usually code table features:
+    // 1. fewer rows (1-2 rows)
+    // 2. contains a lot of code content
+    // 3. cell content is long
     
     if (rows.length > 2) {
       return false;
@@ -360,7 +360,7 @@ class NotionConverter {
         const cells = row.table_row.cells;
         for (const cell of cells) {
           const cellText = this.convertRichText(cell);
-          // 如果单元格内容很长且包含代码特征，认为是代码表格
+          // if cell content is long and contains code features, it is a code table
           if (cellText.length > 100 && this.containsCodePattern(cellText)) {
             return true;
           }
@@ -372,7 +372,7 @@ class NotionConverter {
   }
 
   containsCodePattern(text) {
-    // 检查文本是否包含代码模式
+    // check if text contains code pattern
     const codePatterns = [
       /function\s+\w+\s*\(/,  // function declarations
       /class\s+\w+/,          // class declarations
@@ -398,7 +398,7 @@ class NotionConverter {
   }
 
   convertCodeTable(rows) {
-    // 转换代码表格为代码块
+    // convert code table to code block
     let codeContent = '';
     
     for (const row of rows) {
@@ -406,7 +406,7 @@ class NotionConverter {
         const cells = row.table_row.cells;
         for (const cell of cells) {
           const cellText = this.convertRichText(cell).trim();
-          if (cellText && cellText.length > 10) { // 忽略很短的单元格
+          if (cellText && cellText.length > 10) { // ignore very short cells
             codeContent += cellText + '\n';
           }
         }
@@ -420,7 +420,7 @@ class NotionConverter {
   }
 
   detectProgrammingLanguage(code) {
-    // 简单的语言检测
+    // simple language detection
     if (/function\s+\w+\s*\(|var\s+\w+\s*=|let\s+\w+\s*=|const\s+\w+\s*=|console\.log|Math\.|Array\./.test(code)) {
       return 'javascript';
     }
@@ -437,28 +437,28 @@ class NotionConverter {
       return 'php';
     }
     
-    return ''; // 默认无语言标识
+    return ''; // default no language identifier
   }
 
   convertRegularTable(rows) {
-    // 转换普通表格为 Markdown 表格
+    // convert regular table to Markdown table
     if (rows.length === 0) {
       return '';
     }
     
     let markdown = '';
     
-    // 处理表头
+    // handle header
     if (rows.length > 0 && rows[0].type === 'table_row') {
       const headerCells = rows[0].table_row.cells;
       const headerRow = headerCells.map(cell => this.convertRichText(cell)).join(' | ');
       markdown += `| ${headerRow} |\n`;
       
-      // 添加分隔行
+      // add separator row
       const separatorRow = headerCells.map(() => '---').join(' | ');
       markdown += `| ${separatorRow} |\n`;
       
-      // 处理数据行
+      // handle data rows
       for (let i = 1; i < rows.length; i++) {
         if (rows[i].type === 'table_row') {
           const dataCells = rows[i].table_row.cells;
