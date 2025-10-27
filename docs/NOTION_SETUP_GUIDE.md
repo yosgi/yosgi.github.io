@@ -42,7 +42,7 @@ npm run sync
 Create a database named "Blog Posts" with the following properties:
 
 #### Required Properties
-- **Title** (Title) - 文章标题
+- **Title** (Title) - 
 - **Description** (Rich text) - Article description  
 - **Status** (Select) - Status: `Draft`, `Review`, `Published`, `Archived`
 - **Language** (Select) - Language: `zh`, `en`
@@ -65,7 +65,7 @@ Create a database named "Blog Posts" with the following properties:
 ### Step 3: Configure Database Permissions
 
 1. Click the "Share" button in the top right corner of the Notion database page
-2. 点击 "Add people, emails, groups, or integrations"
+2. click "Add people, emails, groups, or integrations"
 3. Search and select the Integration you created
 4. Grant "Can edit" permission
 
