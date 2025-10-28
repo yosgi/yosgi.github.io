@@ -1,4 +1,4 @@
-baseURL = 'http://localhost:1317/'
+baseURL = 'https://yosgi.github.io/yosgi-hugo-blog/'
 defaultContentLanguage = 'en'
 defaultContentLanguageInSubdir = true
 disableLanguages = []
