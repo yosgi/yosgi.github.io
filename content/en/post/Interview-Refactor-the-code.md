@@ -9,12 +9,6 @@ date: 2021-04-25 00:00:00
 summary: 
 ---
 
-# About code refactoring
-
-**Release Date:** April 25, 2021
-
-### About code refactoring
-
 After several code refactoring experiences, I concluded that the difficulty of code refactoring does not lie in the technical part, but in the grasp of project time and control of project quality.
 
 Evaluation Phase

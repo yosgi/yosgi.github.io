@@ -26,7 +26,11 @@ Use `async` for independent scripts (analytics, ads) and `defer` for scripts tha
 
 You can create `<script>` elements dynamically via DOM methods, which allows non-blocking loading and execution. Dynamically injecting a `<script>` and appending it to the document starts download without blocking other tasks, making it a widely used technique for non-blocking script loading.
 
-Example:```javascript
+Example:
+
+```
+
+javascript
 function loadScript(url, callback) {
   var script = document.createElement('script');
   script.type = 'text/javascript';
@@ -37,7 +41,9 @@ function loadScript(url, callback) {
   script.src = url;
   document.getElementsByTagName('head')[0].appendChild(script);
 }
-```This pattern starts downloading the script and invokes the callback when the script is loaded and executed.
+```
+
+This pattern starts downloading the script and invokes the callback when the script is loaded and executed.
 
 ##### How does XMLHttpRequest-based script injection work and what are its limitations?
 
@@ -47,7 +53,11 @@ You can fetch script text via `XMLHttpRequest` (or `fetch`) and then inject it i
 - Injected scripts run with the privileges of inline code and may be harder to cache or reuse as separate static assets.
 - Debugging is less straightforward because the script appears inline rather than as a separate file in dev tools (unless you add source mapping or use blob URLs).
 
-Example:```javascript
+Example:
+
+```
+
+javascript
 var xhr = new XMLHttpRequest();
 xhr.open('GET', 'test.js', true);
 xhr.onreadystatechange = function () {
@@ -61,7 +71,9 @@ xhr.onreadystatechange = function () {
   }
 };
 xhr.send(null);
-```Use this approach carefully and prefer proper caching headers and CORS configuration when loading cross-origin code.
+```
+
+Use this approach carefully and prefer proper caching headers and CORS configuration when loading cross-origin code.
 
 <!-- End of translation -->
 
@@ -81,7 +93,11 @@ Use `async` for independent scripts (analytics, ads) and `defer` for scripts tha
 
 You can create `<script>` elements dynamically via DOM methods, which allows non-blocking loading and execution. Dynamically injecting a `<script>` and appending it to the document starts download without blocking other tasks, making it a widely used technique for non-blocking script loading.
 
-Example:```javascript
+Example:
+
+```
+
+javascript
 function loadScript(url, callback) {
   var script = document.createElement('script');
   script.type = 'text/javascript';
@@ -92,7 +108,9 @@ function loadScript(url, callback) {
   script.src = url;
   document.getElementsByTagName('head')[0].appendChild(script);
 }
-```This pattern starts downloading the script and invokes the callback when the script is loaded and executed.
+```
+
+This pattern starts downloading the script and invokes the callback when the script is loaded and executed.
 
 ##### How does XMLHttpRequest-based script injection work and what are its limitations?
 
@@ -102,7 +120,11 @@ You can fetch script text via `XMLHttpRequest` (or `fetch`) and then inject it i
 - Injected scripts run with the privileges of inline code and may be harder to cache or reuse as separate static assets.
 - Debugging is less straightforward because the script appears inline rather than as a separate file in dev tools (unless you add source mapping or use blob URLs).
 
-Example:```javascript
+Example:
+
+```
+
+javascript
 var xhr = new XMLHttpRequest();
 xhr.open('GET', 'test.js', true);
 xhr.onreadystatechange = function () {
@@ -116,7 +138,9 @@ xhr.onreadystatechange = function () {
   }
 };
 xhr.send(null);
-```Use this approach carefully and prefer proper caching headers and CORS configuration when loading cross-origin code.
+```
+
+Use this approach carefully and prefer proper caching headers and CORS configuration when loading cross-origin code.
 
 <!-- End of translation -->
 <!-- ORIGINAL CHINESE BODY ENDS -->

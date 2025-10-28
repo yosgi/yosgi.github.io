@@ -27,7 +27,11 @@ Steps to implement the publish-subscribe model
 
 For example, a sales office can add information such as the unit price and area of the house to the information sent to the subscribers, and the subscribers receive the information and process it accordingly.
 
-##### Sales Office Example```javascript
+##### Sales Office Example
+
+```
+
+javascript
 var salesOffices = {};
 salesOffices.clientList = [];
 salesOffices.listen = function(fn){
@@ -47,7 +51,13 @@ salesOffices.listen(function(price,squareMeter){
 salesOffices.trigger(2000000,88)
 // Price = 2000000
 // squareMeter=88
-```Next, create a key for the subscribed message, add the subscriber ID, and extract the publish-subscribe functionality as an object.```javascript
+```
+
+Next, create a key for the subscribed message, add the subscriber ID, and extract the publish-subscribe functionality as an object.
+
+```
+
+javascript
 var event = {
     clientList:{},
     listen:function(key,id,fn){
@@ -115,7 +125,11 @@ salesOffices.trigger('square88',1000000)// Square88's news, the price is 1000000
 
 `Object.defineProperty`
 
-You can customize get and set functions, and trigger corresponding callback functions when getting and setting object properties. Using this method, you can install publish and subscribe functions for each property in the object.```javascript
+You can customize get and set functions, and trigger corresponding callback functions when getting and setting object properties. Using this method, you can install publish and subscribe functions for each property in the object.
+
+```
+
+javascript
 // Create a Vue constructor using prototype inheritance
 function Vue(data){
     // The new object will have data attributes
@@ -191,9 +205,15 @@ app1.listen("age",function(val){
 })
 app1.data.age = 30
 age被改变，值为30
-```There are still problems with the code implemented above.
+```
 
-Objects are often a deep structure, and a property of an object may still be an object. How to deal with this situation? Should we use recursion to handle it?```javascript
+There are still problems with the code implemented above.
+
+Objects are often a deep structure, and a property of an object may still be an object. How to deal with this situation? Should we use recursion to handle it?
+
+```
+
+javascript
 function Vue(data){
     this.data = data;
     this.watchList = [];
@@ -279,7 +299,9 @@ app1.$watch("city",function(val){
 
 app1.data.address.city = "beijing"
 // The city is changed to beijing
-```Summary
+```
+
+Summary
 
 The advantage of the publish-subscribe model is the decoupling of time and objects. The disadvantage is that creating a subscriber consumes time and memory. If a message is never received after subscribing to it, the subscriber will remain in memory.
 

@@ -9,10 +9,6 @@ date: 2021-03-26 00:00:00
 summary: 
 ---
 
-# 857. Minimum Cost to Hire K Workers
-
-**Release Date:** March 26, 2021
-
 Time: 120 minutes
 
 It's not that difficult actually. It's just that the difficult label is a bit scary.
@@ -21,7 +17,11 @@ First find the efficiency ranking
 
 From the question, we can know that if we take low efficiency as the benchmark, then the basic salary of high efficiency can be met.
 
-What we need to do is to find K - 1 people whose efficiency is lower than that, and whose workload increases from small to large.```javascript
+What we need to do is to find K - 1 people whose efficiency is lower than that, and whose workload increases from small to large.
+
+```
+
+javascript
 var mincostToHireWorkers = function(quality, wage, K) {
     var efficents = []
     var res = Infinity    // Those with low efficiency can find K-1 people with even lower efficiency for(let i = 0 ; i < quality.length ; i ++) {
@@ -43,7 +43,13 @@ var mincostToHireWorkers = function(quality, wage, K) {
     }
     return res
 };
-```Rewrite using the heap```javascript
+```
+
+Rewrite using the heap
+
+```
+
+javascript
 const swap = function (arr,i,j) {
     [arr[i],arr[j]] = [arr[j],arr[i]]
 }
@@ -121,4 +127,6 @@ var mincostToHireWorkers = function(quality, wage, K) {
     }
     return res
 };
-```Still timed out, damn it.
+```
+
+Still timed out, damn it.

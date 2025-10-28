@@ -67,8 +67,14 @@ How it is rendered in the browser
 
 ![](/images/css-nth-child-selector/7.png)
 
-As you can see, the outer wrapped p is rendered into two p elements by the browser. You can guess that if the CSS is written as```javascript
+As you can see, the outer wrapped p is rendered into two p elements by the browser. You can guess that if the CSS is written as
+
+```
+
+javascript
 p {
         color:red
     }
-```span2 will not be selected either.
+```
+
+span2 will not be selected either.

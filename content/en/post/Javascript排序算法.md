@@ -14,7 +14,11 @@ summary: ''
 
 ## Bubble Sort
 
-Bubble sort compares any two adjacent items and swaps them if the first is greater than the second. The items move upward into the correct order, much like bubbles rising to the surface, hence the name.```javascript
+Bubble sort compares any two adjacent items and swaps them if the first is greater than the second. The items move upward into the correct order, much like bubbles rising to the surface, hence the name.
+
+```
+
+javascript
 var bubbleSort = function (array) {
     function swap(index1,index2){
         var aux = array[index1];
@@ -32,7 +36,13 @@ var bubbleSort = function (array) {
     }
     return array
 }
-```It is the simplest of all sorting algorithms. However, from a running time perspective, bubble sort is the worst.```javascript
+```
+
+It is the simplest of all sorting algorithms. However, from a running time perspective, bubble sort is the worst.
+
+```
+
+javascript
 var bubbleSort = function (array) {
     function swap(index1,index2){
         var aux = array[index1];
@@ -52,9 +62,15 @@ var bubbleSort = function (array) {
     console.log('cost for bubbleSort with input size ' + array.length + ' is' + cost);
 }
 bubbleSort([5, 4, 3, 2, 1])//cost for bubbleSort with input size 5  is 25
-```If we perform bubbleSort on an array of size 10, the cost is 100, so the complexity is O(n^2)
+```
 
-Notice that by the time the algorithm executes the second pass through the outer loop, the numbers 4 and 5 are already correctly sorted. They are still being compared in subsequent comparisons, even though this is unnecessary. Therefore, we can improve the bubble sort algorithm slightly.```javascript
+If we perform bubbleSort on an array of size 10, the cost is 100, so the complexity is O(n^2)
+
+Notice that by the time the algorithm executes the second pass through the outer loop, the numbers 4 and 5 are already correctly sorted. They are still being compared in subsequent comparisons, even though this is unnecessary. Therefore, we can improve the bubble sort algorithm slightly.
+
+```
+
+javascript
 var bubbleSort = function (array) {
     function swap(index1,index2){
         var aux = array[index1];
@@ -75,11 +91,17 @@ var bubbleSort = function (array) {
     console.log('cost for bubbleSort with input size ' + array.length + ' is' + cost);
 }
 bubbleSort([5, 4, 3, 2, 1])////cost for bubbleSort with input size 5  is 15
-```The cost of an array of size 5 is 15 and the complexity is O(n^2-(1+2+..+n))
+```
+
+The cost of an array of size 5 is 15 and the complexity is O(n^2-(1+2+..+n))
 
 ## Selection Sort
 
-The selection sort algorithm is an in-place comparison sort algorithm. The general idea behind selection sort is to find the smallest value in the data structure and place it first, then find the second smallest value and place it second, and so on.```javascript
+The selection sort algorithm is an in-place comparison sort algorithm. The general idea behind selection sort is to find the smallest value in the data structure and place it first, then find the second smallest value and place it second, and so on.
+
+```
+
+javascript
 var swap = function(array,index1,index2) {
 [array[index1],array[index2]] =  [array[index2],array[index1]]
 }
@@ -95,7 +117,9 @@ var  selectionSort  = function(array) {
     }
     return array
 }
-```Selection sort is also an O(n²) algorithm. Like bubble sort, it involves two nested loops, resulting in a quadratic complexity.
+```
+
+Selection sort is also an O(n²) algorithm. Like bubble sort, it involves two nested loops, resulting in a quadratic complexity.
 
 Insertion Sort
 
@@ -103,7 +127,11 @@ Insertion sort constructs the final sorted array by sorting one item at a time. 
 
 If it is before, then the first item should be moved back one position, if it is after, then it should not be moved.
 
-This way, the first two items are correctly sorted and can be compared with the third item, and so on.```javascript
+This way, the first two items are correctly sorted and can be compared with the third item, and so on.
+
+```
+
+javascript
 var insertionSort = function(array){
     var length = array.length;
     for(let i=1;i<length;i++){
@@ -120,14 +148,20 @@ var insertionSort = function(array){
     }
     return array
 }
-```The complexity is O(n-1+(2+3+..n-1)).
+```
+
+The complexity is O(n-1+(2+3+..n-1)).
 This algorithm performs better than selection sort and bubble sort when sorting small arrays.
 
 ## Merge Sort
 
 Merge sort is a divide-and-conquer algorithm. The idea is to split the original array into smaller arrays until each small array has only one position, and then merge the small arrays into larger arrays until there is only one sorted large array.
 
-Because the leftmost of the two sorted arrays is always the smallest, and the array with only one item left is already sorted, the final large array is also sorted.```javascript
+Because the leftmost of the two sorted arrays is always the smallest, and the array with only one item left is already sorted, the final large array is also sorted.
+
+```
+
+javascript
 var merge = function(left,right){
     // It is responsible for merging and sorting small arrays to generate large arrays until the original array is returned and sorted.
     var result = [],il=0,ir=0;
@@ -164,11 +198,17 @@ var mergeSortRec = function(array){
     // In order to continuously divide the original array into small arrays, we have to recursively call mergeSortRec on the left array and the right array again, and pass them as parameters to the merge function.
     return merge(mergeSortRec(left),mergeSortRec(right));
 }
-```Merge sort is a sorting algorithm that can be used in practice. Merge sort has good performance and its complexity is O(nlog^n).
+```
+
+Merge sort is a sorting algorithm that can be used in practice. Merge sort has good performance and its complexity is O(nlog^n).
 
 ## Quick sort
 
-Let's first look at a civilian version of quick sort```javascript
+Let's first look at a civilian version of quick sort
+
+```
+
+javascript
 var quickSort = function(arr){
     if(arr.length<=1){
         return arr;
@@ -192,7 +232,9 @@ var quickSort = function(arr){
 }
 var arr = quickSort([85, 24, 63, 45, 17, 31, 96, 50])
 //[17, 24, 31, 45, 50, 63, 85, 96]
-```You can see that the quick sort process is three steps
+```
+
+You can see that the quick sort process is three steps
 
 1. Select an element in the dataset as the "pivot."
 2. Move all elements smaller than the pivot to the left of the pivot; move all elements larger than the pivot to the right of the pivot.
@@ -200,7 +242,11 @@ var arr = quickSort([85, 24, 63, 45, 17, 31, 96, 50])
 
 [Quick Sort](http://www.ruanyifeng.com/blog/2011/04/quicksort_in_javascript.html)
 
-The problem with the above sorting method is that each recursion requires opening two temporary arrays, which increases the space complexity. However, it is helpful for understanding quick sort;```javascript
+The problem with the above sorting method is that each recursion requires opening two temporary arrays, which increases the space complexity. However, it is helpful for understanding quick sort;
+
+```
+
+javascript
 var swap = function (arr,i,j) {
     [arr[i],arr[j]] = [arr[j],arr[i]]
 }
