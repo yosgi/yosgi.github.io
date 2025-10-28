@@ -1,4 +1,4 @@
-baseURL = 'https://yosgi.github.io/yosgi-hugo-blog/'
+baseURL = 'https://yosgi.github.io/'
 defaultContentLanguage = 'en'
 defaultContentLanguageInSubdir = true
 disableLanguages = []
