@@ -1,0 +1,86 @@
+#!/usr/bin/env python3
+"""
+Generate English stub files for posts under content/zh/post that don't have a counterpart in content/en/post.
+- Keeps YAML front matter (copied), sets `draft: true` to avoid publishing accidental drafts.
+- Adds a header noting translation is needed, and embeds the original Chinese content in an HTML comment.
+- Does not overwrite existing English files. Creates backups if a file would be overwritten (shouldn't happen by default).
+"""
+from pathlib import Path
+import re
+
+ROOT = Path('.')
+ZH_GLOB = list(ROOT.glob('content/zh/post/**/*.md')) + list(ROOT.glob('content/zh/post/*.md'))
+EN_DIR = ROOT / 'content' / 'en' / 'post'
+EN_DIR.mkdir(parents=True, exist_ok=True)
+
+YAML_BOUNDARY = re.compile(r'^---\s*$')
+
+created = 0
+skipped = 0
+
+for p in sorted(ZH_GLOB):
+    if not p.is_file():
+        continue
+    en_path = EN_DIR / p.name
+    if en_path.exists():
+        skipped += 1
+        continue
+
+    txt = p.read_text(encoding='utf-8')
+    # Extract YAML front matter if present
+    front = ''
+    body = txt
+    if txt.startswith('---'):
+        parts = txt.split('\n')
+        # find second '---' line
+        try:
+            idx = 1
+            while idx < len(parts) and parts[idx].strip() != '---':
+                idx += 1
+            # idx points to the closing '---' or end
+            if idx < len(parts) and parts[idx].strip() == '---':
+                front = '\n'.join(parts[:idx+1]) + '\n'
+                body = '\n'.join(parts[idx+1:])
+        except Exception:
+            front = ''
+            body = txt
+
+    # Ensure front matter contains date/category etc, but add draft: true and original path
+    if front:
+        # insert draft and original info after the opening ---
+        fm_lines = front.split('\n')
+        # find insert position after first line (the '---')
+        insert_at = 1
+        # avoid duplicating draft
+        has_draft = any(line.strip().startswith('draft:') for line in fm_lines)
+        # avoid duplicating original
+        has_original = any(line.strip().startswith('original:') for line in fm_lines)
+        if not has_draft:
+            fm_lines.insert(insert_at, 'draft: true')
+            insert_at += 1
+        if not has_original:
+            fm_lines.insert(insert_at, "original: '{}'".format(p.as_posix()))
+        new_front = '\n'.join(fm_lines).rstrip() + '\n\n'
+    else:
+        new_front = '---\n' + "draft: true\noriginal: '{}'\n---\n\n".format(p.as_posix())
+
+    stub_body = (
+        '# ENGLISH TRANSLATION NEEDED\n\n'
+        'This is an automatically generated English stub. Please translate the content below into English and remove the `draft: true` flag when ready.\n\n'
+        '<!-- ORIGINAL CHINESE CONTENT STARTS -->\n'
+        + body.strip() + '\n'
+        '<!-- ORIGINAL CHINESE CONTENT ENDS -->\n'
+    )
+
+    content = new_front + stub_body
+
+    # backup if en_path exists (shouldn't) — conservative
+    if en_path.exists():
+        bak = en_path.with_suffix(en_path.suffix + '.bak')
+        bak.write_bytes(en_path.read_bytes())
+
+    en_path.write_text(content, encoding='utf-8')
+    print(f'Created: {en_path}')
+    created += 1
+
+print(f'DONE. Created {created} en stubs, skipped {skipped} existing.')
