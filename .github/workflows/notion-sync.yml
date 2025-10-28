@@ -1,94 +1,151 @@
-name: Advanced Notion to Hugo Sync
+name: Notion to Hugo Sync and Deploy
 
 on:
   schedule:
-    # 每天上午9点检查更新
+    # Run daily at 9:00 AM UTC
     - cron: '0 9 * * *'
-  workflow_dispatch: # 允许手动触发
+  workflow_dispatch: # Allow manual trigger
     inputs:
       clear_cache:
         description: 'Clear sync cache'
         required: false
-        default: 'false'
+        default: false
+        type: boolean
+      force_deploy:
+        description: 'Force deploy even without changes'
+        required: false
+        default: false
         type: boolean
 
 jobs:
-  sync-notion:
+  sync-and-deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
+    # Step 1: Checkout the repository
     - name: Checkout repository
       uses: actions/checkout@v4
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         fetch-depth: 0
-    
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
+
+    # Step 2: Setup Go environment
+    - name: Setup Go
+      uses: actions/setup-go@v5
       with:
-        node-version: '18'
-        cache: 'npm'
-    
-    - name: Install dependencies
+        go-version: '1.21'
+        cache-dependency-path: notion-sync/go.sum
+
+    # Step 3: Build Go sync tool
+    - name: Build sync tool
+      working-directory: ./notion-sync
       run: |
-        npm ci
-    
-    - name: Test Notion API Connection
+        echo "Building Notion sync tool..."
+        go build -o ../notion-sync-bin cmd/sync/main.go
+        echo "Build completed successfully"
+
+    # Step 4: Test Notion API connection
+    - name: Test Notion API connection
+      working-directory: ./notion-sync
       env:
         NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
         NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
       run: |
-        npm run test-api
-    
-    - name: Clear cache (if requested)
+        echo "Testing Notion API connection..."
+        go run cmd/test/main.go
+
+    # Step 5: Clear cache if requested
+    - name: Clear sync cache
       if: ${{ github.event.inputs.clear_cache == 'true' }}
+      run: |
+        echo "Clearing sync cache..."
+        rm -f .notion-sync-cache.json
+        echo "Cache cleared"
+
+    # Step 6: Sync content from Notion
+    - name: Sync from Notion
       env:
         NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
         NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+        HUGO_CONTENT_DIR: ./content
+        HUGO_IMAGE_DIR: ./static/images
       run: |
-        npm run sync:clear-cache
-    
-    - name: Sync from Notion API
-      env:
-        NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
-        NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
-      run: |
-        npm run sync
-    
+        echo "Starting Notion sync..."
+        ./notion-sync-bin
+        echo "Sync completed"
+
+    # Step 7: Check for content changes
     - name: Check for changes
       id: changes
       run: |
-        if git diff --quiet HEAD~1 HEAD -- content/; then
+        git add -A
+        if git diff --staged --quiet; then
           echo "changed=false" >> $GITHUB_OUTPUT
+          echo "No changes detected"
         else
           echo "changed=true" >> $GITHUB_OUTPUT
+          echo "Changes detected in content"
+          git diff --staged --stat
         fi
-    
-    - name: Build Hugo site
-      if: steps.changes.outputs.changed == 'true'
-      uses: peaceiris/actions-hugo@v2
+
+    # Step 8: Setup Hugo
+    - name: Setup Hugo
+      if: steps.changes.outputs.changed == 'true' || github.event.inputs.force_deploy == 'true'
+      uses: peaceiris/actions-hugo@v3
       with:
         hugo-version: 'latest'
         extended: true
-    
-    - name: Build
-      if: steps.changes.outputs.changed == 'true'
+
+    # Step 9: Build Hugo site
+    - name: Build Hugo site
+      if: steps.changes.outputs.changed == 'true' || github.event.inputs.force_deploy == 'true'
       run: |
+        echo "Building Hugo site..."
         hugo --minify --gc
-    
+        echo "Build completed successfully"
+
+    # Step 10: Deploy to GitHub Pages
     - name: Deploy to GitHub Pages
-      if: steps.changes.outputs.changed == 'true' && github.ref == 'refs/heads/master'
-      uses: peaceiris/actions-gh-pages@v3
+      if: (steps.changes.outputs.changed == 'true' || github.event.inputs.force_deploy == 'true') && github.ref == 'refs/heads/master'
+      uses: peaceiris/actions-gh-pages@v4
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./public
         cname: ${{ secrets.CUSTOM_DOMAIN }}
-    
-    - name: Commit cache changes
+        user_name: 'github-actions[bot]'
+        user_email: 'github-actions[bot]@users.noreply.github.com'
+        commit_message: 'Deploy from Notion sync'
+
+    # Step 11: Commit synced content and cache
+    - name: Commit synced content
       if: steps.changes.outputs.changed == 'true'
       run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add .notion-sync-cache.json
-        git diff --staged --quiet || git commit -m "Update Notion sync cache"
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+
+        # Commit all changes including content and cache
+        git add -A
+        git commit -m "Sync from Notion: $(date +'%Y-%m-%d %H:%M:%S')" \
+          -m "Updated content from Notion database" \
+          -m "Synced pages: $(git diff --staged --name-only content/ | wc -l)"
+
         git push
+        echo "Changes committed and pushed successfully"
+
+    # Step 12: Summary
+    - name: Job summary
+      if: always()
+      run: |
+        echo "## Notion Sync Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "- **Status**: ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Changes detected**: ${{ steps.changes.outputs.changed }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Timestamp**: $(date +'%Y-%m-%d %H:%M:%S UTC')" >> $GITHUB_STEP_SUMMARY
+
+        if [ "${{ steps.changes.outputs.changed }}" == "true" ]; then
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Changed files:" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          git diff --staged --name-only || echo "No staged changes"
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+        fi

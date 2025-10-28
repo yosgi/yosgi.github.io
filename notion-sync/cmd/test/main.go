@@ -11,26 +11,30 @@ import (
 func main() {
 	fmt.Println("Notion API Connection Test\n")
 
-	// Load environment variables
+	// Load environment variables from .env file if it exists
 	if err := godotenv.Load(); err != nil {
 		fmt.Println("Warning: .env file not found, using system environment variables")
 	}
 
+	// Retrieve required environment variables
 	apiKey := os.Getenv("NOTION_API_KEY")
 	databaseID := os.Getenv("NOTION_DATABASE_ID")
 
+	// Validate that API key is set
 	if apiKey == "" {
 		fmt.Println("NOTION_API_KEY environment variable not set")
 		fmt.Println("Please set: export NOTION_API_KEY=\"your-api-key\"")
 		os.Exit(1)
 	}
 
+	// Validate that database ID is set
 	if databaseID == "" {
 		fmt.Println("NOTION_DATABASE_ID environment variable not set")
 		fmt.Println("Please set: export NOTION_DATABASE_ID=\"your-database-id\"")
 		os.Exit(1)
 	}
 
+	// Create tester instance and run tests
 	tester := NewTester(apiKey, databaseID)
 	if err := tester.TestConnection(); err != nil {
 		fmt.Printf("Test failed: %v\n", err)

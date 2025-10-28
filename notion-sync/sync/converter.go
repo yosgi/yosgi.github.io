@@ -109,7 +109,7 @@ type Frontmatter struct {
 	Summary     string   `yaml:"summary"`
 }
 
-// GenerateFrontmatter extracts frontmatter from a Notion page
+// GenerateFrontmatter extracts and generates Hugo frontmatter from Notion page properties and content
 func GenerateFrontmatter(page notion.Page, content string) *Frontmatter {
 	fm := &Frontmatter{
 		Title:       "Untitled",
@@ -120,7 +120,8 @@ func GenerateFrontmatter(page notion.Page, content string) *Frontmatter {
 		Summary:     "",
 	}
 
-	// Extract title from content first (first heading)
+	// Try to extract title from content first (first heading has priority)
+	// If not found, fall back to Notion properties
 	if titleFromContent := ExtractTitleFromContent(content); titleFromContent != "" {
 		fm.Title = titleFromContent
 	} else if titleProp, ok := page.Properties["Name"]; ok && len(titleProp.Title) > 0 {
@@ -129,22 +130,28 @@ func GenerateFrontmatter(page notion.Page, content string) *Frontmatter {
 		fm.Title = titleProp.Title[0].PlainText
 	}
 
-	// Extract date from content first
+	// Try to extract date from content first (e.g., "发布日期：2021年03月18日")
+	// If not found, fall back to Notion Date property
 	if dateFromContent := ExtractDateFromContent(content); dateFromContent != "" {
 		fm.Date = dateFromContent
 	} else if dateProp, ok := page.Properties["Date"]; ok && dateProp.Date != nil {
 		fm.Date = dateProp.Date.Start + " 00:00:00"
 	}
 
-	// Extract description
+	// Extract description from Notion properties
 	if descProp, ok := page.Properties["Description"]; ok && len(descProp.RichText) > 0 {
 		fm.Description = descProp.RichText[0].PlainText
 	}
 
-	// Extract categories - set all articles to leetcode category
-	fm.Categories = []string{"leetcode"}
+	// Extract categories from Notion multi-select property
+	if catProp, ok := page.Properties["Categories"]; ok && len(catProp.MultiSelect) > 0 {
+		fm.Categories = make([]string, 0, len(catProp.MultiSelect))
+		for _, item := range catProp.MultiSelect {
+			fm.Categories = append(fm.Categories, item.Name)
+		}
+	}
 
-	// Extract tags
+	// Extract tags from Notion multi-select property
 	if tagProp, ok := page.Properties["Tags"]; ok && len(tagProp.MultiSelect) > 0 {
 		fm.Tags = make([]string, 0, len(tagProp.MultiSelect))
 		for _, item := range tagProp.MultiSelect {
@@ -152,7 +159,7 @@ func GenerateFrontmatter(page notion.Page, content string) *Frontmatter {
 		}
 	}
 
-	// Extract summary
+	// Extract summary from Notion properties
 	if summaryProp, ok := page.Properties["Summary"]; ok && len(summaryProp.RichText) > 0 {
 		fm.Summary = summaryProp.RichText[0].PlainText
 	}
@@ -187,7 +194,8 @@ func FormatFrontmatter(fm *Frontmatter) string {
 	return result.String()
 }
 
-// DetectLanguage detects if content contains Chinese characters
+// DetectLanguage detects the language of content by checking for Chinese characters
+// Returns "zh" for Chinese content, "en" otherwise
 func DetectLanguage(content string) string {
 	matched, _ := regexp.MatchString("[\u4e00-\u9fff]", content)
 	if matched {
@@ -196,14 +204,14 @@ func DetectLanguage(content string) string {
 	return "en"
 }
 
-// ExtractDateFromContent extracts date from markdown content
+// ExtractDateFromContent extracts date from markdown content using various Chinese date patterns
 func ExtractDateFromContent(content string) string {
-	// Match patterns like "**发布日期：** 2021年03月18日" or "发布日期：2021年03月18日"
+	// Match Chinese date patterns like "**发布日期：** 2021年03月18日" or "发布日期：2021年03月18日"
 	datePatterns := []string{
-		`\*\*发布日期：\*\*\s*(\d{4}年\d{1,2}月\d{1,2}日)`,
-		`发布日期：\s*(\d{4}年\d{1,2}月\d{1,2}日)`,
-		`\*\*日期：\*\*\s*(\d{4}年\d{1,2}月\d{1,2}日)`,
-		`日期：\s*(\d{4}年\d{1,2}月\d{1,2}日)`,
+		`\*\*发布日期：\*\*\s*(\d{4}年\d{1,2}月\d{1,2}日)`, // **发布日期：** 2021年03月18日
+		`发布日期：\s*(\d{4}年\d{1,2}月\d{1,2}日)`,          // 发布日期：2021年03月18日
+		`\*\*日期：\*\*\s*(\d{4}年\d{1,2}月\d{1,2}日)`,    // **日期：** 2021年03月18日
+		`日期：\s*(\d{4}年\d{1,2}月\d{1,2}日)`,             // 日期：2021年03月18日
 	}
 
 	for _, pattern := range datePatterns {
@@ -220,7 +228,7 @@ func ExtractDateFromContent(content string) string {
 	return ""
 }
 
-// convertChineseDateToISO converts "2021年03月18日" to "2021-03-18"
+// convertChineseDateToISO converts Chinese date format "2021年03月18日" to ISO format "2021-03-18"
 func convertChineseDateToISO(chineseDate string) string {
 	reg := regexp.MustCompile(`(\d{4})年(\d{1,2})月(\d{1,2})日`)
 	matches := reg.FindStringSubmatch(chineseDate)
@@ -233,7 +241,7 @@ func convertChineseDateToISO(chineseDate string) string {
 	return ""
 }
 
-// ExtractTitleFromContent extracts title from markdown content (first heading)
+// ExtractTitleFromContent extracts the title from markdown content by finding the first heading
 func ExtractTitleFromContent(content string) string {
 	// Match first heading (# title)
 	reg := regexp.MustCompile(`^#\s+(.+)$`)
@@ -244,9 +252,9 @@ func ExtractTitleFromContent(content string) string {
 	return ""
 }
 
-// SanitizeFileName creates a valid filename from a title
+// SanitizeFileName creates a valid and safe filename from a title by replacing invalid characters
 func SanitizeFileName(title string) string {
-	// Replace invalid characters with hyphens
+	// Replace invalid filename characters with hyphens, allowing alphanumeric and Chinese characters
 	reg := regexp.MustCompile(`[^a-zA-Z0-9\p{Han}]+`)
 	return reg.ReplaceAllString(title, "-")
 }

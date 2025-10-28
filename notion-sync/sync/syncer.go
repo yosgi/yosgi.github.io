@@ -61,9 +61,9 @@ func (s *Syncer) SyncAll() error {
 	return nil
 }
 
-// SyncPage syncs a single page
+// SyncPage synchronizes a single page from Notion to Hugo
 func (s *Syncer) SyncPage(page notion.Page) error {
-	// Get page title for logging
+	// Extract page title for logging purposes
 	title := "Untitled"
 	if titleProp, ok := page.Properties["Name"]; ok && len(titleProp.Title) > 0 {
 		title = titleProp.Title[0].PlainText
@@ -71,13 +71,13 @@ func (s *Syncer) SyncPage(page notion.Page) error {
 
 	fmt.Printf("Processing page: %s\n", title)
 
-	// Get page content
+	// Fetch all blocks (content) from the Notion page
 	blocks, err := s.client.GetBlockChildren(page.ID)
 	if err != nil {
 		return fmt.Errorf("failed to get page content: %w", err)
 	}
 
-	// Convert blocks to markdown
+	// Convert Notion blocks to Markdown format
 	var markdownContent strings.Builder
 	for _, block := range blocks.Results {
 		markdownContent.WriteString(ConvertBlockToMarkdown(block))
@@ -85,29 +85,29 @@ func (s *Syncer) SyncPage(page notion.Page) error {
 
 	contentStr := markdownContent.String()
 
-	// Generate frontmatter (pass content to extract title and date)
+	// Generate Hugo frontmatter from Notion properties and content
 	frontmatter := GenerateFrontmatter(page, contentStr)
 	frontmatterStr := FormatFrontmatter(frontmatter)
 
-	// Create full content
+	// Combine frontmatter and content to create complete Hugo post
 	fullContent := fmt.Sprintf("---\n%s---\n\n%s",
 		frontmatterStr,
 		contentStr)
 
-	// Detect language
+	// Detect content language (Chinese or English)
 	language := DetectLanguage(fullContent)
 
-	// Create filename
+	// Generate safe filename and construct target path
 	fileName := SanitizeFileName(frontmatter.Title) + ".md"
 	targetPath := filepath.Join(s.config.HugoContentDir, language, "post", fileName)
 
-	// Ensure directory exists
+	// Create target directory if it doesn't exist
 	targetDir := filepath.Dir(targetPath)
 	if err := os.MkdirAll(targetDir, 0755); err != nil {
 		return fmt.Errorf("failed to create directory: %w", err)
 	}
 
-	// Write file
+	// Write the complete content to file
 	if err := os.WriteFile(targetPath, []byte(fullContent), 0644); err != nil {
 		return fmt.Errorf("failed to write file: %w", err)
 	}
