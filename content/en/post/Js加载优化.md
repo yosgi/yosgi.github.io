@@ -11,7 +11,7 @@ date: 2018-09-04 09:23:11
 summary: ""
 ---
 
-##### Why should the <script> tag be placed at the bottom of the <body> tag whenever possible?
+##### Why should the `<script>` tag be placed at the bottom of the `<body>` tag whenever possible?
 Placing `<script>` tags at the end of the `<body>` helps avoid blocking page rendering because downloading and executing scripts can modify the DOM and block other resource downloads. Many browsers use a single thread for UI rendering and JavaScript execution, so moving scripts to the bottom reduces perceived load time and improves responsiveness.
 
 ##### What are the `defer` and `async` attributes and how do they behave?
@@ -66,7 +66,7 @@ xhr.send(null);
 <!-- End of translation -->
 
 <!-- ORIGINAL CHINESE BODY STARTS -->
-##### Why should the <script> tag be placed at the bottom of the <body> tag whenever possible?
+##### Why should the `<script>` tag be placed at the bottom of the `<body>` tag whenever possible?
 Placing `<script>` tags at the end of the `<body>` helps avoid blocking page rendering because downloading and executing scripts can modify the DOM and block other resource downloads. Many browsers use a single thread for UI rendering and JavaScript execution, so moving scripts to the bottom reduces perceived load time and improves responsiveness.
 
 ##### What are the `defer` and `async` attributes and how do they behave?

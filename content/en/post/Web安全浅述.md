@@ -75,9 +75,9 @@ Defense method: First check whether the variable begins with "http" (automatical
 ###### Processing rich text
 Defense method: The same principle applies to input checking. Use "XSS Filter": "Events" should be strictly prohibited; some dangerous tags:
 
-<iframe>, <script>, <base>, <form>
+`<iframe>`, `<script>`, `<base>`, `<form>`
 
-should also be strictly prohibited. When selecting tags, attributes, and events, use a whitelist instead of a blacklist. For example, only relatively "safe" tags such as <a>, <img>, and <div> are allowed.
+should also be strictly prohibited. When selecting tags, attributes, and events, use a whitelist instead of a blacklist. For example, only relatively "safe" tags such as `<a>`, `<img>`, and `<div>` are allowed.
 
 ###### Defending against DOM-Based XSS
 
