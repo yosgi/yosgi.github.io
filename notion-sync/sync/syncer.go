@@ -43,21 +43,31 @@ func (s *Syncer) SyncAll() error {
 
 	fmt.Println("Starting to sync articles from Notion...")
 
-	response, err := s.client.QueryDatabase(s.config.NotionDatabaseID, nil)
+	// Filter to only sync pages with Status = "Published"
+	filter := map[string]interface{}{
+		"property": "Status",
+		"select": map[string]interface{}{
+			"equals": "Published",
+		},
+	}
+
+	response, err := s.client.QueryDatabase(s.config.NotionDatabaseID, filter)
 	if err != nil {
 		return fmt.Errorf("failed to query database: %w", err)
 	}
 
-	fmt.Printf("Found %d pages\n", len(response.Results))
+	fmt.Printf("Found %d published pages\n", len(response.Results))
 
+	syncedCount := 0
 	for _, page := range response.Results {
 		if err := s.SyncPage(page); err != nil {
 			fmt.Printf("Error syncing page %s: %v\n", page.ID, err)
 			continue
 		}
+		syncedCount++
 	}
 
-	fmt.Println("Sync completed!")
+	fmt.Printf("Sync completed! Successfully synced %d pages\n", syncedCount)
 	return nil
 }
 
