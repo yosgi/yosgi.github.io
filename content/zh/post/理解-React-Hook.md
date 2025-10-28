@@ -10,15 +10,13 @@ date: 2021-02-25 00:00:00
 summary: 
 ---
 
-# 理解 React Hook
-
-**发布日期：** 2021年02月25日
-
 ### 理解 React Hook
 
 用过旧版 react 的应该会知道，react 的 class 组件有state 来管理内部的状态，如下示例代码
 
-```javascript
+```
+
+javascript
 class Clock extends React.Component {
   constructor(props) {
     super(props);    this.state = {date: new Date()};  }
@@ -30,7 +28,9 @@ class Clock extends React.Component {
 
 而函数组件没有自己的state，如下示例代码
 
-```javascript
+```
+
+javascript
 function Clock() {
   return  (
     <div>      <h1>Hello, world!</h1>      <h2>It is {new Date().toLocaleTimeString()}.</h2>    </div>  )
@@ -39,7 +39,9 @@ function Clock() {
 
 如果我想使用函数组件，而又想对 date 拥有手动修改的控制权，就不得不使用props对组件做如下修改,这样就把控制权转交给了父组件
 
-```javascript
+```
+
+javascript
 function Clock(props) {
   return (
     <div>      <h1>Hello, world!</h1>      <h2>It is {props.date.toLocaleTimeString()}.</h2>    </div>  );}
@@ -47,7 +49,9 @@ function Clock(props) {
 
 **在react 16.8中，Hook的新特性使函数组件能控制自己的 ‘state’**
 
-```javascript
+```
+
+javascript
 import React, { useState } from 'react';function Example() {
   const [count, setCount] = useState(0);  return (
     <div>      <p>You clicked {count} times</p>      <button onClick={() => setCount(count + 1)}>        Click me
@@ -64,7 +68,9 @@ import React, { useState } from 'react';function Example() {
 
 下面用伪代码实现一个hook
 
-```javascript
+```
+
+javascript
 // 存放 statelet state = [];// 存放 state 的修改方法let setters = [];let firstRun = true;let cursor = 0;// 创建setterfunction createSetter(cursor) {
   return function setterWithCursor(newVal) {
     state[cursor] = newVal;  };}

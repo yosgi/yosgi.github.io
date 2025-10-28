@@ -7,10 +7,6 @@ date: 2021-03-26 00:00:00
 summary: 
 ---
 
-# 857. Minimum Cost to Hire K Workers
-
-**发布日期：** 2021年03月26日
-
 用时：120min
 
 其实也没那么难。只是困难的标签有点吓人。
@@ -21,7 +17,9 @@ summary:
 
 我们需要做的是找到效率比它还低，按照工作量从小到大的K - 1 人
 
-```javascript
+```
+
+javascript
 var mincostToHireWorkers = function(quality, wage, K) {
     var efficents = []
     var res = Infinity    // 效率低的可以再找到 K- 1  个效率更低的人    for(let i = 0 ; i < quality.length ; i ++) {
@@ -47,7 +45,9 @@ var mincostToHireWorkers = function(quality, wage, K) {
 
 用堆来改写
 
-```javascript
+```
+
+javascript
 const swap = function (arr,i,j) {
     [arr[i],arr[j]] = [arr[j],arr[i]]
 }
