@@ -1,91 +1,80 @@
 ---
-draft: true
-original: 'content/zh/post/legacy/DOM操作的性能优化.md'
-title: DOM操作的性能优化
-description: 《高性能Javascript》 知识点整理
+draft: false
+original: content/zh/post/legacy/DOM操作的性能优化.md
+title: Performance optimization of DOM operations
+description: High Performance Javascript Knowledge Points
 categories:
-  - JavaScript
-  - JavaScript
+- JavaScript
+- JavaScript
 tags:
-  - JavaScript
+- JavaScript
 date: 2018-09-12 15:09:33
-summary: ""
+summary: ''
 ---
 
-# ENGLISH TRANSLATION NEEDED
+#### Why is DOM slow?
 
-This is an automatically generated English stub. Please translate the content below into English and remove the `draft: true` flag when ready.
+Because the DOM and JavaScript are implemented independently in the browser, this separation allows other technologies and languages such as VBScript to share the use of the DOM, but also causes performance consumption.
 
-<!-- ORIGINAL CHINESE CONTENT STARTS -->
-#### DOM为什么慢？
+#### Are HTML collections arrays? What precautions should be taken when manipulating HTML collections?
+HTML collection objects are not arrays because they lack methods like push() or slice(). However, they do provide a length property. HTML collections exist in a "hypothetically live" state and automatically update when the underlying document object is updated.
 
-因为浏览器中DOM和Javascript是独立实现的，这个分离允许其他技术和语言比如VBScript能共享使用DOM，也造成了性能的消耗
+var alldivs = document.getElementsByTagName('div')
+for (var i = 0 ; i < alldivs.length; i++) {
+document.body.appendChild(document.createElement('div'))
+}
 
-#### HTML集合是数组吗?操作HTML集合有什么需要注意的？
-HTML集合对象不是数组，因为没有push()或slice()之类的方法，但提供了length属性，HTML集合以一种“假定实时态”实时存在，当底层文档对象更新时，它也会自动更新。
+The above code is an infinite loop because the loop's exit condition, alldivs.length, increases with each iteration. It's also very slow because the query is performed on each iteration.
 
-    var alldivs = document.getElementsByTagName('div')
-    for (var i=0 ; i<alldivs.length; i++) {
-        document.body.appendChild(document.createElement('div'))
-    }
-    
-以上的代码是个死循环，因为循环的退出条件alldivs.length在每次迭代都会增加。而且也很慢，因为每次迭代都执行查询操作
+Therefore, when operating the HTML collection, you should first copy it to a normal array to reduce the number of accesses. And use local variables when accessing collection elements.
 
-因此操作html集合应该先将其拷贝到普通数组以减少访问次数。且访问集合元素的时候使用局部变量。
+#### What's the difference between querySelectorAll() and getElementsByTagName()? Why is the first method recommended?
+The querySelectorAll() method takes a CSS selector as a parameter and returns a NodeList. It doesn't return an HTML collection, so it doesn't reflect the live document structure, avoiding performance and potential logic issues.
 
-#### querySelectorAll()和getElementsByTagName()有什么区别？为什么推荐使用第一种？
-querySelectorAll()方法使用CSS选择器作为参数并返回一个NodeList,不会返回HTML集合，因此不会对应实时的文档结构，避免了性能和可能逻辑上产生的问题
+#### What are repaint and reflow?
 
-#### 重绘与重排是什么？
+After the browser downloads all the components of the page, including HTML, CSS, JS, and images, it generates two internal component structures: the DOM tree and the render tree. The DOM tree represents the page structure, and the render tree represents how the DOM nodes are displayed.
 
+After the DOM tree and render tree are constructed, the browser will start drawing the page elements. When the DOM changes affect the geometric properties of the elements, the browser needs to recalculate the geometric properties of the elements. Similarly, the geometric properties of other elements will also be affected. The browser will invalidate the affected part of the original render tree and rebuild the render tree. This process is called reflow. After the reflow is completed, the affected part is redrawn to the screen, which is called repaint.
 
-浏览器下载完页面的所有组件，html，css，js，图片 之后会生成两个内部的组件结构，DOM树和渲染树，其中DOM树表示页面结构，渲染树表示DOM节点如何显示
+They can make your web application's UI unresponsive, so try to minimize these processes.
 
-在DOM树和渲染树构建完成，浏览器就会开始绘制页面元素，当DOM的变化影响了元素的几何属性，浏览器需要重新计算元素的几何属性，同样其它元素的几何属性也会受到影响，浏览器会使原先的渲染树受到影响的部分失效并重新构造渲染树，这个过程称为重排，重排完成后将受影响的部分重新绘制到屏幕中成为重绘。
+#### What operations will force a refresh of the render tree queue?
 
-它们会导致Web应用的UI反应迟钝，所以尽可能减少这类过程的发生。
+offsetTop,offsetLeft... (get offset)
 
-#### 什么操作会强制渲染树队列的刷新？
-
-offsetTop,offsetLeft...（获取偏移量）
-
-scrollTop,scrollLeft...（获取滚动位置）
+scrollTop, scrollLeft... (get the scroll position)
 
 clientTop,clientWidth...
 
-getComputedStyle（计算样式值）
+getComputedStyle (computed style value)
 
-#### 重排何时发生？怎么减少重绘和重排带来的影响？
+#### When does reflow occur? How can we reduce the impact of redrawing and reflowing?
 
-当页面的布局和几何属性发生变化的时候，例如删除，添加DOM元素；元素的位置改变；元素的尺寸改变；页面渲染器初始化；浏览器窗口发生改变。
+When the layout and geometric properties of the page change, such as deleting or adding DOM elements; the position of elements changes; the size of elements changes; the page renderer is initialized; the browser window changes.
 
-减小重绘和重排带来的影响可以合并多次对DOM样式的修改，然后一次性处理。或者直接修改class。
+To reduce the impact of redrawing and reflowing, you can combine multiple DOM style changes and process them all at once, or modify the class directly.
 
-当需要对DOM元素进行一系列的操作时，可以通过是使元素脱离文档流->对元素进行多次改变->使元素带回文档流中，改过程只会出发两次重排，否则，对于元素进行的任何一次操作都会触发重排。
+When a series of operations need to be performed on a DOM element, you can remove the element from the document flow, make multiple changes to the element, and then bring the element back into the document flow. This process will only trigger two reflows. Otherwise, any operation on the element will trigger a reflow.
 
-其中常见的办法是使用文档片断(document fragment) 在当前DOM之外构建一个子树，再把它拷贝回文档
+A common approach is to use a document fragment to build a subtree outside the current DOM and then copy it back into the document.
 
+#### About event delegation
 
-#### 关于事件委托
+In the previous [DOM event flow](https://www.yosgi.top/2018/08/29/DOM%E4%BA%8B%E4%BB%B6%E6%B5%81/)
 
-在前面的[DOM事件流](https://www.yosgi.top/2018/08/29/DOM%E4%BA%8B%E4%BB%B6%E6%B5%81/)中有总结过 
+#### Summarize
 
+There are several ways to improve the performance of DOM operations:
 
-#### 总结
+Minimize DOM access times
 
-提高DOM操作的性能总结有以下方法：
+If you need to access a DOM node multiple times, you should use local variables to store references.
 
-最小化DOM访问次数
+When processing HTML collections, it is recommended to cache the length in a variable. If frequent operations are required, it is recommended to copy it into an array.
 
-需要多次访问某个DOM节点应该使用局部变量储存引用
+Use faster APIs such as querySelectorAll() and firstElementChild whenever possible
 
-处理HTML集合建议把长度缓存到变量中，如果需要经常操作建议拷贝到数组中
+Pay attention to redrawing and rearranging, and do not query layout information when modifying it
 
-尽可能使用速度更快的API如querySelectorAll()和firstElementChild
-
-
-留意重绘和重排，不要在修改布局信息时去查询布局信息
-
-
-动画中使用绝对定位，拖放代理
-<!-- ORIGINAL CHINESE CONTENT ENDS -->
+Using absolute positioning and dragging and dropping proxies in animations

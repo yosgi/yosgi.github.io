@@ -1,55 +1,48 @@
 ---
-draft: true
-original: 'content/zh/post/legacy/Generator函数与应用.md'
-title: Generator函数与应用
-description: 《ES6标准入门》 知识点整理
+draft: false
+original: content/zh/post/legacy/Generator函数与应用.md
+title: Generator functions and applications
+description: '"ES6 Standard Introduction" Knowledge Points Summary'
 categories:
-  - JavaScript
+- JavaScript
 tags:
-  - JavaScript
-  - JavaScript
+- JavaScript
+- JavaScript
 date: 2018-07-06 18:37:55
-summary: ""
+summary: ''
 ---
 
-# ENGLISH TRANSLATION NEEDED
-
-This is an automatically generated English stub. Please translate the content below into English and remove the `draft: true` flag when ready.
-
-<!-- ORIGINAL CHINESE CONTENT STARTS -->
 ![image](/images/generator-function-usage/Generator.png)
 
-#### 基本概念
+#### Basic Concepts
 
-形式上，Generator 函数是一个普通函数，但是有两个特征。一是，function关键字与函数名之间有一个星号；二是，函数体内部使用yield表达式，定义不同的内部状态
-    
-    function* helloWorldGenerator() {
-      yield 'hello';
-      yield 'world';
-      return 'ending';
-    }
-    
-    var hw = helloWorldGenerator();
+Formally, a Generator function is a regular function, but it has two characteristics. First, there's an asterisk between the function keyword and the function name. Second, the function body uses yield expressions to define different internal states.
 
-调用 Generator 函数后，该函数并不执行，返回的也不是函数运行结果，而是一个指向内部状态的遍历器对象
+function* helloWorldGenerator() {
+yield 'hello';
+yield 'world';
+return 'ending';
+}
 
-调用 Generator 函数，返回一个遍历器对象，代表 Generator 函数的内部指针。以后，每次调用遍历器对象的next方法，就会返回一个有着value和done两个属性的对象。value属性表示当前的内部状态的值，是yield表达式后面那个表达式的值；done属性是一个布尔值，表示是否遍历结束。
+var hw = helloWorldGenerator();
 
+After calling the Generator function, the function is not executed, and what is returned is not the result of the function execution, but a traversal object pointing to the internal state.
 
-#### yield 表达式
+Calling the Generator function returns an iterator object, which represents the internal pointer to the Generator function. Each subsequent call to the iterator object's next method returns an object with two properties: value and done. The value property represents the current internal state, which is the value of the expression following the yield expression. The done property is a Boolean value indicating whether the iteration has completed.
 
-yield表达式是暂停标志。
+#### yield expression
 
-遇到yield表达式，就暂停执行后面的操作，并将紧跟在yield后面的那个表达式的值，作为返回的对象的value属性值。
+The yield expression is a pause signal.
 
-直到return语句为止，并将return语句后面的表达式的值，作为返回的对象的value属性值。如果该函数没有return语句，则返回的对象的value属性值为undefined。
+When a yield expression is encountered, the execution of subsequent operations is suspended, and the value of the expression immediately following the yield is used as the value attribute value of the returned object.
 
-yield表达式只能用在 Generator 函数里面。
+Until the return statement is reached, the value of the expression after the return statement is used as the value property of the returned object. If the function does not have a return statement, the value property of the returned object is undefined.
 
-另外，yield表达式如果用在另一个表达式之中，必须放在圆括号里面。
+The yield expression can only be used inside a Generator function.
 
-yield表达式用作函数参数或放在赋值表达式的右边，可以不加括号。
+In addition, if the yield expression is used in another expression, it must be placed in parentheses.
 
+The yield expression can be used as a function parameter or placed on the right side of an assignment expression without parentheses.
 
     function* demo() {
       console.log('Hello' + yield); // SyntaxError
@@ -59,51 +52,50 @@ yield表达式用作函数参数或放在赋值表达式的右边，可以不加
       console.log('Hello' + (yield 123)); // OK
       foo(yield 'a', yield 'b'); // OK
         let input = yield; // OK
-    }   
-    
-#### 遍历器对象
-
-可以把 Generator 赋值给对象的Symbol.iterator属性，从而使得该对象具有 Iterator 接口。
-
-    var myIterable = {};
-    myIterable[Symbol.iterator] = function* () {
-      yield 1;
-      yield 2;
-      yield 3;
-    };
-    
-    [...myIterable] // [1, 2, 3]
-    
-Generator 函数执行后，返回一个遍历器对象。该对象本身也具有Symbol.iterator属性，执行后返回自身。
-，(ES6 规定这个遍历器是 Generator 函数的实例，也继承了 Generator 函数的prototype对象上的方法)。
-
-    function* gen(){
-      // some code
     }
     
-    var g = gen();
-    
-    g[Symbol.iterator]() === g// true
-    g instanceof  gen=== g// true
-    
-    
-for...of循环可以自动遍历 Generator 函数时生成的Iterator对象，
+#### Traverser object
 
-    function* foo() {
-      yield 1;
-      yield 2;
-      yield 3;
-      yield 4;
-      yield 5;
-      return 6;
-    }
-    
-    for (let v of foo()) {
-      console.log(v);
-    }
-    // 1 2 3 4 5
-    
-同样，可以遍历使用Generator作为Iterator接口的对象
+You can assign a Generator to the Symbol.iterator property of an object, giving the object the Iterator interface.
+
+var myIterable = {};
+myIterable[Symbol.iterator] = function* () {
+yield 1;
+yield 2;
+yield 3;
+};
+
+[...myIterable] // [1, 2, 3]
+
+After executing the Generator function, it returns an iterator object. This object also has the Symbol.iterator property and returns itself after execution.
+(ES6 specifies that this iterator is an instance of the Generator function and inherits the methods of the Generator function's prototype object).
+
+function* gen() {
+// some code
+}
+
+var g = gen();
+
+g[Symbol.iterator]() === g // true
+g instanceof gen === g // true
+
+The for...of loop automatically iterates over the Iterator objects generated by the Generator function.
+
+function* foo() {
+yield 1;
+yield 2;
+yield 3;
+yield 4;
+yield 5;
+return 6;
+}
+
+for (let v of foo()) {
+console.log(v);
+}
+// 1 2 3 4 5
+
+Similarly, you can iterate over objects that use a Generator as an Iterator interface.
 
     function* objectEntries() {
       let propKeys = Object.keys(this);
@@ -123,124 +115,121 @@ for...of循环可以自动遍历 Generator 函数时生成的Iterator对象，
     // first: Jane
     // last: Doe
     
-#### 方法
-next()、throw()、return() 的共同点
+#### method
+What next(), throw(), and return() have in common
 
-它们的作用都是让 Generator 函数恢复执行，并且使用不同的语句替换yield表达式。
+Their function is to resume the execution of the Generator function and replace the yield expression with a different statement.
 
+//next() replaces the yield expression with a value.
+const g = function* (x, y) {
+let result = yield x + y;
+return result;
+};
 
-    //next()是将yield表达式替换成一个值。
-    const g = function* (x, y) {
-      let result = yield x + y;
-      return result;
-    };
-    
-    const gen = g(1, 2);
-    gen.next(); // Object {value: 3, done: false}
-    
-    gen.next(1); // Object {value: 1, done: true}
-    // 相当于将 let result = yield x + y
-    // 替换成 let result = 1;
-    //throw()是将yield表达式替换成一个throw语句。
-    gen.throw(new Error('出错了')); // Uncaught Error: 出错了
-    // 相当于将 let result = yield x + y
-    // 替换成 let result = throw(new Error('出错了'));
-    return()是将yield表达式替换成一个return语句。
-    gen.return(2); // Object {value: 2, done: true}
-    // 相当于将 let result = yield x + y
-    // 替换成 let result = return 2;
-    
-    
+const gen = g(1, 2);
+gen.next(); // Object {value: 3, done: false}
+
+gen.next(1); // Object {value: 1, done: true}
+// Equivalent to replacing let result = yield x + y
+// with let result = 1;
+//throw() replaces the yield expression with a throw statement.
+gen.throw(new Error('error')); // Uncaught Error: error
+// Equivalent to replacing let result = yield x + y
+// with let result = throw(new Error('error'));
+return() replaces the yield expression with a return statement.
+gen.return(2); // Object {value: 2, done: true}
+// Equivalent to replacing let result = yield x + y
+// with let result = return 2;
+
 #### yield*
-从语法角度看，如果yield表达式后面跟的是一个遍历器对象，需要在yield表达式后面加上星号，表明它返回的是一个遍历器对象。这被称为yield*表达式。
+Syntactically, if a yield expression is followed by an iterator object, an asterisk (*) must be added after the yield expression to indicate that it returns an iterator object. This is called a yield* expression.
 
-任何数据结构只要有 Iterator 接口，就可以被yield*遍历。
+Any data structure that has an Iterator interface can be traversed by yield*.
 
-    let read = function* () {
-        yield 'hello';
-        yield* 'hello';
-      };
-      
-    for(let i of read()){
-        console.log(i)
-    }
-    //hello h,e,l,l,o
-    
-yield*语句遍历完全二叉树。
+let read = function* () {
+yield 'hello';
+yield* 'hello';
+};
 
-    // 下面是二叉树的构造函数，
-    // 三个参数分别是左树、当前节点和右树
-    function Tree(left, label, right) {
-      this.left = left;
-      this.label = label;
-      this.right = right;
-    }
-    
-    // 下面是中序（inorder）遍历函数。
-    // 由于返回的是一个遍历器，所以要用generator函数。
-    // 函数体内采用递归算法，所以左树和右树要用yield*遍历
-    function* inorder(t) {
-      if (t) {
-        yield* inorder(t.left);
-        yield t.label;
-        yield* inorder(t.right);
-      }
-    }
-    
-    // 下面生成二叉树
-    function make(array) {
-      // 判断是否为叶节点
-      if (array.length == 1) return new Tree(null, array[0], null);
-      return new Tree(make(array[0]), array[1], make(array[2]));
-    }
-    let tree = make([[['a'], 'b', ['c']], 'd', [['e'], 'f', ['g']]]);
-    
-    // 遍历二叉树
-    var result = [];
-    for (let node of inorder(tree)) {
-      result.push(node);
-    }
-    
-    result
-    // ['a', 'b', 'c', 'd', 'e', 'f', 'g']
-    
-#### 应用
+for(let i of read()){
+console.log(i)
+}
+//hello h,e,l,l,o
 
-##### 状态机
+The yield* statement traverses a complete binary tree.
 
-    var clock = function* () {
-      while (true) {
-        console.log('Tick!');
-        yield;
-        console.log('Tock!');
-        yield;
-      }
-    };
-上面的 Generator 实现与 ES5 实现对比，少了用来保存状态的外部变量，这样就更简洁，更安全。
+// Below is the binary tree constructor.
+// The three parameters are the left tree, the current node, and the right tree.
+function Tree(left, label, right) {
+this.left = left;
+this.label = label;
+this.right = right;
+}
 
+// Below is the inorder traversal function.
+// Since the returned value is a traverser, a generator function is used.
+// The function uses a recursive algorithm, so the left and right trees must be traversed using yield*
+function* inorder(t) {
+if (t) {
+yield* inorder(t.left);
+yield t.label;
+yield* inorder(t.right);
+}
+}
 
-##### 异步操作的同步化表达
+// Generate a binary tree below
+function make(array) {
+// Check if it is a leaf node
+if (array.length == 1) return new Tree(null, array[0], null);
+return new Tree(make(array[0]), array[1], make(array[2]));
+}
+let tree = make([[['a'], 'b', ['c']], 'd', [['e'], 'f', ['g']]]);
 
-    function* main() {
-      var result = yield request("http://some.url");
-      var resp = JSON.parse(result);
-        console.log(resp.value);
-    }
-    
-    function request(url) {
-      makeAjaxCall(url, function(response){
-        it.next(response);
-      });
-    }
-    
-    var it = main();
-    it.next();
-    
-异步操作的后续操作可以放在yield表达式下面，反正要等到调用next方法时再执行
+// Traverse the binary tree
+var result = [];
+for (let node of inorder(tree)) {
+result.push(node);
+}
 
-##### 控制流管理
+result
+// ['a', 'b', 'c', 'd', 'e', 'f', 'g']
 
-使用一个函数，按次序自动执行所有步骤。
+#### Application
+
+##### State Machine
+
+var clock = function* () {
+while (true) {
+console.log('Tick!');
+yield;
+console.log('Tock!');
+yield;
+}
+};
+Compared to the ES5 implementation, the above Generator implementation lacks the external variables used to store state, making it simpler and safer.
+
+##### Synchronous expression of asynchronous operations
+
+function* main() {
+var result = yield request("http://some.url");
+var resp = JSON.parse(result);
+console.log(resp.value);
+}
+
+function request(url) {
+makeAjaxCall(url, function(response){
+it.next(response);
+});
+}
+
+var it = main();
+it.next();
+
+Subsequent operations of asynchronous operations can be placed below the yield expression; they will not be executed until the next method is called.
+
+##### Control Flow Management
+
+Use a function to automatically perform all steps in sequence.
 
     function* longRunningTask(value1) {
       try {
@@ -255,18 +244,18 @@ yield*语句遍历完全二叉树。
     }
     scheduler(longRunningTask(initialValue));
 
-    function scheduler(task) {
-      var taskObj = task.next(task.value);
-      // 如果Generator函数未结束，就继续调用
-      if (!taskObj.done) {
-        task.value = taskObj.value
-        scheduler(task);
-      }
-    }
-    
-==上面这种做法，只适合同步操作，即所有的task都必须是同步的，不能有异步操作。因为这里的代码一得到返回值，就继续往下执行，没有判断异步操作何时完成。如果要控制异步的操作流程，见下面thunk部分==
+function scheduler(task) {
+var taskObj = task.next(task.value);
+// If the Generator function hasn't finished, continue calling it.
+if (!taskObj.done) {
+task.value = taskObj.value
+scheduler(task);
+}
+}
 
-yield*可以将任务分解成多个依次执行的任务。
+The above approach is only suitable for synchronous operations. That is, all tasks must be synchronous and no asynchronous operations are allowed. This is because the code here continues execution as soon as the return value is received, without determining when the asynchronous operation has completed. To control the flow of asynchronous operations, see the thunk section below.
+
+Yield* can decompose a task into multiple tasks that are executed sequentially.
 
     let jobs = [job1, job2, job3];
     
@@ -280,44 +269,44 @@ yield*可以将任务分解成多个依次执行的任务。
       console.log(step.id);
     }
 
-数组jobs封装了一个项目的多个任务，iterateJobs则是依次为这些任务加上yield*命令。
+The jobs array encapsulates multiple tasks of a project, and iterateJobs adds yield* commands to these tasks in turn.
 
-##### 作为数组结构
+##### As an array structure
 
-Generator 可以看作是一个数组结构，因为 Generator 函数可以返回一系列的值，这意味着它可以对任意表达式，提供类似数组的接口。
+Generator can be thought of as an array structure because the Generator function can return a series of values, which means it can provide an array-like interface for any expression.
 
-    function* doStuff() {
-      yield fs.readFile.bind(null, 'hello.txt');
-      yield fs.readFile.bind(null, 'world.txt');
-      yield fs.readFile.bind(null, 'and-such.txt');
-    }
-    for (task of doStuff()) {
-      // task是一个函数，可以像回调函数那样使用它
-    }
-    //es5
-    function doStuff() {
-      return [
-        fs.readFile.bind(null, 'hello.txt'),
-        fs.readFile.bind(null, 'world.txt'),
-        fs.readFile.bind(null, 'and-such.txt')
-      ];
-    }
-    
-##### 封装异步任务
+function* doStuff() {
+yield fs.readFile.bind(null, 'hello.txt');
+yield fs.readFile.bind(null, 'world.txt');
+yield fs.readFile.bind(null, 'and-such.txt');
+}
+for (task of doStuff()) {
+// Task is a function that can be used like a callback function
+}
+//es5
+function doStuff() {
+return [
+fs.readFile.bind(null, 'hello.txt'),
+fs.readFile.bind(null, 'world.txt'),
+fs.readFile.bind(null, 'and-such.txt')
+];
+}
 
-Generator 函数可以暂停执行和恢复执行，这是它能封装异步任务的根本原因。除此之外，它还有两个特性，使它可以作为异步编程的完整解决方案：函数体内外的数据交换和错误处理机制。
+##### Encapsulating asynchronous tasks
 
-异步操作需要暂停的地方，都用yield语句注明。
+Generator functions can pause and resume execution, which is the fundamental reason why they can encapsulate asynchronous tasks. In addition, they have two other features that make them a complete solution for asynchronous programming: data exchange within and outside the function body and error handling mechanisms.
 
-next返回值的 value 属性，是 Generator 函数向外输出数据；next方法还可以接受参数，向 Generator 函数体内输入数据。
+Where asynchronous operations need to be paused, they are indicated with a yield statement.
 
-Generator 函数体外，使用指针对象的throw方法抛出的错误，可以被函数体内的try...catch代码块捕获。
+The value property of the next return value is the data output by the Generator function; the next method can also accept parameters to input data into the Generator function body.
 
-例子：
+Errors thrown outside the Generator function using the throw method of the pointer object can be caught by the try...catch code block inside the function body.
+
+example:
 
     var fetch = require('node-fetch');
     
-    function* gen(){
+    function*gen(){
       var url = 'https://api.github.com/users/github';
       var result = yield fetch(url);
       console.log(result.bio);
@@ -331,50 +320,46 @@ Generator 函数体外，使用指针对象的throw方法抛出的错误，可�
       g.next(data);
     });
 
+#### Asynchronous process management of Generator functions
 
-
-
-#### Generator 函数的异步流程管理
-
-先拿个例子看下只用Generator试试管理异步流程：
+Let's take an example and try to manage asynchronous processes using only Generator:
 
     function fetchData(time,fn){
-        //一个异步函数，在random*1000ms后执行回调
-        setTimeout(function(){
-          fn(time)
-        },Math.random()*1000)
-    }
-    
-    var taskList = function *(){
-        for(let i=0;i<10;i++){
-            //生成任务0~10
-            yield fetchData(i,function(data){
-                console.log(`任务${data}的回调`)
-            })
-        }
-    }
-    
-    var taskObj = taskList()
-    var task = taskObj.next()
-    while(!task.done){
-        task = taskObj.next()
-    }
-    //任务6的回调
-    //任务4的回调
-    //任务0的回调
-    //任务2的回调
-    //任务1的回调
-    //任务7的回调
-    //任务8的回调
-    //任务9的回调
-    //任务5的回调
-    //任务3的回调
+//An asynchronous function that executes a callback after random*1000ms
+setTimeout(function(){
+fn(time)
+},Math.random()*1000)
+}
 
-可以看到每运行fetchData执行的任务顺序都是不一样的，不能达到“执行一个后执行下一个”的效果。这时，Thunk 函数就能派上用处。
+var taskList = function *(){
+for(let i=0;i<10;i++){
+//Generate tasks 0-10
+yield fetchData(i,function(data){
+console.log(`Callback for task ${data}`)
+})
+}
+}
 
+var taskObj = taskList()
+var task = taskObj.next()
+while(!task.done){
+task = taskObj.next()
+}
+//Callback for task 6
+//Callback for task 4
+//Callback for task 0
+//Callback for task 2
+//Callback for task 1
+//Callback for task 7
+//Callback for task 8
+//Callback for task 9
+//Callback for task 5
+//Callback for task 3
 
-###### Thunk函数
-Thunk 函数替换多参数函数，将其替换成一个只接受回调函数作为参数的单参数函数。
+You can see that the order of tasks executed in each fetchData run is different, and the "execute one task first, then the next" effect cannot be achieved. This is where the Thunk function comes in handy.
+
+###### Thunk Function
+A thunk function replaces a multi-parameter function with a single-parameter function that accepts a callback function as a parameter.
 
     function thunkify(fn) {
         return function() {
@@ -403,117 +388,117 @@ Thunk 函数替换多参数函数，将其替换成一个只接受回调函数�
         }
       };
 
-举个例子：
+For example:
 
-    var fetchData = function(data,fn){
-        setTimeout(function(){
-            console.log("读取文件"+data+"中")
-            fn(data)
-        },1000)
-    }
-    fetchData(1,function(data){
-        console.log("文件"+data+"读取完毕")   
-    })//普通的调用函数
-    var fetchDataThunk = thunkify(fetchData)
-    fetchDataThunk(1)(function(data){
-        console.log("文件"+data+"读取完毕")   
-    })//加入chunk的调用
-    
-可以的看出fetchDataThunk(1)调用之后会返回一个以回调函数作为参数的函数。再结合yield可以把函数内部的结果返回给next()调用的结果。可以实现在函数外部控制函数内的调用。
+var fetchData = function(data,fn){
+setTimeout(function(){
+console.log("Reading file "+data+"")
+fn(data)
+},1000)
+}
+fetchData(1,function(data){
+console.log("File "+data+" Reading Completed")
+})//Normal function call
+var fetchDataThunk = thunkify(fetchData)
+fetchDataThunk(1)(function(data){
+console.log("File "+data+" Reading Completed")
+})//Add chunk call
 
-还是拿上面的fetchData为例子：
+It can be seen that after calling fetchDataThunk(1), a function with a callback function as a parameter is returned. Combined with yield, the result inside the function can be returned to the result of the next() call. This allows the function to be controlled from outside the function.
 
-    var thunkify = require('thunkify');
-    var fetchData = function(data,fn){
-        setTimeout(function(){
-            console.log("读取文件"+data+"中")
-            fn(data)
-        },Math.random()*1000)
-    }
-    var fetchDataThunk = thunkify(fetchData)
-    var taskList = function *(){
-        var f1 = yield fetchDataThunk(1)
-        var f2 = yield fetchDataThunk(2)
-    }
-    
-    
-    var task = taskList();
-    var taskObj = task.next();
-    console.log(taskObj)
-    taskObj.value(function(data){
-        console.log("文件"+data+"读取完毕")
-        var taskObj2 = task.next();
-        taskObj2.value(function(data){
-            console.log("文件"+data+"读取完毕")
-        })
-    })
-    // 读取文件1中
-    // 文件1读取完毕
-    // 读取文件2中
-    // 文件2读取完毕
+Let’s take the fetchData above as an example:
 
-接下来，回到一开始的需求，用thunk使Generator 中的函数“执行一个后执行下一个”
+var thunkify = require('thunkify');
+var fetchData = function(data,fn){
+setTimeout(function(){
+console.log("Reading file "+data+"")
+fn(data)
+},Math.random()*1000)
+}
+var fetchDataThunk = thunkify(fetchData)
+var taskList = function *(){
+var f1 = yield fetchDataThunk(1)
+var f2 = yield fetchDataThunk(2)
+}
 
-    //nodejs环境下运行
-    var thunkify = require('thunkify');
-    var fetchData = function(data,fn){
-        setTimeout(function(){
-            console.log("读取文件"+data+"中")
-            fn(data)
-        },Math.random()*1000)
-    }
-    var fetchDataThunk = thunkify(fetchData)
-    var taskList = function *(){
-        for(let i=0;i<5;i++){
-            yield fetchDataThunk(i)
-            console.log("文件"+i+"读取完毕")
-        }
-    }
-    
-    function run (fn){
-        var task = fn();
-        function next(){
-            //task.next()返回的是{value:[Function],done:false/true}
-            //value属性用来调用下一步需要执行的方法
-            var result  = task.next();
-            if (result.done) return;
-            result.value(next);
-        }
-        next()
-    }
-    
-    run(taskList)
-    // 读取文件0中
-    // 文件0读取完毕
-    // 读取文件1中
-    // 文件1读取完毕
-    // 读取文件2中
-    // 文件2读取完毕
-    // 读取文件3中
-    // 文件3读取完毕
-    // 读取文件4中
-    // 文件4读取完毕
+var task = taskList();
+var taskObj = task.next();
+console.log(taskObj)
+taskObj.value(function(data){
+console.log("File "+data+" read completed")
+var taskObj2 = task.next();
+taskObj2.value(function(data){
+console.log("file" + data + "read completed")
+})
+})
+// Reading file 1
+// Reading file 1
+// Reading file 2
+// Reading file 2
 
-可以看到，taskList里面的异步函数是按顺序执行的，和同步可以说是差不多了
+Next, let’s go back to the original requirement and use thunk to make the functions in the Generator “execute one after the next”.
 
-Thunk 函数并不是 Generator 函数自动执行的唯一方案。因为自动执行的关键是，必须有一种机制，自动控制 Generator 函数的流程，接收和交还程序的执行权。回调函数可以做到这一点，Promise 对象也可以做到这一点。
+//Running in a Node.js environment
+var thunkify = require('thunkify');
+var fetchData = function(data,fn){
+setTimeout(function(){
+console.log("Reading file "+data+"")
+fn(data)
+},Math.random()*1000)
+}
+var fetchDataThunk = thunkify(fetchData)
+var taskList = function *(){
+for(let i=0;i<5;i++){
+yield fetchDataThunk(i)
+console.log("File "+i+" read completed")
+}
+}
 
-#### co 模块
+function run (fn){
+var task = fn();
+function next(){
+//task.next() returns {value:[Function],done:false/true}
+//The value property is used to call the method to be executed next
+var result = task.next();
+if (result.done) return;
+result.value(next);
+}
+next()
+}
 
-上面编写Generator 函数的执行器还是麻烦了点。co 模块可以解决这个问题。
-兴高采烈的使用一下
+run(taskList)
+// Reading file 0
+// Completed reading file 0
+// Reading file 1
+// Completed reading file 1
+// Reading file 2
+// Completed reading file 2
+// Reading file 3
+// Completed reading file 3
+// Reading file 4
+// Completed reading file 4
 
-    //nodejs环境下运行
+As you can see, the asynchronous functions in taskList are executed sequentially, which is almost the same as synchronous ones.
+
+Thunk functions aren't the only solution for automatic execution of generator functions. The key to automatic execution is a mechanism that automatically controls the flow of the generator function, receiving and returning program execution rights. Callback functions can accomplish this, as can Promise objects.
+
+#### co module
+
+Writing the executor for the Generator function above is a bit cumbersome. The co module can solve this problem.
+
+Have fun using it!
+
+    //Run in nodejs environment
     var co = require('co');
     var fetchData = function(data){
         setTimeout(function(){
-            console.log("读取文件"+data+"中")
+            console.log("read file"+data+"中")
         },Math.random()*1000)
     }
     var taskList = function *(){
         for(let i=0;i<5;i++){
             yield fetchData(i)
-            console.log("文件"+i+"读取完毕")
+            console.log("File"+i+"Reading completed")
         }
     }
     
@@ -521,11 +506,10 @@ Thunk 函数并不是 Generator 函数自动执行的唯一方案。因为自动
     co(taskList)
     // UnhandledPromiseRejectionWarning: Unhandled promise rejection (rejection id: 1): TypeError: You may //only yield a function, promise, generator, array, or object, but the following object was passed: //"undefined"
     //(node:16260) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, //promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
-    读取文件0中
-    
-报错了。只好看看源码
 
+Reading file 0
 
+An error occurred. I'll have to look at the source code.
 
     function co(gen) {
       var ctx = this;
@@ -551,42 +535,41 @@ Thunk 函数并不是 Generator 函数自动执行的唯一方案。因为自动
       var value = toPromise.call(ctx, ret.value);
       if (value && isPromise(value)) return value.then(onFulfilled, onRejected);
       return onRejected(
-        new TypeError(
-          'You may only yield a function, promise, generator, array, or object, '
-          + 'but the following object was passed: "'
-          + String(ret.value)
-          + '"'
-        )
-      );
-    }
-    
-co 模块其实就是将两种自动执行器（Thunk 函数和 Promise 对象），包装成一个模块。使用 co 的前提条件是，Generator 函数的yield命令后面，只能是 Thunk 函数或 Promise 对象。
+        newTypeError(
+          'You May only yield a function, promise, generator, array, or object, '
++ 'but the following object was passed: "'
++ String(ret.value)
++ '"'
+)
+);
+}
 
-改写成Promise试一试
+The co module essentially packages two types of executors (thunk functions and promise objects) into a single module. The prerequisite for using co is that the yield command of a generator function must be followed by only a thunk function or a promise object.
 
-    var co = require('co');
-    var fetchData =function(data){
-        new Promise((resolve,reject)=>{
-            setTimeout(function(){
-                console.log("读取文件"+data+"中")
-                resolve()
-            },Math.random()*1000)
-        })
-    }
-    var taskList = function *(){
-        var f1 = fetchData(0)
-        console.log("文件"+0+"读取完毕")
-        var f2 = fetchData(1)
-        console.log("文件"+1+"读取完毕")
-    }
-    
-    co(taskList).then(res=>{
-        console.log("全部完毕")
-    }).catch(e=>{
-        console.log("错误")
-    })
-    // 文件0读取完毕
-    // 文件1读取完毕
-    // 全部完毕
-    // 读取文件1中
-<!-- ORIGINAL CHINESE CONTENT ENDS -->
+Rewrite it into Promise and try it
+
+var co = require('co');
+var fetchData = function(data){
+new Promise((resolve, reject)=>{
+setTimeout(function(){
+console.log("Reading file "+data+"")
+resolve()
+},Math.random()*1000)
+})
+}
+var taskList = function *(){
+var f1 = fetchData(0)
+console.log("File "+0+" read completed")
+var f2 = fetchData(1)
+console.log("File "+1+" read completed")
+}
+
+co(taskList).then(res=>{
+console.log("All completed")
+}).catch(e=>{
+console.log("Error")
+})
+// File 0 read completed
+// File 1 read completed
+// All completed
+// Reading file 1

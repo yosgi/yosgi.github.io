@@ -1,27 +1,20 @@
 ---
-draft: true
-original: 'content/zh/post/legacy/Javascript排序算法.md'
-title: Javascript排序算法
-description: Javascript算法 排序算法
+draft: false
+original: content/zh/post/legacy/Javascript排序算法.md
+title: Javascript sorting algorithm
+description: Javascript algorithm sorting algorithm
 categories:
-  - JavaScript
+- JavaScript
 tags:
-  - JavaScript
-  - JavaScript
+- JavaScript
+- JavaScript
 date: 2018-06-25 18:48:42
-summary: ""
+summary: ''
 ---
 
-# ENGLISH TRANSLATION NEEDED
+## Bubble Sort
 
-This is an automatically generated English stub. Please translate the content below into English and remove the `draft: true` flag when ready.
-
-<!-- ORIGINAL CHINESE CONTENT STARTS -->
-## 冒泡排序
-
-冒泡排序比较任何两个相邻的项，如果第一个比第二个大，则交换它们。元素项向上移动至确的顺序，就好像气泡升至表面一样，冒泡排序因此得名。
-
-```javascript
+Bubble sort compares any two adjacent items and swaps them if the first is greater than the second. The items move upward into the correct order, much like bubbles rising to the surface, hence the name.```javascript
 var bubbleSort = function (array) {
     function swap(index1,index2){
         var aux = array[index1];
@@ -29,9 +22,9 @@ var bubbleSort = function (array) {
         array[index2] = aux; 
     }
      for (let i = 0; i < array.length; i++) {
-     //外循环会从数组的第一位迭代到最后一位，控制了数组经过了多少轮排序
+     // The outer loop will iterate from the first to the last position in the array, controlling how many rounds the array goes through.
         for (let j = 0; j < array.length-1; j++) {
-        //内循环从第一位迭代到倒数第二位，进行当前项和下一项的比较和交换
+        // The inner loop iterates from the first to the second to last item, comparing and exchanging the current item and the next item.
            if(array[j] > array[j+1]){
                 swap(j,j+1);
            }
@@ -39,12 +32,7 @@ var bubbleSort = function (array) {
     }
     return array
 }
-```
-
-它在所有排序算法中最简单。然而，
-从运行时间的角度来看，冒泡排序是最差的一个，
-
-```javascript
+```It is the simplest of all sorting algorithms. However, from a running time perspective, bubble sort is the worst.```javascript
 var bubbleSort = function (array) {
     function swap(index1,index2){
         var aux = array[index1];
@@ -64,15 +52,9 @@ var bubbleSort = function (array) {
     console.log('cost for bubbleSort with input size ' + array.length + ' is' + cost);
 }
 bubbleSort([5, 4, 3, 2, 1])//cost for bubbleSort with input size 5  is 25
-```
+```If we perform bubbleSort on an array of size 10, the cost is 100, so the complexity is O(n^2)
 
-如果用大小为10的数组执行bubbleSort，开销是 100，所以复杂度是O(n^2)
-
-注意当算法执行外循环的第二轮的时候，数字4和5已经是正确排序的了。在后续
-比较中，它们还一直在进行着比较，即使这是不必要的。因此，我们可以稍稍改进一下冒泡排序
-算法。
-
-```javascript
+Notice that by the time the algorithm executes the second pass through the outer loop, the numbers 4 and 5 are already correctly sorted. They are still being compared in subsequent comparisons, even though this is unnecessary. Therefore, we can improve the bubble sort algorithm slightly.```javascript
 var bubbleSort = function (array) {
     function swap(index1,index2){
         var aux = array[index1];
@@ -93,22 +75,17 @@ var bubbleSort = function (array) {
     console.log('cost for bubbleSort with input size ' + array.length + ' is' + cost);
 }
 bubbleSort([5, 4, 3, 2, 1])////cost for bubbleSort with input size 5  is 15
-```
+```The cost of an array of size 5 is 15 and the complexity is O(n^2-(1+2+..+n))
 
-大小为5的数组开销为15 复杂度是O(n^2-(1+2+..+n))
+## Selection Sort
 
-## 选择排序
-
-选择排序算法是一种原址比较排序算法。选择排序大致的思路是找到数据结构中的最小值并
-将其放置在第一位，接着找到第二小的值并将其放在第二位，以此类推。
-
-```javascript
+The selection sort algorithm is an in-place comparison sort algorithm. The general idea behind selection sort is to find the smallest value in the data structure and place it first, then find the second smallest value and place it second, and so on.```javascript
 var swap = function(array,index1,index2) {
 [array[index1],array[index2]] =  [array[index2],array[index1]]
 }
 var  selectionSort  = function(array) {
     for(let i=0;i<array.length; i++ ) {
-        // 外层每一次循环结束后 第i个都是i之后数组项中的最小
+        // After each outer loop, the i-th item is the smallest item in the array after i.
         let minIndex = i
         for(let j=i ; j<array.length ; j++) {
             if(array[minIndex] > array[j] ) {
@@ -118,29 +95,23 @@ var  selectionSort  = function(array) {
     }
     return array
 }
-```
+```Selection sort is also an O(n²) algorithm. Like bubble sort, it involves two nested loops, resulting in a quadratic complexity.
 
-选择排序同样也是一个复杂度为O(n2)的算法。和冒泡排序一样，它包含有嵌套的两个循环，
-这导致了二次方的复杂度。
+Insertion Sort
 
-## 插入排序
+Insertion sort constructs the final sorted array by sorting one item at a time. Assuming the first item is already sorted, and then it is compared to the second item, should the second item remain in its original position or be inserted before the first?
 
-插入排序每次排一个数组项，以此方式构建最后的排序数组。假定第一项已经排序了，接着，
-它和第二项进行比较，第二项是应该待在原位还是插到第一项之前呢？
+If it is before, then the first item should be moved back one position, if it is after, then it should not be moved.
 
-如果是之前，那么第一项应该向后移动一个位置，如果是之后，那么不用动。
-
-这样，头两项就已正确排序，接着和第三项比较，以此类推。
-
-```javascript
+This way, the first two items are correctly sorted and can be compared with the third item, and so on.```javascript
 var insertionSort = function(array){
     var length = array.length;
     for(let i=1;i<length;i++){
-        //数组的第一项默认已经排序好
+        // The first item of the array is sorted by default
         var temp = array[i];
-        //插入新的一项并排序
+        // Insert a new item and sort
         var j = i;
-        //如果之前的项大于新插入的则向后移动一位
+        // If the previous item is larger than the newly inserted one, move it back one position.
         while(j>0&&array[j-1]>temp){
             array[j] = array[j - 1];
             j--
@@ -149,34 +120,29 @@ var insertionSort = function(array){
     }
     return array
 }
-```
+```The complexity is O(n-1+(2+3+..n-1)).
+This algorithm performs better than selection sort and bubble sort when sorting small arrays.
 
-复杂度为O(n-1+(2+3+..n-1))
-排序小型数组时，此算法比选择排序和冒泡排序性能要好。
+## Merge Sort
 
-## 归并排序
+Merge sort is a divide-and-conquer algorithm. The idea is to split the original array into smaller arrays until each small array has only one position, and then merge the small arrays into larger arrays until there is only one sorted large array.
 
-归并排序是一种分治算法。其思想是将原始数组切分成较小的数组，直到每个小数组只有一个位置，接着将小数组归并成较大的数组，直到最后只有一个排序完毕的大数组。
-
-因为已经排序好的两个数组 处于数组最左边的总是最小的，而只剩一项的数组是已经排序好的数组，
-所以最后的大数组也是排序完毕的
-
-```javascript
+Because the leftmost of the two sorted arrays is always the smallest, and the array with only one item left is already sorted, the final large array is also sorted.```javascript
 var merge = function(left,right){
-    //它负责合并和排序小数组来产生大数组，直到回到原始数组并已排序完成
+    // It is responsible for merging and sorting small arrays to generate large arrays until the original array is returned and sorted.
     var result = [],il=0,ir=0;
-    //比较来自left数组的项是否比来自right数组的项小
+    // Compares whether the items from the left array are smaller than the items from the right array
     while(il<left.length&&ir<right.length){
-        //如果是，将该项从left数组添加至归并结果数组
+        // If so, add the item from the left array to the merged result array
         if(left[il]<right[ir]){
-            //并递增迭代数组的控制变量（
+            // and increment the control variable of the iteration array (
             result.push(left[il++])
         }else{
-            //否则，从right数组添加项并递增相应的迭代数组的控制变量
+            // Otherwise, add the item from the right array and increment the control variable of the corresponding iteration array
             result.push(right[ir++])
         };
     }
-    //接下来，将left数组或者right数组所有剩余的项添加到归并数组中。
+    // Next, all remaining items in either the left or right array are added to the merged array.
     while(il<left.length){
         result.push(left[il++]); 
     }
@@ -186,7 +152,7 @@ var merge = function(left,right){
     return result
 };
 var mergeSortRec = function(array){
-    //将大数组递归至只有一项的数组，因为它已排序了。
+    // Recurse the large array down to an array with only one item, since it is already sorted.
     var length = array.length;
     if(length==1){
         return array
@@ -195,26 +161,22 @@ var mergeSortRec = function(array){
     left =  array.slice(0,mid),
     right = array.slice(mid,length);
     console.log(left,right)
-    //为了不断将原始数组分成小数组，我们得再次对left数组和right数组递归调用mergeSortRec，并同时作为参数传递给merge函数。
+    // In order to continuously divide the original array into small arrays, we have to recursively call mergeSortRec on the left array and the right array again, and pass them as parameters to the merge function.
     return merge(mergeSortRec(left),mergeSortRec(right));
 }
-```
+```Merge sort is a sorting algorithm that can be used in practice. Merge sort has good performance and its complexity is O(nlog^n).
 
-归并排序是可以被实际使用的排序算法，归并排序性能不错，其复杂度为O(nlog^n)。
+## Quick sort
 
-## 快速排序
-
-先看一下一个平民版的快速排序
-
-```javascript
+Let's first look at a civilian version of quick sort```javascript
 var quickSort = function(arr){
     if(arr.length<=1){
         return arr;
     }
     var pivotIndex = Math.floor((arr.length-1)/2);
     var pivot  = arr[pivotIndex];
-    //原代码用的splice,
-    //在v8中splice是时间复杂度为O(n),先不管了改回来
+    // The original code uses splice,
+    // In v8, splice has a time complexity of O(n), so let's change it back.
     var left = [];
     var right = [];
     for(var i=0;i<arr.length;i++){
@@ -230,42 +192,38 @@ var quickSort = function(arr){
 }
 var arr = quickSort([85, 24, 63, 45, 17, 31, 96, 50])
 //[17, 24, 31, 45, 50, 63, 85, 96]
-```
+```You can see that the quick sort process is three steps
 
-可以看到快速排序的过程是三步
+1. Select an element in the dataset as the "pivot."
+2. Move all elements smaller than the pivot to the left of the pivot; move all elements larger than the pivot to the right of the pivot.
+3. Repeat steps 1 and 2 for the subsets to the left and right of the pivot until all subsets contain only one element.
 
-1. 在数据集之中，选择一个元素作为”基准”（pivot）。
-2. 所有小于”基准”的元素，都移到”基准”的左边；所有大于”基准”的元素，都移到”基准”的右边。
-3. 对”基准”左边和右边的两个子集，不断重复第一步和第二步，直到所有子集只剩下一个元素为止。
+[Quick Sort](http://www.ruanyifeng.com/blog/2011/04/quicksort_in_javascript.html)
 
-[快速排序](http://www.ruanyifeng.com/blog/2011/04/quicksort_in_javascript.html)
-
-上面排序方法的的问题是每次递归都需要开了2个临时数组，导致了空间复杂度增大。不过对于快速排序的理解是有帮助的；
-
-```javascript
+The problem with the above sorting method is that each recursion requires opening two temporary arrays, which increases the space complexity. However, it is helpful for understanding quick sort;```javascript
 var swap = function (arr,i,j) {
     [arr[i],arr[j]] = [arr[j],arr[i]]
 }
 var quickSort = function (arr, left, right) {
     if (left >= right) return 
-    // 以最左边的项为基准
+    // Based on the leftmost item
     var base = arr[left];
     var i = left , j = right;
     while(i < j ) {
-        // 左边为基准时j需要先变，这点很重要。
-        // 这样才能保证最后归位时，被移动到左边的是小于基准的数
+        // When the left side is the reference, j needs to change first, which is very important.
+        // This ensures that when the number is finally returned, the number moved to the left is smaller than the reference number.
         while(i < j && arr[j] >= base) {
             j--
         }
         while (i < j && arr[i] <= base) {
             i++
         }
-        // j找到比基准小的数，i找到比基准大的数
+        // j finds a number smaller than the base, i finds a number larger than the base
         if (i<j) {
             swap(arr, i, j)
         }
     }
-    // 这一步我叫它归位，讲基准和最后找到的比它小的数对换（可能是本身）
+    // I call this step "returning to the original position", which is to swap the benchmark with the last smaller number found (which may be itself).
     if (i == j) {
         swap(arr,j,left)
     }
@@ -280,4 +238,3 @@ var sortFunc = function (arr) {
     return arr
 }
 ```
-<!-- ORIGINAL CHINESE CONTENT ENDS -->

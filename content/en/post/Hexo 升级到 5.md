@@ -1,62 +1,43 @@
 ---
-draft: true
-original: 'content/zh/post/legacy/Hexo 升级到 5.md'
-title: Hexo 升级到 5
-description: 填坑日记
+draft: false
+original: content/zh/post/legacy/Hexo 升级到 5.md
+title: Hexo upgraded to 5
+description: Filling Diary
 categories:
-  - Life
+- Life
 date: 2020-12-11 12:37:55
-summary: ""
+summary: ''
 ---
 
-# ENGLISH TRANSLATION NEEDED
+I haven't updated my blog for more than a year. I pulled down `hexo s` and found that the generated page was blank and there was no error.
 
-This is an automatically generated English stub. Please translate the content below into English and remove the `draft: true` flag when ready.
+I checked the information and found that the theme configured in \_config.yml was not downloaded: next
 
-<!-- ORIGINAL CHINESE CONTENT STARTS -->
-一年多没有更新博客，拉下来 `hexo s` 发现生成的页面是空白的，并且也没有报错
-
-查了资料发现是没有 下载 \_config.yml 中配置的 theme: next
-
-于是 去 next 官网找到 相应的下载命令
-
-```
+So go to next official website to find the corresponding download command```
 git clone https://github.com/iissnan/hexo-theme-next themes/next
-```
-
-发现下载的速度令人发指 ，于是 切换 npm 包源
-
-```
+```I found the download speed was outrageous, so I switched the npm package source.```
 git clone https://github.com.cnpmjs.org/iissnan/hexo-theme-next themes/next
-```
+```After that, run `hexo s --debug` and the long-lost blog page finally appeared.
 
-之后再 `hexo s --debug` ，久违的博客页面终于显示了出来。
+The next step is to deploy it to the github page
 
-接下来就是部署到 github page 上
+##### New Questions
 
-##### 新的问题
+`hexo d -g` and then I get the error `The "mode" argument must be integer. Received an instance of Object`
 
-`hexo d -g` 之后发现报错 `The "mode" argument must be integer. Received an instance of Object`
+I searched online and found that the problem was caused by the npm version being too high.
 
-网上查找发现是 因为 npm 版本过高引起的问题
+I can't switch back to the old version of node. I have to write another project and then switch back.
 
-我总不能切回旧版本 node ，写别的项目再切回去吧
+Based on the principle of using new instead of old, start upgrading hexo
 
-本着用新不用旧的原则 ，开始升级 hexo
+##### Upgrading hexo
 
-##### 升级 hexo
-
-这里使用 npm-upgrade 来进行 packge.json 的更新
-
-```
+Here we use npm-upgrade to update packge.json```
 npm install -g npm-upgrade
 npm-upgrade
 npm i
-```
-
-操作后我的 package 如下
-
-```json
+```After the operation, my package is as follows```json
 {
 
   "name": "hexo-site",
@@ -104,46 +85,30 @@ npm i
   }
 
 }
-```
+```##### New issues after upgrading
 
-##### 升级后的新问题
-
-升级后部署到 github page ，果然又出现了新的问题，发现部署之后的网站只显示了
+After the upgrade, I deployed it to github page. Sure enough, a new problem occurred. I found that the website after deployment only showed
 
 `hexo {% extends '_layout.swig' %}`
 
-使用 debug 发现一个 warn
-
-```
+Using debug, I found a warning.```
 INFO  Validating config
 WARN  Deprecated config detected: "external_link" with a Boolean value is deprecated. See https://hexo.io/docs/configuration for more details.
-```
-
-原来是 external_link 这个 属性被改成了 object 类型，马上去修改 \_config.yml
-
-```
+```It turns out that the external_link attribute has been changed to object type. Immediately modify \_config.yml```
 external_link:
   enable: true
 
-```
+````hexo s` again found that the problem was not solved
 
-再次 `hexo s` 发现 问题并没有解决
-
-从 [issue： 与 hexo 5 不兼容](https://github.com/ahonn/hexo-theme-even/issues/266) 找到了解决办法，原来是 Hexo 5 把 swig 渲染插件删了，需要单独安装
-
-```npm i hexo-renderer-swig
+I found a solution from [issue: incompatible with hexo 5](https://github.com/ahonn/hexo-theme-even/issues/266). It turns out that Hexo 5 deleted the swig rendering plugin and needs to be installed separately.```npm i hexo-renderer-swig
 npm i hexo-renderer-swig
-```
+```Again `hexo s`
 
-再 `hexo s`
+success
 
-成功
+##### Minor Adjustments
 
-##### 小调整
-
-next 主题下的 翻页出现显示的问题，直接改成
-
-```
+Next theme has page turning display problem, just change it to```
 {% if page.prev or page.next %}
 
   <nav class="pagination">
@@ -158,4 +123,3 @@ next 主题下的 翻页出现显示的问题，直接改成
 
 {% endif %}
 ```
-<!-- ORIGINAL CHINESE CONTENT ENDS -->

@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """
 Generate English stub files for posts under content/zh/post that don't have a counterpart in content/en/post.
-- Keeps YAML front matter (copied), sets `draft: true` to avoid publishing accidental drafts.
-- Adds a header noting translation is needed, and embeds the original Chinese content in an HTML comment.
-- Does not overwrite existing English files. Creates backups if a file would be overwritten (shouldn't happen by default).
+- Copies YAML front matter (if present), ensures `draft: true` and `original: '<zh-path>'` are present.
+- Copies the Chinese post body verbatim into the English file body (no commenting-out). This allows a downstream translation step to translate the full document in place.
+- Does not modify the original Chinese files.
+- Will not overwrite existing English files by default.
 """
 from pathlib import Path
 import re
@@ -64,17 +65,13 @@ for p in sorted(ZH_GLOB):
     else:
         new_front = '---\n' + "draft: true\noriginal: '{}'\n---\n\n".format(p.as_posix())
 
-    stub_body = (
-        '# ENGLISH TRANSLATION NEEDED\n\n'
-        'This is an automatically generated English stub. Please translate the content below into English and remove the `draft: true` flag when ready.\n\n'
-        '<!-- ORIGINAL CHINESE CONTENT STARTS -->\n'
-        + body.strip() + '\n'
-        '<!-- ORIGINAL CHINESE CONTENT ENDS -->\n'
-    )
+    # Copy the Chinese body verbatim into the English file body. This allows a translation
+    # script to translate the whole document in-place later.
+    stub_body = body.lstrip('\n')
 
     content = new_front + stub_body
 
-    # backup if en_path exists (shouldn't) — conservative
+    # backup if en_path exists (conservative) — should not happen because of exists() check
     if en_path.exists():
         bak = en_path.with_suffix(en_path.suffix + '.bak')
         bak.write_bytes(en_path.read_bytes())

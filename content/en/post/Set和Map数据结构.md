@@ -1,81 +1,74 @@
 ---
-draft: true
-original: 'content/zh/post/legacy/Set和Map数据结构.md'
-title: Set和Map数据结构
+draft: false
+original: content/zh/post/legacy/Set和Map数据结构.md
+title: Set and Map Data Structures
 date: 2018-05-02
-description: 《ES6标准入门》 知识点整理
+description: '"ES6 Standard Introduction" Knowledge Points Summary'
 categories:
-  - JavaScript
+- JavaScript
 tags:
-  - JavaScript
-  - JavaScript
-summary: ""
+- JavaScript
+- JavaScript
+summary: ''
 ---
 
-# ENGLISH TRANSLATION NEEDED
-
-This is an automatically generated English stub. Please translate the content below into English and remove the `draft: true` flag when ready.
-
-<!-- ORIGINAL CHINESE CONTENT STARTS -->
-## Set 和 map数据结构
+Set and Map Data Structures
 
 ### set
-基本用方法
+Basic usage
 
-ES6 提供了新的数据结构 Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。
+ES6 provides a new data structure called Set. It is similar to an array, but the values of its members are unique and there are no duplicate values.
 
-Set 本身是一个构造函数，用来生成 Set 数据结构。
+Set itself is a constructor used to generate a Set data structure.
 
-    const s = new Set();
+const s = new Set();
 
-    [2, 3, 5, 4, 5, 2, 2].forEach(x => s.add(x));
-    
-    for (let i of s) {
-      console.log(i);
-    }
-    // 2 3 5 4
-    
-Set 函数可以接受一个数组（或者具有 iterable 接口的其他数据结构）作为参数，用来初始化。
+[2, 3, 5, 4, 5, 2, 2].forEach(x => s.add(x));
 
-    // 数组去重
-    [...new Set(array)]
-    
-向 Set 加入值的时候，不会发生类型转换，所以5和"5"是两个不同的值。Set 内部判断两个值是否不同，使用的算法叫做“Same-value-zero equality”，它类似于精确相等运算符（===），主要的区别是NaN等于自身，而精确相等运算符认为NaN不等于自身。
+for (let i of s) {
+console.log(i);
+}
+// 2 3 5 4
 
-另外，两个对象总是不相等的。
+The Set function can accept an array (or other data structure with an iterable interface) as a parameter for initialization.
 
-#### Set 实例的属性和方法 
+// Array deduplication
+[...new Set(array)]
 
-Set.prototype.constructor：构造函数，默认就是Set函数。
+When adding values to a Set, no type conversion occurs, so 5 and "5" are two different values. Set internally determines whether two values are different using an algorithm called "same-value-zero equality," which is similar to the exact equality operator (===). The main difference is that NaN is equal to itself, while the exact equality operator considers NaN not equal to itself.
 
-Set.prototype.size：返回Set实例的成员总数。
+Additionally, two objects are never equal.
 
-Set 实例的方法分为两大类：操作方法（用于操作数据）和遍历方法（用于遍历成员）。
+#### Properties and methods of Set instances
 
-add(value)：添加某个值，返回 Set 结构本身。
+Set.prototype.constructor: Constructor, the default is the Set function.
 
-delete(value)：删除某个值，返回一个布尔值，表示删除是否成功。
+Set.prototype.size: Returns the total number of members in the Set instance.
 
-has(value)：返回一个布尔值，表示该值是否为Set的成员。
+The methods of Set instances are divided into two categories: operation methods (used to operate on data) and traversal methods (used to traverse members).
 
-clear()：清除所有成员，没有返回值。
+add(value): Add a value and return the Set structure itself.
 
+delete(value): Deletes a value and returns a Boolean value indicating whether the deletion is successful.
 
-#### 遍历操作
+has(value): Returns a Boolean value indicating whether the value is a member of the Set.
 
-Set 结构的实例有四个遍历方法，可以用于遍历成员。
+clear(): Clears all members and has no return value.
 
-keys()：返回键名的遍历器
+#### Traversal Operation
 
-values()：返回键值的遍历器
+Instances of the Set structure have four traversal methods that can be used to traverse members.
 
-entries()：返回键值对的遍历器
+keys(): Returns a traversal of key names
 
-forEach()：使用回调函数遍历每个成员
+values(): Returns a traversal of key values
 
+entries(): Returns a traversal of key-value pairs
 
-##### keys()，values()，entries()
-由于 Set 结构没有键名，只有键值（或者说键名和键值是同一个值），所以keys方法和values方法的行为完全一致。
+forEach(): Iterate over each member using a callback function
+
+##### keys(), values(), entries()
+Since the Set structure has no keys, only values (or the key and value are the same), the keys method and the values method behave identically.
 
     let set = new Set(['red', 'green', 'blue']);
     
@@ -108,125 +101,125 @@ forEach()：使用回调函数遍历每个成员
     // 4 : 4
     // 9 : 9
 
-##### 遍历的应用
+##### Application of traversal
 
-扩展运算符（...）内部使用for...of循环，所以也可以用于 Set 结构。
+The spread operator (...) uses a for...of loop internally, so it can also be used with the Set structure.
 
-    let set = new Set(['red', 'green', 'blue']);
-    let arr = [...set];
-    // ['red', 'green', 'blue']
-    
-扩展运算符和 Set 结构相结合，就可以去除数组的重复成员。
+let set = new Set(['red', 'green', 'blue']);
+let arr = [...set];
+// ['red', 'green', 'blue']
 
-而且，数组的map和filter方法也可以间接用于 Set 了。
+The spread operator combined with the Set construct can remove duplicate elements from an array.
 
-    let set = new Set([1, 2, 3]);
-    set = new Set([...set].map(x => x * 2));
-    // 返回Set结构：{2, 4, 6}
-    
-    let set = new Set([1, 2, 3, 4, 5]);
-    set = new Set([...set].filter(x => (x % 2) == 0));
-    // 返回Set结构：{2, 4}
-    
-因此使用 Set 可以很容易地实现并集（Union）、交集（Intersect）和差集（Difference）。
+Furthermore, the map and filter methods of arrays can also be used indirectly on Sets.
 
-    let a = new Set([1, 2, 3]);
-    let b = new Set([4, 3, 2]);
-    
-    // 并集
-    let union = new Set([...a, ...b]);
-    // Set {1, 2, 3, 4}
-    
-    // 交集
-    let intersect = new Set([...a].filter(x => b.has(x)));
-    // set {2, 3}
-    
-    // 差集
-    let difference = new Set([...a].filter(x => !b.has(x)));
-    
-如果想在遍历操作中，同步改变原来的 Set 结构，目前没有直接的方法，但有两种变通方法。一种是利用原 Set 结构映射出一个新的结构，然后赋值给原来的 Set 结构；另一种是利用Array.from方法。
+let set = new Set([1, 2, 3]);
+set = new Set([...set].map(x => x * 2));
+// Returns a Set structure: {2, 4, 6}
 
-    let set = new Set([1, 2, 3]);
-    set = new Set([...set].map(val => val * 2));
-    // set的值是2, 4, 6
-    
-    // 方法二
-    let set = new Set([1, 2, 3]);
-    set = new Set(Array.from(set, val => val * 2));
-    // set的值是2, 4, 6
-    
-### WeakSet 
+let set = new Set([1, 2, 3, 4, 5]);
+set = new Set([...set].filter(x => (x % 2) == 0));
+// Returns a Set structure: {2, 4}
 
-WeakSet 结构与 Set 类似，也是不重复的值的集合。但是，它与 Set 有两个区别。
+Thus, using Sets, it's easy to implement unions, intersections, and differences.
 
-首先，WeakSet 的成员只能是对象，而不能是其他类型的值。
+let a = new Set([1, 2, 3]);
+let b = new Set([4, 3, 2]);
 
-其次，WeakSet 中的对象都是弱引用，即垃圾回收机制不考虑 WeakSet 对该对象的引用，也就是说，如果其他对象都不再引用该对象，那么垃圾回收机制会自动回收该对象所占用的内存，不考虑该对象还存在于 WeakSet 之中。
+// Union
+let union = new Set([...a, ...b]);
+// Set {1, 2, 3, 4}
 
-由于上面这个特点，WeakSet 的成员是不适合引用的，因为它会随时消失。另外，由于 WeakSet 内部有多少个成员，取决于垃圾回收机制有没有运行，运行前后很可能成员个数是不一样的，而垃圾回收机制何时运行是不可预测的，因此 ES6 规定 WeakSet 不可遍历。
+// Intersection
+let intersect = new Set([...a].filter(x => b.has(x)));
+// Set {2, 3}
 
-#### 语法
+// Difference
+let difference = new Set([...a].filter(x => !b.has(x)));
 
-WeakSet 是一个构造函数，可以使用new命令，创建 WeakSet 数据结构。
+If you want to synchronously modify the original Set structure during a traversal operation, there is currently no direct method, but there are two workarounds. One is to map a new structure from the original Set structure and then assign it to the original Set structure; the other is to use the Array.from method.
+
+let set = new Set([1, 2, 3]);
+set = new Set([...set].map(val => val * 2));
+// The values of set are 2, 4, and 6
+
+// Method 2
+let set = new Set([1, 2, 3]);
+set = new Set(Array.from(set, val => val * 2));
+// The values of set are 2, 4, and 6
+
+### WeakSet
+
+The WeakSet structure is similar to a Set in that it is also a collection of unique values. However, it differs from a Set in two ways.
+
+First, the members of WeakSet can only be objects, not other types of values.
+
+Secondly, the objects in WeakSet are all weak references, that is, the garbage collection mechanism does not consider the reference of WeakSet to the object. In other words, if other objects no longer reference the object, the garbage collection mechanism will automatically reclaim the memory occupied by the object, regardless of whether the object still exists in the WeakSet.
+
+Because of this characteristic, WeakSet members are not suitable for reference, as they can disappear at any time. Furthermore, the number of members in a WeakSet depends on whether garbage collection has run. The number of members before and after garbage collection is likely to be different, and the timing of garbage collection is unpredictable. Therefore, ES6 stipulates that WeakSets cannot be iterated over.
+
+#### grammar
+
+WeakSet is a constructor that can use the new command to create a WeakSet data structure.
 
     const a = [[1, 2], [3, 4]];
     const ws = new WeakSet(a);
     // WeakSet {[1, 2], [3, 4]}
 
-作为构造函数，WeakSet 可以接受一个数组或类似数组的对象作为参数。（实际上，任何具有 Iterable 接口的对象，都可以作为 WeakSet 的参数。）该数组的所有成员，都会自动成为 WeakSet 实例对象的成员。
+As a constructor, WeakSet can accept an array or array-like object as a parameter. (In fact, any object with the Iterable interface can be used as a parameter of WeakSet.) All members of the array will automatically become members of the WeakSet instance object.
 
-WeakSet 结构有以下三个方法。
+The WeakSet structure has the following three methods.
 
-WeakSet.prototype.add(value)：向 WeakSet 实例添加一个新成员。
+WeakSet.prototype.add(value): adds a new member to the WeakSet instance.
 
-WeakSet.prototype.delete(value)：清除 WeakSet 实例的指定成员。
+WeakSet.prototype.delete(value): Clears the specified member of the WeakSet instance.
 
-WeakSet.prototype.has(value)：返回一个布尔值，表示某个值是否在 WeakSet 实例之中。
+WeakSet.prototype.has(value): Returns a Boolean value indicating whether a value is in the WeakSet instance.
 
-WeakSet 不能遍历，是因为成员都是弱引用，随时可能消失，遍历机制无法保证成员的存在，很可能刚刚遍历结束，成员就取不到了。WeakSet 的一个用处，是储存 DOM 节点，而不用担心这些节点从文档移除时，会引发内存泄漏。
+WeakSets cannot be iterated over because their members are weak references and can disappear at any time. The traversal mechanism cannot guarantee the existence of the members, and it is possible that the member will be unavailable just after the traversal is completed. One use of WeakSets is to store DOM nodes without worrying about memory leaks when these nodes are removed from the document.
 
-### Map 
+Map
 
-#### 含义和基本用法
+#### Meaning and basic usage
 
-Map 数据结构。类似于对象，也是键值对的集合，但是“键”的范围不限于字符串，各种类型的值（包括对象）都可以当作键。
+Map data structure. Similar to an object, it is also a collection of key-value pairs, but the scope of "key" is not limited to strings. Values of various types (including objects) can be used as keys.
 
-也就是说，Object 结构提供了“字符串—值”的对应，Map 结构提供了“值—值”的对应，是一种更完善的 Hash 结构实现。如果你需要“键值对”的数据结构，Map 比 Object 更合适。
+In other words, the Object structure provides a "string-value" mapping, while the Map structure provides a "value-value" mapping, making it a more complete implementation of the Hash structure. If you need a "key-value pair" data structure, a Map is more suitable than an Object.
 
-    const m = new Map();
-    const o = {p: 'Hello World'};
-    
-    m.set(o, 'content')
-    m.get(o) // "content"
-    
-    m.has(o) // true
-    m.delete(o) // true
-    m.has(o) // false
-    
-    const map = new Map([
-      ['name', '张三'],
-      ['title', 'Author']
-    ]);
-    
-    map.size // 2
-    map.has('name') // true
-    map.get('name') // "张三"
-    map.has('title') // true
-    map.get('title') // "Author"
-    
-Map构造函数接受数组作为参数，实际上执行的是下面的算法。
-    const items = [
-      ['name', '张三'],
-      ['title', 'Author']
-    ];
-    
-    const map = new Map();
-    
-    items.forEach(
-      ([key, value]) => map.set(key, value)
-    );
-    
-不仅仅是数组，任何具有 Iterator 接口、且每个成员都是一个双元素的数组的数据结构都可以当作Map构造函数的参数。这就是说，Set和Map都可以用来生成新的 Map。
+const m = new Map();
+const o = {p: 'Hello World'};
+
+m.set(o, 'content')
+m.get(o) // "content"
+
+m.has(o) // true
+m.delete(o) // true
+m.has(o) // false
+
+const map = new Map([
+['name', '张三'],
+['title', 'Author']
+]);
+
+map.size // 2
+map.has('name') // true
+map.get('name') // "张三"
+map.has('title') // true
+map.get('title') // "Author"
+
+The Map constructor accepts an array as a parameter and actually executes the following algorithm.
+const items = [
+['name', '张三'],
+['title', 'Author']
+];
+
+const map = new Map();
+
+items.forEach(
+([key, value]) => map.set(key, value)
+);
+
+Not only arrays, but any data structure with an Iterator interface and a two-element array as a member can be used as a parameter to the Map constructor. This means that both Sets and Maps can be used to generate new Maps.
 
     const set = new Set([
       ['foo', 1],
@@ -239,104 +232,103 @@ Map构造函数接受数组作为参数，实际上执行的是下面的算法�
     const m3 = new Map(m2);
     m3.get('baz') // 3
 
-如果对同一个键多次赋值，后面的值将覆盖前面的值。如果读取一个未知的键，则返回undefined。只有对同一个对象的引用，Map 结构才将其视为同一个键。
+If you assign a value to the same key multiple times, the later values will overwrite the earlier ones. If you read an unknown key, undefined is returned. The Map structure only considers references to the same object as the same key.
 
-Map 的键实际上是跟内存地址绑定的，只要内存地址不一样，就视为两个键。这就解决了同名属性碰撞（clash）的问题，我们扩展别人的库的时候，如果使用对象作为键名，就不用担心自己的属性与原作者的属性同名。
+Map keys are actually bound to memory addresses; if the memory addresses are different, they are considered two keys. This solves the problem of property clashes with the same name. When extending someone else's library, if we use objects as keys, we don't have to worry about our properties having the same name as the original author's.
 
-#### 实例的属性和操作方法
+#### Instance properties and operation methods
 
-##### size属性返回 Map 结构的成员总数。
+##### The size property returns the total number of members in the Map structure.
 
     const map = new Map();
     map.set('foo', true);
 
-##### set方法设置键名key对应的键值为value，然后返回整个 Map 结构。如果key已经有值，则键值会被更新，否则就新生成该键。
+##### The set method sets the key value corresponding to the key to value and then returns the entire Map structure. If the key already has a value, the key value will be updated, otherwise a new key will be generated.
 
-    const m = new Map();
+const m = new Map();
 
-    m.set('edition', 6)      
+m.set('edition', 6)
 
-    let map = new Map()//返回的是整个Map解构所以可以用链式写法
-      .set(1, 'a')
-      .set(2, 'b')
-      
-##### get(key)  get方法读取key对应的键值，如果找不到key，返回undefined。
+let map = new Map() // Returns the entire Map deconstruction, so chaining is possible.
+.set(1, 'a')
+.set(2, 'b')
 
-    const m = new Map();
+##### get(key) The get method retrieves the value corresponding to a key. If the key is not found, it returns undefined.
 
-    const hello = function() {console.log('hello');};
-    m.set(hello, 'Hello ES6!') // 键是函数
-    
-    m.get(hello)  // Hello ES6!
-    
-##### has(key) has方法返回一个布尔值，表示某个键是否在当前 Map 对象之中。
+const m = new Map();
 
-    const m = new Map();
+const hello = function() {console.log('hello');};
+m.set(hello, 'Hello ES6!') // Key is a function
 
-    m.set('edition', 6);
+m.get(hello) // Hello ES6!
 
-##### delete(key) delete方法删除某个键，返回true。如果删除失败，返回false。
+##### has(key) The has method returns a Boolean value indicating whether a key is in the current Map object.
+
+const m = new Map();
+
+m.set('edition', 6);
+
+##### delete(key) The delete method deletes a key and returns true. If the deletion fails, it returns false.
 
     const m = new Map();
     m.set(undefined, 'nah');
-    m.has(undefined)     // true
+    m.has(undefined) // true
 
-##### clear()方法清除所有成员，没有返回值。
+##### The clear() method clears all members and has no return value.
 
-#### 遍历方法
-Map 结构原生提供三个遍历器生成函数和一个遍历方法。
+#### Traversal Methods
+The Map structure natively provides three traversal generator functions and one traversal method.
 
+keys(): Returns an iterator of key names.
 
-keys()：返回键名的遍历器。
+values(): Returns a iterator of key values.
 
-values()：返回键值的遍历器。
+entries(): Returns an iterator over all entries.
 
-entries()：返回所有成员的遍历器。
+forEach(): Iterates over all members of a Map.
 
-forEach()：遍历 Map 的所有成员。
+It is important to note that the traversal order of the Map is the insertion order.
 
-需要特别注意的是，Map 的遍历顺序就是插入顺序。
+Similar to the set method
 
-与set方法类似
+#### Conversion between other data structures
 
-#### 与其他数据结构的互相转换
+##### Converting a Map to an Array
+const myMap = new Map()
+.set(true, 7)
+.set({foo: 3}, ['abc']);
+[...myMap]
+// [ [ true, 7 ], [ { foo: 3 }, [ 'abc' ] ] ]
 
-##### Map 转为数组
-    const myMap = new Map()
-      .set(true, 7)
-      .set({foo: 3}, ['abc']);
-    [...myMap]
-    // [ [ true, 7 ], [ { foo: 3 }, [ 'abc' ] ] ]
-    
-##### 数组 转为 Map
-    new Map([
-      [true, 7],
-      [{foo: 3}, ['abc']]
-    ])
-    // Map {
-    //   true => 7,
-    //   Object {foo: 3} => ['abc']
-    // }
-    
-##### Map 转为对象
-如果所有 Map 的键都是字符串，它可以无损地转为对象。
+##### Converting an Array to a Map
+new Map([
+[true, 7],
+[{foo: 3}, ['abc']]
+])
+// Map {
+// true => 7,
+// Object {foo: 3} => ['abc']
+// }
 
-    function strMapToObj(strMap) {
-      let obj = Object.create(null);
-      for (let [k,v] of strMap) {
-        obj[k] = v;
-      }
-      return obj;
-    }
-    
-    const myMap = new Map()
-      .set('yes', true)
-      .set('no', false);
-    strMapToObj(myMap)
-    // { yes: true, no: false }
-如果有非字符串的键名，那么这个键名会被转成字符串，再作为对象的键名。
+##### Converting a Map to an Object
+If all Map keys are strings, it can be converted to an object without loss.
 
-##### 对象转为 Map
+function strMapToObj(strMap) {
+let obj = Object.create(null);
+for (let [k,v] of strMap) {
+obj[k] = v;
+}
+return obj;
+}
+
+const myMap = new Map()
+.set('yes', true)
+.set('no', false);
+strMapToObj(myMap)
+// { yes: true, no: false }
+If there is a non-string key, it will be converted to a string and used as the object key.
+
+##### Convert object to Map
 
     function objToStrMap(obj) {
       let strMap = new Map();
@@ -349,8 +341,8 @@ forEach()：遍历 Map 的所有成员。
     objToStrMap({yes: true, no: false})
     // Map {"yes" => true, "no" => false}
 
-##### Map 转为 JSON
-Map 转为 JSON 要区分两种情况。一种情况是，Map 的键名都是字符串，这时可以选择转为对象 JSON。
+##### Converting Maps to JSON
+Converting a Map to JSON requires distinguishing between two situations. In one case, if the Map's keys are all strings, you can choose to convert to object JSON.
 
     function strMapToJson(strMap) {
       return JSON.stringify(strMapToObj(strMap));
@@ -360,18 +352,18 @@ Map 转为 JSON 要区分两种情况。一种情况是，Map 的键名都是字
     strMapToJson(myMap)
     // '{"yes":true,"no":false}'
 
-另一种情况是，Map 的键名有非字符串，这时可以选择转为数组 JSON。
-    
-    function mapToArrayJson(map) {
-      return JSON.stringify([...map]);
-    }
-    
-    let myMap = new Map().set(true, 7).set({foo: 3}, ['abc']);
-    mapToArrayJson(myMap)
-    // '[[true,7],[{"foo":3},["abc"]]]'
-    
-##### JSON 转为 Map
-JSON 转为 Map，正常情况下，所有键名都是字符串。
+Another case is when a Map's keys contain non-strings. In this case, you can choose to convert it to a JSON array.
+
+function mapToArrayJson(map) {
+return JSON.stringify([...map]);
+}
+
+let myMap = new Map().set(true, 7).set({foo: 3}, ['abc']);
+mapToArrayJson(myMap)
+// '[[true,7],[{"foo":3},["abc"]]]'
+
+##### JSON to Map
+When converting JSON to Map, normally all keys are strings.
 
     function jsonToStrMap(jsonStr) {
       return objToStrMap(JSON.parse(jsonStr));
@@ -380,7 +372,7 @@ JSON 转为 Map，正常情况下，所有键名都是字符串。
     jsonToStrMap('{"yes": true, "no": false}')
     // Map {'yes' => true, 'no' => false}
 
-但是，有一种特殊情况，整个 JSON 就是一个数组，且每个数组成员本身，又是一个有两个成员的数组。这时，它可以一一对应地转为 Map。这往往是 Map 转为数组 JSON 的逆操作。
+However, there's a special case where the entire JSON is an array, and each array member is itself an array with two members. In this case, it can be converted to a Map one-to-one. This is often the inverse operation of converting a Map to an array JSON.
 
     function jsonToMap(jsonStr) {
       return new Map(JSON.parse(jsonStr));
@@ -389,45 +381,44 @@ JSON 转为 Map，正常情况下，所有键名都是字符串。
     jsonToMap('[[true,7],[{"foo":3},["abc"]]]')
     // Map {true => 7, Object {foo: 3} => ['abc']}
 
+WeakMap
 
-### WeakMap
+The WeakMap structure is similar to the Map structure and is also used to generate a collection of key-value pairs.
 
-WeakMap结构与Map结构类似，也是用于生成键值对的集合。
+There are two differences between WeakMap and Map.
 
-WeakMap与Map的区别有两点。
+First, WeakMap only accepts objects as keys (except null) and does not accept values of other types as keys.
 
-首先，WeakMap只接受对象作为键名（null除外），不接受其他类型的值作为键名。
+Secondly, the objects pointed to by the WeakMap keys are not included in the garbage collection mechanism.
 
-其次，WeakMap的键名所指向的对象，不计入垃圾回收机制。
-
-WeakMap的设计目的在于，有时我们想在某个对象上面存放一些数据，但是这会形成对于这个对象的引用。
+The purpose of WeakMap design is that sometimes we want to store some data on an object, but this will form a reference to this object.
 
     const e1 = document.getElementById('foo');
     const e2 = document.getElementById('bar');
     const arr = [
-      [e1, 'foo 元素'],
-      [e2, 'bar 元素'],
+      [e1, 'foo element'],
+      [e2, 'bar element'],
     ];
 
-上面代码中，e1和e2是两个对象，我们通过arr数组对这两个对象添加一些文字说明。这就形成了arr对e1和e2的引用。
+In the above code, e1 and e2 are two objects. We add some text descriptions to these two objects through the arr array. This forms arr's references to e1 and e2.
 
-一旦不再需要这两个对象，我们就必须手动删除这个引用，否则垃圾回收机制就不会释放e1和e2占用的内存。
+Once these two objects are no longer needed, we must manually delete the reference, otherwise the garbage collection mechanism will not release the memory occupied by e1 and e2.
 
-    arr [0] = null;
-    arr [1] = null;
-    
-WeakMap 就是为了解决这个问题而诞生的，它的键名所引用的对象都是弱引用，即垃圾回收机制不将该引用考虑在内。因此，只要所引用的对象的其他引用都被清除，垃圾回收机制就会释放该对象所占用的内存。也就是说，一旦不再需要，WeakMap 里面的键名对象和所对应的键值对会自动消失，不用手动删除引用。
+arr[0] = null;
+arr[1] = null;
 
-基本上，如果你要往对象上添加数据，又不想干扰垃圾回收机制，就可以使用 WeakMap。一个典型应用场景是，在网页的 DOM 元素上添加数据，就可以使用WeakMap结构。当该 DOM 元素被清除，其所对应的WeakMap记录就会自动被移除。
-    
-    const wm = new WeakMap();
+WeakMap was created to address this problem. The objects referenced by its keys are weak references, meaning they are not considered by the garbage collector. Therefore, as soon as all other references to the referenced object are cleared, the garbage collector will free the memory occupied by the object. In other words, once no longer needed, the key object and the corresponding key-value pair in the WeakMap automatically disappear, eliminating the need for manual reference deletion.
 
-    const element = document.getElementById('example');
-    
-    wm.set(element, 'some information');
-    wm.get(element) // "some information"
-    
-注意，WeakMap 弱引用的只是键名，而不是键值。键值依然是正常引用。
+Basically, if you want to add data to an object without interfering with garbage collection, you can use a WeakMap. A typical application scenario is adding data to a DOM element in a web page. When the DOM element is cleared, the corresponding WeakMap entry is automatically removed.
+
+const wm = new WeakMap();
+
+const element = document.getElementById('example');
+
+wm.set(element, 'some information');
+wm.get(element) // "some information"
+
+Note that WeakMap weakly references only the key name, not the value. The key and value are still referenced normally.
 
     const wm = new WeakMap();
     let key = {};
@@ -438,5 +429,4 @@ WeakMap 就是为了解决这个问题而诞生的，它的键名所引用的对
     wm.get(key)
     // Object {foo: 1}
 
-#### WeakMap 的语法
-<!-- ORIGINAL CHINESE CONTENT ENDS -->
+#### WeakMap syntax

@@ -1,87 +1,82 @@
 ---
-draft: true
-original: 'content/zh/post/legacy/Symbol.md'
+draft: false
+original: content/zh/post/legacy/Symbol.md
 title: Symbol
 date: 2018-04-28
-description: 《ES6标准入门》 知识点整理
+description: '"ES6 Standard Introduction" Knowledge Points Summary'
 categories:
-  - JavaScript
+- JavaScript
 tags:
-  - JavaScript
-  - JavaScript
-summary: ""
+- JavaScript
+- JavaScript
+summary: ''
 ---
 
-# ENGLISH TRANSLATION NEEDED
+Symbol
 
-This is an automatically generated English stub. Please translate the content below into English and remove the `draft: true` flag when ready.
+#### Symbol Overview
+Symbols were introduced to resolve property name conflicts.
 
-<!-- ORIGINAL CHINESE CONTENT STARTS -->
-### Symbol
+Represents a unique value, which is the seventh primitive data type of Js (undefined, null, Bollen, Number, String, Object, Symbol)
 
-#### Symbol概述
-Symbol引入的原因是为了解决属性名的冲突。
+That is to say, the attribute name of an object can now have two types, one is a string and the other is a symbol. The symbol can ensure that there will be no conflict with other attribute names.
 
-表示的是独一无二的值，是Js第七种原始数据类型(undefined,null,Bollen,Number,String,Object,Symbol)
+let s = Symbol();
+typeof s
+// "symbol" cannot use the new command because symbol is a primitive value, not an object.
 
-也就是说对象的属性名现在可以有两种类型，一种是字符串，一种是Symbol，symbol可以保证不会与其它属性名产生冲突。
+let s1 = Symbol("foo");
+s1 // Symbol(foo)
+s2.toString() // "Symbol(bar)"
 
-    let s = Symbol();
-    typeof s
-    // "symbol" 不可以使用new命令，因为symbol是一个原始类型的值不是对象
-    
-    let s1 = Symbol("foo");
-    s1 // Symbol(foo)
-    s2.toString() // "Symbol(bar)"
+The Symbol function can accept a string as a parameter, which represents the description of the symbol, mainly for easier identification when displayed in the console or converted to a string. (If it is not added, the symbol will be output)
 
-Symbol函数可以接受一个字符串作为参数，表示对symbol的描述，主要为了在控制台显示或者转为字符串时比较容易区分。(不加的话都是输出symbol)
+The symbol function parameters only describe the function, and the return values of the same parameters are not equal.
 
-symbol函数参数只是描述作用，相同参数的返回值不相等。
+// No parameters
+let s1 = Symbol();
+let s2 = Symbol();
 
-    // 没有参数的情况
-    let s1 = Symbol();
-    let s2 = Symbol();
-    
-    s1 === s2 // false
-    
-    // 有参数的情况
-    let s1 = Symbol('foo');
-    let s2 = Symbol('foo');
-    
-    s1 === s2 // false
+s1 === s2 // false
 
-Symbol不能与其它类型的值进行运算
+// With parameters
+let s1 = Symbol('foo');
+let s2 = Symbol('foo');
 
-可以显示转化为字符串（如上例1）
+s1 === s2 // false
 
-可以转化为布尔值，但是不能转化为数值
+Symbol cannot be operated with values of other types
 
-#### Symbol作为属性名
+Can be converted into a string (as in Example 1 above)
 
-由于每一个Symbol值都是不相等的，就可以保证作为属性名时不会出现同名属性，对于一个对象由多个模块构成的情况很有用，能防止某一个键被误改写或者覆盖。
+Can be converted to a Boolean value, but not to a numeric value
 
-    let mySymbol  =  Symbol();
-    // 第一种写法
-    let a = {};
-    a[mySymbol] = 'Hello!';
-    // 第二种写法
-    let a = {
-      [mySymbol]: 'Hello!'
-    };
-    // 第三种写法
-    let a = {};
-    Object.defineProperty(a, mySymbol, { value: 'Hello!' });
-    a[mySymbol] // "Hello!"
-    
-Symbol 值作为对象属性名时，不能用点运算符。因为点运算符后面总是字符串，所以不会读取mySymbol作为标识名所指代的那个值。
+#### Symbol as property name
 
-Symbol 值作为属性名时，该属性还是公开属性，不是私有属性。
+Since each Symbol value is not equal, it can be guaranteed that there will be no attributes with the same name when used as attribute names. This is very useful for situations where an object consists of multiple modules, and can prevent a key from being accidentally rewritten or overwritten.
 
-#### 属性名的遍历
+let mySymbol = Symbol();
+// First way
+let a = {};
+a[mySymbol] = 'Hello!';
+// Second way
+let a = {
+[mySymbol]: 'Hello!'
+};
+// Third way
+let a = {};
+Object.defineProperty(a, mySymbol, { value: 'Hello!' });
+a[mySymbol] // "Hello!"
 
-Object.getOwnPropertySymbols方法，可以获取指定对象的所有 Symbol 属性名。
+When using a Symbol value as an object property name, the dot operator cannot be used. Because the dot operator is always followed by a string, the value designated by mySymbol as the identifier will not be read.
 
-但是该属性不会出现在for...in、for...of循环中，也不会被Object.keys()、Object.getOwnPropertyNames()、JSON.stringify()返回。
+When a Symbol value is used as a property name, the property is still a public property, not a private property.
+
+#### Traversal of attribute names
+
+The Object.getOwnPropertySymbols method can get all Symbol property names of the specified object.
+
+However, this property will not appear in for...in or for...of loops, nor will it be returned by Object.keys(), Object.getOwnPropertyNames(), or JSON.stringify().
 
     const obj = {};
     let a = Symbol('a');
@@ -94,38 +89,39 @@ Object.getOwnPropertySymbols方法，可以获取指定对象的所有 Symbol �
     for (let i in obj) {
         console.log(i); // []
     }
-    Object.getOwnPropertyNames(obj)// 无输出
+    Object.getOwnPropertyNames(obj)//No output
     objectSymbols //[Symbol(a), Symbol(b)]
     Reflect.ownKeys(obj)//[Symbol(a), Symbol(b)]
 
-Reflect.ownKeys()可以返回所有的键名，包括常规键和Symbol。
+Reflect.ownKeys() can return all key names, including regular keys and Symbols.
 
-Symbol可以利用这个特性，对对象定义一些非私有但希望只用于内部的方法
+Symbol can use this feature to define some non-private methods for objects that are only intended to be used internally.
 
-#### Symbol.for()，Symbol.keyFor() 
+#### Symbol.for(), Symbol.keyFor()
 
-Symbol.for()接受一个参数，然后搜索有没有以该参数作为名称的Smybol值。如果有就返回这个值，否则就新建一个以该字符串为名称的Symbol
+Symbol.for() accepts a parameter and searches for a Smybol value with the parameter as its name. If so, it returns the value, otherwise it creates a new Symbol with the string as its name.
 
-    let s1 = Symbol.for('foo');
-    let s2 = Symbol.for('foo');
-    
-    s1 === s2 // true
-    
-Symbol.for()会被登记在全局环境中提供搜索。
+let s1 = Symbol.for('foo');
 
-Symbol.keyFor方法返回一个已登记的 Symbol 类型值的key。
+let s2 = Symbol.for('foo');
+
+s1 === s2 // true
+
+Symbol.for() is registered in the global environment for searching.
+
+The Symbol.keyFor method returns the key of a registered Symbol type value.
 
     let s1 = Symbol.for("foo");
     Symbol.keyFor(s1) // "foo"
 
-#### 实例：模块的Singleton模式
+#### Example: Singleton pattern of module
 
-使用Symbol可以保证每次执行一个模块返回的都是同一个实例
+Using Symbol can ensure that each time a module is executed, the same instance is returned.
 
     //Es5
     var Single = function(name){
     this.name = name;
-    this.instance = null;    
+    this.instance = null;
     }
     Single.getInstance = function(name){
     if(!this.instance){
@@ -143,7 +139,7 @@ Symbol.keyFor方法返回一个已登记的 Symbol 类型值的key。
     const instance = Symbol.for('person');
 
     function GetInstance(name){
-        this.name = "yosgi"; 
+        this.name = "yosgi";
     };
     if(!window[instance]){
         window[instance] = new GetInstance()
@@ -153,7 +149,6 @@ Symbol.keyFor方法返回一个已登记的 Symbol 类型值的key。
     var b = window[instance]
     a===b//true
 
-上述代码可以保证window[instance]不会被无意中覆盖。但是可以被改写
+The above code can ensure that window[instance] will not be accidentally overwritten. However, it can be rewritten
 
-如果键名使用Symbol方法生成，那么外部将无法引用这个值，当然也就无法改写。
-<!-- ORIGINAL CHINESE CONTENT ENDS -->
+If the key name is generated using the Symbol method, then the value cannot be referenced externally, and of course cannot be overwritten.

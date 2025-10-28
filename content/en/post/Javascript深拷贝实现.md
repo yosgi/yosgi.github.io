@@ -1,74 +1,67 @@
 ---
-draft: true
-original: 'content/zh/post/legacy/Javascript深拷贝实现.md'
-title: Javascript深拷贝实现
-description: Javascript基础
+draft: false
+original: content/zh/post/legacy/Javascript深拷贝实现.md
+title: Javascript deep copy implementation
+description: Javascript Basics
 categories:
-  - JavaScript
+- JavaScript
 tags:
-  - JavaScript
+- JavaScript
 date: 2018-06-26 17:01:50
-summary: ""
+summary: ''
 ---
 
-# ENGLISH TRANSLATION NEEDED
-
-This is an automatically generated English stub. Please translate the content below into English and remove the `draft: true` flag when ready.
-
-<!-- ORIGINAL CHINESE CONTENT STARTS -->
-#### 如何实现深拷贝
+#### How to implement deep copy
 
 ##### Object.assign()
 
-只能处理一层的深拷贝
+Can only handle one layer of deep copy
 
     var oldObj = {a:1};
     var newObj = Object.assign({},oldObj)
     console.log(oldObj===newObj)//false
 
-##### 序列/反序列
+##### Sequence/Desequence
 
-无法实现对函数 、RegExp等特殊对象的克隆
+It is not possible to clone special objects such as functions and RegExp.
 
-会抛弃对象的constructor,所有的构造函数会指向Object
+The object's constructor will be discarded, and all constructors will point to Object
 
-对象有循环引用,会报错
+If the object has a circular reference, an error will be reported.
 
-这种方法能正确处理的对象只有 Number, String, Boolean, Array, 扁平对象，即那些能够被 json 直接表示的数据结构
+This method can only correctly handle objects such as Number, String, Boolean, Array, and flat objects, that is, data structures that can be directly represented by json.
 
-    // 构造函数
-    function person(pname) {
-      this.name = pname;
-    }
-    
-    const Messi = new person('Messi');
-    
-    // 函数
-    function say() {
-      console.log('hi');
-    };
-    
-    const oldObj = {
-      a: say,
-      b: new Array(1),
-      c: new RegExp('ab+c', 'i'),
-      d: Messi
-    };
-    
-    const newObj = JSON.parse(JSON.stringify(oldObj));
-    
-    // 无法复制数函
-    console.log(newObj.a, oldObj.a); // undefined [Function: say]
-    // 稀疏数组复制错误
-    console.log(newObj.b[0], oldObj.b[0]); // null undefined
-    // 无法复制正则对象
-    console.log(newObj.c, oldObj.c); // {} /ab+c/i
-    // 构造函数指向错误
-    console.log(newObj.d.constructor, oldObj.d.constructor); // [Function: Object] [Function: person]
+// Constructor
+function person(pname) {
+this.name = pname;
+}
 
+const Messi = new person('Messi');
 
-#####  递归拷贝
+// Function
+function say() {
+console.log('hi');
+};
 
+const oldObj = {
+a: say,
+b: new Array(1),
+c: new RegExp('ab+c', 'i'),
+d: Messi
+};
+
+const newObj = JSON.parse(JSON.stringify(oldObj));
+
+// Unable to copy function
+console.log(newObj.a, oldObj.a); // undefined [Function: say]
+// Sparse array copy error
+console.log(newObj.b[0], oldObj.b[0]); // null undefined
+// Unable to copy regular object
+console.log(newObj.c, oldObj.c); // {} /ab+c/i
+// Constructor pointing to error
+console.log(newObj.d.constructor, oldObj.d.constructor); // [Function: Object] [Function: person]
+
+##### Recursive copy
 
     function isArray(arr) {
       return Object.prototype.toString.call(arr) == '[object Array]'
@@ -90,42 +83,40 @@ This is an automatically generated English stub. Please translate the content be
       }
       return obj
     }
-    //还是用上面的测试
+    //Still use the above test
     function Person(pname) {
     this.name = name;
     }
     const Messi = new Person('Messi');
-    function say() {
-        console.log('hi');
-    };
-    const oldObj = {
-        a: say,
-        b: new Array(1),
-        c: new RegExp('ab+c', 'i'),
-        d: Messi
-    };
-    const newObj = _clone(oldObj)
-    // 函数可复制
-    console.log(newObj.a, oldObj.a); // [Function: say] [Function: say]
-    // 稀疏数组可以复制
-    console.log(newObj.b[0], oldObj.b[0]); // undefined undefined
-    // 无法复制正则对象
-    console.log(newObj.c, oldObj.c); // {} /ab+c/i
-    // 构造函数指向错误
-    console.log(newObj.d.constructor, oldObj.d.constructor); // [Function: Object] [Function: person]
-    //循环引用也不行，上面的continue去掉会内存溢出
+    function say() { console.log('hi');
+};
+const oldObj = {
+a: say,
+b: new Array(1),
+c: new RegExp('ab+c', 'i'),
+d: Messi
+};
+const newObj = _clone(oldObj)
+// Functions can be copied
+console.log(newObj.a, oldObj.a); // [Function: say] [Function: say]
+// Sparse arrays can be copied
+console.log(newObj.b[0], oldObj.b[0]); // undefined undefined
+// Regular objects cannot be copied
+console.log(newObj.c, oldObj.c); // {} /ab+c/i
+// Constructor pointing to error
+console.log(newObj.d.constructor, oldObj.d.constructor); // [Function: Object] [Function: person]
+// Circular references are not allowed either. Removing the continue above will cause memory overflow.
 
-同样存在无法复制正则对象，构造函数指向错误等问题。
-    
-##### 递归拷贝 改进版
+There are also issues like being unable to copy regular objects and constructor pointer errors.
 
+##### Improved Recursive Copy
 
        const isType = function (obj, type) {
-      //用来区别属性类型的函数
+      //Function used to distinguish attribute types
       if (typeof obj !== 'object') return false
       const typeString = Object.prototype.toString.call(obj);
       let flag;
-      //flag作为属性判断的标识
+      //flag is used as the identifier for attribute judgment
       switch (type) {
         case 'Array':
           flag = typeString === '[object Array]';
@@ -149,43 +140,43 @@ This is an automatically generated English stub. Please translate the content be
           flag = false;
       }
       return flag;
-    }
-    
-    function _clone(oldObj) {
-      let obj;
-      if (isType(oldObj) == false) {
-        //基本数据类型,函数,和我没考虑到的类型，一律直接引用（偷懒）
-        obj = oldObj
-      } else if (isType(oldObj, 'Array')) {
-        //处理数组
-        obj = [];
-      } else if (isType(oldObj, 'RegExp')) {
-        //处理正则
-        let flags = '';
-        if (oldObj.global) flags += "g";//全局
-        if (oldObj.ignoreCase) flags += "i";//大小写
-        if (oldObj.multiline) flags += "m";//
-        return obj = new RegExp(oldObj.source, getRegExp(oldObj));
-      } else if (isType(oldObj, 'Date')) {
-        //处理时间对象
-        return obj = new Date(oldObj.getTime());
-      } else if (isType(oldObj, 'Set')) {
-        //处理Set
-        return obj = new Set([...obj]);
-      } else if (isType(oldObj, 'Map')) {
-        //处理Map
-        return obj = new Map([...obj]);
-      } else if (isType(oldObj, 'Symbol')) {
-        //处理Symbol
-        return obj = Symbol(String(oldObj).slice(7, -1))
-      } else {
-        // 处理对象原型
-        let proto = Object.getPrototypeOf(oldObj);
-        obj = Object.create(proto);
-      }
-      for (var i in oldObj) {
-        if (oldObj.hasOwnProperty(i)) {
-          if (oldObj[i] == oldObj) {
+}
+
+function _clone(oldObj) {
+let obj;
+if (isType(oldObj) == false) {
+//Basic data types, functions, and types I haven't considered are all directly referenced (lazy)
+obj = oldObj
+} else if (isType(oldObj, 'Array')) {
+//Process arrays
+obj = [];
+} else if (isType(oldObj, 'RegExp')) {
+//Process regular expressions
+let flags = '';
+if (oldObj.global) flags += "g";//Global
+if (oldObj.ignoreCase) flags += "i";//Case
+if (oldObj.multiline) flags += "m";//
+return obj = new RegExp(oldObj.source, getRegExp(oldObj));
+} else if (isType(oldObj, 'Date')) {
+//Processing time object
+return obj = new Date(oldObj.getTime());
+} else if (isType(oldObj, 'Set')) {
+//Processing Set
+return obj = new Set([...obj]);
+} else if (isType(oldObj, 'Map')) {
+//Processing Map
+return obj = new Map([...obj]);
+} else if (isType(oldObj, 'Symbol')) {
+//Processing Symbol
+return obj = Symbol(String(oldObj).slice(7, -1))
+} else {
+// Processing object prototype
+let proto = Object.getPrototypeOf(oldObj);
+obj = Object.create(proto);
+}
+for (var i in oldObj) {
+if (oldObj.hasOwnProperty(i)) {
+if (oldObj[i] == oldObj) {
             obj[i] = oldObj
           } else {
             obj[i] = _clone(oldObj[i])
@@ -212,57 +203,55 @@ This is an automatically generated English stub. Please translate the content be
         g:Symbol("yosgi")
     };
     const newObj = _.clone(oldObj)
-    // 函数
-    console.log(newObj.a, oldObj.a); // [Function: say] [Function: say]
-    // 稀疏数组
-    console.log(newObj.b[0], oldObj.b[0]); // undefined undefined
-    // 正则对象
-    console.log(newObj.c, oldObj.c); // /ab+c/i /ab+c/i
-    // 构造函数
-    console.log(newObj.d.constructor, oldObj.d.constructor); // [Function: person] [Function: person]
-    //Set
-    console.log(newObj.e, oldObj.e)//Set(3) {1, 2, 3} Set(3) {1, 2, 3}
-    //Map
-    console.log(newObj.f, oldObj.f)//Map(2) {"foo" => 1, "bar" => 2} Map(2) {"foo" => 1, "bar" => 2}
-    //Symbol
-    console.log(newObj.g, oldObj.g)//Symbol(yosgi) Symbol(yosgi)
-    //循环引用
-    // var oldObj = {};;
-    // oldObj.a = oldObj;
-    // const newObj = _.clone(oldObj)
-    // console.log(oldObj,newObj)//{a: {…}} {a: {…}}
-   
-函数,数组,正则对象,构造函数,Set,Map,Symbol,循环引用都考虑在内
+    // function console.log(newObj.a, oldObj.a); // [Function: say] [Function: say]
+// Sparse array
+console.log(newObj.b[0], oldObj.b[0]); // undefined undefined
+// Regular object
+console.log(newObj.c, oldObj.c); // /ab+c/i /ab+c/i
+// Constructor
+console.log(newObj.d.constructor, oldObj.d.constructor); // [Function: person] [Function: person]
+//Set
+console.log(newObj.e, oldObj.e)//Set(3) {1, 2, 3} Set(3) {1, 2, 3}
+//Map
+console.log(newObj.f, oldObj.f)//Map(2) {"foo" => 1, "bar" => 2} Map(2) {"foo" => 1, "bar" => 2}
+//Symbol
+console.log(newObj.g, oldObj.g) //Symbol(yosgi) Symbol(yosgi)
+//Circular references
+// var oldObj = {};;
+// oldObj.a = oldObj;
+// const newObj = _.clone(oldObj)
+// console.log(oldObj,newObj) //{a: {…}} {a: {…}}
 
-然鹅，还有Buffer，Promise，proxy等...
+Functions, arrays, regular objects, constructors, Sets, Maps, Symbols, and circular references are all considered
+
+However, there are also Buffer, Promise, proxy, etc...
 ##### lodash
 
-真香
+Really delicious
 
-    function person(pname) {
-        this.name = pname;
-    }
-    const Messi = new person('Messi');
-    function say() {
-        console.log('hi');
-    };
-    const oldObj = {
-        a: say,
-        b: new Array(1),
-        c: new RegExp('ab+c', 'i'),
-        d: Messi
-    };
-    const newObj = _.clone(oldObj)
-    // 函数
-    console.log(newObj.a, oldObj.a); // [Function: say] [Function: say]
-    // 稀疏数组
-    console.log(newObj.b[0], oldObj.b[0]); // undefined undefined
-    // 正则对象
-    console.log(newObj.c, oldObj.c); // /ab+c/i /ab+c/i
-    // 构造函数
+function person(pname) {
+this.name = pname;
+}
+const Messi = new person('Messi');
+function say() {
+console.log('hi');
+};
+const oldObj = {
+a: say,
+b: new Array(1),
+c: new RegExp('ab+c', 'i'),
+d: Messi
+};
+const newObj = _.clone(oldObj)
+// Function
+console.log(newObj.a, oldObj.a); // [Function: say] [Function: say]
+// Sparse array
+console.log(newObj.b[0], oldObj.b[0]); // undefined undefined
+// Regular expression object
+console.log(newObj.c, oldObj.c); // /ab+c/i /ab+c/i
+// Constructor
     console.log(newObj.d.constructor, oldObj.d.constructor); // [Function: person] [Function: person]
-    //循环引用
+    //Circular reference
     var oldObj = {};;
     oldObj.a = oldObj;
     const newObj = _.clone(oldObj)
-<!-- ORIGINAL CHINESE CONTENT ENDS -->

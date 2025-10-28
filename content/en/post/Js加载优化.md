@@ -1,10 +1,9 @@
 ---
-draft: true
+draft: false
 original: 'content/zh/post/legacy/Js加载优化.md'
-title: Js加载优化
-description: 《高性能Javascript》 知识点整理
+title: "JavaScript Loading Optimization"
+description: "Notes from 'High Performance JavaScript'"
 categories:
-  - JavaScript
   - JavaScript
 tags:
   - JavaScript
@@ -12,50 +11,112 @@ date: 2018-09-04 09:23:11
 summary: ""
 ---
 
-# ENGLISH TRANSLATION NEEDED
+##### Why should the <script> tag be placed at the bottom of the <body> tag whenever possible?
+Placing `<script>` tags at the end of the `<body>` helps avoid blocking page rendering because downloading and executing scripts can modify the DOM and block other resource downloads. Many browsers use a single thread for UI rendering and JavaScript execution, so moving scripts to the bottom reduces perceived load time and improves responsiveness.
 
-This is an automatically generated English stub. Please translate the content below into English and remove the `draft: true` flag when ready.
+##### What are the `defer` and `async` attributes and how do they behave?
 
-<!-- ORIGINAL CHINESE CONTENT STARTS -->
-##### 为什么<script\>标签应该尽可能放到<body\>标签的底部？
-因为脚本执行过程中可能会修改页面内容，Js的下载和执行会阻塞页面其它资源的下载，多数浏览器使用单一进程来处理UI刷新和Js脚本执行。
+- `defer` indicates that the script will not modify the DOM during parsing, so its execution can be deferred safely. The browser will begin downloading the script as it encounters the `<script src="...">` tag during parsing, but will delay execution until the document has been parsed; deferred scripts are executed in order and before the `DOMContentLoaded`/`load` events. The `defer` attribute only applies when `src` is present.
 
-##### 扩展属性defer async 是什么，有什么作用？
+- `async` loads scripts asynchronously. Like `defer`, it downloads the script in parallel with other resources, but the key difference is execution timing: an `async` script runs as soon as it finishes downloading (which can interrupt parsing), whereas `defer` scripts wait until parsing completes and execute in document order.
 
-defer指明本元素所含的脚本不会修改DOM,因此代码能安全地延迟执行。对应的Js文件将在页面解析到sctipt标签时开始下载，但不会执行，会在onload事件处理器执行之前被调用。defer的script可以和页面的其它资源并行下载。（defer属性仅当src属性声明时才有效）
+Use `async` for independent scripts (analytics, ads) and `defer` for scripts that rely on the document structure or need predictable ordering.
 
+##### What are dynamic script elements and how do you create them?
 
-async用于异步加载脚本。defer与async的相同点是采用并行下载，在下载过程中不会产生阻塞。
+You can create `<script>` elements dynamically via DOM methods, which allows non-blocking loading and execution. Dynamically injecting a `<script>` and appending it to the document starts download without blocking other tasks, making it a widely used technique for non-blocking script loading.
 
-区别是async是在加载完成之后自动执行，defer需要等待页面完成后执行。
+Example:```javascript
+function loadScript(url, callback) {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.onload = function () {
+    callback();
+    // Ensure the script is ready before calling other code that depends on it
+  };
+  script.src = url;
+  document.getElementsByTagName('head')[0].appendChild(script);
+}
+```This pattern starts downloading the script and invokes the callback when the script is loaded and executed.
 
-##### 什么是动态脚本元素？如何创建？
+##### How does XMLHttpRequest-based script injection work and what are its limitations?
 
-使用DOM方法可以动态创建<script\>元素。无论何时启动下载，文件的下载和执行过程不会阻塞页面的其它进程，是最通用的无阻塞加载解决方式。
-    
-    function loadScript (url, callback) {
-                var script = document.createElement('script')
-                script.type = 'text/javascript'
-                script.onload = function () {
-                    callback()
-                    // 需要确保脚本下载就绪，才能被其它地方调用
-                }
-                script.src = url
-                document.getElementsByTagName('head')[0].appendChild(script)
-            }
-##### XMLHttpRequest脚本注入怎么用？有什么局限性？
+You can fetch script text via `XMLHttpRequest` (or `fetch`) and then inject it into the page by creating a `<script>` element with the response text. This avoids an extra round-trip for script loading in some scenarios but has limitations:
 
-    var xhr = new XMLHttpRequest()
-                xhr.open('get', 'test.js', true)
-                xhr.onreadystatechange = function () {
-                    if(xhr.readyState === 4) {
-                        if (xhr.status >=200 && xhr.status < 30 || xhr.status == 304) {
-                            var script = document.createElement('script')
-                            script.type = 'text/javascript'
-                            script.text  = xhr.responseText
-                            document.getElementsByTagName('head')[0].appendChild(script)
-                        }    
-                    }
-                }
-                xhr.send(null)
-<!-- ORIGINAL CHINESE CONTENT ENDS -->
+- Same-origin policies and CORS restrictions apply when fetching external resources.
+- Injected scripts run with the privileges of inline code and may be harder to cache or reuse as separate static assets.
+- Debugging is less straightforward because the script appears inline rather than as a separate file in dev tools (unless you add source mapping or use blob URLs).
+
+Example:```javascript
+var xhr = new XMLHttpRequest();
+xhr.open('GET', 'test.js', true);
+xhr.onreadystatechange = function () {
+  if (xhr.readyState === 4) {
+    if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.text = xhr.responseText;
+      document.getElementsByTagName('head')[0].appendChild(script);
+    }
+  }
+};
+xhr.send(null);
+```Use this approach carefully and prefer proper caching headers and CORS configuration when loading cross-origin code.
+
+<!-- End of translation -->
+
+<!-- ORIGINAL CHINESE BODY STARTS -->
+##### Why should the <script> tag be placed at the bottom of the <body> tag whenever possible?
+Placing `<script>` tags at the end of the `<body>` helps avoid blocking page rendering because downloading and executing scripts can modify the DOM and block other resource downloads. Many browsers use a single thread for UI rendering and JavaScript execution, so moving scripts to the bottom reduces perceived load time and improves responsiveness.
+
+##### What are the `defer` and `async` attributes and how do they behave?
+
+- `defer` indicates that the script will not modify the DOM during parsing, so its execution can be deferred safely. The browser will begin downloading the script as it encounters the `<script src="...">` tag during parsing, but will delay execution until the document has been parsed; deferred scripts are executed in order and before the `DOMContentLoaded`/`load` events. The `defer` attribute only applies when `src` is present.
+
+- `async` loads scripts asynchronously. Like `defer`, it downloads the script in parallel with other resources, but the key difference is execution timing: an `async` script runs as soon as it finishes downloading (which can interrupt parsing), whereas `defer` scripts wait until parsing completes and execute in document order.
+
+Use `async` for independent scripts (analytics, ads) and `defer` for scripts that rely on the document structure or need predictable ordering.
+
+##### What are dynamic script elements and how do you create them?
+
+You can create `<script>` elements dynamically via DOM methods, which allows non-blocking loading and execution. Dynamically injecting a `<script>` and appending it to the document starts download without blocking other tasks, making it a widely used technique for non-blocking script loading.
+
+Example:```javascript
+function loadScript(url, callback) {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.onload = function () {
+    callback();
+    // Ensure the script is ready before calling other code that depends on it
+  };
+  script.src = url;
+  document.getElementsByTagName('head')[0].appendChild(script);
+}
+```This pattern starts downloading the script and invokes the callback when the script is loaded and executed.
+
+##### How does XMLHttpRequest-based script injection work and what are its limitations?
+
+You can fetch script text via `XMLHttpRequest` (or `fetch`) and then inject it into the page by creating a `<script>` element with the response text. This avoids an extra round-trip for script loading in some scenarios but has limitations:
+
+- Same-origin policies and CORS restrictions apply when fetching external resources.
+- Injected scripts run with the privileges of inline code and may be harder to cache or reuse as separate static assets.
+- Debugging is less straightforward because the script appears inline rather than as a separate file in dev tools (unless you add source mapping or use blob URLs).
+
+Example:```javascript
+var xhr = new XMLHttpRequest();
+xhr.open('GET', 'test.js', true);
+xhr.onreadystatechange = function () {
+  if (xhr.readyState === 4) {
+    if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.text = xhr.responseText;
+      document.getElementsByTagName('head')[0].appendChild(script);
+    }
+  }
+};
+xhr.send(null);
+```Use this approach carefully and prefer proper caching headers and CORS configuration when loading cross-origin code.
+
+<!-- End of translation -->
+<!-- ORIGINAL CHINESE BODY ENDS -->

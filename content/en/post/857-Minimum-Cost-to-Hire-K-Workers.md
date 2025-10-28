@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 original: 'content/zh/post/857-Minimum-Cost-to-Hire-K-Workers.md'
 title: 857-Minimum-Cost-to-Hire-K-Workers
 description: 
@@ -9,52 +9,41 @@ date: 2021-03-26 00:00:00
 summary: 
 ---
 
-# ENGLISH TRANSLATION NEEDED
-
-This is an automatically generated English stub. Please translate the content below into English and remove the `draft: true` flag when ready.
-
-<!-- ORIGINAL CHINESE CONTENT STARTS -->
 # 857. Minimum Cost to Hire K Workers
 
-**发布日期：** 2021年03月26日
+**Release Date:** March 26, 2021
 
-用时：120min
+Time: 120 minutes
 
-其实也没那么难。只是困难的标签有点吓人。
+It's not that difficult actually. It's just that the difficult label is a bit scary.
 
-先找按照效率排名
+First find the efficiency ranking
 
-有题意可以知道，如果我们以效率低的为基准，那么效率高的基本工资都可以满足。
+From the question, we can know that if we take low efficiency as the benchmark, then the basic salary of high efficiency can be met.
 
-我们需要做的是找到效率比它还低，按照工作量从小到大的K - 1 人
-
-```javascript
+What we need to do is to find K - 1 people whose efficiency is lower than that, and whose workload increases from small to large.```javascript
 var mincostToHireWorkers = function(quality, wage, K) {
     var efficents = []
-    var res = Infinity    // 效率低的可以再找到 K- 1  个效率更低的人    for(let i = 0 ; i < quality.length ; i ++) {
+    var res = Infinity    // Those with low efficiency can find K-1 people with even lower efficiency for(let i = 0 ; i < quality.length ; i ++) {
         var efficent = quality[i] / wage[i]
         efficents.push({wage:wage[i],efficent,quality:quality[i]})
     }
     efficents.sort(function (a,b) {
         return a.efficent - b.efficent    })
     var len = efficents.length    for(let i = 0 ; i < len  ; i ++) {
-        // 拿走效率最低的人        var base = efficents.shift()
+        // Take the least efficient one var base = efficents.shift()
         if (efficents.length < K -1 ) break
         var {wage,efficent} = base
         var wageOrder = [...efficents].sort((a,b) => {
             return a.quality - b.quality        })
-        var k = 0        // 找到比他质量更低的k-1个人        while( k  < K - 1) {
+        var k = 0        // Find k-1 people with lower quality than him while(k < K-1) {
             wage += wageOrder[k].quality / efficent
             k++        }
         res = Math.min(wage,res)
     }
     return res
 };
-```
-
-用堆来改写
-
-```javascript
+```Rewrite using the heap```javascript
 const swap = function (arr,i,j) {
     [arr[i],arr[j]] = [arr[j],arr[i]]
 }
@@ -63,7 +52,7 @@ class MaxHeap {
         this.count = 0        this.data = new Array(this.count + 1)
     }
     shiftUp(k) {
-        // 把新的元素往上排        while(k>=1) {
+        // Put the new elements up while(k>=1) {
             let father = Math.floor(k / 2)
             if (this.data[k] > this.data[father]) {
                 swap(this.data,k,father)
@@ -73,7 +62,7 @@ class MaxHeap {
         }
     }
     shiftDown(k) {
-        while( k * 2  <= this.count) { // 表示k 有孩子            let j = k
+        while( k * 2  <= this.count) { // Indicates that k has children let j = k
             if (k * 2 + 1 <= this.count && this.data[k * 2 + 1] > this.data[k] && this.data[k * 2 + 1] > this.data[k * 2]) {
                 j = k * 2 + 1            } else if (this.data[k * 2] > this.data[k]) {
                 j = k * 2            } else {
@@ -103,7 +92,7 @@ class MaxHeap {
 }
 var mincostToHireWorkers = function(quality, wage, K) {
     var efficents = []
-    var res = Infinity    // 效率低的可以再找到 K- 1  个效率更低的人    for(let i = 0 ; i < quality.length ; i ++) {
+    var res = Infinity    // Those with low efficiency can find K-1 people with even lower efficiency for(let i = 0 ; i < quality.length ; i ++) {
         var efficent = quality[i] / wage[i]
         efficents.push({wage:wage[i],efficent,quality:quality[i]})
     }
@@ -116,7 +105,7 @@ var mincostToHireWorkers = function(quality, wage, K) {
         if(len - i <= K - 1) {
             break        }
         for(j = i + 1 ; j < len ; j ++) {
-            // 在剩余的人找1 ... K - 1 个质量最低的            // 使用大顶堆 维护最小的 K - 1 个            if(heap.size() < K - 1) {
+            // Find 1...K-1 of the lowest quality among the remaining people // Use the max-heap to maintain the smallest K-1 if(heap.size() < K-1) {
                 heap.insert(efficents[j].quality)
             }  else {
                 if (efficents[j].quality < heap.top() ) {
@@ -132,7 +121,4 @@ var mincostToHireWorkers = function(quality, wage, K) {
     }
     return res
 };
-```
-
-依然超时，我佛了
-<!-- ORIGINAL CHINESE CONTENT ENDS -->
+```Still timed out, damn it.

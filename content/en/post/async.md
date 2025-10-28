@@ -1,103 +1,95 @@
 ---
-draft: true
-original: 'content/zh/post/legacy/async.md'
+draft: false
+original: content/zh/post/legacy/async.md
 title: async
-description: 《ES6标准入门》 知识点整理
+description: '"ES6 Standard Introduction" Knowledge Points Summary'
 categories:
-  - JavaScript
+- JavaScript
 tags:
-  - JavaScript
-  - JavaScript
+- JavaScript
+- JavaScript
 date: 2018-07-11 14:47:05
-summary: ""
+summary: ''
 ---
 
-# ENGLISH TRANSLATION NEEDED
+#### Usage
+Example 1: Control the order in which asynchronous operations are completed
 
-This is an automatically generated English stub. Please translate the content below into English and remove the `draft: true` flag when ready.
+var fetchData = function(id){
+return new Promise((reslove, reject)=>{
+setTimeout(function(){
+console.log(`Task ${id} executed`)
+reslove(`Execution result ${id}`)
+},Math.random()*1000)
+})
+}
 
-<!-- ORIGINAL CHINESE CONTENT STARTS -->
-#### 用法
-例1 控制按顺序完成异步操作
+async function tasksList(){
+// Tasks here execute concurrently
+let list = [1,2,3,4,5]
+let promises = list.map((task)=>{
+return fetchData(task)
+})
+let results = await Promise.all(promises);
+return results
+}
 
-    var fetchData = function(id){
-    return new Promise((reslove,reject)=>{
-        setTimeout(function(){
-            console.log(`任务${id}执行`)
-            reslove(`执行结果${id}`)
-        },Math.random()*1000)
-        })
-    }
+tasksList().then((res)=>{
+console.log(res)
+console.log("All tasks completed")
+})
+Task 1 executes
+Task 2 executes
+Task 4 executes
+Task 5 executes
+Task 3 executes
+["Execution result 1", "Execution result 2", "Execution result 3", "Execution result 4", "Execution result 5"]
+As you can see, it's very similar to promises. The results are output in the order of the list. The difference is that promises execute the asynchronous request before the function executes.
 
-    async function tasksList(){
-        //这里面的任务并发执行
-        let list = [1,2,3,4,5]
-        let promises = list.map((task)=>{
-           return fetchData(task)
-        })
-        let results = await Promise.all(promises);
-        return results
-    }
-    
-    tasksList().then((res)=>{
-        console.log(res)
-        console.log("全部任务完成")
-    })
-    任务1执行
-    任务2执行
-    任务4执行
-    任务5执行
-    任务3执行
-    ["执行结果1", "执行结果2", "执行结果3", "执行结果4", "执行结果5"]
- 可以看到很类似promise，结果的输出是按照list的顺序的，区别是promise在函数执行之前就已经在执行异步请求了。
+Example 2: Subsequent completion of asynchronous operations
 
-例2 继发完成异步操作
+//fetchData is the same as in Example 1
+async function tasksList(){
+//Tasks here are executed sequentially
+let results = [];
+try{
+for(let i=0;i<5;i++){
+let result = await fetchData(i)
+results.push(result)
+}
+}catch(e){
+console.log(e)
+}
+return results
+}
 
-    //fetchData和例1相同
-    async function tasksList(){
-        //这里面的任务继发执行
-        let  results  = [];
-        try{
-            for(let i=0;i<5;i++){
-                let result =  await fetchData(i)
-                results.push(result)
-            }
-        }catch(e){
-            console.log(e)
-        }
-        return results
-    }
-    
-    tasksList().then((res)=>{
-        console.log(res)
-        console.log("全部任务完成")
-    })
-    任务0执行
-    任务1执行
-    任务2执行
-    任务3执行
-    ["执行结果0", "执行结果1", "执行结果2", "执行结果3", "执行结果4"]
-    全部任务完成
+tasksList().then((res)=>{
+console.log(res)
+console.log("All tasks completed")
+})
+Task 0 executed
+Task 1 executed
+Task 2 executed
+Task 3 executed
+["Execution result 0", "Execution result 1", "Execution result 2", "Execution result 3", "Execution result 4"]
+All tasks completed
 
-#### 概念
-async是Generator函数的语法糖。
-async相比于Gennerator改进的地方在于:
-##### 内置执行器
+#### Concept
+async is syntactic sugar for the Generator function.
 
-asycn不像Generator需要执行器(co模块)
+The improvements async offers over Generator are:
+##### Built-in Executor
 
-#####  更好的语义 
+asycn does not require an executor (co module) like Generator
 
+Better semantics
 
-async表示函数里有异步操作，await表示是紧跟在后面的表达式需要等待结果
+Async means there is asynchronous operation in the function, await means that the expression following it needs to wait for the result.
 
-#####  更广的适用性
+Wider applicability
 
+After the await command of the async function, you can use Promise objects and primitive values. The primitive value will return an immediately resolved promise object.
 
-async函数的await命令后面，可以使Promise对象和原始类型的值，原始类型的值会返回一个立即resolved的promise对象
+##### The return value is a promise
 
-##### 返回值是promise
-
-
-可以用then方法指定下一步的操作
-<!-- ORIGINAL CHINESE CONTENT ENDS -->
+You can use the then method to specify the next step of the operation

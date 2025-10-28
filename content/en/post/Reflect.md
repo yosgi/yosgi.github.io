@@ -1,78 +1,71 @@
 ---
-draft: true
-original: 'content/zh/post/legacy/Reflect.md'
+draft: false
+original: content/zh/post/legacy/Reflect.md
 title: Reflect
-description: 《ES6标准入门》 知识点整理
+description: '"ES6 Standard Introduction" Knowledge Points Summary'
 categories:
-  - JavaScript
+- JavaScript
 tags:
-  - JavaScript
-  - JavaScript
+- JavaScript
+- JavaScript
 date: 2018-05-24 18:39:00
-summary: ""
+summary: ''
 ---
 
-# ENGLISH TRANSLATION NEEDED
+Reflect
 
-This is an automatically generated English stub. Please translate the content below into English and remove the `draft: true` flag when ready.
+#### Overview
+The Reflect object, like the Proxy object, is a new ES6 API for manipulating objects. The Reflect object's design goals are:
+1. To move some explicitly language-internal methods of the Object object (such as Object.defineProperty ) to the Reflect object. Currently, some methods are implemented on both the Object and Reflect objects; future new methods will be implemented only on the Reflect object. This means that language-internal methods can be accessed from the Reflect object.
 
-<!-- ORIGINAL CHINESE CONTENT STARTS -->
-### Reflect
+2. To modify the return values of some Object methods to make them more reasonable. For example, Object.defineProperty(obj, name, desc) will throw an error if a property cannot be defined, while Reflect.defineProperty(obj, name, desc) will return false .
 
-#### 概述
-Reflect对象与Proxy对象一样，也是 ES6 为了操作对象而提供的新 API。Reflect对象的设计目的有:
-1.  将Object对象的一些明显属于语言内部的方法（比如Object.defineProperty），放到Reflect对象上。现阶段，某些方法同时在Object和Reflect对象上部署，未来的新方法将只部署在Reflect对象上。也就是说，从Reflect对象上可以拿到语言内部的方法。
-  
-        
-2. 修改某些Object方法的返回结果，让其变得更合理。比如，Object.defineProperty(obj, name, desc)在无法定义属性时，会抛出一个错误，而Reflect.defineProperty(obj, name, desc)则会返回false。  
-
-
-    // 老写法
+    //Old way of writing
         try {
           Object.defineProperty(target, property, attributes);
-          // success
+          //success
         } catch (e) {
           // failure
         }
         
-        // 新写法
+        //New writing method
         if (Reflect.defineProperty(target, property, attributes)) {
-          // success
+          //success
         } else {
           // failure
     }
         
 
-3.让Object操作都变成函数行为。某些Object操作是命令式，比如name in obj和delete obj[name]，而Reflect.has(obj, name)和Reflect.deleteProperty(obj, name)让它们变成了函数行为。
+3. Make all Object operations into functional behaviors. Some Object operations are imperative, such as name in obj and delete obj[name], and Reflect.has(obj, name) and Reflect.deleteProperty(obj, name) make them into functional behaviors.
 
-    // 老写法
-    'assign' in Object // true
-    
-    // 新写法
-    Reflect.has(Object, 'assign') // true
-    
-（4）Reflect对象的方法与Proxy对象的方法一一对应，只要是Proxy对象的方法，就能在Reflect对象上找到对应的方法。这就让Proxy对象可以方便地调用对应的Reflect方法，完成默认行为，作为修改行为的基础。也就是说，不管Proxy怎么修改默认行为，你总可以在Reflect上获取默认行为。
+// Old syntax
+'assign' in Object // true
 
-    var loggedObj = new Proxy(obj, {
-      get(target, name) {
-        console.log('get', target, name);
-        return Reflect.get(target, name);
-      },
-      deleteProperty(target, name) {
-        console.log('delete' + name);
-        return Reflect.deleteProperty(target, name);
-      },
-      has(target, name) {
-        console.log('has' + name);
-        return Reflect.has(target, name);
-      }
-    });
-上面代码中，每一个Proxy对象的拦截操作（get、delete、has），内部都调用对应的Reflect方法，保证原生行为能够正常执行。添加的工作，就是将每一个操作输出一行日志。
+// New syntax
+Reflect.has(Object, 'assign') // true
 
-#### 静态方法
-- Reflect对象一共有 13 个静态方法。
+(4) The methods of the Reflect object correspond one-to-one with the methods of the Proxy object. For any method on the Proxy object, you can find the corresponding method on the Reflect object. This allows the Proxy object to easily call the corresponding Reflect method to implement the default behavior, which serves as the basis for modifying the behavior. In other words, no matter how the Proxy object modifies the default behavior, you can always obtain the default behavior on Reflect.
 
--  Reflect.apply(target, thisArg, args)
+var loggedObj = new Proxy(obj, {
+get(target, name) {
+console.log('get', target, name);
+return Reflect.get(target, name);
+},
+deleteProperty(target, name) {
+console.log('delete' + name);
+return Reflect.deleteProperty(target, name);
+},
+has(target, name) {
+console.log('has' + name);
+return Reflect.has(target, name);
+}
+});
+In the above code, each interception operation (get, delete, has) on the Proxy object internally calls the corresponding Reflect method to ensure that the native behavior is executed normally. The added work is to output a line of log for each operation.
+
+#### Static Methods
+- The Reflect object has a total of 13 static methods.
+
+- Reflect.apply(target, thisArg, args)
 - Reflect.construct(target, args)
 - Reflect.get(target, name, receiver)
 - Reflect.set(target, name, value, receiver)
@@ -86,7 +79,6 @@ Reflect对象与Proxy对象一样，也是 ES6 为了操作对象而提供的新
 - Reflect.getPrototypeOf(target)
 - Reflect.setPrototypeOf(target, prototype)
 
-上面这些方法的作用，大部分与Object对象的同名方法的作用都是相同的，而且它与Proxy对象的方法是
+Most of the functions of the above methods are the same as those of the Object object's methods of the same name, and they are similar to the methods of the Proxy object.
 
-[es6入门阮一峰](http://es6.ruanyifeng.com/#docs/reflect)
-<!-- ORIGINAL CHINESE CONTENT ENDS -->
+[Es6 Introduction Ruan Yifeng](http://es6.ruanyifeng.com/#docs/reflect)

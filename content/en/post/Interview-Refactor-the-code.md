@@ -1,5 +1,5 @@
 ---
-draft: true
+draft: false
 original: 'content/zh/post/Interview-Refactor-the-code.md'
 title: Interview-Refactor-the-code
 description: 
@@ -9,46 +9,41 @@ date: 2021-04-25 00:00:00
 summary: 
 ---
 
-# ENGLISH TRANSLATION NEEDED
+# About code refactoring
 
-This is an automatically generated English stub. Please translate the content below into English and remove the `draft: true` flag when ready.
+**Release Date:** April 25, 2021
 
-<!-- ORIGINAL CHINESE CONTENT STARTS -->
-# 关于代码重构
+### About code refactoring
 
-**发布日期：** 2021年04月25日
+After several code refactoring experiences, I concluded that the difficulty of code refactoring does not lie in the technical part, but in the grasp of project time and control of project quality.
 
-### 关于 代码重构
+Evaluation Phase
 
-经过几次的代码重构经验，我总结下来，代码重构的难点并不在于技术部分，而在与对项目时间的把握 和 项目质量的管控。
+After getting the project that needs to be refactored, first evaluate each page in the project, prioritize it, and screen it.
 
-### 评估阶段
+For display pages that are used infrequently, you can choose not to refactor them.
 
-拿到需要重构的项目后，先对项目中各个页面进行评估，进行优先级划分，筛选。
+Pages that are frequently used and have data access have a higher priority because if the stored data does not match the previous data, incorrect data may be stored. Such pages need to restore the previous requirements and understand the test cases.
 
-对于低频使用的展示页面，可以选择不要进行重构。
+Testing
 
-对于高频使用且存在数据存取的页面，优先级较高，因为如果存入的数据和以前不匹配，可能会存进错误的数据。 这类页面需要还原之前的需求，并且理解测试用例。
+After refactoring, self-testing and cross-testing are equally important to avoid introducing too many low-level errors. Also, because current testers may have some discrepancies in their understanding and development of previous test cases, it is necessary to communicate with the testers to synchronize their understanding of previous requirements.
 
-### 测试阶段
+Release Phase
 
-重构结束后，自测和交叉测试同样重要，避免引进太多的低级错误。同时因为现在的测试可能对之前的测试用例的理解和开发存在一些误差，需要和测试进行沟通，同步对于之前需求的理解。
+The routing design of the new and old pages needs to be consistent so as not to affect the transmission of parameters.
 
-### 发布阶段
-
-新旧页面的路由设计需要一致，这样才能不影响参数的传递。
-
-灰度发布，并提供给用户返回到旧版本的按钮。当用户回到旧版本，判断用户是否是灰度发布中的命中用户，如果是命中的用户，了解新版本存在的问题，改善扩大用户灰度发布命中率，直到旧版本PV 为 0，删除旧版本的进入路径以及路由。
+A grayscale release is performed, and a button is provided for users to return to the old version. When a user returns to the old version, the system determines whether the user is a target user for the grayscale release. If so, the system identifies any issues with the new version and improves the grayscale release hit rate for this user until the old version's page views reach zero. The system then removes the old version's entry path and routing.
 
 ### Refactor the code
 
-Refactoring code is definitely a dirty and tiring job for me .
+Refactoring code is definitely a dirty and tiring job for me.
 
 There is no method that can greatly improve efficiency.
 
 The code I refectory is not the code I wrote, but also the ancient code.
 
-Using an outdated technology stack .
+Using an outdated technology stack.
 
 Only a few words can be seen in the commented code.
 
@@ -56,7 +51,7 @@ My work is to rewrite fifty Jquery pages with React.
 
 I think it in the worst direction rather than promise immediately.
 
-I prioritize the pages needing refactor .
+I prioritize the pages needing refactor.
 
 After the priority is divided, I use different stable publishing strategies for pages.
 
@@ -93,4 +88,3 @@ If many users use the function of returning to the old version, then i have to f
 solve user problems one-to-one, and optimize your page repeatedly. Slowly expand the user gray range until the old route access data PV is 0.
 
 Finally, the old page is actually offline and the old code is deleted. Only at this point can the reconstruction be completed.
-<!-- ORIGINAL CHINESE CONTENT ENDS -->

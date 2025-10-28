@@ -1,44 +1,37 @@
 ---
-draft: true
-original: 'content/zh/post/legacy/观察者模式和vue监听对象变化.md'
-title: 观察者模式和vue监听对象变化
-description: 《Javascript设计模式》 知识点整理
+draft: false
+original: content/zh/post/legacy/观察者模式和vue监听对象变化.md
+title: Observer mode and Vue monitoring object changes
+description: Javascript Design Patterns Knowledge Points
 categories:
-  - JavaScript
+- JavaScript
 tags:
-  - JavaScript
-  - Design Patterns
+- JavaScript
+- Design Patterns
 date: 2018-05-05 22:38:54
 updated: 2019-02-25 11:53:54
-summary: ""
+summary: ''
 ---
 
-# ENGLISH TRANSLATION NEEDED
+#### Publish-Subscribe Mode
 
-This is an automatically generated English stub. Please translate the content below into English and remove the `draft: true` flag when ready.
+The publish-subscribe pattern is also called the observer pattern. It defines a one-to-many dependency relationship between objects. When the state of an object changes, all objects that depend on it will be notified. In Js development, we generally use the event pattern instead of the traditional publish-subscribe pattern.
 
-<!-- ORIGINAL CHINESE CONTENT STARTS -->
-#### 发布订阅模式
+Steps to implement the publish-subscribe model
 
-发布订阅模式又叫观察者模式，他定义对象间的一种一对多的依赖关系，当一个对象状态发生改变时，所有依赖于他的对象都将得到通知，在Js开发中我们一般用事件模式代替传统的发布订阅模式。
+1. Specify the publisher
 
-发布订阅模式实现的步骤
+2. Add a cache list to the publisher to store callback functions for notifying subscribers
 
-1.指定发布者
+3. When publishing a message, the publisher will traverse the entire cache list and trigger the callback functions in it in turn
 
-2.给发布者添加一个缓存列表，用于存放回调函数以便通知订阅者
+For example, a sales office can add information such as the unit price and area of the house to the information sent to the subscribers, and the subscribers receive the information and process it accordingly.
 
-3.发布消息的时候发布者会遍历整个缓存列表，依次触发里面的回调函数
-
-一个售楼处的例子，售楼处可以在发给订阅者的信息里加上房子的单价，面积等信息，订阅者接受到这个信息进行各自的处理
-
-##### 售楼处的例子
-
-```javascript
+##### Sales Office Example```javascript
 var salesOffices = {};
 salesOffices.clientList = [];
 salesOffices.listen = function(fn){
-    // 发布者缓存回调函数
+    // Publisher cache callback function
     salesOffices.clientList.push(fn);
 }
 salesOffices.trigger = function(){
@@ -52,19 +45,15 @@ salesOffices.listen(function(price,squareMeter){
     console.log('squareMeter='+squareMeter);
 })
 salesOffices.trigger(2000000,88)
-//价格=2000000
+// Price = 2000000
 // squareMeter=88
-```
-
-下面为订阅的消息做一个key，添加上订阅者id，并把发布-订阅的功能提取出来作为一个对象。
-
-```javascript
+```Next, create a key for the subscribed message, add the subscriber ID, and extract the publish-subscribe functionality as an object.```javascript
 var event = {
     clientList:{},
     listen:function(key,id,fn){
-        // key 订阅表示 id 订阅者id fnu回调函数
-        // 一个订阅标识下面可能存在很多个订阅者以及回调函数
-        // 所以将订阅者作为数组，数组中存放回调函数
+        // key subscription representation id subscriber id fnu callback function
+        // There may be many subscribers and callback functions under a subscription identifier.
+        // So the subscriber is treated as an array, and the callback function is stored in the array
         if(!this.clientList[key]){
             this.clientList[key]=[];
         }
@@ -72,37 +61,37 @@ var event = {
             id,fn
         })
     },
-    trigger:function(...args){//rest参数
+    trigger:function(...args){// rest parameters
         var key = args.shift();
         fns = this.clientList[key];
-       	// 回调函数数组为空 什么都不做
+       	// The callback function array is empty and does nothing.
         if(!fns||fns.length==0) return;
-        // 依次触发回调函数数组中的函数
+        // Trigger the functions in the callback function array in sequence
         for(var i=0,fn;fn = fns[i];i++){
-            // fn 是一个有id fn 属性的对象
+            // fn is an object with a property id fn
             fn.fn.apply(this,args)
         }
     },
     remove:function(key,fn){
         var fns = this.clientList[key];
-        if(!fns) return false//对应的key没有人订阅
-        if(!fn){//没有传入具体的回调则取消key的所有订阅
+        if(!fns) return false// No one has subscribed to the corresponding key
+        if(!fn){// If no specific callback is passed in, all subscriptions for the key will be canceled.
             fns && (fns.length=0) 
         }else{
             for(var i = fns.length-1;i>=0;i--){
                 var _fn = fns[i].fn;
                 if(_fn===fn){
-                    fns.splice(i,1)//删除回调
+                    fns.splice(i,1)// Delete callback
                 }
             }
         }
     }
 };
 
-//定义一个installEvent函数为对象安装发布订阅功能
+// Define an installEvent function to install publish and subscribe functions for the object
 var installEvent = function(obj){
     for(var i in event){
-        // 遍历event对象的key 为 obj 添加上属性和属性方法
+        // Traverse the key of the event object and add attributes and attribute methods to obj
         obj[i] = event[i]
     }
 }
@@ -117,32 +106,28 @@ salesOffices.listen("square88",2,f3 = function(price){
 salesOffices.listen("square100",2,f2 = function(price){
     console.log(`square100的消息，价格是${price}`)
 })
-salesOffices.trigger('square88',1000000)//square88的消息，价格是1000000  *2
-salesOffices.trigger('square100',1500000)//square100的消息，价格是1500000
+salesOffices.trigger('square88',1000000)// According to square88, the price is 1000000 * 2
+salesOffices.trigger('square100',1500000)// Square100's news, the price is 1500000
 
 salesOffices.remove("square88",f1);
-salesOffices.trigger('square88',1000000)//square88的消息，价格是1000000
-```
-
-##### vue怎么监听对象的变化
+salesOffices.trigger('square88',1000000)// Square88's news, the price is 1000000
+```##### How does Vue monitor object changes?
 
 `Object.defineProperty`
 
- 能自定义get和set函数，在获取和设置对象属性时可以触发对应回调函数。 利用这个方法，为对象中的每个属性安装发布订阅功能就可以了。
-
-```javascript
-// 创建一个Vue 构造函数，使用 prototype 继承方法
+You can customize get and set functions, and trigger corresponding callback functions when getting and setting object properties. Using this method, you can install publish and subscribe functions for each property in the object.```javascript
+// Create a Vue constructor using prototype inheritance
 function Vue(data){
-    // new新的对象后会有data属性 
+    // The new object will have data attributes
     this.data = data;
-    // watchList 相当于 上面的clientList
+    // watchList is equivalent to the clientList above
     this.watchList = [];
-    // 为data对象添加 发布消息的功能
+    // Add the function of publishing messages to the data object
     this.$bindObserver(data)；
     
 }
 var $watch = function (key,fn){
-    //监听的id是谁已经不重要，所以去掉了
+    // It doesn't matter who the monitored ID is, so it is removed.
     if(!this.clientList[key]){
         this.clientList[key]=[];
     }
@@ -178,12 +163,12 @@ var self = this;
 var keys = Object.keys(data)
 keys.forEach(key => {
     var result = data[key];
-    //这里用到闭包 result 作为在函数内被内部函数引用的变量，一直存在于缓存中
+    // Here, the closure result is used as a variable referenced by the inner function within the function, and it always exists in the cache.
     Object.defineProperty(data,key, {
         enumerable:true,
         configurable:true,
         get:function(){
-            // return 的是上个作用域的result
+            // The return is the result of the previous scope
             return result
         },
         set:function(newVal){
@@ -206,17 +191,13 @@ app1.listen("age",function(val){
 })
 app1.data.age = 30
 age被改变，值为30
-```
+```There are still problems with the code implemented above.
 
-上面实现的代码还有问题。
-
-对象往往是一个深层次的结构，对象的某个属性可能仍然是一个对象，这种情况怎么处理？ 应该用递归来处理
-
-```javascript
+Objects are often a deep structure, and a property of an object may still be an object. How to deal with this situation? Should we use recursion to handle it?```javascript
 function Vue(data){
     this.data = data;
     this.watchList = [];
-    //相当于clientLists
+    // Equivalent to clientLists
     this.$bindObserver(data)
 }
 var $watch = function (key,fn){
@@ -267,7 +248,7 @@ keys.forEach(key => {
         },
         set:function(newVal){
             self.$emit(key,newVal);
-             //如果newVal也是对象，同样需要对 对象添加 发布消息的功能
+             // If newVal is also an object, you also need to add the function of publishing messages to the object
             if(typeof newVal ==='object'){
                 self.$bindObserver(newVal)
             }
@@ -297,16 +278,13 @@ app1.$watch("city",function(val){
 })
 
 app1.data.address.city = "beijing"
-//city被改变，值为beijing
-```
+// The city is changed to beijing
+```Summary
 
-#### 小结
+The advantage of the publish-subscribe model is the decoupling of time and objects. The disadvantage is that creating a subscriber consumes time and memory. If a message is never received after subscribing to it, the subscriber will remain in memory.
 
-发布订阅模式的优点是时间和对象之间的解耦。缺点是创建订阅者本身要消耗时间和内存，订阅一个消息后若消息始终没有发生，订阅者会始终存在与内存中。
+Vue monitoring object changes is an application of the publish-subscribe model, in which the publisher is the watchList subscriber, which publishes messages through $bindObserver. The role of $bindObserver is to monitor the changes in object properties to trigger $emit. It should be noted that
 
-vue监听对象变化是发布订阅模式的一种应用，其中发布者就是 watchList 订阅者，通过$bindObserver 发布消息 。$bindObserver的作用是监听对象属性的改变触发$emit。需要注意的是
+1. There may be nested objects, and the properties of the nested objects need to have publishing functions.
 
-1.可能存在嵌套对象，嵌套对象的属性需要有发布功能。
-
-2.可能修改后的变量也是对象，改变新的对象的属性仍需要有发布的功能。
-<!-- ORIGINAL CHINESE CONTENT ENDS -->
+2. The modified variable may also be an object, and changing the properties of the new object still requires the publishing function.

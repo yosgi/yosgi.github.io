@@ -1,31 +1,26 @@
 ---
-draft: true
-original: 'content/zh/post/legacy/vue-express-mongodb-搭建一个后台登录系统.md'
-title: vue + express + mongodb 搭建一个后台登录系统
-description: 关键词 nodejs vue express mongodb
-summary: ""
-categories: 
-  - Vue
+draft: false
+original: content/zh/post/legacy/vue-express-mongodb-搭建一个后台登录系统.md
+title: Vue + express + mongodb build a backend login system
+description: Keywords nodejs vue express mongodb
+summary: ''
+categories:
+- Vue
 tags:
-  - Vue
-  - Node.js
-  - Database
+- Vue
+- Node.js
+- Database
 date: 2018-12-13 18:15:10
 ---
 
-# ENGLISH TRANSLATION NEEDED
-
-This is an automatically generated English stub. Please translate the content below into English and remove the `draft: true` flag when ready.
-
-<!-- ORIGINAL CHINESE CONTENT STARTS -->
-#### 需要准备的
-首先安装这些东西
+#### What you need to prepare
+First, install these things
 
 [nodeJs](https://nodejs.org/zh-cn/) , npm
 
 ![image](/images/vue-express-mongodb-admin-system/1.png)
 
-[mongodb](https://www.mongodb.com/) , [adminMongo](https://github.com/mrvautin/adminMongo)(非必须)
+[mongodb](https://www.mongodb.com/) , [adminMongo](https://github.com/mrvautin/adminMongo) (optional)
 
 ![image](/images/vue-express-mongodb-admin-system/2.png)
 
@@ -35,21 +30,17 @@ This is an automatically generated English stub. Please translate the content be
 
 [express](http://www.expressjs.com.cn/)
 
-前端的页面我决定用[vue-element-admin](https://panjiachen.github.io/vue-element-admin-site/)，git clone 后就可以看到完整的开发框架
-
-
-
+For the front-end page, I decided to use [vue-element-admin](https://panjiachen.github.io/vue-element-admin-site/). After git clone, you can see the complete development framework.
 
 ![image](/images/vue-express-mongodb-admin-system/4.png)
 
-#### 前端登录思路
+#### Front-end login ideas
 
-验证思路是登录成功后，服务端返回token(标识用户的唯一身份),之后将token储存在本地cookie中，下次打开页面或者刷新页面就能记住用户的登录状态。
+The verification idea is that after a successful login, the server returns a token (which uniquely identifies the user), and then stores the token in a local cookie. The next time the page is opened or refreshed, the user's login status can be remembered.
 
-在用户登录成功后，会在全局钩子router.beforeEach，判断是否已获得token，在获得token之后去获取用户的信息。
+After the user logs in successfully, the global hook router.beforeEach will be used to determine whether a token has been obtained. After obtaining the token, the user's information will be obtained.
 
-
-下面看具体登录页的主要代码
+Let's look at the main code of the specific login page
 
     //index.vue
     handleLogin() {
@@ -69,29 +60,28 @@ This is an automatically generated English stub. Please translate the content be
           })
         },
 
+After clicking Login, the form is validated and the Vuex LoginByUsername action is triggered.
+Search the code to see what this asynchronous operation does.
 
-可以点击登录后，先进行了表单验证,然后触发了vuex 的 LoginByUsername 的 action，
-从代码中搜索一下这个异步操作做了什么
-    
-    // user.js
-    import { loginByUsername, logout, getUserInfo } from '@/api/login'
-    import { getToken, setToken, removeToken } from '@/utils/auth'
-    actions: {
-    LoginByUsername({ commit }, userInfo) {
-          const username = userInfo.username.trim()
-          return new Promise((resolve, reject) => {
-            loginByUsername(username, userInfo.password).then(response => {
-              const data = response.data
-              commit('SET_TOKEN', data.token)
-              setToken(response.data.token)
-              resolve()
-            }).catch(error => {
-              reject(error)
-            })
-          })
-        },
-        ...
-可以看到这个 LoginByUsername 中调用了login.js 的 loginByUsername 方法，loginByUsername 接受了 username 和 password    两个参数。可以推测 loginByUsername 是发送了请求，在请求完毕之后提交了 SET_TOKEN 这种方法 ，并且调用了 auth.js 中的 setToken 
+//user.js
+import { loginByUsername, logout, getUserInfo } from '@/api/login'
+import { getToken, setToken, removeToken } from '@/utils/auth'
+actions: {
+LoginByUsername({ commit }, userInfo) {
+const username = userInfo.username.trim()
+return new Promise((resolve, reject) => {
+loginByUsername(username, userInfo.password).then(response => {
+const data = response.data
+commit('SET_TOKEN', data.token)
+setToken(response.data.token)
+resolve()
+}).catch(error => {
+reject(error)
+})
+})
+},
+...
+You can see this LoginByUsername calls the loginByUsername method of login.js, which accepts two parameters: username and password. It can be inferred that loginByUsername sends a request, submits the SET_TOKEN method after the request is completed, and calls setToken in auth.js.
 
     // login.js
     import request from '@/utils/request'
@@ -107,58 +97,53 @@ This is an automatically generated English stub. Please translate the content be
       })
     }
 
-可以看到这里是发送了请求，其中request 应该是封装了axios 的方法，具体怎么封装后面再看。
+You can see that a request is sent here, where request should be the method that encapsulates axios. We will see how to encapsulate it later.
 
-    // user.js
+    //user.js
      mutations: {
         SET_TOKEN: (state, token) => {
           state.token = token
         },
 
-可以看到 SET_TOKEN 就是将请求返回的token值更新到vuex的state中。
+You can see that SET_TOKEN updates the token value returned by the request to the state of vuex.
 
-    //auth.js
-    import Cookies from 'js-cookie'
-    const TokenKey = 'Admin-Token'
-    export function setToken(token) {
-      return Cookies.set(TokenKey, token)
-    }
-setToken方法是把token存进cookie中
+//auth.js
+import Cookies from 'js-cookie'
+const TokenKey = 'Admin-Token'
+export function setToken(token) {
+return Cookies.set(TokenKey, token)
+}
+The setToken method stores the token in a cookie.
 
+#### Backstage ideas
 
-
-
-#### 后台思路
-
-按照前端的逻辑，我们需要有一个登录的接口，登录的时候从数据库中查询，如果正确就返回token给前端，还需要有一个接口来接收token，返回给前端用户的具体信息。
+According to the logic of the front-end, we need a login interface. When logging in, we query from the database and return the token to the front-end if it is correct. We also need an interface to receive the token and return the specific information of the user to the front-end.
 
 ##### express
-先从[express](http://www.expressjs.com.cn/)开始说
+Let's start with [express](http://www.expressjs.com.cn/)
 
-通过应用生成器工具express-generator 可以快速创建一个应用的骨架。生成后应该可以看到下面的目录结构。
+Use the express-generator application generator to quickly create an application skeleton. After generating, you should see the following directory structure.
+
 ![image](/images/vue-express-mongodb-admin-system/5.png)
 
-    npm install //安装依赖模块
-    npm start //启动项目
+npm install //Install dependent modules
+npm start //Start the project
 
+Because it is troublesome to restart npm start after each modification, I use [nodemon](https://www.npmjs.com/package/nodemon) for hot updates.
 
-
-
-因为每次修改之后还需要重新 npm start 会比较麻烦，所以我用[nodemon](https://www.npmjs.com/package/nodemon)来进行热更新。
-
-    npm install -g nodemon //安装nodemon
+    npm install -g nodemon //Install nodemon
     
     
     
 ![image](/images/vue-express-mongodb-admin-system/6.png)
 
-就能启动express应用了
+You can start the express application
 
 ![image](/images/vue-express-mongodb-admin-system/7.png)
 
-下面看express项目的结构
+Let's look at the structure of the express project
 
-bin是应用的启动目录，
+bin is the startup directory of the application,
 
     var http = require('http');
     var port = normalizePort(process.env.PORT || '3000');
@@ -168,165 +153,161 @@ bin是应用的启动目录，
     server.on('error', onError);
     server.on('listening', onListening);
 
-public是项目的静态文件目录
+public is the static file directory of the project
 
-routes 控制路由,我们需要在这里做登录的接口
+routes controls routing, we need to make a login interface here
 
-views 是视图文件，我们在这里放html文件
-
+views is the view file, we put the html file here
 
 ##### mongodb
 
-注册登录需要数据库，我使用了mongodb ，用[mongoose](https://github.com/Automattic/mongoose)
-操作数据库，文档有介绍的就不啰嗦了。
+Registration and login require a database. I used MongoDB and [mongoose](https://github.com/Automattic/mongoose) to operate the database. The documentation already explains how to do this, so I won't go into detail here.
 
-在express的目录下建立一个database文件夹，建立文件model.js 以及处理文件bdHandler.js
-    
-    // models.js
-    module.exports = { 
-        user:{ 
-            username:{type:String,required:true},
-            password:{type:String,required:true},
-            roles:{type:String,required:true}
-        }
-    };
-    
-    //bdHandel.js
-    //提供其他文件对model的操作
-    var mongoose = require('mongoose');
-    var Schema = mongoose.Schema;
-    var models = require("./models");
-    
-    for(var m in models){ 
-        mongoose.model(m,new Schema(models[m]));
-    }
-    
-    module.exports = { 
-        getModel: function(type){ 
-            return _getModel(type);
-        }
-    };
-    
-    var _getModel = function(type){ 
-        return mongoose.model(type);
-    };
-    
-然后我们需要链接到数据库，并把bdHandel设置为全局的以便于在路由中使用
-    
-    //在app.js中添加
-    global.dbHandel = require('./database/dbHandler');
-    global.db = mongoose.connect("mongodb://localhost:27017/ch_users", { useNewUrlParser: true })
+Create a database folder in the express directory, create the model.js file, and the bdHandler.js handler file.
 
-##### 后台接口
-做完后，我们就可以去处理登录的接口部分了
+// models.js
+module.exports = {
+user:{
+username:{type:String,required:true},
+password:{type:String,required:true},
+roles:{type:String,required:true}
+}
+};
 
+// bdHandler.js
+// Provide other files for model operations
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+var models = require("./models");
 
-    var express = require('express');
-    var router = express.Router();
-    var dbhandler = require('../database/dbHandler');
-    var jwt = require('jwt-simple');
-    router.post("/login", function (req, res) {                      
-    // 从此路径检测到post方式则进行post数据的处理操作
-      //这里的User就是从model中获取user对象
-      var User = dbhandler.getModel('user');
-      var {username} = req.body;                //获取post上来的 data数据中 username
-      
-      User.findOne({ username }, function (err, doc) {   //通过此model以用户名的条件 查询数据库中的匹配信息
-        if (err) {                            //错误就返回 状态码为500的错误
-          res.send(500);
-          console.log(err);
-        } else if (!doc) {                                 //查询不到用户名匹配信息，则用户名不存在
-          res.send({code:400,message:'用户名不存在'});                            //    状态码返回404
-        } else {
-          if (req.body.password != doc.password) {     //查询到匹配用户名的信息，但相应的password属性不匹配
-            res.send({code:400,message:'密码错误'});  
-          } else {                                   
-          //信息匹配成功返回20000，返回token
-            let token = jwt.encode(doc, secret);
-            res.send({code:20000,token});
-          }
-        }
-      })
-    })
-    module.exports = router;
+for(var m in models){
+mongoose.model(m,new Schema(models[m]));
+}
 
-其中用户认证用的是基于 JWT 身份验证的方法，其中的secret是存在服务器上的密码,为了方便我把它作为了一个全局变量
+module.exports = {
+getModel: function(type){
+return _getModel(type);
+}
+};
+
+var _getModel = function(type){
+return mongoose.model(type);
+};
+
+Next, we need to connect to the database and set the bdHandler as a global for easy use in routes.
+
+//Add in app.js
+global.dbHandel = require('./database/dbHandler');
+global.db = mongoose.connect("mongodb://localhost:27017/ch_users", { useNewUrlParser: true })
+
+##### Backend Interface
+Once this is done, we can move on to the login interface.
+
+var express = require('express');
+var router = express.Router();
+var dbhandler = require('../database/dbHandler');
+var jwt = require('jwt-simple');
+router.post("/login", function (req, res) {
+// Detect the post method from this path and process the post data.
+// Here, User is obtained from the model.
+var User = dbhandler.getModel('user');
+var {username} = req.body; // Get the username from the posted data.
+
+User.findOne({ username }, function (err, doc) { // Use this model to query the database for matching information based on the username.
+if (err) { // If an error occurs, return an error with a status code of 500.
+res.send(500);
+console.log(err);
+} else if (!doc) { // No matching information for the username is found, so the username does not exist.
+res.send({code:400,message:'Username does not exist'}); // Status code returns 404
+} else {
+if (req.body.password != doc.password) { // Information matching the username was found, but the corresponding password attribute does not match
+res.send({code:400,message:'Wrong password'});
+} else {
+// Information matching successfully returns 20000 and token
+let token = jwt.encode(doc, secret);
+res.send({code:20000,token});
+}
+}
+})
+})
+module.exports = router;
+
+The user authentication method is based on JWT authentication. The secret is the password stored on the server. For convenience, I have used it as a global variable.
 
     //app.js
     global.secret = 'yosgi'
 
-别忘了router还需要在app.js中注册
+Don't forget that the router also needs to be registered in app.js
 
-    //app.js
-    var users = require('./routes/users');
-    app.use('/login', users);
-这样我们的登录接口就做完了，在前端页面试试吧。
+//app.js
+var users = require('./routes/users');
+app.use('/login', users);
+Our login interface is now complete. Let's try it on the front-end page.
 
-#### 前端登录页面
-我们的express应用监听的是localhost:3000,因此我们需要往localhost:3000/login/login
-的地址发送POST请求。
+#### Front-end Login Page
+Our Express application listens on localhost:3000, so we need to send a POST request to localhost:3000/login/login.
 
-首先要把mock中的模拟请求去掉，才能真正发送请求。
+First, you need to remove the simulated request in the mock before you can actually send the request.
 
-    // mock\index.js
-    // Mock.mock(/\/login\/login/, 'post', loginAPI.loginByUsername)
-    这一段注释掉
-    
-点击登录尝试一下 发现是在向
+// mock_index.js
+// Mock.mock(/\/login\/login/, 'post', loginAPI.loginByUsername)
+Comment this section out.
 
-    http://serve-dev/login/login
-    
-发送请求，猜测是axios方面的baseURL设置的，在utils/request.js中看到下面的代码
+Try logging in.
+
+http://serve-dev/login/login
+
+Sending a request, I suspect this is due to the baseURL setting in Axios. See the following code in utils/request.js:
 
     //request.js
     import axios from 'axios'
     const service = axios.create({
-      baseURL: process.env.BASE_API, // api 的 base_url
+      baseURL: process.env.BASE_API, // base_url of api
       timeout: 5000 // request timeout
     })
 
-在config的dev.env.js中去掉
-    
-    //dev.env.js
-    module.exports = {
-      NODE_ENV: '"development"',
-      ENV_CONFIG: '"dev"',
-      BASE_API: '' 
-    }
+Remove this from dev.env.js in the config file.
 
-现在发送请求的地址是
+//dev.env.js
+module.exports = {
+NODE_ENV: '"development"',
+ENV_CONFIG: '"dev"',
+BASE_API: ''
+}
+
+The address to send the request is now
 
     http://localhost:9527/login/login
 
-为什么不直接把BASE_API改成http://localhost:3000呢？因为这样的话就会跨域，跨域可以后台用cors解决，不过我这边决定还是用proxyTable插件比较方便。
-    
-    // index.js
-    dev: {
-    // Paths
-    assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
-    proxyTable: {
-      '/login/login':{
-          target: 'http://localhost:3000',// 3000 端口启动的本地服务器
-          changeOrigin: true
-      }
-    }
-    
-这样就把向/login/login的请求发送到了http://localhost:3000/login/login上了
-尝试一下
+Why not just change BASE_API to http://localhost:3000? That would involve cross-domain requests, which can be handled with CORS in the backend. However, I decided to use the proxyTable plugin for greater convenience.
 
-我们事先在数据库做好了admin用户
-![image](/images/vue-express-mongodb-admin-system/8.png)
+/ index.js
+dev: {
+// Paths
+assetsSubDirectory: 'static',
+assetsPublicPath: '/',
+proxyTable: {
+'/login/login': {
+target: 'http://localhost:3000', // Local server started on port 3000
+changeOrigin: true
+}
+}
 
-请求结果
+This will send requests to /login/login to http://localhost:3000/login/login.
+
+Try it out!
+
+We've already created an admin user in the database.
+[image](/images/vue-express-mongodb-admin-system/8.png)
+
+Request results
 
 ![image](/images/vue-express-mongodb-admin-system/9.png)
 
 ![image](/images/vue-express-mongodb-admin-system/10.png)
 
-这步成功后，token就被储存到了vuex以及cookie中。接下来需要做的是
+After this step is successful, the token is stored in vuex and cookie. The next thing to do is
 
-1. 使用token进行验证，拉取用户信息
-2. 做注册用户的接口
-3. 做登出的接口
-<!-- ORIGINAL CHINESE CONTENT ENDS -->
+1. Use tokens for authentication and retrieve user information
+2. Create a user registration interface
+3. Create a logout interface

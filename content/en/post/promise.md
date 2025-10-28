@@ -1,64 +1,58 @@
 ---
-draft: true
-original: 'content/zh/post/legacy/promise.md'
+draft: false
+original: content/zh/post/legacy/promise.md
 title: promise
-description: 《ES6标准入门》 知识点整理
+description: '"ES6 Standard Introduction" Knowledge Points Summary'
 categories:
-  - JavaScript
+- JavaScript
 tags:
-  - JavaScript
-  - JavaScript
+- JavaScript
+- JavaScript
 date: 2018-06-27 13:18:47
-summary: ""
+summary: ''
 ---
 
-# ENGLISH TRANSLATION NEEDED
-
-This is an automatically generated English stub. Please translate the content below into English and remove the `draft: true` flag when ready.
-
-<!-- ORIGINAL CHINESE CONTENT STARTS -->
 ![image](/images/promise/img1.png)
 
-##### 基本用法
+##### Basic usage
 
-    const promise = new Promise(function(resolve, reject) {
-      // ... some code
-      if (/* 异步操作成功 */){
-        resolve(value);
-      } else {
-        reject(error);
-      }
-    });
+const promise = new Promise(function(resolve, reject) {
+// ... some code
+if (/* Asynchronous operation succeeded */) {
+resolve(value);
+} else {
+reject(error);
+}
+});
 
-##### Promise参数
+##### Promise parameters
 
-resolve函数的作用是，将Promise对象的状态从“pending”变为“resolved”，在异步操作成功时调用，并将异步操作的结果，作为参数传递出去；
+The resolve function changes the state of the Promise object from "pending" to "resolved". It is called when the asynchronous operation succeeds and passes the result of the asynchronous operation as a parameter.
 
-reject函数的作用是，将Promise对象的状态从“pending”变为“rejected”，在异步操作失败时调用，并将异步操作报出的错误，作为参数传递出去。
+The function of reject is to change the state of the Promise object from "pending" to "rejected". It is called when the asynchronous operation fails and passes the error reported by the asynchronous operation as a parameter.
 
-resolve函数的参数除了正常的值以外，还可能是另一个 Promise 实例
+In addition to normal values, the parameters of the resolve function may also be another Promise instance
 
-    const p1 = new Promise(function (resolve, reject) {
-      // ...
-    });
-    
-    const p2 = new Promise(function (resolve, reject) {
-      // ...
-      resolve(p1);
-    })
-p1和p2都是 Promise 的实例，但是p2的resolve方法将p1作为参数，即一个异步操作的结果是返回另一个异步操作。
-这时p1的状态就会传递给p2，也就是说，p1的状态决定了p2的状态。
+const p1 = new Promise(function (resolve, reject) {
+// ...
+});
 
-如果p1的状态是pending，那么p2的回调函数就会等待p1的状态改变；如果p1的状态已经是resolved或者rejected，那么p2的回调函数将会立刻执行。
+const p2 = new Promise(function (resolve, reject) {
+// ...
+resolve(p1);
+})
+Both p1 and p2 are instances of Promise, but p2's resolve method takes p1 as a parameter. This means that the result of one asynchronous operation is another asynchronous operation.
+In this case, the state of p1 is passed to p2, meaning that the state of p1 determines the state of p2.
 
+If the status of p1 is pending, then the callback function of p2 will wait for the status of p1 to change; if the status of p1 is already resolved or rejected, then the callback function of p2 will be executed immediately.
 
 summary: ""
 ---
 
-一般来说，调用resolve或reject以后，Promise 的使命就完成了，后继操作应该放到then方法里面，而不应该直接写在resolve或reject的后面。所以，最好在它们前面加上return语句，这样就不会有意外。
+Generally speaking, after calling resolve or reject, the Promise's mission is completed. Subsequent operations should be placed in the then method, not directly after resolve or reject. Therefore, it is best to add a return statement before them to avoid unexpected situations.
 
-##### 链式调用
-then方法返回的是一个新的Promise实例，。因此可以采用链式写法，即then方法后面再调用另一个then方法。
+##### Chaining Calls
+The then method returns a new Promise instance. Therefore, you can use chaining, calling another then method after the then method.
 
     getJSON("/post/1.json").then(
       post => getJSON(post.commentURL)
@@ -66,13 +60,12 @@ then方法返回的是一个新的Promise实例，。因此可以采用链式写
       comments => console.log("resolved: ", comments),
       err => console.log("rejected: ", err)
     );
-##### 错误捕获
+##### Error catching
 
-promise抛出错误，会被catch方法指定的回调函数捕获。
+If promise throws an error, it will be caught by the callback function specified by the catch method.
 
-Promise 在resolve语句后面，再抛出错误，不会被捕获。因为 Promise 的状态一旦改变，就永久保持该状态，不会再变了。
+If a promise throws an error after the resolve statement, it will not be caught. This is because once the state of a promise changes, it remains in that state forever.
 
-Promise 对象的错误具有“冒泡”性质，会一直向后传递，直到被捕获为止。也就是说，错误总是会被下一个catch语句捕获。
+The error of the Promise object has the "bubbling" nature and will be passed back until it is caught. In other words, the error will always be caught by the next catch statement.
 
-一般来说，不要在then方法里面定义 Reject 状态的回调函数（即then的第二个参数），总是使用catch方法。
-<!-- ORIGINAL CHINESE CONTENT ENDS -->
+Generally speaking, do not define the Reject callback function (the second parameter of then) in the then method, always use the catch method.

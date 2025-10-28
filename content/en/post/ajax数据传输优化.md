@@ -1,92 +1,84 @@
 ---
-draft: true
-original: 'content/zh/post/legacy/ajax数据传输优化.md'
+draft: false
+original: content/zh/post/legacy/ajax数据传输优化.md
 layout: herformancejs
-title: ajax数据传输优化
-description: 《高性能Javascript》 知识点整理
+title: Ajax data transmission optimization
+description: High Performance Javascript Knowledge Points
 categories:
-  - JavaScript
-  - JavaScript
+- JavaScript
+- JavaScript
 tags:
-  - JavaScript
+- JavaScript
 date: 2018-11-28 14:47:40
-summary: ""
+summary: ''
 ---
 
-# ENGLISH TRANSLATION NEEDED
+#### Comparing POST and GET when using XHR
+When sending data to a server, GET is faster because, for small amounts of data, a GET request only sends one packet to the server. A POST request, on the other hand, sends at least two packets: one for headers and one for the POST body. POST is better suited for sending large amounts of data to a server, firstly because it doesn't care about the number of extra packets, and secondly because Internet Explorer has a limit on URL length.
 
-This is an automatically generated English stub. Please translate the content below into English and remove the `draft: true` flag when ready.
+GET should be used for requests that do not change the server state and only retrieve data (idempotent behavior). Data requested by GET will be cached, which helps improve the performance of multiple requests.
 
-<!-- ORIGINAL CHINESE CONTENT STARTS -->
-#### 使用XHR时，POST和GET的对比
-发送数据到服务器时，GET方式会更快，因为对于少量数据而言，一个GET请求往服务器只发送一个数据包。而POST请求至少发送两个数据包，一个装载头信息，一个装载POST正文。POST更适合发送大量数据到服务器，一是因为它不关心额外数据包的数量，二是IE对URL的长度有限制。
+#### What is dynamic script injection? What are its characteristics?
 
-对于不会改变服务器状态，只获取数据（幂等行为）的请求应该使用GET。经过GET请求的数据会被缓存起来，有助于提高多次请求的性能。
+var scriptElement = document.createElement('script')
+scriptElement.src = 'http://xxx.com/lib.js'
+document.getElementsByTagName('head')[0].appendChild(scriptElement)
+function jsonCallBack(jsonString) {
+var data = eval('(' + jsonString + ')')
+}
 
-#### 动态脚本注入是什么？有什么特点？
+// lib.js
+jsonCallBack({"status":1})
+Using JavaScript to create a new script tag and set the src attribute to a URL from a different domain allows for cross-domain data requests.
 
-    var scriptElement = document.createElement('script')
-    scriptElement.src = 'http://xxx.com/lib.js'
-    document.getElementsByTagName('head')[0].appendChild(scriptElement)
-    function jsonCallBack(jsonString) {
-        var data = eval('(' + jsonString + ')')
-    }
-    
-    
-    // lib.js
-    jsonCallBack({"status":1})
-利用JS创建一个新的脚本标签，并设置src属性为不同域的URL，可以进行跨域请求数据。
+The request header cannot be set, only the GET method can be used, and access must wait until all data is returned.
 
-不能设置请求头，只能使用GET方式，必须等待所有数据返回才可以访问。
+The response message must be executable JS code
 
-响应消息必须是可执行的JS代码
+Any code injected into a page using scripts can control the page, including modifying content and redirecting to other websites, so you need to be careful when introducing code from external sources.
 
-使用脚本注入到页面中的任何代码都可以控制页面，包括修改内容和重定向到其它网站，因此引入外部来源的代码需要小心
+#### What are the characteristics of MXHR (Multipart XHR)?
 
-#### MXHR(Multipart XHR) 有什么特点？
+It can combine multiple http requests into one request. Reducing the number of requests will improve the performance of the page.
 
-能把多次的http请求合并成一次请求，减少请求的数量会提升页面的性能。
+The element is created using a data:URL and therefore cannot be cached by the browser. This does not affect website behavior when using a separate packaged JS or CSS file for each page. For example, when using a single page, you can simply load the CSS externally once.
 
-元素使用[data:URL](http://www.webhek.com/post/data-url.html)的方式创建，因此不能被浏览器缓存，当网站在每个页面使用一个独立打包的Js或者CSS文件时不会受此影响，比如单页面使用时，从外部加载一次CSS就可以了。
+#### What are Beacons?
 
-#### Beacons（网络信标） 是什么？
+Use JavaScript to create an Image object and set the src attribute to the URL of the script on the server. The URL contains the key-value pairs that need to be transmitted.
 
-使用JavaScript创建一个Image对象，并把src属性设置为服务器上脚本的URL,URL包含需要传输的键值对数据。
+var url = '/status_tracker.php';
+var params = ['userName=yosgi','step=2'];
+(new Image).src = url + '?' + params.join('&');
+// This code sends a request to /status_tracker.php?step=2&time=23311
 
-    var url = '/status_tracker.php';
-    var params = ['userName=yosgi','step=2'];
-    (new Image).src = url + '?' + params.join('&');
-    // 这段代码会对/status_tracker.php?step=2&time=23311  发送请求
-    
-它无需向客户端返回信息，没有图片会实际显示出来。
+This code does not return any information to the client, and no image is actually displayed.
 
-虽然性能消耗很小，但因为URL长度有最大值，所以可以发送的数据长度很少。只能靠监听Image对象的onload事件判断服务器是否已经接受数据。
+Although the performance cost is small, the length of the data that can be sent is very small because the URL has a maximum length. You can only determine whether the server has accepted the data by monitoring the onload event of the Image object.
 
-#### JSON JSON-P 的区别
+#### The difference between JSON and JSON-P
 
-在使用XHR时，JSON数据被当成是字符串返回，紧接着字符串被eval()转换成原生对象。
+When using XHR, the JSON data is returned as a string, which is then converted into a native object using eval().
 
-而JSON-P数据被当成另一个Js文件并作为原生代码执行。
+The JSON-P data is treated as another Js file and executed as native code.
 
+JSON-P can be used across domains, but should not be used when dealing with sensitive data.
+#### About Custom Formats
 
-JSON-P可以跨域使用，涉及敏感数据的时候不应该使用它
-#### 关于自定义格式
+Example of creating a custom format:
 
-创建自定义格式的例子：
+'John;Jack;David'
 
-    'John;Jack;David'
+Just simply link the data with a delimiter and use split() after receiving it.
 
-只需要简单的把数据用分隔符链接，接收后使用split()即可
+When creating a custom format, it is best to use a single character that should not exist in the data. The first few characters of the ASCII character set work well in most server languages.
 
-创建自定义格式时，最好是使用一个单字符，而且不应该存在于数据之中，ASCII字符表的前几个字符在大多数服务器语言能够正常工作。
+\u0001 \u0002
 
-    \u0001 \u0002
-    
-#### 总结优化Ajax的方法：
+#### Summary of Ajax optimization methods:
 
-##### 减少请求数，合并JS和css文件，或者使用MXHR
+##### Reduce the number of requests, merge JS and CSS files, or use MXHR
 
-##### 缩短页面的加载时间，页面主要内容加载之后，使用Ajax获取次要的
+##### Shorten the page loading time. After the main content of the page is loaded, use Ajax to get the secondary
 
-##### 知道何时使用成熟的Ajax类库，以及何时编写自己的底层Ajax代码（大多数javascrpt类库不允许直接访问readystatechange事件）
-<!-- ORIGINAL CHINESE CONTENT ENDS -->
+##### Know when to use a mature Ajax library and when to write your own low-level Ajax code (most javascript libraries do not allow direct access to the readystatechange event)
