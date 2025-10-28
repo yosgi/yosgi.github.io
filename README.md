@@ -1,142 +1,99 @@
-# My Personal Blog
+# Personal Blog
 
-This is a beautiful personal blog website built with Hugo and the Ananke theme.
+A personal blog website built with Hugo and modern automation features.
 
-## ✨ Features
+## Features
 
-- 🎨 **Modern Design** - Using gradient colors and modern UI elements
-- 📱 **Responsive Layout** - Perfect adaptation to various device sizes
-- ⚡ **Lightning Fast Loading** - Hugo static site generator with extremely fast build speed
-- 🔍 **SEO Optimized** - Built-in search engine optimization features
-- 📝 **Markdown Support** - Write content using Markdown
-- 🏷️ **Tag Categories** - Support for article tags and categories
-- 📊 **Social Sharing** - Built-in social media sharing functionality
+- **Modern Design** - Clean and responsive layout
+- **Fast Loading** - Hugo static site generator
+- **SEO Optimized** - Built-in search engine optimization
+- **Markdown Support** - Write content using Markdown
+- **Multilingual** - Support for English and Chinese content
 
-## 🚀 Quick Start
+## Automation
 
-### 1. Install Hugo
+- **Notion Sync** - Daily automatic content sync from Notion database
+- **Google Translation** - Batch translation from Chinese to English
+- **Auto Deploy** - Automatic build and deployment to GitHub Pages
+- **Smart Caching** - Efficient processing with change detection
 
-```bash
-# macOS
-brew install hugo
+## Quick Start
 
-# Windows
-choco install hugo
-
-# Linux
-sudo apt-get install hugo
-```
-
-### 2. Clone Project
+### Setup
 
 ```bash
-git clone <your-repo-url>
+# Install Hugo
+brew install hugo  # macOS
+# or use your package manager
+
+# Clone and run
+git clone <repo-url>
 cd yosgi-hugo-blog
-```
-
-### 3. Start Development Server
-
-```bash
 hugo server -D
 ```
 
-Visit http://localhost:1313 to view the website.
+Visit http://localhost:1313 to preview.
 
-### 4. Build Production Version
+### Production Build
 
 ```bash
-hugo
+hugo  # Output in public/
 ```
 
-Generated files are in the `public` directory.
-
-## 📁 Project Structure
+## Project Structure
 
 ```
-├── content/           # Website content
-│   ├── posts/         # Blog posts
-│   ├── about.md       # About page
-│   ├── contact.md      # Contact page
-│   └── _index.md      # Homepage content
+├── content/en/        # English content
+├── content/zh/        # Chinese content  
 ├── static/            # Static resources
-│   ├── css/           # Custom styles
-│   └── favicon.svg    # Website icon
 ├── themes/            # Theme files
-├── hugo.toml          # Configuration file
-└── README.md          # Project description
+├── notion-sync/       # Notion sync tool
+├── tools/             # Translation tools
+└── hugo.toml          # Configuration
 ```
 
-## 🎨 Custom Styles
+## Usage
 
-Custom style file is located at `static/css/custom.css`, including:
+### Notion Integration
 
-- Modern color scheme
-- Card hover effects
-- Gradient backgrounds
-- Responsive grid layout
-- Custom scrollbars
+Set GitHub Secrets:
+- `NOTION_API_KEY` - Your Notion API key
+- `NOTION_DATABASE_ID` - Your database ID
 
-## 📝 Adding Content
+Automatic sync runs daily or manually via GitHub Actions.
 
-### Create New Post
+### Translation
 
 ```bash
-hugo new posts/post-title.md
+# Translate content
+python3 tools/translate_with_google.py content/en/post/file.md
 ```
 
-### Create New Page
+Requires `GOOGLE_API_KEY` in `.env` file.
+
+### Content Management
 
 ```bash
-hugo new page-name.md
+# Create new post
+hugo new content/en/post/title.md
+hugo new content/zh/post/title.md
 ```
 
-## 🔧 Configuration
+## Configuration
 
-Main configuration is in the `hugo.toml` file:
+Main settings in `hugo.toml`:
+- `baseURL` - Website domain
+- `title` - Site title  
+- `params` - Theme parameters
 
-- `baseURL`: Website domain
-- `title`: Website title
-- `author`: Author information
-- `params.social`: Social media links
-- `menu.main`: Navigation menu
+## Deployment
 
-## 📱 Social Media Configuration
+Automatic deployment via GitHub Actions to GitHub Pages when content changes.
 
-Configure your social media accounts in `hugo.toml`:
+Manual deployment options:
+- **Netlify**: Connect repo, build command `hugo`, publish dir `public`
+- **Vercel**: Import repo, framework preset Hugo
 
-```toml
-[params.ananke.social.follow]
-networks = ["github", "twitter", "linkedin", "email"]
-```
-
-## 🚀 Deployment
-
-### GitHub Pages
-
-1. Push code to GitHub
-2. Enable GitHub Pages in repository settings
-3. Select `public` directory as source
-
-### Netlify
-
-1. Connect GitHub repository
-2. Build command: `hugo`
-3. Publish directory: `public`
-
-### Vercel
-
-1. Import GitHub repository
-2. Framework preset: Hugo
-3. Auto deploy
-
-## 📄 License
+## License
 
 MIT License
-
-## 🤝 Contributing
-
-Issues and Pull Requests are welcome!
-
----
-
-*Thank you for using my blog template!* ✨

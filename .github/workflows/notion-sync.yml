@@ -17,6 +17,11 @@ on:
         default: false
         type: boolean
 
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
 jobs:
   sync-and-deploy:
     runs-on: ubuntu-latest
@@ -67,8 +72,6 @@ jobs:
       env:
         NOTION_API_KEY: ${{ secrets.NOTION_API_KEY }}
         NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
-        HUGO_CONTENT_DIR: ./content
-        HUGO_IMAGE_DIR: ./static/images
       run: |
         echo "Starting Notion sync..."
         ./notion-sync-bin
@@ -104,19 +107,25 @@ jobs:
         hugo --minify --gc
         echo "Build completed successfully"
 
-    # Step 10: Deploy to GitHub Pages
-    - name: Deploy to GitHub Pages
-      if: (steps.changes.outputs.changed == 'true' || github.event.inputs.force_deploy == 'true') && github.ref == 'refs/heads/master'
-      uses: peaceiris/actions-gh-pages@v4
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./public
-        cname: ${{ secrets.CUSTOM_DOMAIN }}
-        user_name: 'github-actions[bot]'
-        user_email: 'github-actions[bot]@users.noreply.github.com'
-        commit_message: 'Deploy from Notion sync'
+    # Step 10: Setup Pages
+    - name: Setup Pages
+      if: steps.changes.outputs.changed == 'true' || github.event.inputs.force_deploy == 'true'
+      uses: actions/configure-pages@v4
 
-    # Step 11: Commit synced content and cache
+    # Step 11: Upload artifact
+    - name: Upload artifact
+      if: steps.changes.outputs.changed == 'true' || github.event.inputs.force_deploy == 'true'
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: ./public
+
+    # Step 12: Deploy to GitHub Pages
+    - name: Deploy to GitHub Pages
+      if: steps.changes.outputs.changed == 'true' || github.event.inputs.force_deploy == 'true'
+      id: deployment
+      uses: actions/deploy-pages@v4
+
+    # Step 13: Commit synced content and cache
     - name: Commit synced content
       if: steps.changes.outputs.changed == 'true'
       run: |
@@ -132,7 +141,7 @@ jobs:
         git push
         echo "Changes committed and pushed successfully"
 
-    # Step 12: Summary
+    # Step 14: Summary
     - name: Job summary
       if: always()
       run: |
