@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/yosgi/notion-sync/notion"
+	"gopkg.in/yaml.v3"
 )
 
 // ConvertRichText converts rich text array to markdown string
@@ -32,7 +33,8 @@ func ConvertRichText(richText []notion.RichText) string {
 }
 
 // ConvertBlockToMarkdown converts a Notion block to markdown
-func ConvertBlockToMarkdown(block notion.Block) string {
+// imagePathMap maps original image URLs to local paths
+func ConvertBlockToMarkdown(block notion.Block, imagePathMap map[string]string) string {
 	switch block.Type {
 	case "paragraph":
 		if block.Paragraph == nil {
@@ -88,11 +90,20 @@ func ConvertBlockToMarkdown(block notion.Block) string {
 		} else if block.Image.Type == "file" && block.Image.File != nil {
 			imageURL = block.Image.File.URL
 		}
+
+		// Use local path if available, otherwise use original URL
+		imagePath := imageURL
+		if imagePathMap != nil {
+			if localPath, ok := imagePathMap[imageURL]; ok {
+				imagePath = localPath
+			}
+		}
+
 		caption := ""
 		if len(block.Image.Caption) > 0 {
 			caption = ConvertRichText(block.Image.Caption)
 		}
-		return fmt.Sprintf("![%s](%s)\n\n", caption, imageURL)
+		return fmt.Sprintf("![%s](%s)\n\n", caption, imagePath)
 
 	default:
 		return ""
@@ -167,31 +178,79 @@ func GenerateFrontmatter(page notion.Page, content string) *Frontmatter {
 	return fm
 }
 
-// FormatFrontmatter formats frontmatter as YAML
+// FormatFrontmatter formats frontmatter as YAML using yaml.v3 library
+// This automatically handles escaping of special characters like colons, quotes, etc.
 func FormatFrontmatter(fm *Frontmatter) string {
-	var result strings.Builder
+	// Build a map with only non-empty values for cleaner YAML output
+	frontmatterMap := make(map[string]interface{})
 
-	result.WriteString(fmt.Sprintf("title: %s\n", fm.Title))
-	result.WriteString(fmt.Sprintf("description: %s\n", fm.Description))
+	frontmatterMap["title"] = fm.Title
+
+	if fm.Description != "" {
+		frontmatterMap["description"] = fm.Description
+	}
 
 	if len(fm.Categories) > 0 {
-		result.WriteString("categories:\n")
-		for _, cat := range fm.Categories {
-			result.WriteString(fmt.Sprintf("  - %s\n", cat))
-		}
+		frontmatterMap["categories"] = fm.Categories
 	}
 
 	if len(fm.Tags) > 0 {
-		result.WriteString("tags:\n")
-		for _, tag := range fm.Tags {
-			result.WriteString(fmt.Sprintf("  - %s\n", tag))
-		}
+		frontmatterMap["tags"] = fm.Tags
 	}
 
-	result.WriteString(fmt.Sprintf("date: %s\n", fm.Date))
-	result.WriteString(fmt.Sprintf("summary: %s\n", fm.Summary))
+	if fm.Date != "" {
+		frontmatterMap["date"] = fm.Date
+	}
 
-	return result.String()
+	if fm.Summary != "" {
+		frontmatterMap["summary"] = fm.Summary
+	}
+
+	// Use yaml.Marshal with custom encoder to ensure consistent formatting
+	var buf strings.Builder
+	encoder := yaml.NewEncoder(&buf)
+	encoder.SetIndent(2) // Use 2 spaces for indentation (standard YAML)
+
+	if err := encoder.Encode(frontmatterMap); err != nil {
+		encoder.Close()
+		// Fallback: use Go's %q which automatically quotes and escapes
+		var result strings.Builder
+		result.WriteString(fmt.Sprintf("title: %q\n", fm.Title))
+		if fm.Description != "" {
+			result.WriteString(fmt.Sprintf("description: %q\n", fm.Description))
+		}
+		if len(fm.Categories) > 0 {
+			result.WriteString("categories:\n")
+			for _, cat := range fm.Categories {
+				result.WriteString(fmt.Sprintf("  - %q\n", cat))
+			}
+		}
+		if len(fm.Tags) > 0 {
+			result.WriteString("tags:\n")
+			for _, tag := range fm.Tags {
+				result.WriteString(fmt.Sprintf("  - %q\n", tag))
+			}
+		}
+		if fm.Date != "" {
+			result.WriteString(fmt.Sprintf("date: %q\n", fm.Date))
+		}
+		if fm.Summary != "" {
+			result.WriteString(fmt.Sprintf("summary: %q\n", fm.Summary))
+		}
+		// Ensure trailing newline
+		return result.String()
+	}
+	encoder.Close()
+
+	// Get the encoded YAML
+	data := buf.String()
+
+	// Ensure the frontmatter ends with exactly one newline
+	// yaml encoder typically adds a trailing newline, but we normalize it
+	result := strings.TrimRight(data, " \t\n\r")
+	// Add exactly one newline at the end to separate from the closing ---
+	result += "\n"
+	return result
 }
 
 // DetectLanguage detects the language of content by checking for Chinese characters
@@ -209,9 +268,9 @@ func ExtractDateFromContent(content string) string {
 	// Match Chinese date patterns like "**发布日期：** 2021年03月18日" or "发布日期：2021年03月18日"
 	datePatterns := []string{
 		`\*\*发布日期：\*\*\s*(\d{4}年\d{1,2}月\d{1,2}日)`, // **发布日期：** 2021年03月18日
-		`发布日期：\s*(\d{4}年\d{1,2}月\d{1,2}日)`,          // 发布日期：2021年03月18日
-		`\*\*日期：\*\*\s*(\d{4}年\d{1,2}月\d{1,2}日)`,    // **日期：** 2021年03月18日
-		`日期：\s*(\d{4}年\d{1,2}月\d{1,2}日)`,             // 日期：2021年03月18日
+		`发布日期：\s*(\d{4}年\d{1,2}月\d{1,2}日)`,         // 发布日期：2021年03月18日
+		`\*\*日期：\*\*\s*(\d{4}年\d{1,2}月\d{1,2}日)`,   // **日期：** 2021年03月18日
+		`日期：\s*(\d{4}年\d{1,2}月\d{1,2}日)`,           // 日期：2021年03月18日
 	}
 
 	for _, pattern := range datePatterns {
@@ -256,5 +315,12 @@ func ExtractTitleFromContent(content string) string {
 func SanitizeFileName(title string) string {
 	// Replace invalid filename characters with hyphens, allowing alphanumeric and Chinese characters
 	reg := regexp.MustCompile(`[^a-zA-Z0-9\p{Han}]+`)
-	return reg.ReplaceAllString(title, "-")
+	result := reg.ReplaceAllString(title, "-")
+	// Remove leading and trailing hyphens to avoid files starting/ending with "-"
+	result = strings.Trim(result, "-")
+	// If result is empty after trimming, use a default name
+	if result == "" {
+		result = "untitled"
+	}
+	return result
 }

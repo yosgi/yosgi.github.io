@@ -1,11 +1,9 @@
 ---
-title: 
-A Practical Attempt at MCP-as-Code: Lessons from a Digital Twin System
-description: Lessons from a Digital Twin System
 categories:
   - uncategorized
-date: 2025-12-18 00:00:00
-summary: 
+date: "2025-12-18 00:00:00"
+description: Lessons from a Digital Twin System
+title: 'A Practical Attempt at MCP-as-Code: Lessons from a Digital Twin System'
 ---
 
 # **A Practical Attempt at MCP-as-Code: Lessons from a Digital Twin System**
@@ -38,7 +36,7 @@ This approach had two strong advantages:
 - **Early failure** (parameter types and schemas were validated before execution)
 However, as scene complexity increased, this model started to hit its limits.
 
-![](https://prod-files-secure.s3.us-west-2.amazonaws.com/4ebc926d-a5ea-4392-a4ae-a936f72673cd/4d344e5d-cf8e-447c-a4d9-09ca33122caf/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB466Q4JIQVGD%2F20251218%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20251218T085047Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEMj%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIQD8twTVF9typRJAeKg96NO%2BOovVqqdk7P7Z5SJBBiTFZgIgX8w4RpdBDs7BCDBQB7vIYQ4IAYdVjEOESnDebS5%2B5MkqiAQIkf%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDO0rUqqN1aNAnEXGTircAxTEAd3VBlaleWWd3zEvZ0n6TBIjKBhXv4swqYZDzggFQgoG6LdYRpvf5lgwC5Ozdi5NXUOVEIxJo2MmCfjzdpLQPBGw1noDAhP1KU4S7t%2BHbRgwIG2YpBZiFVXWh563%2FGT1jDnUC%2FEokhZnTHumeo%2FrnRodOtAOqCpjkD2JR%2FslK9Z26CxxSa0eTnjKQmEy9P8xDbvaAIkOiVo3zCj%2BW1SUevttCi%2BkHRr7K9QMobbheqWJ%2BPw7hTILadatERfvOj6wdSyHDgmB3e48LIID0XHBI59lKZ5NP87wG9uC0%2BLulmdzmAPLuaglqG%2FBJS6G%2FO8aoPx85VdDppSad5vGFmiQdBnJ4Vw8DTbwlJAuEITc3fKNpQG%2BClXZNFzEq%2BxnJqPVzN%2FyA9TmnF0Ge9Rd3ZCup7veZT3FsKVUifcamFMjMGmjs5IfeMzGxfuesVABoKVF1Tkr7CJ%2FLEi%2FJtGNqcJEsBgDR74MLg7vjcrYg1zVZn72J76tB6fMLW3TuKLJJYmq1ZH6I6TLCM6Fh732Xqq6qpm25RfkZndPZtCNXQMJnzAitXVYg%2FBU5oEa7t3Yo5zED7rvlY%2FI%2Ftc7s9HtITMctjgwuzKFzLxvTauAY2RQBpJySJscUNDxpipJML7ujsoGOqUBO0wgS7qvAqIPbbi%2BEtRZSDuhNOJkzJ6MYVvCCAIRM979o14YuRomtAKHF09Zs2qIWOuizWZ%2BQuWcfJcujgZ2m1OMMoPdWrhR9aE%2BuXtt7k2r%2FCTXgO2kuiqLTvGjnzl1h%2BRLDwGuNdKmF5tZl0n7yliCHdCXMzfsGvr6wSWHxfhlE0zhZeIvB8NXfbk9j5QcrnIpWWA%2BeOz4iqeB2rIkImmVvfSC&X-Amz-Signature=15532d914bd3a95744e6855ba4bd5e83d07e5e73bb32be6f7eb522d3eef7c310&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject)
+![](/images/Untitled/img_ece6d721.png)
 
 ## **The First Bottleneck: Context Size vs. Data Volume**
 

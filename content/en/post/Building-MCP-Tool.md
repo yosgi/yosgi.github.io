@@ -1,10 +1,9 @@
 ---
-title: Building MCP Tool
-description: How  Cut 6,000 Tokens Down to 500
 categories:
   - uncategorized
-date: 2025-10-28 00:00:00
-summary: 
+date: "2025-10-28 00:00:00"
+description: How  Cut 6,000 Tokens Down to 500
+title: Building MCP Tool
 ---
 
 

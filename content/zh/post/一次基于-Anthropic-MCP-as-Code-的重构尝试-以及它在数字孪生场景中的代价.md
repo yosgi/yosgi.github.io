@@ -1,11 +1,9 @@
 ---
-title: 
-一次基于 Anthropic MCP-as-Code 的重构尝试：以及它在数字孪生场景中的代价
-description: 重构尝试
 categories:
   - uncategorized
-date: 2025-12-18 00:00:00
-summary: 
+date: "2025-12-18 00:00:00"
+description: 重构尝试
+title: 一次基于 Anthropic MCP-as-Code 的重构尝试：以及它在数字孪生场景中的代价
 ---
 
 **背景：这是一个“规模先行”的问题**
@@ -18,7 +16,7 @@ summary:
 
 即便不考虑完整属性，仅仅是 **ID 本身的规模**，也已经构成了压力。
 
-![](https://prod-files-secure.s3.us-west-2.amazonaws.com/4ebc926d-a5ea-4392-a4ae-a936f72673cd/acd4da17-ca2c-4cf1-a34d-b9eb15a323d2/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB466QMPTLWIG%2F20251218%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20251218T085046Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEMj%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIFaXTRsBV8vRdto7RsffGRt49eMO9y8MLHXhYFpXliZOAiEA0ha8qXEoclXl9seBy8QSuFddDdQQ5Cv5uFK2WP2%2BDBUqiAQIkf%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDE5gk7mmPDv7DnridSrcA7CmeG9RbPS%2FVDtJMpy6S2qKpLk4GJ7N33ZTDixMFV6uqRxLb6goTXY6MGBuDFyLHxLHgTN1orJUdPtG2L0fY5iww69jnTYGye0nTZWFbrB0dAgyOLYP2uf%2FYQwAdySqXJo17A7kg%2BXjmDViXbJHxjsCGTEGppZb03DnBUdiKbevJ9IxcSVNr0AHQRLM%2Bfz9oRYTgVprLJXGzTICsrG7Us0uSpLk31uja6JzugZsyR8WG%2FdQbxym6weHvwCrrBCMYe1pZofhaDq5v2PcvciDVnLBfgvsT0tsiyvnZSsCas5uckkEUsX5f9JfexUuLpM%2F1WZM68K8K7szFmNEtMxQ4bRrA9I34yPG50paa7Jt%2FR7wCzQyJd%2BVQBag0CHO%2B%2FcTR3vR7i8st31rdEo6UUie3sosdLJQ4txTzburu8w7GA9JEJRTL0MX2kQ18E9K6xiJ6gLU8JSTNXkt2Bc3CSZOxK2ZUIfdpqFSx7btpJvgtLbSacqXQhImNi%2FZMmpyX9cmbi3GIlrZtTzC%2BhDPXpJA0m%2FqbaEr11Mp9hjZL5hKdSQMrzIcj7YlVqE6VBwaEfSW80yf4DSnV0j1RDolmT%2FIHW%2BpRLU0tjTmfpAAzNKcYIzi3GV0amMP6C7gsP9CMOTujsoGOqUB0tr8GPfHtdb5IcCswhsil1qkp%2FmD%2FFE7rI3aRCiEe%2BzSMRKvbujk%2FWdeMxy9Hn86WKotl7I03CmN%2BGVOXW0G5A%2FntGt7QnV7mk2dzcIiQqyQ40itzNPtcaagJ6FPWSqP7Gu8HtZgc7DwsLRTBvLdP2BpmPjzL7ACO9LO80PwIQWwV3ihcjCgSG4vB%2BxZvst4SaGT%2F4tgActpat%2Fjc9aA4rNJkjhJ&X-Amz-Signature=239aaef77be51e4fdc08216b68484d0ecf3491bb9d01a382d159ebf22f824dc7&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject)
+![](/images/Untitled/img_07d7ba18.png)
 
 这意味着一个事实：
 
