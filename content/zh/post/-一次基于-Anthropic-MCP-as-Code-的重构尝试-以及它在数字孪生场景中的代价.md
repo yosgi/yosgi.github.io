@@ -1,0 +1,160 @@
+---
+title: 
+一次基于 Anthropic MCP-as-Code 的重构尝试：以及它在数字孪生场景中的代价
+description: 重构尝试
+categories:
+  - uncategorized
+date: 2025-12-18 00:00:00
+summary: 
+---
+
+**背景：这是一个“规模先行”的问题**
+
+在我负责的数字孪生系统中，一个典型场景里往往存在**上万个 entity**。
+
+每个 entity 又包含 **2000～3000 token** 规模的属性数据（状态、指标、业务字段等）。
+
+更现实的问题是：
+
+即便不考虑完整属性，仅仅是 **ID 本身的规模**，也已经构成了压力。
+
+![](https://prod-files-secure.s3.us-west-2.amazonaws.com/4ebc926d-a5ea-4392-a4ae-a936f72673cd/acd4da17-ca2c-4cf1-a34d-b9eb15a323d2/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB466QMPTLWIG%2F20251218%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20251218T085046Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEMj%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIFaXTRsBV8vRdto7RsffGRt49eMO9y8MLHXhYFpXliZOAiEA0ha8qXEoclXl9seBy8QSuFddDdQQ5Cv5uFK2WP2%2BDBUqiAQIkf%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw2Mzc0MjMxODM4MDUiDE5gk7mmPDv7DnridSrcA7CmeG9RbPS%2FVDtJMpy6S2qKpLk4GJ7N33ZTDixMFV6uqRxLb6goTXY6MGBuDFyLHxLHgTN1orJUdPtG2L0fY5iww69jnTYGye0nTZWFbrB0dAgyOLYP2uf%2FYQwAdySqXJo17A7kg%2BXjmDViXbJHxjsCGTEGppZb03DnBUdiKbevJ9IxcSVNr0AHQRLM%2Bfz9oRYTgVprLJXGzTICsrG7Us0uSpLk31uja6JzugZsyR8WG%2FdQbxym6weHvwCrrBCMYe1pZofhaDq5v2PcvciDVnLBfgvsT0tsiyvnZSsCas5uckkEUsX5f9JfexUuLpM%2F1WZM68K8K7szFmNEtMxQ4bRrA9I34yPG50paa7Jt%2FR7wCzQyJd%2BVQBag0CHO%2B%2FcTR3vR7i8st31rdEo6UUie3sosdLJQ4txTzburu8w7GA9JEJRTL0MX2kQ18E9K6xiJ6gLU8JSTNXkt2Bc3CSZOxK2ZUIfdpqFSx7btpJvgtLbSacqXQhImNi%2FZMmpyX9cmbi3GIlrZtTzC%2BhDPXpJA0m%2FqbaEr11Mp9hjZL5hKdSQMrzIcj7YlVqE6VBwaEfSW80yf4DSnV0j1RDolmT%2FIHW%2BpRLU0tjTmfpAAzNKcYIzi3GV0amMP6C7gsP9CMOTujsoGOqUB0tr8GPfHtdb5IcCswhsil1qkp%2FmD%2FFE7rI3aRCiEe%2BzSMRKvbujk%2FWdeMxy9Hn86WKotl7I03CmN%2BGVOXW0G5A%2FntGt7QnV7mk2dzcIiQqyQ40itzNPtcaagJ6FPWSqP7Gu8HtZgc7DwsLRTBvLdP2BpmPjzL7ACO9LO80PwIQWwV3ihcjCgSG4vB%2BxZvst4SaGT%2F4tgActpat%2Fjc9aA4rNJkjhJ&X-Amz-Signature=239aaef77be51e4fdc08216b68484d0ecf3491bb9d01a382d159ebf22f824dc7&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject)
+
+这意味着一个事实：
+
+## **原有方案：基于 MCP Tool 的直接调用模式**
+
+在开始重构之前，我使用的是一种相对直接的 MCP Tool 调用方式：
+
+- 向模型注入两组 MCP Tools：
+- LLM 的角色更接近一个“**指挥器**”：
+例如对「把所有建筑染红」这样的请求：
+
+1. 调用 Tool 查询所有建筑的 ID
+1. 调用 Tool 对这些 ID 执行上色操作
+这个模式的优点非常明确：
+
+- **延迟低**
+- **失败前置**（参数类型、Schema 在调用前即可校验）
+但随着场景规模扩大，它开始逼近极限。
+
+## **第一个瓶颈：上下文与数据规模的失控**
+
+问题并不在于“能不能查到数据”，而在于：
+
+- entity 数量巨大
+- Schema 动态且属性维度极高
+- LLM 无法、也不应该看到完整数据
+在 MCP Tool 模式下，我逐渐意识到：
+
+换句话说，我希望 LLM 输出的是“处理逻辑”，而不是被迫吞下成千上万条实体数据。
+
+## **转折点：Anthropic 的 MCP-as-Code 思路**
+
+正是在这个背景下，我读到了 Anthropic 的这篇文章：
+
+文章提出了一个非常有吸引力的思路：
+
+- 将 MCP Server 视为**代码库 / API**
+- 不再把所有工具能力以 JSON Schema 的形式直接注入给模型
+- 而是：
+其中一句话对我触动很大：
+
+这几乎是为当前问题量身定制的解法。
+
+## **理想中的收益：我当时的预期**
+
+在开始重构时，我对 MCP-as-Code 有非常明确的期待：
+
+- 大规模数据的过滤、聚合、统计全部放到后台执行
+- LLM 只需要看到**结果**
+- 上下文压力显著降低
+- 模型从“工具选择器”升级为“逻辑编写者”
+从抽象层面看，这是一种非常优雅的设计。
+
+## **实际落地方案：Java + Python Sandbox 的分层**
+
+考虑到现有系统架构，我并没有推翻一切，而是引入了一层 Python Sandbox：
+
+- **Java 层**
+- **Python Sandbox**
+从执行模型上看，LLM 不再是“直接调用 Tool”，而是进入了：
+
+下图展示了 MCP-as-Code 重构后，LLM、Java 核心系统、Python Sandbox 以及前端之间的实际执行链路。需要注意的是，这条链路在真实交互中是**被频繁打断、并以多轮循环形式运行的**。
+
+```mermaid
+flowchart TD
+    U[用户指令] --> L1[LLM 生成第 1 段 Python 代码/计划]
+
+    %% Round 1: 查询/过滤（Java -> Python）
+    L1 --> J1[Java：Session/鉴权/场景ID预过滤]
+    J1 --> H1[HTTP -> Python Sandbox]
+    H1 --> P1[Python 执行脚本 A：调用 API 查询/过滤/聚合]
+    P1 --> J2[Java：解析结果 stdout/result/errors]
+    J2 --> S1[LLM 读结果 + 总结/解读]
+
+    %% Round 2: 控制前端（Python -> WebSocket -> Frontend）
+    S1 --> L2[LLM 生成第 2 段 Python 代码]
+    L2 --> H2[HTTP -> Python Sandbox]
+    H2 --> P2[Python 执行脚本 B：通过 WebSocket 控制前端]
+    P2 --> FE[前端/3D 引擎执行动作]
+    FE --> ACK[前端返回回执/执行结果]
+    ACK --> P2
+    P2 --> J3[Java：解析回执 ui_events/ack/errors]
+    J3 --> S2[LLM 读回执 + 决定下一步]
+
+    %% Loop
+    S2 -->|需要继续| L1
+    S2 -->|完成| DONE[完成]
+```
+
+这个执行模型与最初设想的“一段脚本完成多步逻辑”存在明显差异，也正是后文延迟上升和失败成本被放大的根本原因。
+
+## **现实问题一：执行链路被频繁“打断”**
+
+我原本设想的是：
+
+但在真实的数字孪生交互场景中，这个假设很快被打破。
+
+### **一个典型执行过程变成了：**
+
+1. LLM 先写一段 Python，查询或过滤建筑 ID
+1. Java / Python 执行完成后，将结果返回给 LLM
+1. **LLM 必须先解读和总结结果**
+1. 再生成下一段 Python，通过 WebSocket 控制前端上色
+1. 前端返回执行结果
+1. LLM 再决定是否继续下一步
+也就是说，脚本往往**只执行了一小步就被迫中断**，等待下一轮决策。
+
+这直接导致：
+
+- 原本期望的“一次执行多步”
+- 在现实中退化成了**多轮串行往返**
+## **现实问题二：延迟与失败成本被放大**
+
+### **延迟问题**
+
+一些非常简单的指令，例如：
+
+在重构前平均耗时约 **2 秒**，
+
+而在 MCP-as-Code 模式下，经常达到 **10 秒以上**。
+
+核心原因包括：
+
+- 动态 Schema 带来的探索成本
+- 多轮 LLM 生成与总结
+- Python / Java / 前端之间的多次往返
+### **容错模型的根本差异**
+
+在原有 MCP Tool 模式中：
+
+- Java 端有 JSON Schema Validator
+- 参数类型错误会在**执行前**被直接拒绝
+而在 Python Sandbox 中：
+
+- 错误发生在**运行时**
+- 往往伴随完整的 Error Stack Trace
+- LLM 需要“读错误 → 理解 → 重写整段代码 → 再执行”
+在强 Schema、强约束、强实时性的数字孪生场景中，这种失败模型的代价被明显放大。
+
