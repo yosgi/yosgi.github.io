@@ -9,7 +9,7 @@ tags:
 - React
 - Hook
 date: 2021-02-25 00:00:00
-summary: null
+summary: ""
 ---
 
 Understanding React Hooks
@@ -20,9 +20,7 @@ Understanding React Hooks
 
 Those who have used the old version of react should know that react's class component has state to manage the internal state, as shown in the following example code
 
-```
-
-javascript
+```javascript
 class Clock extends React.Component {
   constructor(props) {
     super(props);    this.state = {date: new Date()};  }
@@ -34,9 +32,7 @@ class Clock extends React.Component {
 
 Function components do not have their own state, as shown in the following example code
 
-```
-
-javascript
+```javascript
 function Clock() {
   return  (
     <div>      <h1>Hello, world!</h1>      <h2>It is {new Date().toLocaleTimeString()}.</h2>    </div>  )
@@ -45,17 +41,13 @@ function Clock() {
 
 If I want to use a function component and want to have manual control over the date, I have to modify the component using props as follows, which transfers control to the parent component:
 
-```
-
-javascript
+```javascript
 function Clock(props) {
   return (
     <div>      <h1>Hello, world!</h1>      <h2>It is {props.date.toLocaleTimeString()}.</h2>    </div>  );}
 ```**In React 16.8, new features of Hooks enable function components to control their own ‘state’**
 
-```
-
-javascript
+```javascript
 import React, { useState } from 'react';function Example() {
   const [count, setCount] = useState(0);  return (
     <div>      <p>You clicked {count} times</p>      <button onClick={() => setCount(count + 1)}>        Click me
@@ -73,9 +65,7 @@ When rendering for the first time, store count and setCount in the array respect
 
 The following pseudo code implements a hook
 
-```
-
-javascript
+```javascript
 // Store statelet state = []; // Store state modification methodlet setters = []; let firstRun = true; let cursor = 0; // Create setterfunction createSetter(cursor) {
   return function setterWithCursor(newVal) {
     state[cursor] = newVal;  };}

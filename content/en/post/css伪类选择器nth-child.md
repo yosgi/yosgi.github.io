@@ -69,9 +69,7 @@ How it is rendered in the browser
 
 As you can see, the outer wrapped p is rendered into two p elements by the browser. You can guess that if the CSS is written as
 
-```
-
-javascript
+```javascript
 p {
         color:red
     }

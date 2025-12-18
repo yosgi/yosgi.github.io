@@ -16,11 +16,17 @@ func main() {
 	}
 
 	// Initialize sync configuration from environment variables
+	imageDir := getEnvOrDefault("HUGO_IMAGE_DIR", "")
+	if imageDir == "" {
+		// Backward compatibility with old env name
+		imageDir = getEnvOrDefault("IMAGE_DIR", "./static/images")
+	}
+
 	config := &sync.Config{
 		NotionAPIKey:     os.Getenv("NOTION_API_KEY"),
 		NotionDatabaseID: os.Getenv("NOTION_DATABASE_ID"),
 		HugoContentDir:   getEnvOrDefault("HUGO_CONTENT_DIR", "./content"),
-		ImageDir:         getEnvOrDefault("IMAGE_DIR", "./static/images"),
+		ImageDir:         imageDir,
 	}
 
 	// Create a new syncer instance with the configuration

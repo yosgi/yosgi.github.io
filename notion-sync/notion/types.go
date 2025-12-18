@@ -28,11 +28,11 @@ type Database struct {
 
 // Page represents a Notion page
 type Page struct {
-	Object     string                 `json:"object"`
-	ID         string                 `json:"id"`
-	Properties map[string]Property    `json:"properties"`
-	CreatedTime time.Time             `json:"created_time"`
-	LastEditedTime time.Time          `json:"last_edited_time"`
+	Object         string              `json:"object"`
+	ID             string              `json:"id"`
+	Properties     map[string]Property `json:"properties"`
+	CreatedTime    time.Time           `json:"created_time"`
+	LastEditedTime time.Time           `json:"last_edited_time"`
 }
 
 // Property represents a property value in a page
@@ -80,18 +80,19 @@ type DateValue struct {
 
 // Block represents a Notion block
 type Block struct {
-	Object         string                 `json:"object"`
-	ID             string                 `json:"id"`
-	Type           string                 `json:"type"`
-	HasChildren    bool                   `json:"has_children"`
-	Paragraph      *ParagraphBlock        `json:"paragraph,omitempty"`
-	Heading1       *HeadingBlock          `json:"heading_1,omitempty"`
-	Heading2       *HeadingBlock          `json:"heading_2,omitempty"`
-	Heading3       *HeadingBlock          `json:"heading_3,omitempty"`
-	BulletedListItem *ListItemBlock       `json:"bulleted_list_item,omitempty"`
-	NumberedListItem *ListItemBlock       `json:"numbered_list_item,omitempty"`
-	Code           *CodeBlock             `json:"code,omitempty"`
-	Image          *ImageBlock            `json:"image,omitempty"`
+	Object           string          `json:"object"`
+	ID               string          `json:"id"`
+	Type             string          `json:"type"`
+	HasChildren      bool            `json:"has_children"`
+	Paragraph        *ParagraphBlock `json:"paragraph,omitempty"`
+	Heading1         *HeadingBlock   `json:"heading_1,omitempty"`
+	Heading2         *HeadingBlock   `json:"heading_2,omitempty"`
+	Heading3         *HeadingBlock   `json:"heading_3,omitempty"`
+	BulletedListItem *ListItemBlock  `json:"bulleted_list_item,omitempty"`
+	NumberedListItem *ListItemBlock  `json:"numbered_list_item,omitempty"`
+	Quote            *QuoteBlock     `json:"quote,omitempty"`
+	Code             *CodeBlock      `json:"code,omitempty"`
+	Image            *ImageBlock     `json:"image,omitempty"`
 }
 
 // ParagraphBlock represents a paragraph block
@@ -109,6 +110,11 @@ type ListItemBlock struct {
 	RichText []RichText `json:"rich_text"`
 }
 
+// QuoteBlock represents a quote block
+type QuoteBlock struct {
+	RichText []RichText `json:"rich_text"`
+}
+
 // CodeBlock represents a code block
 type CodeBlock struct {
 	RichText []RichText `json:"rich_text"`
@@ -117,10 +123,10 @@ type CodeBlock struct {
 
 // ImageBlock represents an image block
 type ImageBlock struct {
-	Type     string      `json:"type"`
-	File     *FileInfo   `json:"file,omitempty"`
+	Type     string        `json:"type"`
+	File     *FileInfo     `json:"file,omitempty"`
 	External *ExternalInfo `json:"external,omitempty"`
-	Caption  []RichText  `json:"caption,omitempty"`
+	Caption  []RichText    `json:"caption,omitempty"`
 }
 
 // FileInfo represents a file hosted by Notion

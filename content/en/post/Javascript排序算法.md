@@ -16,9 +16,7 @@ summary: ''
 
 Bubble sort compares any two adjacent items and swaps them if the first is greater than the second. The items move upward into the correct order, much like bubbles rising to the surface, hence the name.
 
-```
-
-javascript
+```javascript
 var bubbleSort = function (array) {
     function swap(index1,index2){
         var aux = array[index1];
@@ -40,9 +38,7 @@ var bubbleSort = function (array) {
 
 It is the simplest of all sorting algorithms. However, from a running time perspective, bubble sort is the worst.
 
-```
-
-javascript
+```javascript
 var bubbleSort = function (array) {
     function swap(index1,index2){
         var aux = array[index1];
@@ -68,9 +64,7 @@ If we perform bubbleSort on an array of size 10, the cost is 100, so the complex
 
 Notice that by the time the algorithm executes the second pass through the outer loop, the numbers 4 and 5 are already correctly sorted. They are still being compared in subsequent comparisons, even though this is unnecessary. Therefore, we can improve the bubble sort algorithm slightly.
 
-```
-
-javascript
+```javascript
 var bubbleSort = function (array) {
     function swap(index1,index2){
         var aux = array[index1];
@@ -99,9 +93,7 @@ The cost of an array of size 5 is 15 and the complexity is O(n^2-(1+2+..+n))
 
 The selection sort algorithm is an in-place comparison sort algorithm. The general idea behind selection sort is to find the smallest value in the data structure and place it first, then find the second smallest value and place it second, and so on.
 
-```
-
-javascript
+```javascript
 var swap = function(array,index1,index2) {
 [array[index1],array[index2]] =  [array[index2],array[index1]]
 }
@@ -129,9 +121,7 @@ If it is before, then the first item should be moved back one position, if it is
 
 This way, the first two items are correctly sorted and can be compared with the third item, and so on.
 
-```
-
-javascript
+```javascript
 var insertionSort = function(array){
     var length = array.length;
     for(let i=1;i<length;i++){
@@ -159,9 +149,7 @@ Merge sort is a divide-and-conquer algorithm. The idea is to split the original 
 
 Because the leftmost of the two sorted arrays is always the smallest, and the array with only one item left is already sorted, the final large array is also sorted.
 
-```
-
-javascript
+```javascript
 var merge = function(left,right){
     // It is responsible for merging and sorting small arrays to generate large arrays until the original array is returned and sorted.
     var result = [],il=0,ir=0;
@@ -206,9 +194,7 @@ Merge sort is a sorting algorithm that can be used in practice. Merge sort has g
 
 Let's first look at a civilian version of quick sort
 
-```
-
-javascript
+```javascript
 var quickSort = function(arr){
     if(arr.length<=1){
         return arr;
@@ -244,9 +230,7 @@ You can see that the quick sort process is three steps
 
 The problem with the above sorting method is that each recursion requires opening two temporary arrays, which increases the space complexity. However, it is helpful for understanding quick sort;
 
-```
-
-javascript
+```javascript
 var swap = function (arr,i,j) {
     [arr[i],arr[j]] = [arr[j],arr[i]]
 }

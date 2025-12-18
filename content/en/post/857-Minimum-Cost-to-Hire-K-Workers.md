@@ -19,9 +19,7 @@ From the question, we can know that if we take low efficiency as the benchmark, 
 
 What we need to do is to find K - 1 people whose efficiency is lower than that, and whose workload increases from small to large.
 
-```
-
-javascript
+```javascript
 var mincostToHireWorkers = function(quality, wage, K) {
     var efficents = []
     var res = Infinity    // Those with low efficiency can find K-1 people with even lower efficiency for(let i = 0 ; i < quality.length ; i ++) {
@@ -47,9 +45,7 @@ var mincostToHireWorkers = function(quality, wage, K) {
 
 Rewrite using the heap
 
-```
-
-javascript
+```javascript
 const swap = function (arr,i,j) {
     [arr[i],arr[j]] = [arr[j],arr[i]]
 }

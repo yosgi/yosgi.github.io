@@ -28,9 +28,7 @@ You can create `<script>` elements dynamically via DOM methods, which allows non
 
 Example:
 
-```
-
-javascript
+```javascript
 function loadScript(url, callback) {
   var script = document.createElement('script');
   script.type = 'text/javascript';
@@ -55,9 +53,7 @@ You can fetch script text via `XMLHttpRequest` (or `fetch`) and then inject it i
 
 Example:
 
-```
-
-javascript
+```javascript
 var xhr = new XMLHttpRequest();
 xhr.open('GET', 'test.js', true);
 xhr.onreadystatechange = function () {
@@ -77,7 +73,6 @@ Use this approach carefully and prefer proper caching headers and CORS configura
 
 <!-- End of translation -->
 
-<!-- ORIGINAL CHINESE BODY STARTS -->
 ##### Why should the `<script>` tag be placed at the bottom of the `<body>` tag whenever possible?
 Placing `<script>` tags at the end of the `<body>` helps avoid blocking page rendering because downloading and executing scripts can modify the DOM and block other resource downloads. Many browsers use a single thread for UI rendering and JavaScript execution, so moving scripts to the bottom reduces perceived load time and improves responsiveness.
 
@@ -95,9 +90,7 @@ You can create `<script>` elements dynamically via DOM methods, which allows non
 
 Example:
 
-```
-
-javascript
+```javascript
 function loadScript(url, callback) {
   var script = document.createElement('script');
   script.type = 'text/javascript';
@@ -122,9 +115,7 @@ You can fetch script text via `XMLHttpRequest` (or `fetch`) and then inject it i
 
 Example:
 
-```
-
-javascript
+```javascript
 var xhr = new XMLHttpRequest();
 xhr.open('GET', 'test.js', true);
 xhr.onreadystatechange = function () {
@@ -143,4 +134,4 @@ xhr.send(null);
 Use this approach carefully and prefer proper caching headers and CORS configuration when loading cross-origin code.
 
 <!-- End of translation -->
-<!-- ORIGINAL CHINESE BODY ENDS -->
+

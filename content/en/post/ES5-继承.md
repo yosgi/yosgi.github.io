@@ -19,9 +19,7 @@ Before summarizing the es6 class, let's review the ES5 inheritance method.
 If we make the prototype of an instance equal to another instance, the prototype of this instance will contain a pointer to the other prototype.
 For example:
 
-```
-
-javascript
+```javascript
 function Animal(name="动物"){
     this.name = name;
     this.foods =["食物1","食物2"] 
@@ -46,9 +44,7 @@ Two types, Animal and Dog, are defined here. Dog inherits Animal by assigning it
 
 Use `isPrototypeOf()` or `instanceof` to determine the relationship between the instance and the prototype chain of the constructor
 
-```
-
-javascript
+```javascript
 console.log(Object.prototype.isPrototypeOf(dog1))//true
 console.log(Animal.prototype.isPrototypeOf(dog1))//true
 console.log(Dog.prototype.isPrototypeOf(dog1))//true
@@ -56,9 +52,7 @@ console.log(Dog.prototype.isPrototypeOf(dog1))//true
 
 As with the problem encountered in creating objects in the previous article, prototype properties containing reference types will be shared by all instances
 
-```
-
-javascript
+```javascript
 function Animal(name="动物"){
     this.name = name;
 
@@ -90,9 +84,7 @@ The second problem with the prototype chain is that there is no way to pass para
 
 To solve the above problem, we can use the technique of borrowing constructors
 
-```
-
-javascript
+```javascript
 function Animal(name="动物"){
     this.name = name;
     this.foods = ["食物1","食物2"];
@@ -111,9 +103,7 @@ Just take a look at it. It is the same as the constructor method of creating an 
 
 #### Combination inheritance
 
-```
-
-javascript
+```javascript
 function Animal(name="动物"){
     this.name = name;
     this.foods = [];

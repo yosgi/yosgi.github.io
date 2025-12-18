@@ -29,9 +29,7 @@ For example, a sales office can add information such as the unit price and area 
 
 ##### Sales Office Example
 
-```
-
-javascript
+```javascript
 var salesOffices = {};
 salesOffices.clientList = [];
 salesOffices.listen = function(fn){
@@ -55,9 +53,7 @@ salesOffices.trigger(2000000,88)
 
 Next, create a key for the subscribed message, add the subscriber ID, and extract the publish-subscribe functionality as an object.
 
-```
-
-javascript
+```javascript
 var event = {
     clientList:{},
     listen:function(key,id,fn){
@@ -127,9 +123,7 @@ salesOffices.trigger('square88',1000000)// Square88's news, the price is 1000000
 
 You can customize get and set functions, and trigger corresponding callback functions when getting and setting object properties. Using this method, you can install publish and subscribe functions for each property in the object.
 
-```
-
-javascript
+```javascript
 // Create a Vue constructor using prototype inheritance
 function Vue(data){
     // The new object will have data attributes
@@ -211,9 +205,7 @@ There are still problems with the code implemented above.
 
 Objects are often a deep structure, and a property of an object may still be an object. How to deal with this situation? Should we use recursion to handle it?
 
-```
-
-javascript
+```javascript
 function Vue(data){
     this.data = data;
     this.watchList = [];
@@ -299,9 +291,7 @@ app1.$watch("city",function(val){
 
 app1.data.address.city = "beijing"
 // The city is changed to beijing
-```
-
-Summary
+```Summary
 
 The advantage of the publish-subscribe model is the decoupling of time and objects. The disadvantage is that creating a subscriber consumes time and memory. If a message is never received after subscribing to it, the subscriber will remain in memory.
 

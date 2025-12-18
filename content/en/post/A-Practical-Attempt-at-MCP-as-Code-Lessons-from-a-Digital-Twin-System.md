@@ -16,7 +16,15 @@ Each entity may carry **2,000–3,000 tokens worth of attributes**—state, metr
 
 But the real issue appears even earlier.
 
+For example, in some scenes there may be
+
+**over ten thousand buildings**
+
+Simply passing the list of building IDs to an LLM already consumes enough tokens to severely pressure the context window—before any attributes or business logic are involved.
+
 This leads to a hard constraint:
+
+Any architecture that relies on pushing “complete scene data” into the LLM context and then asking the model to reason over it does not scale.
 
 Even aggressive trimming or summarization only delays the problem.
 
@@ -36,7 +44,7 @@ This approach had two strong advantages:
 - **Early failure** (parameter types and schemas were validated before execution)
 However, as scene complexity increased, this model started to hit its limits.
 
-![](/images/Untitled/img_ece6d721.png)
+![](/images/Untitled/img_45a6004b.png)
 
 ## **The First Bottleneck: Context Size vs. Data Volume**
 
@@ -46,6 +54,10 @@ The core problem was not data access—it was **data exposure**.
 - Highly dynamic schemas
 - Extremely large attribute payloads
 What became clear over time was this:
+
+The LLM does not need *all*
+
+It needs to decide **how the data should be processed**
 
 In other words, the model should express *logic*, not absorb massive datasets.
 
@@ -63,6 +75,8 @@ The key idea resonated immediately:
 - Stop injecting every tool as a JSON schema
 - Instead:
 One sentence from the article stood out to me:
+
+For large datasets, the model doesn’t need to see 10,000 rows—it just needs the top 5 results or an aggregate.
 
 This felt like the right abstraction for my problem.
 
@@ -92,6 +106,12 @@ Rather than replacing everything, I introduced MCP-as-Code incrementally.
 - Calls MCP APIs or controls the frontend via WebSocket
 - Returns:
 From an execution-model perspective, the system shifted to:
+
+Write code → Execute → Interpret result → Write more code
+
+The diagram below illustrates the actual execution flow between the LLM, the Java core system, the Python sandbox, and the frontend after the MCP-as-Code refactor.
+
+It is important to note that, in real interactive scenarios, this execution chain is **frequently interrupted and runs as a multi-round loop**
 
 ```mermaid
 flowchart TD
@@ -127,6 +147,8 @@ This execution model differs significantly from the original assumption of *“a
 
 My original assumption was:
 
+One Python script could execute multiple steps, effectively replacing multiple MCP tool calls in a single run.
+
 In practice, this assumption failed in an interactive digital twin environment.
 
 ### **What actually happens**
@@ -141,6 +163,8 @@ A typical request now looks like this:
 1. The LLM decides whether another step is needed
 In other words:
 
+The script is frequently **forced to stop after a small step**
+
 What was intended as *one multi-step execution* degrades into **multiple serial round-trips**.
 
 ## **Problem 2: Latency and Failure Costs Increase**
@@ -149,6 +173,8 @@ What was intended as *one multi-step execution* degrades into **multiple serial 
 
 Even very simple instructions such as:
 
+ Paint all buildings red”
+
 - Took ~2 seconds in the original MCP Tool model
 - Often exceeded **10 seconds** with MCP-as-Code
 The causes were cumulative:
@@ -156,4 +182,3 @@ The causes were cumulative:
 - Dynamic schema exploration
 - Multiple LLM generations
 - Python execution overhead
-- Java ↔ Python ↔ Frontend round-trips

@@ -28,9 +28,7 @@ ES6's class is just a syntactic sugar that makes the writing of prototype object
 
 Let’s use the previous example to show the basic usage:
 
-```
-
-javascript
+```javascript
 class Animal {
   constructor(name = "动物"){
     this.name = name
@@ -63,9 +61,7 @@ The above test shows that: there is nothing wrong, and the effect is exactly the
 
 #### Add methods to the prototype
 
-```
-
-javascript
+```javascript
 class Animal {
   constructor(name = "动物"){
     this.name = name
@@ -98,9 +94,7 @@ It can be found, but it is not recommended.
 
 ps: Later I tried to use objects to write literals, but it didn't seem to work:
 
-```
-
-javascript
+```javascript
 class Animal {
   constructor(name = "动物"){
     this.name = name
@@ -118,9 +112,7 @@ var dog =new Animal("哈士奇")
 dog.sleep()//dog.sleep is not a function
 ```#### Classes that execute immediately
 
-```
-
-javascript
+```javascript
 let dog =new class Animal {
   constructor(name = "动物"){
     this.name = name
@@ -137,9 +129,7 @@ dog.eat()// "Husky"
 
 Taking advantage of the uniqueness of the Symbol value, the name of the private method is named as a Symbol value.
 
-```
-
-javascript
+```javascript
 const home = Symbol('home')
 class Animal {
   constructor(name = "动物"){
@@ -162,9 +152,7 @@ Obviously, other modules cannot access the dog[home] method because it is a Symb
 
 Like ordinary objects, you can use the get and set keywords inside a class to set storage functions and getter functions for attributes to intercept the access behavior of attributes.
 
-```
-
-javascript
+```javascript
 class Animal {
   constructor(name = "动物"){
     this.name = name
@@ -186,17 +174,13 @@ console.log(desdescriptor)//{get: ƒ, set: undefined, enumerable: false, configu
 
 Another way to write it is
 
-```
-
-javascript
+```javascript
 Object.defineProperty(Animal.prototype, "color", { get: function () { return   "白色" } });
 ```#### Static Methods
 
 All methods defined in a class will be inherited by instances. If you add the static keyword before a method, it means that the method will not be inherited by instances, but will be called directly through the class. This is called a "static method".
 
-```
-
-javascript
+```javascript
 class Animal {
   static talk(){
    console.log("hello")
@@ -236,9 +220,7 @@ new.target is generally used in constructors to return the constructor that the 
 
 Class inherits through the extends keyword.
 
-```
-
-javascript
+```javascript
 class Animal {
   constructor(name="动物") {
     this.name = name;

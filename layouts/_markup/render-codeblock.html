@@ -1,0 +1,49 @@
+{{- /*
+  Custom code block render hook to handle legacy format compatibility
+  
+  This hook handles code blocks that might have been rendered incorrectly
+  due to legacy format where language identifier is on a separate line:
+  
+  ```
+  javascript
+  code here
+  ```
+  
+  Instead of standard format:
+  ```javascript
+  code here
+  ```
+*/ -}}
+
+{{- $lang := .Type | default "text" -}}
+{{- $code := .Inner -}}
+
+{{- /* 
+  If language is empty or "text", check if first line is a language identifier
+  This handles the legacy format where language is on first line of content
+*/ -}}
+{{- if or (not $lang) (eq $lang "text") -}}
+  {{- $lines := split $code "\n" -}}
+  {{- if gt (len $lines) 0 -}}
+    {{- $firstLine := index $lines 0 | strings.TrimSpace -}}
+    {{- /* Check if first line looks like a language identifier */ -}}
+    {{- if and $firstLine (not (findRE `[^a-zA-Z0-9_+-]` $firstLine)) (le (len $firstLine) 20) -}}
+      {{- $commonLangs := slice "javascript" "js" "typescript" "ts" "python" "py" "java" "go" "rust" "cpp" "c" "csharp" "cs" "php" "ruby" "rb" "swift" "kotlin" "html" "css" "scss" "sass" "less" "json" "xml" "yaml" "yml" "bash" "sh" "shell" "zsh" "powershell" "sql" "markdown" "md" "dockerfile" "makefile" "ini" "toml" "diff" "text" "plain" -}}
+      {{- $firstLineLower := lower $firstLine -}}
+      {{- if or (in $commonLangs $firstLineLower) true -}}
+        {{- $lang = $firstLine -}}
+        {{- /* Remove first line from code */ -}}
+        {{- $code = strings.TrimPrefix (printf "%s\n" $firstLine) $code -}}
+        {{- $code = strings.TrimPrefix $firstLine $code -}}
+        {{- $code = strings.TrimSpace $code -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{- /* Use Hugo's built-in highlight function */ -}}
+{{- if and $lang (ne $lang "text") -}}
+  {{- highlight $code $lang "" -}}
+{{- else -}}
+  <pre><code>{{ $code }}</code></pre>
+{{- end -}}

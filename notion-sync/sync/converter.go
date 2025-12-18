@@ -72,6 +72,14 @@ func ConvertBlockToMarkdown(block notion.Block, imagePathMap map[string]string) 
 		}
 		return "1. " + ConvertRichText(block.NumberedListItem.RichText) + "\n"
 
+	case "quote":
+		if block.Quote == nil {
+			return ""
+		}
+		// Render Notion quote blocks as Markdown blockquotes.
+		// Keep a blank line after to separate from following content.
+		return "> " + ConvertRichText(block.Quote.RichText) + "\n\n"
+
 	case "code":
 		if block.Code == nil {
 			return ""

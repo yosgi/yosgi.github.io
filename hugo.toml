@@ -37,6 +37,7 @@ pygmentsUseClasses = true
   location = "Auckland"
   enableGitalk = false
   enableSearch = true
+  mermaid = true
   custom_css = ["css/custom.css"]
   
   # Projects configuration
@@ -77,6 +78,7 @@ pygmentsUseClasses = true
   location = "奥克兰"
   enableGitalk = false
   enableSearch = true
+  mermaid = true
   custom_css = ["css/custom.css"]
   
   # Projects configuration

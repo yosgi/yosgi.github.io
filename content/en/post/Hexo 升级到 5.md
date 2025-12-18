@@ -48,9 +48,7 @@ npm i
 
 After the operation, my package is as follows
 
-```
-
-json
+```json
 {
 
   "name": "hexo-site",
