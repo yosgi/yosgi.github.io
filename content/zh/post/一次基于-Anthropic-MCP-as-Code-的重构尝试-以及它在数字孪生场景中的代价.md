@@ -3,6 +3,7 @@ categories:
   - uncategorized
 date: "2025-12-18 00:00:00"
 description: 重构尝试
+readingTime: 8
 title: 一次基于 Anthropic MCP-as-Code 的重构尝试：以及它在数字孪生场景中的代价
 ---
 
@@ -22,7 +23,7 @@ title: 一次基于 Anthropic MCP-as-Code 的重构尝试：以及它在数字�
 
 仅仅是把这些建筑的 ID 列表完整传递给 LLM，用于后续决策或操作，所消耗的 token 数量就已经足以压垮上下文窗口，更不用说附带的属性信息。
 
-![](/images/Untitled/img_44b4dc7b.png)
+![](/images/一次基于-Anthropic-MCP-as-Code-的重构尝试-以及它在数字孪生场景中的代价/img_eb12b6c1.png)
 
 这意味着一个事实：
 
@@ -181,4 +182,16 @@ flowchart TD
 - 往往伴随完整的 Error Stack Trace
 - LLM 需要“读错误 → 理解 → 重写整段代码 → 再执行”
 在强 Schema、强约束、强实时性的数字孪生场景中，这种失败模型的代价被明显放大。
+
+## **小结：MCP-as-Code 并不是银弹**
+
+这次重构让我意识到：
+
+MCP-as-Code 擅长在处理**复杂分析与大数据集**但在**高频、交互式、强约束**
+
+Tool 模式和 Code 模式，并不存在绝对的优劣，它们本质上服务于**不同的问题类型**。
+
+在下篇中，我会继续记录我如何尝试一种**折中架构**，在不放弃 MCP-as-Code 优势的前提下，把延迟和失败成本重新拉回可接受区间。
+
+
 

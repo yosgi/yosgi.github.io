@@ -126,6 +126,7 @@ type Frontmatter struct {
 	Tags        []string `yaml:"tags"`
 	Date        string   `yaml:"date"`
 	Summary     string   `yaml:"summary"`
+	ReadingTime *int     `yaml:"readingTime,omitempty"`
 }
 
 // GenerateFrontmatter extracts and generates Hugo frontmatter from Notion page properties and content
@@ -183,6 +184,12 @@ func GenerateFrontmatter(page notion.Page, content string) *Frontmatter {
 		fm.Summary = summaryProp.RichText[0].PlainText
 	}
 
+	// Extract reading time from Notion properties (Number type)
+	if readingTimeProp, ok := page.Properties["Reading Time"]; ok && readingTimeProp.Number != nil {
+		readingTime := int(*readingTimeProp.Number)
+		fm.ReadingTime = &readingTime
+	}
+
 	return fm
 }
 
@@ -212,6 +219,10 @@ func FormatFrontmatter(fm *Frontmatter) string {
 
 	if fm.Summary != "" {
 		frontmatterMap["summary"] = fm.Summary
+	}
+
+	if fm.ReadingTime != nil {
+		frontmatterMap["readingTime"] = *fm.ReadingTime
 	}
 
 	// Use yaml.Marshal with custom encoder to ensure consistent formatting
@@ -244,6 +255,9 @@ func FormatFrontmatter(fm *Frontmatter) string {
 		}
 		if fm.Summary != "" {
 			result.WriteString(fmt.Sprintf("summary: %q\n", fm.Summary))
+		}
+		if fm.ReadingTime != nil {
+			result.WriteString(fmt.Sprintf("readingTime: %d\n", *fm.ReadingTime))
 		}
 		// Ensure trailing newline
 		return result.String()

@@ -3,6 +3,7 @@ categories:
   - uncategorized
 date: "2025-12-18 00:00:00"
 description: Lessons from a Digital Twin System
+readingTime: 8
 title: 'A Practical Attempt at MCP-as-Code: Lessons from a Digital Twin System'
 ---
 
@@ -44,7 +45,7 @@ This approach had two strong advantages:
 - **Early failure** (parameter types and schemas were validated before execution)
 However, as scene complexity increased, this model started to hit its limits.
 
-![](/images/Untitled/img_45a6004b.png)
+![](/images/A-Practical-Attempt-at-MCP-as-Code-Lessons-from-a-Digital-Twin-System/img_96605abf.png)
 
 ## **The First Bottleneck: Context Size vs. Data Volume**
 
@@ -182,3 +183,34 @@ The causes were cumulative:
 - Dynamic schema exploration
 - Multiple LLM generations
 - Python execution overhead
+- Java ↔ Python ↔ Frontend round-trips
+### **Failure Model Differences**
+
+Another important shift was **where failures occur**.
+
+In the original MCP Tool approach:
+
+- Java-side JSON schema validation
+- Type errors rejected **before execution**
+- Errors were structured and concise
+In the Python sandbox approach:
+
+- Errors occur **at runtime**
+- Common outcomes include:
+- The LLM must:
+In a system with **strong schemas, real-time interaction, and high frequency**, this difference becomes very expensive.
+
+## **Takeaway: MCP-as-Code Is Not a Silver Bullet**
+
+This refactor led me to a clear conclusion:
+
+MCP-as-Code is extremely powerful for **complex analysis and large-scale data processing**
+
+but in **high-frequency, interactive, schema-constrained digital twin systems**
+
+Tool-based execution and code-based execution are not competing solutions—they solve **different classes of problems**.
+
+In the next post, I’ll describe how I experimented with a **hybrid execution model** that preserves the strengths of MCP-as-Code while pulling latency and failure costs back into a practical range.
+
+
+

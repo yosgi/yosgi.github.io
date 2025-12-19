@@ -95,8 +95,16 @@ func (c *Client) QueryDatabase(databaseID string, filter interface{}) (*QueryDat
 }
 
 // GetBlockChildren retrieves the children blocks of a page or block
-func (c *Client) GetBlockChildren(blockID string) (*BlockChildrenResponse, error) {
-	data, err := c.makeRequest("GET", "/blocks/"+blockID+"/children", nil)
+// If startCursor is provided, it will fetch blocks starting from that cursor (for pagination)
+func (c *Client) GetBlockChildren(blockID string, startCursor string) (*BlockChildrenResponse, error) {
+	endpoint := "/blocks/" + blockID + "/children"
+
+	// Add pagination parameter if startCursor is provided
+	if startCursor != "" {
+		endpoint += "?start_cursor=" + startCursor
+	}
+
+	data, err := c.makeRequest("GET", endpoint, nil)
 	if err != nil {
 		return nil, err
 	}

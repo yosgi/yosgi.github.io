@@ -43,6 +43,7 @@ type Property struct {
 	RichText    []RichText   `json:"rich_text,omitempty"`
 	MultiSelect []SelectItem `json:"multi_select,omitempty"`
 	Date        *DateValue   `json:"date,omitempty"`
+	Number      *float64     `json:"number,omitempty"`
 }
 
 // RichText represents rich text content
