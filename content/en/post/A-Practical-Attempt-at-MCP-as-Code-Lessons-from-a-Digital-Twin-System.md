@@ -45,7 +45,7 @@ This approach had two strong advantages:
 - **Early failure** (parameter types and schemas were validated before execution)
 However, as scene complexity increased, this model started to hit its limits.
 
-![](/images/A-Practical-Attempt-at-MCP-as-Code-Lessons-from-a-Digital-Twin-System/img_96605abf.png)
+![](/images/A-Practical-Attempt-at-MCP-as-Code-Lessons-from-a-Digital-Twin-System/img_c3a380da.png)
 
 ## **The First Bottleneck: Context Size vs. Data Volume**
 
