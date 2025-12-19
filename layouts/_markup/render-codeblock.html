@@ -41,8 +41,10 @@
   {{- end -}}
 {{- end -}}
 
-{{- /* Use Hugo's built-in highlight function */ -}}
-{{- if and $lang (ne $lang "text") -}}
+{{- /* Special handling for mermaid - don't syntax highlight, let JS handle it */ -}}
+{{- if eq $lang "mermaid" -}}
+  <pre><code class="language-mermaid">{{ $code }}</code></pre>
+{{- else if and $lang (ne $lang "text") -}}
   {{- highlight $code $lang "" -}}
 {{- else -}}
   <pre><code>{{ $code }}</code></pre>
