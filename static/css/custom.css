@@ -81,52 +81,73 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #f5f5f5;
+  background: #f0f0f0;
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #888;
+  background: #111;
   border-radius: 10px;
-  border: 2px solid #f5f5f5;
+  border: 2px solid #f0f0f0;
   transition: background 0.2s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: #2b2b2b;
 }
 
 ::-webkit-scrollbar-thumb:active {
-  background: #333;
+  background: #000;
 }
 
 /* Firefox */
+body,
+html,
+.markdown-body,
+.markdown-body pre,
+#toc-list,
+.SelectMenu-modal,
+.SelectMenu-list {
+  scrollbar-width: thin;
+  scrollbar-color: #111 #f0f0f0;
+}
+
 * {
   scrollbar-width: thin;
-  scrollbar-color: #888 #f5f5f5;
+  scrollbar-color: #111 #f0f0f0;
 }
 
 /* Dark mode support */
 @media (prefers-color-scheme: dark) {
   ::-webkit-scrollbar-track {
-    background: #1a1a1a;
+    background: #0f0f10;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #666;
-    border-color: #1a1a1a;
+    background: #cfcfcf;
+    border-color: #0f0f10;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #888;
+    background: #e0e0e0;
   }
 
   ::-webkit-scrollbar-thumb:active {
-    background: #aaa;
+    background: #f5f5f5;
+  }
+
+  body,
+  html,
+  .markdown-body,
+  .markdown-body pre,
+  #toc-list,
+  .SelectMenu-modal,
+  .SelectMenu-list {
+    scrollbar-color: #d0d0d0 #0f0f10;
   }
 
   * {
-    scrollbar-color: #666 #1a1a1a;
+    scrollbar-color: #d0d0d0 #0f0f10;
   }
 }
 
