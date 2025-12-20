@@ -23,7 +23,7 @@ title: 一次基于 Anthropic MCP-as-Code 的重构尝试：以及它在数字�
 
 仅仅是把这些建筑的 ID 列表完整传递给 LLM，用于后续决策或操作，所消耗的 token 数量就已经足以压垮上下文窗口，更不用说附带的属性信息。
 
-![](/images/一次基于-Anthropic-MCP-as-Code-的重构尝试-以及它在数字孪生场景中的代价/img_1e4809e9.png)
+![](/images/一次基于-Anthropic-MCP-as-Code-的重构尝试-以及它在数字孪生场景中的代价/img_ca4105ad.png)
 
 这意味着一个事实：
 
