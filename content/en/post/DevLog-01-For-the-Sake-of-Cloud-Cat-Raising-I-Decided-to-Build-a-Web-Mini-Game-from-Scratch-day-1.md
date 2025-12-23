@@ -149,7 +149,7 @@ This stage is mostly manual work, but it’s surprisingly relaxing.
 - Verify layers and rendering behavior
 Seeing the map appear correctly in the engine is genuinely satisfying.
 
-![](/images/DevLog-01-For-the-Sake-of-Cloud-Cat-Raising-I-Decided-to-Build-a-Web-Mini-Game-from-Scratch-day-1/img_031aa780.png)
+![](/images/DevLog-01-For-the-Sake-of-Cloud-Cat-Raising-I-Decided-to-Build-a-Web-Mini-Game-from-Scratch-day-1/img_a045f3f5.png)
 
 ## 5. Summary & Next Steps
 
