@@ -32,45 +32,220 @@ func ConvertRichText(richText []notion.RichText) string {
 	return result.String()
 }
 
-// ConvertBlockToMarkdown converts a Notion block to markdown
-// imagePathMap maps original image URLs to local paths
-func ConvertBlockToMarkdown(block notion.Block, imagePathMap map[string]string) string {
+// ConvertBlocksToMarkdown converts Notion blocks to markdown with nesting support.
+// imagePathMap maps original image URLs to local paths.
+func ConvertBlocksToMarkdown(blocks []notion.Block, imagePathMap map[string]string, indentLevel int) string {
+	var result strings.Builder
+	for _, block := range blocks {
+		result.WriteString(ConvertBlockToMarkdown(block, imagePathMap, indentLevel))
+	}
+	return result.String()
+}
+
+func addBlockquotePrefix(content string) string {
+	lines := strings.Split(content, "\n")
+	for i, line := range lines {
+		if line == "" {
+			lines[i] = ">"
+			continue
+		}
+		lines[i] = "> " + line
+	}
+	return strings.Join(lines, "\n")
+}
+
+func tableRowToCells(row *notion.TableRowBlock) []string {
+	if row == nil {
+		return nil
+	}
+	cells := make([]string, 0, len(row.Cells))
+	for _, cell := range row.Cells {
+		cells = append(cells, ConvertRichText(cell))
+	}
+	return cells
+}
+
+func padCells(cells []string, width int) []string {
+	if len(cells) >= width {
+		return cells
+	}
+	padded := make([]string, width)
+	copy(padded, cells)
+	return padded
+}
+
+func renderTableRow(cells []string) string {
+	return "| " + strings.Join(cells, " | ") + " |"
+}
+
+// ConvertBlockToMarkdown converts a Notion block to markdown.
+// imagePathMap maps original image URLs to local paths.
+func ConvertBlockToMarkdown(block notion.Block, imagePathMap map[string]string, indentLevel int) string {
+	indent := strings.Repeat("  ", indentLevel)
 	switch block.Type {
 	case "paragraph":
 		if block.Paragraph == nil {
 			return ""
 		}
-		return ConvertRichText(block.Paragraph.RichText) + "\n\n"
+		text := ConvertRichText(block.Paragraph.RichText)
+		if text == "" {
+			return ""
+		}
+		if indentLevel == 0 {
+			return text + "\n\n"
+		}
+		return indent + text + "\n"
 
 	case "heading_1":
 		if block.Heading1 == nil {
 			return ""
 		}
-		return "# " + ConvertRichText(block.Heading1.RichText) + "\n\n"
+		if indentLevel == 0 {
+			return "# " + ConvertRichText(block.Heading1.RichText) + "\n\n"
+		}
+		return indent + "# " + ConvertRichText(block.Heading1.RichText) + "\n"
 
 	case "heading_2":
 		if block.Heading2 == nil {
 			return ""
 		}
-		return "## " + ConvertRichText(block.Heading2.RichText) + "\n\n"
+		if indentLevel == 0 {
+			return "## " + ConvertRichText(block.Heading2.RichText) + "\n\n"
+		}
+		return indent + "## " + ConvertRichText(block.Heading2.RichText) + "\n"
 
 	case "heading_3":
 		if block.Heading3 == nil {
 			return ""
 		}
-		return "### " + ConvertRichText(block.Heading3.RichText) + "\n\n"
+		if indentLevel == 0 {
+			return "### " + ConvertRichText(block.Heading3.RichText) + "\n\n"
+		}
+		return indent + "### " + ConvertRichText(block.Heading3.RichText) + "\n"
 
 	case "bulleted_list_item":
 		if block.BulletedListItem == nil {
 			return ""
 		}
-		return "- " + ConvertRichText(block.BulletedListItem.RichText) + "\n"
+		line := indent + "- " + ConvertRichText(block.BulletedListItem.RichText) + "\n"
+		if block.HasChildren && len(block.Children) > 0 {
+			line += ConvertBlocksToMarkdown(block.Children, imagePathMap, indentLevel+1)
+		}
+		return line
 
 	case "numbered_list_item":
 		if block.NumberedListItem == nil {
 			return ""
 		}
-		return "1. " + ConvertRichText(block.NumberedListItem.RichText) + "\n"
+		line := indent + "1. " + ConvertRichText(block.NumberedListItem.RichText) + "\n"
+		if block.HasChildren && len(block.Children) > 0 {
+			line += ConvertBlocksToMarkdown(block.Children, imagePathMap, indentLevel+1)
+		}
+		return line
+
+	case "callout":
+		if block.Callout == nil {
+			return ""
+		}
+		text := ConvertRichText(block.Callout.RichText)
+		var body strings.Builder
+		if text != "" {
+			body.WriteString(text)
+		}
+		if block.HasChildren && len(block.Children) > 0 {
+			if body.Len() > 0 {
+				body.WriteString("\n")
+			}
+			body.WriteString(ConvertBlocksToMarkdown(block.Children, imagePathMap, 0))
+		}
+		content := strings.TrimSuffix(body.String(), "\n")
+		if content == "" {
+			return ""
+		}
+		quoted := addBlockquotePrefix(content)
+		if indentLevel > 0 {
+			quoted = indent + strings.ReplaceAll(quoted, "\n", "\n"+indent)
+		}
+		return quoted + "\n\n"
+
+	case "divider":
+		if block.Divider == nil {
+			return ""
+		}
+		if indentLevel == 0 {
+			return "---\n\n"
+		}
+		return indent + "---\n"
+
+	case "table":
+		if block.Table == nil {
+			return ""
+		}
+		if len(block.Children) == 0 {
+			return ""
+		}
+		var rows [][]string
+		maxCols := block.Table.TableWidth
+		for _, child := range block.Children {
+			if child.Type != "table_row" || child.TableRow == nil {
+				continue
+			}
+			cells := tableRowToCells(child.TableRow)
+			if len(cells) > maxCols {
+				maxCols = len(cells)
+			}
+			rows = append(rows, cells)
+		}
+		if len(rows) == 0 || maxCols == 0 {
+			return ""
+		}
+
+		var table strings.Builder
+		startRow := 0
+		if block.Table.HasColumnHeader && len(rows) > 0 {
+			header := padCells(rows[0], maxCols)
+			table.WriteString(renderTableRow(header))
+			table.WriteString("\n")
+			startRow = 1
+		} else {
+			header := make([]string, maxCols)
+			table.WriteString(renderTableRow(header))
+			table.WriteString("\n")
+		}
+
+		separators := make([]string, maxCols)
+		for i := range separators {
+			separators[i] = "---"
+		}
+		table.WriteString(renderTableRow(separators))
+		table.WriteString("\n")
+
+		for _, row := range rows[startRow:] {
+			table.WriteString(renderTableRow(padCells(row, maxCols)))
+			table.WriteString("\n")
+		}
+
+		if indentLevel == 0 {
+			return table.String() + "\n"
+		}
+		indented := indent + strings.ReplaceAll(strings.TrimSuffix(table.String(), "\n"), "\n", "\n"+indent)
+		return indented + "\n"
+
+	case "table_row":
+		return ""
+
+	case "equation":
+		if block.Equation == nil {
+			return ""
+		}
+		if indentLevel == 0 {
+			return fmt.Sprintf("$$\n%s\n$$\n\n", block.Equation.Expression)
+		}
+		return fmt.Sprintf("%s$$\n%s%s\n%s$$\n",
+			indent,
+			indent,
+			block.Equation.Expression,
+			indent)
 
 	case "quote":
 		if block.Quote == nil {
@@ -78,15 +253,28 @@ func ConvertBlockToMarkdown(block notion.Block, imagePathMap map[string]string) 
 		}
 		// Render Notion quote blocks as Markdown blockquotes.
 		// Keep a blank line after to separate from following content.
-		return "> " + ConvertRichText(block.Quote.RichText) + "\n\n"
+		text := ConvertRichText(block.Quote.RichText)
+		if indentLevel == 0 {
+			return "> " + text + "\n\n"
+		}
+		return indent + "> " + text + "\n"
 
 	case "code":
 		if block.Code == nil {
 			return ""
 		}
-		return fmt.Sprintf("```%s\n%s\n```\n\n",
+		if indentLevel == 0 {
+			return fmt.Sprintf("```%s\n%s\n```\n\n",
+				block.Code.Language,
+				ConvertRichText(block.Code.RichText))
+		}
+		indentBlock := indent + "  "
+		return fmt.Sprintf("%s```%s\n%s%s\n%s```\n",
+			indentBlock,
 			block.Code.Language,
-			ConvertRichText(block.Code.RichText))
+			indentBlock,
+			ConvertRichText(block.Code.RichText),
+			indentBlock)
 
 	case "image":
 		if block.Image == nil {
@@ -111,7 +299,10 @@ func ConvertBlockToMarkdown(block notion.Block, imagePathMap map[string]string) 
 		if len(block.Image.Caption) > 0 {
 			caption = ConvertRichText(block.Image.Caption)
 		}
-		return fmt.Sprintf("![%s](%s)\n\n", caption, imagePath)
+		if indentLevel == 0 {
+			return fmt.Sprintf("![%s](%s)\n\n", caption, imagePath)
+		}
+		return fmt.Sprintf("%s![%s](%s)\n", indent, caption, imagePath)
 
 	default:
 		return ""
@@ -160,7 +351,7 @@ func GenerateFrontmatter(page notion.Page, content string) *Frontmatter {
 
 	// Extract description from Notion properties
 	if descProp, ok := page.Properties["Description"]; ok && len(descProp.RichText) > 0 {
-		fm.Description = descProp.RichText[0].PlainText
+		fm.Description = ConvertRichText(descProp.RichText)
 	}
 
 	// Extract categories from Notion multi-select property
@@ -181,7 +372,7 @@ func GenerateFrontmatter(page notion.Page, content string) *Frontmatter {
 
 	// Extract summary from Notion properties
 	if summaryProp, ok := page.Properties["Summary"]; ok && len(summaryProp.RichText) > 0 {
-		fm.Summary = summaryProp.RichText[0].PlainText
+		fm.Summary = ConvertRichText(summaryProp.RichText)
 	}
 
 	// Extract reading time from Notion properties (Number type)

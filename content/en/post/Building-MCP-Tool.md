@@ -2,14 +2,10 @@
 categories:
   - Technology
 date: "2025-10-28 00:00:00"
-description: How  Cut 6,000 Tokens Down to 500
+description: '**How  Cut 6,000 Tokens Down to 500**'
 readingTime: 4
 title: Building MCP Tool
 ---
-
-
-
-
 
 When building MCP , one of the biggest challenges we faced was token consumption. Our initial setup was incredibly heavy — before the model even said a single word, we were already using thousands of tokens.
 
@@ -82,6 +78,4 @@ This subtle “format anchoring” effect helped us achieve higher consistency a
 Optimizing token usage isn’t just about saving compute — it’s about clarity, responsiveness, and reliability.
 
 By dynamically loading tools, simplifying interfaces, and enforcing token budgets, we turned MCP2 from a sluggish prototype into a lean, responsive system that actually feels intelligent.
-
-
 

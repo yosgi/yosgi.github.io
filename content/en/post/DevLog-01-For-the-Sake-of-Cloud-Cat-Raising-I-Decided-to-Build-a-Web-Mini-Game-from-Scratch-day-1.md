@@ -25,6 +25,8 @@ That’s how this idea came up:
 - Open the browser and “raise a cat in the cloud”
 Of course, ideals are beautiful—but reality is often less so.
 
+---
+
 ### Challenge #1: Limited Art Resources
 
 - I can’t draw
@@ -37,6 +39,8 @@ The main sources I currently use include:
 
 - Itch.io
 They’re free, stable in quality, and perfect for beginner projects.
+
+---
 
 ### Challenge #2: Limited Development Resources
 
@@ -52,6 +56,8 @@ Main reasons:
 - Strong support for 2D games
 Between *features* and *complexity*, Cocos offers a very balanced choice.
 
+---
+
 ## 2. Step One: Laying the Foundation of the Game World — The Map
 
 Before writing any gameplay logic, the first thing I focused on was:
@@ -61,6 +67,8 @@ Before writing any gameplay logic, the first thing I focused on was:
 The core tool used here is:
 
 > Tiled Map Editor
+
+---
 
 ### What Is a Tilemap?
 
@@ -77,6 +85,8 @@ The advantages are very clear:
 - Perfect for 2D games
 For beginners, Tilemaps are almost a default choice.
 
+---
+
 ## 3. Map Layering (Layering Strategy)
 
 I split my map into **three layers**.
@@ -84,6 +94,8 @@ I split my map into **three layers**.
 The goal isn’t just cleaner structure—
 
 more importantly, it’s **rendering performance optimization**.
+
+---
 
 ### Layer 1 & Layer 2: Base Terrain Layers
 
@@ -102,7 +114,12 @@ more importantly, it’s **rendering performance optimization**.
 
 - Large, purely static terrain works well as separate layers
 - In Cocos, this allows better use of **culling**
+  - Off-screen terrain doesn’t need to be rendered
 - Static background layers can be **batched by the engine**
+  - Significantly reduces draw calls
+  - Lowers rendering pressure on Web platforms
+---
+
 ### Layer 3: Decoration / Obstacle Layer
 
 **Content:**
@@ -117,12 +134,16 @@ more importantly, it’s **rendering performance optimization**.
 Separating them provides two clear benefits:
 
 - Easy to uniformly add
+  `Collider / RigidBody`
+  components in Cocos later
 - No need to pollute complex terrain layers with logic concerns
 Terrain handles the “ground,”
 
 decorations handle the “objects”—
 
 clear responsibilities, clean structure.
+
+---
 
 ## 4. Practical Workflow
 
@@ -149,7 +170,9 @@ This stage is mostly manual work, but it’s surprisingly relaxing.
 - Verify layers and rendering behavior
 Seeing the map appear correctly in the engine is genuinely satisfying.
 
-![](/images/DevLog-01-For-the-Sake-of-Cloud-Cat-Raising-I-Decided-to-Build-a-Web-Mini-Game-from-Scratch-day-1/img_debd7e7b.png)
+![](/images/DevLog-01-For-the-Sake-of-Cloud-Cat-Raising-I-Decided-to-Build-a-Web-Mini-Game-from-Scratch-day-1/img_32b0e30a.png)
+
+---
 
 ## 5. Summary & Next Steps
 
@@ -171,6 +194,4 @@ This DevLog series will aim to stay:
 If you’re also interested in game development—or working solo with limited resources—there’s no need to put too much pressure on yourself.
 
 **Break the project into small pieces and move forward slowly.That alone already puts you ahead of many “idea-only” projects.**
-
-
 

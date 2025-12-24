@@ -85,12 +85,18 @@ type Block struct {
 	ID               string          `json:"id"`
 	Type             string          `json:"type"`
 	HasChildren      bool            `json:"has_children"`
+	Children         []Block         `json:"children,omitempty"`
 	Paragraph        *ParagraphBlock `json:"paragraph,omitempty"`
 	Heading1         *HeadingBlock   `json:"heading_1,omitempty"`
 	Heading2         *HeadingBlock   `json:"heading_2,omitempty"`
 	Heading3         *HeadingBlock   `json:"heading_3,omitempty"`
 	BulletedListItem *ListItemBlock  `json:"bulleted_list_item,omitempty"`
 	NumberedListItem *ListItemBlock  `json:"numbered_list_item,omitempty"`
+	Callout          *CalloutBlock   `json:"callout,omitempty"`
+	Divider          *DividerBlock   `json:"divider,omitempty"`
+	Table            *TableBlock     `json:"table,omitempty"`
+	TableRow         *TableRowBlock  `json:"table_row,omitempty"`
+	Equation         *EquationBlock  `json:"equation,omitempty"`
 	Quote            *QuoteBlock     `json:"quote,omitempty"`
 	Code             *CodeBlock      `json:"code,omitempty"`
 	Image            *ImageBlock     `json:"image,omitempty"`
@@ -109,6 +115,39 @@ type HeadingBlock struct {
 // ListItemBlock represents a list item block
 type ListItemBlock struct {
 	RichText []RichText `json:"rich_text"`
+}
+
+// CalloutBlock represents a callout block
+type CalloutBlock struct {
+	RichText []RichText `json:"rich_text"`
+	Icon     *IconBlock `json:"icon,omitempty"`
+	Color    string     `json:"color,omitempty"`
+}
+
+// IconBlock represents a callout icon
+type IconBlock struct {
+	Type  string `json:"type"`
+	Emoji string `json:"emoji,omitempty"`
+}
+
+// DividerBlock represents a divider block
+type DividerBlock struct{}
+
+// TableBlock represents a table block
+type TableBlock struct {
+	TableWidth      int  `json:"table_width"`
+	HasColumnHeader bool `json:"has_column_header"`
+	HasRowHeader    bool `json:"has_row_header"`
+}
+
+// TableRowBlock represents a table row block
+type TableRowBlock struct {
+	Cells [][]RichText `json:"cells"`
+}
+
+// EquationBlock represents an equation block
+type EquationBlock struct {
+	Expression string `json:"expression"`
 }
 
 // QuoteBlock represents a quote block

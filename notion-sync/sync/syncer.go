@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
 	"os"
 	"path/filepath"
 	"strings"
@@ -112,12 +113,16 @@ func (s *Syncer) SyncPage(page notion.Page) error {
 
 	fmt.Printf("  Fetched %d blocks\n", len(allBlocks))
 
+	var err error
+	allBlocks, err = s.hydrateBlocks(allBlocks)
+	if err != nil {
+		return fmt.Errorf("failed to fetch block children: %w", err)
+	}
+
 	// First, convert blocks to markdown temporarily to extract title from content
 	// This allows us to get the correct title before downloading images
 	var tempMarkdownContent strings.Builder
-	for _, block := range allBlocks {
-		tempMarkdownContent.WriteString(ConvertBlockToMarkdown(block, nil))
-	}
+	tempMarkdownContent.WriteString(ConvertBlocksToMarkdown(allBlocks, nil, 0))
 	tempContentStr := tempMarkdownContent.String()
 
 	// Generate Hugo frontmatter from Notion properties and content
@@ -141,32 +146,12 @@ func (s *Syncer) SyncPage(page notion.Page) error {
 
 	// Collect all image URLs and download them using the correct title
 	imagePathMap := make(map[string]string)
-	for _, block := range allBlocks {
-		if block.Type == "image" && block.Image != nil {
-			imageURL := ""
-			if block.Image.Type == "external" && block.Image.External != nil {
-				imageURL = block.Image.External.URL
-			} else if block.Image.Type == "file" && block.Image.File != nil {
-				imageURL = block.Image.File.URL
-			}
-
-			if imageURL != "" {
-				localPath, err := s.downloadImage(imageURL, actualTitle)
-				if err != nil {
-					fmt.Printf("Warning: Failed to download image %s: %v\n", imageURL, err)
-					// Continue with original URL if download fails
-				} else {
-					imagePathMap[imageURL] = localPath
-				}
-			}
-		}
-	}
+	normalizedPathMap := make(map[string]string)
+	s.collectImagePaths(allBlocks, imagePathMap, normalizedPathMap, actualTitle)
 
 	// Convert Notion blocks to Markdown format with correct image paths
 	var markdownContent strings.Builder
-	for _, block := range allBlocks {
-		markdownContent.WriteString(ConvertBlockToMarkdown(block, imagePathMap))
-	}
+	markdownContent.WriteString(ConvertBlocksToMarkdown(allBlocks, imagePathMap, 0))
 
 	contentStr := markdownContent.String()
 	frontmatterStr := FormatFrontmatter(frontmatter)
@@ -204,6 +189,94 @@ func (s *Syncer) SyncPage(page notion.Page) error {
 	return nil
 }
 
+func (s *Syncer) hydrateBlocks(blocks []notion.Block) ([]notion.Block, error) {
+	for i := range blocks {
+		if !blocks[i].HasChildren {
+			continue
+		}
+
+		children, err := s.getAllBlockChildren(blocks[i].ID)
+		if err != nil {
+			return nil, err
+		}
+
+		children, err = s.hydrateBlocks(children)
+		if err != nil {
+			return nil, err
+		}
+
+		blocks[i].Children = children
+	}
+	return blocks, nil
+}
+
+func (s *Syncer) getAllBlockChildren(blockID string) ([]notion.Block, error) {
+	var allBlocks []notion.Block
+	var cursor string
+
+	for {
+		blocks, err := s.client.GetBlockChildren(blockID, cursor)
+		if err != nil {
+			return nil, err
+		}
+
+		allBlocks = append(allBlocks, blocks.Results...)
+
+		if !blocks.HasMore {
+			break
+		}
+
+		cursor = blocks.NextCursor
+		if cursor == "" {
+			break
+		}
+	}
+
+	return allBlocks, nil
+}
+
+func (s *Syncer) collectImagePaths(blocks []notion.Block, imagePathMap map[string]string, normalizedPathMap map[string]string, postTitle string) {
+	for _, block := range blocks {
+		if block.Type == "image" && block.Image != nil {
+			imageURL := ""
+			if block.Image.Type == "external" && block.Image.External != nil {
+				imageURL = block.Image.External.URL
+			} else if block.Image.Type == "file" && block.Image.File != nil {
+				imageURL = block.Image.File.URL
+			}
+
+			if imageURL != "" {
+				normalizedURL := normalizeImageURL(imageURL)
+				if cachedPath, ok := normalizedPathMap[normalizedURL]; ok {
+					imagePathMap[imageURL] = cachedPath
+				} else {
+					localPath, err := s.downloadImage(imageURL, postTitle)
+					if err != nil {
+						fmt.Printf("Warning: Failed to download image %s: %v\n", imageURL, err)
+					} else {
+						imagePathMap[imageURL] = localPath
+						normalizedPathMap[normalizedURL] = localPath
+					}
+				}
+			}
+		}
+
+		if block.HasChildren && len(block.Children) > 0 {
+			s.collectImagePaths(block.Children, imagePathMap, normalizedPathMap, postTitle)
+		}
+	}
+}
+
+func normalizeImageURL(imageURL string) string {
+	parsed, err := url.Parse(imageURL)
+	if err != nil {
+		return imageURL
+	}
+	parsed.RawQuery = ""
+	parsed.Fragment = ""
+	return parsed.String()
+}
+
 // downloadImage downloads an image from URL and saves it locally
 // Returns the local path relative to Hugo static directory
 func (s *Syncer) downloadImage(imageURL, postTitle string) (string, error) {
@@ -213,15 +286,17 @@ func (s *Syncer) downloadImage(imageURL, postTitle string) (string, error) {
 		dirName = "images"
 	}
 
-	// Generate unique filename using MD5 hash of URL
+	normalizedURL := normalizeImageURL(imageURL)
+
+	// Generate unique filename using MD5 hash of normalized URL
 	// We need to determine extension first, but we'll try common extensions
-	hash := md5.Sum([]byte(imageURL))
+	hash := md5.Sum([]byte(normalizedURL))
 	urlHash := fmt.Sprintf("%x", hash)[:8]
 
 	// Try to determine extension from URL first
 	ext := ".png" // default
-	if strings.Contains(imageURL, ".") {
-		parts := strings.Split(imageURL, ".")
+	if strings.Contains(normalizedURL, ".") {
+		parts := strings.Split(normalizedURL, ".")
 		if len(parts) > 0 {
 			lastPart := strings.ToLower(parts[len(parts)-1])
 			// Remove query parameters

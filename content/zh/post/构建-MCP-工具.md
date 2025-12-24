@@ -2,12 +2,10 @@
 categories:
   - Technology
 date: "2025-10-28 00:00:00"
-description: 如何把 6,000 个 Token 压缩到 500 个
+description: '**如何把 6,000 个 Token 压缩到 500 个**'
 readingTime: 4
 title: 构建 MCP 工具
 ---
-
-
 
 **构建 MCP：我们如何把 6,000 个 Token 压缩到 500 个**
 
@@ -91,6 +89,4 @@ AI 会模仿你提供的输出格式。
 通过动态加载工具、统一接口、压缩上下文、严格控制 Token 预算，
 
 我们让 它变得更加有效和快速。
-
-
 
