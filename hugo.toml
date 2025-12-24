@@ -45,21 +45,22 @@ pygmentsUseClasses = true
     name = "Nice Resume"
     url = "https://nice-resume.vercel.app/"
     icon = ""
+    description = "A convenient and quick resume builder tool"
   
-  [[languages.en.params.projects]]
-    name = "Property NFT"
-    url = "https://property-nft-4dg3.vercel.app/"
-    icon = ""
-  
-  [[languages.en.params.projects]]
-    name = "DeFi Forge"
-    url = "https://de-fi-forge.vercel.app/"
-    icon = ""
-  
-  [[languages.en.params.projects]]
-    name = "Crypto Whale"
-    url = "https://crypto-whale-sny7.vercel.app/"
-    icon = ""
+  # [[languages.en.params.projects]]
+  #   name = "Property NFT"
+  #   url = "https://property-nft-4dg3.vercel.app/"
+  #   icon = ""
+  # 
+  # [[languages.en.params.projects]]
+  #   name = "DeFi Forge"
+  #   url = "https://de-fi-forge.vercel.app/"
+  #   icon = ""
+  # 
+  # [[languages.en.params.projects]]
+  #   name = "Crypto Whale"
+  #   url = "https://crypto-whale-sny7.vercel.app/"
+  #   icon = ""
 
 # Chinese language configuration
 [languages.zh.params]
@@ -86,21 +87,22 @@ pygmentsUseClasses = true
     name = "Nice Resume"
     url = "https://nice-resume.vercel.app/"
     icon = ""
+    description = "一个方便快捷的做简历的工具"
   
-  [[languages.zh.params.projects]]
-    name = "Property NFT"
-    url = "https://property-nft-4dg3.vercel.app/"
-    icon = ""
-  
-  [[languages.zh.params.projects]]
-    name = "DeFi Forge"
-    url = "https://de-fi-forge.vercel.app/"
-    icon = ""
-  
-  [[languages.zh.params.projects]]
-    name = "Crypto Whale"
-    url = "https://crypto-whale-sny7.vercel.app/"
-    icon = ""
+  # [[languages.zh.params.projects]]
+  #   name = "Property NFT"
+  #   url = "https://property-nft-4dg3.vercel.app/"
+  #   icon = ""
+  # 
+  # [[languages.zh.params.projects]]
+  #   name = "DeFi Forge"
+  #   url = "https://de-fi-forge.vercel.app/"
+  #   icon = ""
+  # 
+  # [[languages.zh.params.projects]]
+  #   name = "Crypto Whale"
+  #   url = "https://crypto-whale-sny7.vercel.app/"
+  #   icon = ""
 
 # Pagination configuration
 [pagination]

@@ -105,23 +105,20 @@
         </div>
 
         <div class="border-top color-border-secondary pt-3 mt-3 clearfix hide-sm hide-md">
-          <h2 class="mb-2 h4">Side Projects</h2>
-          <div style="display:flex;justify-content:flex-start;flex-wrap:wrap;margin-bottom:3px;">
-          
+          <ul style="list-style:none;padding-left:0;">
           {{ if .Site.Params.projects }}
           {{ range .Site.Params.projects }}
-          <a style="margin: 0 10px 10px 0;" href="{{ .url }}" target="_blank" rel="noopener noreferrer">
-            {{ if .icon }}
-            <img alt="{{ .name }}" width="32" height="32" src="{{ .icon }}" class="avatar">
-            {{ else }}
-            <div style="width:32px;height:32px;background:#24292e;border-radius:6px;display:flex;align-items:center;justify-content:center;color:white;font-size:12px;font-weight:bold;">
-              {{ substr .name 0 2 | upper }}
-            </div>
-            {{ end }}
-          </a>
+          <li style="margin-bottom:12px;">
+            <a href="{{ .url }}" target="_blank" rel="noopener noreferrer" style="text-decoration:none;color:inherit;">
+              <div style="font-weight:600;margin-bottom:4px;">{{ .name }}</div>
+              {{ if .description }}
+              <div style="font-size:14px;color:#656d76;">{{ .description }}</div>
+              {{ end }}
+            </a>
+          </li>
           {{ end }}
           {{ end }}
-         </div>
+          </ul>
         </div>
       </div>
     </div>
