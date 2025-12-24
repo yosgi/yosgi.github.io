@@ -4,9 +4,9 @@ original: content/zh/post/legacy/HTTP协议总结.md
 title: HTTP Protocol Summary
 description: HTTP simple organization
 categories:
-- Web
+- frontend
 tags:
-- Frontend
+- frontend
 - Web
 date: 2018-07-23 23:29:19
 summary: ''

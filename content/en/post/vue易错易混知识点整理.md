@@ -4,7 +4,7 @@ original: content/zh/post/legacy/vue易错易混知识点整理.md
 title: Summary of Vue's easy-to-error and easy-to-confuse knowledge points
 description: <ES6 Standard Introduction> Knowledge Points Summary
 categories:
-- Vue
+- frontend
 tags:
 - JavaScript
 - Vue
