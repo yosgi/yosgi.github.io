@@ -1,6 +1,6 @@
 ---
 categories:
-  - uncategorized
+  - Technology
 date: "2025-10-28 00:00:00"
 description: How  Cut 6,000 Tokens Down to 500
 readingTime: 4

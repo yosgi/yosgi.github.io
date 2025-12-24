@@ -1,6 +1,6 @@
 ---
 categories:
-  - uncategorized
+  - Technology
 date: "2025-10-28 00:00:00"
 description: 如何把 6,000 个 Token 压缩到 500 个
 readingTime: 4

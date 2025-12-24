@@ -1,6 +1,6 @@
 ---
 categories:
-  - uncategorized
+  - Technology
 date: "2025-12-18 00:00:00"
 description: Lessons from a Digital Twin System
 readingTime: 8
@@ -45,7 +45,7 @@ This approach had two strong advantages:
 - **Early failure** (parameter types and schemas were validated before execution)
 However, as scene complexity increased, this model started to hit its limits.
 
-![](/images/A-Practical-Attempt-at-MCP-as-Code-Lessons-from-a-Digital-Twin-System/img_7ebf8d1b.png)
+![](/images/A-Practical-Attempt-at-MCP-as-Code-Lessons-from-a-Digital-Twin-System/img_d64a7291.png)
 
 ## **The First Bottleneck: Context Size vs. Data Volume**
 

@@ -1,6 +1,6 @@
 ---
 categories:
-  - uncategorized
+  - Technology
 date: "2025-12-11 00:00:00"
 description: Tiled 地图绘制与优化
 title: '[DevLog #01]为了云养猫，我决定从零写一个 Web 小游戏（day 1'
@@ -140,7 +140,7 @@ title: '[DevLog #01]为了云养猫，我决定从零写一个 Web 小游戏（d
 - 确认分层和渲染都正常
 这一刻看到地图真正出现在引擎里，还是挺有成就感的。
 
-![](/images/DevLog-01-为了云养猫-我决定从零写一个-Web-小游戏-day-1/img_89621271.png)
+![](/images/DevLog-01-为了云养猫-我决定从零写一个-Web-小游戏-day-1/img_4c22a45e.png)
 
 ## 5. 小结与下一步计划
 
