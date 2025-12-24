@@ -67,11 +67,8 @@ These trades reinforced one idea for me:
 
 **When the direction is right, time itself becomes a source of return.**
 
-<<<<<<< HEAD
 ---
 
-=======
->>>>>>> 5c7e4842345277df695cc1f2e262c3e0c725048b
 ## V. The Most Important Mistake: A Speculative Trade That Should Not Have Happened
 
 If there is one trade that deserves the most reflection this year, it is the **GME put option**.
