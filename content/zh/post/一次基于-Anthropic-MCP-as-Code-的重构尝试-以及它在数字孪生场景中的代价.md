@@ -1,8 +1,9 @@
 ---
 categories:
   - Technology
+  - Ai
 date: "2025-12-18 00:00:00"
-description: '**重构尝试**'
+description: 重构尝试
 readingTime: 8
 title: 一次基于 Anthropic MCP-as-Code 的重构尝试：以及它在数字孪生场景中的代价
 ---

@@ -3,7 +3,7 @@ categories:
   - Investment
 date: "2025-12-24 00:00:00"
 description: '2025 Investment Review: A Bet-the-Dip Strategy in AI-Driven Markets'
-readingTime: 5
+readingTime: 12
 title: 2025 Investment Review
 ---
 

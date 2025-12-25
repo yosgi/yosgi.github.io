@@ -1,8 +1,9 @@
 ---
 categories:
   - Technology
+  - Ai
 date: "2025-12-18 00:00:00"
-description: '**Lessons from a Digital Twin System**'
+description: Lessons from a Digital Twin System
 readingTime: 8
 title: 'A Practical Attempt at MCP-as-Code: Lessons from a Digital Twin System'
 ---

@@ -1,8 +1,9 @@
 ---
 categories:
   - Technology
+  - Ai
 date: "2025-10-28 00:00:00"
-description: '**How  Cut 6,000 Tokens Down to 500**'
+description: How  Cut 6,000 Tokens Down to 500
 readingTime: 4
 title: Building MCP Tool
 ---
