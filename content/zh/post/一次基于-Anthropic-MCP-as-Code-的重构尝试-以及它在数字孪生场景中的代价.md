@@ -3,7 +3,7 @@ categories:
   - Technology
   - Ai
 date: "2025-12-18 00:00:00"
-description: 重构尝试
+description: 一次重构数字孪生系统的尝试经验 (1)
 readingTime: 8
 title: 一次基于 Anthropic MCP-as-Code 的重构尝试：以及它在数字孪生场景中的代价
 ---
@@ -223,8 +223,6 @@ flowchart TD
 MCP-as-Code 擅长在处理**复杂分析与大数据集**但在**高频、交互式、强约束**
 
 Tool 模式和 Code 模式，并不存在绝对的优劣，它们本质上服务于**不同的问题类型**。
-
-在下篇中，我会继续记录我如何尝试一种**折中架构**，在不放弃 MCP-as-Code 优势的前提下，把延迟和失败成本重新拉回可接受区间。
 
 ---
 

@@ -3,7 +3,7 @@ categories:
   - Technology
   - Ai
 date: "2025-12-18 00:00:00"
-description: Lessons from a Digital Twin System
+description: Lessons from a Digital Twin System(1)
 readingTime: 8
 title: 'A Practical Attempt at MCP-as-Code: Lessons from a Digital Twin System'
 ---
@@ -245,7 +245,9 @@ but in **high-frequency, interactive, schema-constrained digital twin systems**
 
 Tool-based execution and code-based execution are not competing solutions—they solve **different classes of problems**.
 
-In the next post, I’ll describe how I experimented with a **hybrid execution model** that preserves the strengths of MCP-as-Code while pulling latency and failure costs back into a practical range.
+In this post, I primarily examined the behavioral differences between MCP and Code-as-MCP in digital twin scenarios, starting from concrete implementations and empirical observations.
+
+In the next post, I will introduce an abstract model to analyze the underlying causes of these differences from the perspectives of system state, observability, and interaction structure, and to clarify their respective applicability boundaries.
 
 ---
 
