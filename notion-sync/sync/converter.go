@@ -14,6 +14,11 @@ func ConvertRichText(richText []notion.RichText) string {
 	var result strings.Builder
 
 	for _, text := range richText {
+		if text.Type == "equation" && text.Equation != nil {
+			// Use double backslashes so Markdown preserves \(...\) for KaTeX.
+			result.WriteString("\\\\(" + text.Equation.Expression + "\\\\)")
+			continue
+		}
 		content := text.PlainText
 
 		if text.Annotations.Bold {

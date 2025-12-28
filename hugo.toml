@@ -38,6 +38,7 @@ pygmentsUseClasses = true
   enableGitalk = false
   enableSearch = true
   mermaid = true
+  math = true
   custom_css = ["css/custom.css"]
   
   # Projects configuration
@@ -80,6 +81,7 @@ pygmentsUseClasses = true
   enableGitalk = false
   enableSearch = true
   mermaid = true
+  math = true
   custom_css = ["css/custom.css"]
   
   # Projects configuration

@@ -52,11 +52,17 @@ type RichText struct {
 	PlainText   string      `json:"plain_text"`
 	Annotations Annotations `json:"annotations"`
 	Text        *TextValue  `json:"text,omitempty"`
+	Equation    *Equation   `json:"equation,omitempty"`
 }
 
 // TextValue represents text content
 type TextValue struct {
 	Content string `json:"content"`
+}
+
+// Equation represents inline equation rich text content
+type Equation struct {
+	Expression string `json:"expression"`
 }
 
 // Annotations represents text formatting

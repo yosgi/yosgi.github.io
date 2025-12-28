@@ -29,25 +29,25 @@ The goal is to explain **where these differences come from under specific intera
 
 We begin by abstracting away implementation languages and frameworks, retaining only the concepts essential to interactive tasks:
 
-- (S_t): the true world state at step (t) (backend data, frontend scene, permissions, caches, etc.)
-- (a_t): the action taken at step (t) (queries, filtering, UI control, etc.)
-- (\varepsilon_t): uncontrollable disturbances (concurrency, asynchrony, partial success, network jitter, pagination/rate limiting)
-- (O_t): the observable feedback at step (t) (return values, acknowledgements, errors, summaries)
+- (\\(S_t\\)): the true world state at step (t) (backend data, frontend scene, permissions, caches, etc.)
+- (\\(a_t)\\): the action taken at step (t) (queries, filtering, UI control, etc.)
+- (\\(\varepsilon_t)\\): uncontrollable disturbances (concurrency, asynchrony, partial success, network jitter, pagination/rate limiting)
+- (\\(O_t\\)): the observable feedback at step (t) (return values, acknowledgements, errors, summaries)
 The two core relations governing an interactive system are:
 
 [
 
-S_{t+1}=\delta(S_t,a_t,\varepsilon_t), \qquad O_{t+1}=h(S_{t+1})
+\\(S_{t+1}=\delta(S_t,a_t,\varepsilon_t), \qquad O_{t+1}=h(S_{t+1})\\)
 
 ]
 
 Their meaning is straightforward:
 
 1. How the world evolves depends not only on what we do, but also on uncontrollable factors.
-1. We can only observe a *projection* of the state via the observation function (h(\cdot)) (returns, acknowledgements, errors), not the full state itself.
+1. We can only observe a *projection* of the state via the observation function (\\(h(\cdot)\\)) (returns, acknowledgements, errors), not the full state itself.
 These relations imply a key structural fact:
 
-> As long as the next action depends on a new observation (O_{t+1}), the interaction process is inherently a multi-round closed loop—multi-round behavior is not an implementation choice, but a structural constraint.
+> As long as the next action depends on a new observation (\\(O_{t+1}\\)), the interaction process is inherently a multi-round closed loop—multi-round behavior is not an implementation choice, but a structural constraint.
 
 ---
 
@@ -69,8 +69,8 @@ A typical closed loop therefore looks like:
 1. **Apply remediation if necessary** (completion, retry, or degradation).
 This is not because “engineers failed to write a one-shot solution”, but because it is jointly determined by:
 
-- (\varepsilon_t) (partial success, asynchrony, pagination, etc.)
-- (h(\cdot)) (incomplete observability)
+- (\\(\varepsilon_t\\)) (partial success, asynchrony, pagination, etc.)
+- (\\(h(\cdot)\\)) (incomplete observability)
 Together, these enforce a **conditional information-acquisition process**.
 
 ---
@@ -85,7 +85,7 @@ Actions are drawn from a finite, enumerable set:
 
 [
 
-a_t \in \mathcal{A}_{tool}
+\\(a_t \in \mathcal{A}_{tool}\\)
 
 ]
 
@@ -102,7 +102,7 @@ Actions are expressed as “generate and execute a program”:
 
 [
 
-\text{prog}t=\pi(O_t), \qquad (O{t+1}, S_{t+1})=\text{Exec}(\text{prog}_t, S_t)
+\\(\text{prog}t=\pi(O_t), \qquad (O{t+1}, S_{t+1})=\text{Exec}(\text{prog}_t, S_t)\\)
 
 ]
 
@@ -126,16 +126,16 @@ A minimal cost model can be written as:
 
 [
 
-C=\sum_t\Big(\lambda_L L_t+\lambda_T Tok_t+\lambda_F Fail_t\Big)
+\\(C=\sum_t\Big(\lambda_L L_t+\lambda_T Tok_t+\lambda_F Fail_t\Big)\\)
 
 ]
 
 Where:
 
-- (L_t): end-to-end latency at step (t)
-- (Tok_t): token consumption at step (t) (input/output/context accumulation)
-- (Fail_t): failure cost at step (t) (binary, retry count, severity, etc.)
-- (\lambda) are weights reflecting what the system prioritizes
+- (\\(L_t\\)): end-to-end latency at step (t)
+- (\\(Tok_t\\)): token consumption at step (t) (input/output/context accumulation)
+- (\\(Fail_t\\)): failure cost at step (t) (binary, retry count, severity, etc.)
+- (\\(\lambda\\)) are weights reflecting what the system prioritizes
 ---
 
 ### 5.1 Structural Parameters: Interaction Strength and Constraint Strength
@@ -144,11 +144,11 @@ These parameters determine the *lower bound on rounds* and the *distribution of 
 
 - **Interaction strength** (minimum number of feedback rounds):
   [
-  t \ge I
+  \\(t \ge I\\)
   ]
 - **Constraint strength** (schema stability and static validation capability), influencing expected failure:
   [
-  \mathbb{E}[Fail_t]=f(K), \qquad \frac{d}{dK}\mathbb{E}[Fail_t]<0
+  \\(\mathbb{E}[Fail_t]=f(K), \qquad \frac{d}{dK}\mathbb{E}[Fail_t]<0\\)
   ]
 Thus, in systems with high interaction strength (I), multi-round costs are naturally amplified; in systems with high constraint strength (K), pre-execution validation becomes especially valuable.
 
@@ -159,8 +159,8 @@ Thus, in systems with high interaction strength (I), multi-round costs are natur
 In the “anomalous entity filtering + frontend highlighting” task, digital twin systems typically exhibit:
 
 - High (I): multiple feedback and acknowledgement rounds are required.
-- Significant (\varepsilon_t): pagination, partial success, asynchrony, concurrency.
-- Incomplete observability (O_t): only projections of the state are visible.
+- Significant (\\(\varepsilon_t\\)): pagination, partial success, asynchrony, concurrency.
+- Incomplete observability (\\(O_t\\)): only projections of the state are visible.
 - Failures that demand fast, structured handling (experience- and stability-sensitive).
 Under this structure:
 
@@ -182,7 +182,7 @@ This layered model applies to systems with the following characteristics:
 - Feedback-driven decision loops
 - Irreducible multi-round interaction
 - Trade-offs between action expressiveness and validation timing
-When applying this analysis to other domains (e.g., data analysis, batch processing, offline retrieval), changes in structural parameters ((I, K, \varepsilon)) may reverse cost conclusions.
+When applying this analysis to other domains (e.g., data analysis, batch processing, offline retrieval), changes in structural parameters ((I, K, \\(\varepsilon\\))) may reverse cost conclusions.
 
 ---
 
