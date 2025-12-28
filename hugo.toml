@@ -111,6 +111,7 @@ pygmentsUseClasses = true
 # Build configuration
 [build]
   writeStats = true
+  buildFuture = true
 
 # Output configuration for search
 [outputs]
