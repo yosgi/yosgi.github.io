@@ -33,11 +33,7 @@ title: 分层抽象模型理解 MCP（Tool-based）与 Code-as-MCP
 - (\\(O_t\\))：第 (t) 步的可观测反馈（返回值、ack、错误、摘要）
 交互系统最关键的两条关系是：
 
-[
-
 \\(S_{t+1}=\delta(S_t,a_t,\varepsilon_t), \qquad O_{t+1}=h(S_{t+1})\\)
-
-]
 
 含义是：
 
@@ -80,11 +76,7 @@ title: 分层抽象模型理解 MCP（Tool-based）与 Code-as-MCP
 
 动作来自一个可枚举集合：
 
-[
-
 \\(a_t \in \mathcal{A}_{tool}\\)
-
-]
 
 每个动作通过 schema 明确约束参数，典型特征是：
 
@@ -95,11 +87,7 @@ title: 分层抽象模型理解 MCP（Tool-based）与 Code-as-MCP
 
 动作被表示为“生成并执行程序”：
 
-[
-
 \\(\text{prog}t=\pi(O_t), \qquad (O{t+1}, S_{t+1})=\text{Exec}(\text{prog}_t, S_t)\\)
-
-]
 
 其特征是：
 
@@ -119,11 +107,7 @@ title: 分层抽象模型理解 MCP（Tool-based）与 Code-as-MCP
 - 失败与重试（修复成本、用户可见性、稳定性）
 一个最简成本模型可以写成：
 
-[
-
 \\(C=\sum_t\Big(\lambda_L L_t+\lambda_T Tok_t+\lambda_F Fail_t\Big)\\)
-
-]
 
 解释：
 
@@ -136,13 +120,9 @@ title: 分层抽象模型理解 MCP（Tool-based）与 Code-as-MCP
 它们决定轮数下界与失败分布，从而间接决定成本。
 
 - 交互强度（最少需要多少轮反馈闭环）可表述为：
-  [
   \\(t \ge I\\)
-  ]
 - 约束强度（schema 稳定与可静态验证程度）影响失败期望：
-  [
   \\(\mathbb{E}[Fail_t]=f(K), \qquad \frac{d}{dK}\mathbb{E}[Fail_t]<0\\)
-  ]
 因此，在高交互强度 (I) 的系统中，多轮成本会被自然放大；在高约束强度 (K) 的系统中，pre-exec 验证通常更有价值。
 
 ---
