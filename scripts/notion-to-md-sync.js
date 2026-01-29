@@ -60,7 +60,7 @@ if (wantsClearCache) {
     const langRaw = getSelect(props[CONFIG.languageProperty]) || CONFIG.defaultLang;
     const lang = normalizeLang(langRaw);
 
-    const slug = safeFilename(title) || page.id;
+    const slug = normalizeSlug(title) || page.id;
     const outputPath = resolveOutputPath(CONFIG.hugoContentDir, lang, CONFIG.hugoPostDir, slug, hugoPath);
 
     const lastEdited = page.last_edited_time || '';
@@ -273,13 +273,16 @@ function normalizeMarkdown(content) {
   return out.join('\n');
 }
 
-function safeFilename(input) {
+function normalizeSlug(input) {
   if (!input) return '';
-  return input
+  const normalized = String(input).normalize('NFKC');
+  return normalized
     .trim()
+    .toLowerCase()
     .replace(/[\\/]/g, '-')
-    .replace(/\s+/g, '-')
-    .replace(/-+/g, '-');
+    .replace(/[^\p{L}\p{N}]+/gu, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-+|-+$/g, '');
 }
 
 function resolveOutputPath(contentDir, lang, postDir, slug, hugoPath) {
