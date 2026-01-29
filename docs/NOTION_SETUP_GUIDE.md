@@ -1,5 +1,7 @@
 # Advanced Setup Guide for Notion to Hugo Sync
 
+> Note: The current sync uses the Node `notion-to-md` pipeline. Run `pnpm sync` to generate Hugo content.
+
 ##  Quick Start
 
 ### 1. Environment Preparation
@@ -351,4 +353,3 @@ The script has built-in handling for these limits:
 - [Notion API documentation](https://developers.notion.com/)
 - [Hugo documentation](https://gohugo.io/documentation/)
 - [GitHub Actions documentation](https://docs.github.com/en/actions)
-

@@ -31,6 +31,17 @@ func ConvertRichText(richText []notion.RichText) string {
 			content = "`" + content + "`"
 		}
 
+		linkURL := ""
+		if text.Text != nil && text.Text.Link != nil {
+			linkURL = text.Text.Link.URL
+		}
+		if linkURL == "" && text.Href != "" {
+			linkURL = text.Href
+		}
+		if linkURL != "" {
+			content = fmt.Sprintf("[%s](%s)", content, linkURL)
+		}
+
 		result.WriteString(content)
 	}
 
@@ -41,10 +52,20 @@ func ConvertRichText(richText []notion.RichText) string {
 // imagePathMap maps original image URLs to local paths.
 func ConvertBlocksToMarkdown(blocks []notion.Block, imagePathMap map[string]string, indentLevel int) string {
 	var result strings.Builder
-	for _, block := range blocks {
+	for i, block := range blocks {
 		result.WriteString(ConvertBlockToMarkdown(block, imagePathMap, indentLevel))
+		if indentLevel == 0 && isListBlock(block.Type) {
+			nextIsList := i+1 < len(blocks) && isListBlock(blocks[i+1].Type)
+			if !nextIsList {
+				result.WriteString("\n")
+			}
+		}
 	}
 	return result.String()
+}
+
+func isListBlock(blockType string) bool {
+	return blockType == "bulleted_list_item" || blockType == "numbered_list_item"
 }
 
 func addBlockquotePrefix(content string) string {

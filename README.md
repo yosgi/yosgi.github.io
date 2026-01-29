@@ -62,6 +62,13 @@ Set GitHub Secrets:
 
 Automatic sync runs daily or manually via GitHub Actions.
 
+Local sync (Node):
+```bash
+cp env.example .env
+pnpm install
+pnpm sync
+```
+
 ### Translation
 
 ```bash

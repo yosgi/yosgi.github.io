@@ -12,7 +12,7 @@ notion-test:
 
 # Sync content from Notion
 notion-sync:
-	@cd notion-sync && go run cmd/sync/main.go
+	@node scripts/notion-to-md-sync.js
 
 # Build binaries
 notion-build:

@@ -1,2 +1,2 @@
 #!/bin/bash
-cd "$(dirname "$0")/notion-sync" && go run cmd/sync/main.go
+cd "$(dirname "$0")" && node scripts/notion-to-md-sync.js

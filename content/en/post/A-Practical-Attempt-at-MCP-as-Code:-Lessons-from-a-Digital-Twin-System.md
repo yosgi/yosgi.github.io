@@ -1,38 +1,48 @@
 ---
+title: "A Practical Attempt at MCP-as-Code: Lessons from a Digital Twin System"
+description: Lessons from a Digital Twin System(1)
 categories:
   - Technology
   - Ai
-date: "2025-12-18 00:00:00"
-description: Lessons from a Digital Twin System(1)
+date: 2025-12-18 00:00:00
 readingTime: 8
-title: 'A Practical Attempt at MCP-as-Code: Lessons from a Digital Twin System'
 ---
 
 # **A Practical Attempt at MCP-as-Code: Lessons from a Digital Twin System**
 
+
 ## **Background: This Is a Scale-First Problem**
+
 
 In the digital twin system I work on, a single scene can easily contain **tens of thousands of entities**.
 
+
 Each entity may carry 2,000–3,000 tokens worth of attributes—state, metrics, and domain-specific properties.
+
 
 But the real issue appears even earlier.
 
+
 For example, in some scenes there may be
+
 
 over ten thousand buildings
 
+
 Simply passing the list of building IDs to an LLM already consumes enough tokens to severely pressure the context window—before any attributes or business logic are involved.
+
 
 This leads to a hard constraint:
 
+
 Any architecture that relies on pushing “complete scene data” into the LLM context and then asking the model to reason over it does not scale.
+
 
 Even aggressive trimming or summarization only delays the problem.
 
----
 
 ## **The Original Setup: Direct MCP Tool Calls**
+
 
 Before the refactor, I was using a relatively straightforward MCP Tool–based approach:
 
@@ -44,10 +54,10 @@ Before the refactor, I was using a relatively straightforward MCP Tool–based a
   - Read the result
   - Call another API
 
-For a request like *“Paint all buildings red”*, the flow was simple:
+For a request like _“Paint all buildings red”_, the flow was simple:
 
 1. Call a tool to fetch all building IDs
-1. Call another tool to apply the color change
+2. Call another tool to apply the color change
 
 This approach had two strong advantages:
 
@@ -56,11 +66,12 @@ This approach had two strong advantages:
 
 However, as scene complexity increased, this model started to hit its limits.
 
-![](/images/A-Practical-Attempt-at-MCP-as-Code-Lessons-from-a-Digital-Twin-System/img_2a18fd05.png)
 
----
+![](https://prod-files-secure.s3.us-west-2.amazonaws.com/4ebc926d-a5ea-4392-a4ae-a936f72673cd/4d344e5d-cf8e-447c-a4d9-09ca33122caf/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB4665A3YJDQL%2F20260129%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20260129T043519Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjELT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJGMEQCIFNyUN58o8hOc0sDWTKJWSVZyHp74Vnlwe5YijmhFmqCAiB7Ro27HdwcV3zsCGaefok%2FvJEbpjC1UfMOckgzBqYlcSr%2FAwh9EAAaDDYzNzQyMzE4MzgwNSIMKe6vTOOm9BL8myqjKtwDgCZ8kOgMWjOIFCbKtrjlFpvnww4vvAiFQhd1nFWOjobX3yw4HVywLzVNXiV2ZnU4sd7%2BrCG%2BFgOcikQeirAbMpfKjS8mlvuLQFWY6GiOvqFdsSREZ1bySRs0a9welRP9IFh%2Bc%2F91mg9iDtJvdjfKuYKukJA1b1aLZ0StnKIUs4JGl%2BMaJfU3ycjr1YAqept4tPTmwFeuJDZgmrvRe2x9SsKbJnTlqZVjSeBsjxc1VLAC9QzjypTVGHlhk8snvyPdPqR6xr2TRhM4JFSU%2FrX4kOxs%2Fw2hRaucWkv%2B%2FPGkS59r77gwCHIReslt4yQsmT%2BE9tERaG79nX4GWYGT1SHdAkjMyBZA6Go7k06coab6Kzb7cyDNh%2FwIzjpPINwdnFP%2F78jpjbNidgLy853nd7QORp82cMdfklVtog3dJbUymZRUN5LS2uD1A6vJGEdIXvLE%2BD0glTsZiDTwz4bC0E%2BPpBMGUbzq%2FJ95sOrJ%2BBWblasY2pfnYg2QbTYSstZ9m4%2F9TQuELIRac3miKll2kZaEj%2B9hjYYzXS3%2FwHxYUbd3OcpC1LAtMHuHkGrJUOpAqgxQNgRehhO0iFqVH2XlwATemLxMjaHaq7M6qzj1O%2B4ZumHULxwJaaYGxEk8Fwgw1qfrywY6pgEEWqjKps7vGQqn0SKgP4l%2F9ZOG6mdn1afOfv9tSEMyAdBPTesweKBYrzYIAQu8HnPIWdW5gKUY%2FakOMa6s8BqQK%2BxVG8Hwi118mIKT04OuJgK7s%2Fg8OBrBCLjaZlJEuw2KhKqTU3D%2BdihEAcquWgE91xXgeLK6FUpHu7FSylRSokLB4we7QyPlPD7Yt9TTmEABboSKa7tcFsO%2BwcN73wKrklFhKzNs&X-Amz-Signature=0156806fd7b426c7a337bb38163b9de97a345efae8e753396cf8b6ffdf8174d3&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject)
+
 
 ## **The First Bottleneck: Context Size vs. Data Volume**
+
 
 The core problem was not data access—it was **data exposure**.
 
@@ -70,21 +81,27 @@ The core problem was not data access—it was **data exposure**.
 
 What became clear over time was this:
 
-The LLM does not need *all*
+
+The LLM does not need _all_
+
 
 It needs to decide how the data should be processed
 
-In other words, the model should express *logic*, not absorb massive datasets.
 
----
+In other words, the model should express _logic_, not absorb massive datasets.
+
 
 ## **The Turning Point: MCP-as-Code from Anthropic**
 
+
 At this point, I came across Anthropic’s article:
+
 
 Code Execution with MCP
 
+
 https://www.anthropic.com/engineering/code-execution-with-mcp
+
 
 The key idea resonated immediately:
 
@@ -97,13 +114,15 @@ The key idea resonated immediately:
 
 One sentence from the article stood out to me:
 
+
 For large datasets, the model doesn’t need to see 10,000 rows—it just needs the top 5 results or an aggregate.
+
 
 This felt like the right abstraction for my problem.
 
----
 
 ## **What I Expected MCP-as-Code to Solve**
+
 
 Before implementing it, my expectations were clear:
 
@@ -114,18 +133,21 @@ Before implementing it, my expectations were clear:
 
 Conceptually, it was a very clean design.
 
----
 
 ## **The Actual Implementation: Java + Python Sandbox**
 
+
 Rather than replacing everything, I introduced MCP-as-Code incrementally.
+
 
 ### **Java Layer**
 
 - Session management
 - API invocation
 - Scene ID pre-filtering
+
   (e.g., verifying which entity IDs are currently present in the frontend scene)
+
 
 ### **Python Sandbox**
 
@@ -140,11 +162,15 @@ Rather than replacing everything, I introduced MCP-as-Code incrementally.
 
 From an execution-model perspective, the system shifted to:
 
+
 Write code → Execute → Interpret result → Write more code
+
 
 The diagram below illustrates the actual execution flow between the LLM, the Java core system, the Python sandbox, and the frontend after the MCP-as-Code refactor.
 
+
 It is important to note that, in real interactive scenarios, this execution chain is frequently interrupted and runs as a multi-round loop
+
 
 ```mermaid
 flowchart TD
@@ -172,42 +198,51 @@ flowchart TD
     S2 -->|done| DONE[Done]
 ```
 
-This execution model differs significantly from the original assumption of *“a single script completing multiple steps in one run”*, and it is precisely this gap that underlies the increased latency and higher failure costs discussed later in the article.
 
----
+This execution model differs significantly from the original assumption of _“a single script completing multiple steps in one run”_, and it is precisely this gap that underlies the increased latency and higher failure costs discussed later in the article.
+
 
 ## **Problem 1: The Execution Chain Gets Interrupted**
 
+
 My original assumption was:
+
 
 One Python script could execute multiple steps, effectively replacing multiple MCP tool calls in a single run.
 
+
 In practice, this assumption failed in an interactive digital twin environment.
 
+
 ### **What actually happens**
+
 
 A typical request now looks like this:
 
 1. The LLM writes a Python script to query or filter entity IDs
-1. Java/Python executes it and returns the result
-1. The LLM must read and interpret the output
-1. The LLM writes a second Python script to control the frontend via WebSocket
-1. The frontend executes the action and returns feedback
-1. The LLM decides whether another step is needed
+2. Java/Python executes it and returns the result
+3. The LLM must read and interpret the output
+4. The LLM writes a second Python script to control the frontend via WebSocket
+5. The frontend executes the action and returns feedback
+6. The LLM decides whether another step is needed
 
 In other words:
 
+
 The script is frequently forced to stop after a small step
 
-What was intended as *one multi-step execution* degrades into **multiple serial round-trips**.
 
----
+What was intended as _one multi-step execution_ degrades into **multiple serial round-trips**.
+
 
 ## **Problem 2: Latency and Failure Costs Increase**
 
+
 ### **Latency**
 
+
 Even very simple instructions such as:
+
 
  Paint all buildings red”
 
@@ -223,7 +258,9 @@ The causes were cumulative:
 
 ### **Failure Model Differences**
 
+
 Another important shift was where failures occur.
+
 
 In the original MCP Tool approach:
 
@@ -240,39 +277,47 @@ In the Python sandbox approach:
   - Full stack traces
 - The LLM must:
   1. Read the stack trace
-  1. Understand the failure
-  1. Rewrite the entire script
-  1. Re-execute
+  2. Understand the failure
+  3. Rewrite the entire script
+  4. Re-execute
 
 In a system with **strong schemas, real-time interaction, and high frequency**, this difference becomes very expensive.
 
----
 
 ## **Takeaway: MCP-as-Code Is Not a Silver Bullet**
 
+
 This refactor led me to a clear conclusion:
+
 
 MCP-as-Code is extremely powerful for **c**omplex analysis and large-scale data processing
 
+
 but in high-frequency, interactive, schema-constrained digital twin systems
+
 
 Tool-based execution and code-based execution are not competing solutions—they solve different classes of problems.
 
+
 In this post, I primarily examined the behavioral differences between MCP and Code-as-MCP in digital twin scenarios, starting from concrete implementations and empirical observations.
 
+
 In the next post, I will introduce an abstract model to analyze the underlying causes of these differences from the perspectives of system state, observability, and interaction structure, and to clarify their respective applicability boundaries.
+
 
 Looking back at the MCP-as-Code refactoring process, three classes of issues repeatedly surfaced:
 
 1. The number of interaction rounds becomes unavoidable.
-1. Failures tend to occur *during execution* rather than *before execution*.
-1. Under the same user instruction, latency and failure costs grow exponentially.
+2. Failures tend to occur _during execution_ rather than _before execution_.
+3. Under the same user instruction, latency and failure costs grow exponentially.
 
 These issues are not determined by whether the system is implemented in Java or Python, nor by the specific design of MCP APIs.
 
+
 Instead, they are better understood as manifestations of underlying structural constraints.
+
 
 To avoid continuing trial-and-error at the implementation level, I introduce a more abstract model to describe these phenomena in a unified way.
 
-In the [following sections](https://yosgi.github.io/en/post/understanding-mcp-tool-based-and-code-as-mcp-through-a-layered-abstract-model/), I will use a layered abstraction model to re-examine where the differences between MCP and Code-as-MCP actually come from.
 
+In the [following sections](https://yosgi.github.io/en/post/understanding-mcp-tool-based-and-code-as-mcp-through-a-layered-abstract-model/), I will use a layered abstraction model to re-examine where the differences between MCP and Code-as-MCP actually come from.

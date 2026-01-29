@@ -50,6 +50,7 @@ type Property struct {
 type RichText struct {
 	Type        string      `json:"type"`
 	PlainText   string      `json:"plain_text"`
+	Href        string      `json:"href,omitempty"`
 	Annotations Annotations `json:"annotations"`
 	Text        *TextValue  `json:"text,omitempty"`
 	Equation    *Equation   `json:"equation,omitempty"`
@@ -58,6 +59,12 @@ type RichText struct {
 // TextValue represents text content
 type TextValue struct {
 	Content string `json:"content"`
+	Link    *Link  `json:"link,omitempty"`
+}
+
+// Link represents a link object in Notion rich text
+type Link struct {
+	URL string `json:"url"`
 }
 
 // Equation represents inline equation rich text content

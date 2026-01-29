@@ -1,4 +1,52 @@
 {
-  "pages": {},
-  "lastSync": null
+  "pages": {
+    "29ad20d8-e7dd-8028-b889-d3f01fe8cf2f": {
+      "lastEdited": "2025-12-26T21:24:00.000Z",
+      "outputPath": "content/en/post/Early-Experiences-with-Building-MCP-Tools.md"
+    },
+    "29ad20d8-e7dd-80a9-8fa4-cc1a2fba9862": {
+      "lastEdited": "2025-12-26T21:24:00.000Z",
+      "outputPath": "content/zh/post/初步尝试构建-MCP-工具的经验.md"
+    },
+    "2cdd20d8-e7dd-8045-a987-d5be641c3cc3": {
+      "lastEdited": "2026-01-29T04:23:00.000Z",
+      "outputPath": "content/zh/post/一次基于-Anthropic-MCP-as-Code-的重构尝试：以及它在数字孪生场景中的代价.md"
+    },
+    "2cdd20d8-e7dd-804d-85d3-edbd4dcb9d3d": {
+      "lastEdited": "2026-01-29T04:23:00.000Z",
+      "outputPath": "content/en/post/A-Practical-Attempt-at-MCP-as-Code:-Lessons-from-a-Digital-Twin-System.md"
+    },
+    "2cdd20d8-e7dd-80d2-99d5-cac451485969": {
+      "lastEdited": "2025-12-24T04:18:00.000Z",
+      "outputPath": "content/en/post/[DevLog-#01]-For-the-Sake-of-Cloud-Cat-Raising,-I-Decided-to-Build-a-Web-Mini-Game-from-Scratch（day-1.md"
+    },
+    "2ced20d8-e7dd-807b-937d-f3d5687ffbcb": {
+      "lastEdited": "2025-12-24T04:18:00.000Z",
+      "outputPath": "content/zh/post/[DevLog-#01]为了云养猫，我决定从零写一个-Web-小游戏（day-1.md"
+    },
+    "2d3d20d8-e7dd-8076-b23e-d11765ab8874": {
+      "lastEdited": "2025-12-24T10:30:00.000Z",
+      "outputPath": "content/zh/post/2025-年度投资总结.md"
+    },
+    "2d3d20d8-e7dd-80aa-8ff3-ec212ceb2afc": {
+      "lastEdited": "2025-12-24T10:30:00.000Z",
+      "outputPath": "content/en/post/2025-Investment-Review.md"
+    },
+    "2d5d20d8-e7dd-8002-b23f-f68632773a9a": {
+      "lastEdited": "2026-01-29T04:25:00.000Z",
+      "outputPath": "content/zh/post/分层抽象模型理解-MCP（Tool-based）与-Code-as-MCP.md"
+    },
+    "2d5d20d8-e7dd-80e8-bb3e-c8d393a73883": {
+      "lastEdited": "2026-01-29T04:26:00.000Z",
+      "outputPath": "content/en/post/Understanding-MCP-(Tool-based)-and-Code-as-MCP-Through-a-Layered-Abstract-Model.md"
+    },
+    "2f5d20d8-e7dd-8087-a2b3-faf932faff98": {
+      "lastEdited": "2026-01-29T04:34:00.000Z",
+      "outputPath": "content/zh/post/结构性必须-数字孪生的AI-混合架构.md"
+    },
+    "2f6d20d8-e7dd-80f3-aff2-c7692106aeaa": {
+      "lastEdited": "2026-01-29T04:27:00.000Z",
+      "outputPath": "content/en/post/Structural-Necessity-of-Hybrid-AI-Architectures-in-Digital-Twin-Systems.md"
+    }
+  }
 }
