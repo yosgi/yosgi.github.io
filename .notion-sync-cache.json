@@ -2,11 +2,11 @@
   "pages": {
     "29ad20d8-e7dd-8028-b889-d3f01fe8cf2f": {
       "lastEdited": "2025-12-26T21:24:00.000Z",
-      "outputPath": "content/en/post/Early-Experiences-with-Building-MCP-Tools.md"
+      "outputPath": "content/en/post/early-experiences-with-building-mcp-tools.md"
     },
     "29ad20d8-e7dd-80a9-8fa4-cc1a2fba9862": {
       "lastEdited": "2025-12-26T21:24:00.000Z",
-      "outputPath": "content/zh/post/初步尝试构建-MCP-工具的经验.md"
+      "outputPath": "content/zh/post/初步尝试构建-mcp-工具的经验.md"
     },
     "2cdd20d8-e7dd-8045-a987-d5be641c3cc3": {
       "lastEdited": "2026-01-29T04:23:00.000Z",
@@ -30,7 +30,7 @@
     },
     "2d3d20d8-e7dd-80aa-8ff3-ec212ceb2afc": {
       "lastEdited": "2025-12-24T10:30:00.000Z",
-      "outputPath": "content/en/post/2025-Investment-Review.md"
+      "outputPath": "content/en/post/2025-investment-review.md"
     },
     "2d5d20d8-e7dd-8002-b23f-f68632773a9a": {
       "lastEdited": "2026-01-29T04:25:00.000Z",
@@ -42,11 +42,11 @@
     },
     "2f5d20d8-e7dd-8087-a2b3-faf932faff98": {
       "lastEdited": "2026-01-29T04:34:00.000Z",
-      "outputPath": "content/zh/post/结构性必须-数字孪生的AI-混合架构.md"
+      "outputPath": "content/zh/post/结构性必须-数字孪生的ai-混合架构.md"
     },
     "2f6d20d8-e7dd-80f3-aff2-c7692106aeaa": {
       "lastEdited": "2026-01-29T04:27:00.000Z",
-      "outputPath": "content/en/post/Structural-Necessity-of-Hybrid-AI-Architectures-in-Digital-Twin-Systems.md"
+      "outputPath": "content/en/post/structural-necessity-of-hybrid-ai-architectures-in-digital-twin-systems.md"
     }
   }
 }
