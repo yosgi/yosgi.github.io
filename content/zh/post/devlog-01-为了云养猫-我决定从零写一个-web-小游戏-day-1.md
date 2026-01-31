@@ -4,6 +4,7 @@ description: Tiled 地图绘制与优化
 categories:
   - Technology
 date: 2025-12-11 00:00:00
+draft: true
 ---
 
 ## 1. 前言：为什么要开这个坑？
@@ -206,7 +207,7 @@ date: 2025-12-11 00:00:00
 这一刻看到地图真正出现在引擎里，还是挺有成就感的。
 
 
-![](https://prod-files-secure.s3.us-west-2.amazonaws.com/4ebc926d-a5ea-4392-a4ae-a936f72673cd/d3e19b02-e290-4a5a-aee7-8c31a522cd73/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB466YBESGOTC%2F20260129%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20260129T043529Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjELT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIEZCZno2cVqg6%2FVymbhFdr0G7o58Mb%2BV4EIyWEl7CszMAiEAoLKgu7vorF5Ol0hotz2HTfnra3CI4WxWnZ1QoemnrcAq%2FwMIfRAAGgw2Mzc0MjMxODM4MDUiDDgZ7y%2FX9782RT0naircA1o4kFy7Z6C8czoYjUCr97VutKW6pwbPFIJGUf%2F6j5C9SbWQ7VY0A6iZYoev0mn3fPeuYG6VtLazy98vV6WW98R74mNXy19l881fFEjnDY9a1r1O992Xu5FcuGRF7ez%2FbpQq0RzsdlXEB025irX7efGhi8V4pwPa2V01C5Fabxu%2BdzGTZ0O%2FhPUo71O9relr%2BEI8uHHiT9yplY8yVDkPOJEk2YPYJAAm16bX0OJGc04RrG%2Fj%2BVhwS1FP6gjZmrEMpxavZRk6UbDmnk1p3ivJLG0bIXzrImHSLfKd4SA%2FZWSl3adAUN%2BFtR4Vc6QUvcDQYwnS4zN9E4mslAOqRnXmAghuX447N3UfRr0Eo2qiQFf93ONeX5KY7WufM4ul%2BtlHYfWgMY4pujpf%2F%2FdrjCTh5J8dqL%2FQ2HtJbEOej4jAn9cAQs0%2FM8dNnIENU8h3W4gfryee%2FSIIyi%2FQMS%2BSJeJKUf0nTr6ANM7K%2FHz%2FDNizChmuJdZy6bdNvykXG476Cps1Y3BXBXx3RrOSn%2B0%2FWl5r8jj6tQqQ7bQzA8lpkIsB%2BFDIbry1oiGWQQ3KCsslakKhEmDJJEyfSY8zTUZ%2BFE0RD5nw5oREmCAmvSt37r9H42IHzqaHZHMciFu3xIYPMN2n68sGOqUBrvy2smwuyJ3z7fpqThQf0ZUOXRFC7ZhQ5C%2BcQ0FgrO9XBtQkWpVhZtilI31drD06pHHPVPQagxDO1qSpt1V0z2bngDmqaT8NrP7RIVvg4VuwTTY5foqufCavLOctGOk4my8POxl%2Bu7buKvNcgqBWhHAfF%2BJIt1Ep337Ilzwv%2FhoWHJh0J7WKqLJ9J76kDX9chPcZTQFGpirZWcuXpXO9p00YXLyn&X-Amz-Signature=6ea8dab6a58e56d6082113c00d26f5e2738fe32204bf2153dfa0622854cbc6b9&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject)
+![](/images/notion/b06494c9715c8c5aeee975b7884ca418.png)
 
 
 ---

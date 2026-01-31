@@ -2,6 +2,9 @@
 
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
+const https = require('https');
+const { URL } = require('url');
 
 const { Client } = require('@notionhq/client');
 const { NotionToMarkdown } = require('notion-to-md');
@@ -48,7 +51,8 @@ if (wantsClearCache) {
   const n2m = new NotionToMarkdown({ notionClient: notion });
 
   const cache = loadCache(CONFIG.cacheFile);
-  const pages = await queryAllPages(notion, CONFIG.notionDatabaseId, CONFIG.publishedStatus, CONFIG.pageSize);
+  /* Fetch all pages, then filter/status locally */
+  const pages = await queryAllPages(notion, CONFIG.notionDatabaseId, undefined, CONFIG.pageSize);
 
   let written = 0;
   let skipped = 0;
@@ -60,18 +64,29 @@ if (wantsClearCache) {
     const langRaw = getSelect(props[CONFIG.languageProperty]) || CONFIG.defaultLang;
     const lang = normalizeLang(langRaw);
 
+    /* Determine Draft Status */
+    const status = getSelect(props.Status);
+    const isDraft = status !== CONFIG.publishedStatus;
+
     const slug = normalizeSlug(title) || page.id;
     const outputPath = resolveOutputPath(CONFIG.hugoContentDir, lang, CONFIG.hugoPostDir, slug, hugoPath);
 
     const lastEdited = page.last_edited_time || '';
     const cacheKey = page.id;
     const cached = cache.pages[cacheKey];
+    // If cached and nothing changed
     if (cached && cached.lastEdited === lastEdited && fs.existsSync(outputPath)) {
+      // Simple check: we might want to update if logic changed (e.g. draft status), 
+      // but typically last_edited_time updates on property change too.
       skipped += 1;
       continue;
     }
 
     const mdBlocks = await n2m.pageToMarkdown(page.id);
+
+    // Process blocks to download images
+    await processBlocks(mdBlocks, CONFIG.hugoContentDir);
+
     const mdResult = n2m.toMarkdownString(mdBlocks);
     const content = typeof mdResult === 'string' ? mdResult : (mdResult.parent || '');
 
@@ -83,6 +98,7 @@ if (wantsClearCache) {
       date: normalizeDate(getDate(props.Date)),
       summary: getRichText(props.Summary),
       readingTime: getNumber(props['Reading Time']),
+      draft: isDraft,
     });
 
     const output = formatMarkdown(frontmatter, normalizeMarkdown(content));
@@ -167,9 +183,9 @@ async function queryAllPages(notion, databaseId, statusValue, pageSize) {
       page_size: pageSize,
       filter: statusValue
         ? {
-            property: 'Status',
-            select: { equals: statusValue },
-          }
+          property: 'Status',
+          select: { equals: statusValue },
+        }
         : undefined,
       start_cursor: cursor,
     });
@@ -229,6 +245,9 @@ function buildFrontmatter(fields) {
   setIf(fm, 'summary', fields.summary);
   if (fields.readingTime !== null && fields.readingTime !== undefined) {
     fm.readingTime = fields.readingTime;
+  }
+  if (fields.draft) {
+    fm.draft = true;
   }
   return fm;
 }
@@ -315,4 +334,118 @@ function normalizeLang(lang) {
     en: 'en',
   };
   return map[key] || value;
+}
+
+async function processBlocks(blocks, contentRoot) {
+  for (const block of blocks) {
+    if (block.parent) {
+      // Look for images in the block content
+      // Pattern: ![alt](url)
+      const imageRegex = /!\[([^\]]*)\]\((https?:\/\/[^)]+)\)/g;
+      let match;
+      let newParent = block.parent;
+      const replacements = [];
+
+      while ((match = imageRegex.exec(block.parent)) !== null) {
+        const fullMatch = match[0];
+        const alt = match[1];
+        const url = match[2];
+
+        // Check if it's a Notion/S3 image (simplified check)
+        // Usually long S3 urls
+        if (url.includes('amazonaws.com') || url.includes('notion.so') || url.includes('secure.notion-static.com')) {
+          try {
+            const filename = await downloadAndSaveImage(url, contentRoot);
+            if (filename) {
+              // Use /images/notion/filename
+              const newUrl = `/images/notion/${filename}`;
+              replacements.push({ old: fullMatch, new: `![${alt}](${newUrl})` });
+            }
+          } catch (err) {
+            console.error(`Failed to download image: ${url}`, err.message);
+          }
+        }
+      }
+
+      // Apply replacements
+      for (const rep of replacements) {
+        newParent = newParent.replace(rep.old, rep.new);
+      }
+      block.parent = newParent;
+    }
+
+    if (block.children && block.children.length > 0) {
+      await processBlocks(block.children, contentRoot);
+    }
+  }
+}
+
+async function downloadAndSaveImage(url, contentRoot) {
+  // We'll save to static/images/notion
+  // contentRoot is usually ./content
+  // standard Hugo layout: ./static
+  // We need to resolve the project root.
+  // Assuming script runs from project root.
+
+  const staticDir = path.resolve('static/images/notion');
+  if (!fs.existsSync(staticDir)) {
+    fs.mkdirSync(staticDir, { recursive: true });
+  }
+
+  // Generate hash
+  const hash = crypto.createHash('md5').update(url.split('?')[0]).digest('hex'); // Hash without query params for stability? 
+  // Wait, notion signed urls expire, so the URL changes. 
+  // But the file content is same. 
+  // If we hash the *content* we need to download first. 
+  // If we hash the URL (without query), it might be same for same object?
+  // Notion URLs: https://s3.us-west-2.amazonaws.com/.../untitled.png?X-Amz...
+  // The path part usually contains a UUID.
+
+  try {
+    const u = new URL(url);
+    const pathname = u.pathname;
+    const filename = path.basename(pathname); // e.g. untitled.png
+    const ext = path.extname(filename) || '.png';
+    // Use a simpler hash technique: MD5 of the pure path
+    const pathHash = crypto.createHash('md5').update(pathname).digest('hex');
+    const finalFilename = `${pathHash}${ext}`;
+    const destPath = path.join(staticDir, finalFilename);
+
+    // If exists, skip?
+    // If signed urls change but content doesn't, we want to skip downloading if we have it.
+    if (fs.existsSync(destPath)) {
+      return finalFilename;
+    }
+
+    if (process.env.DRY_RUN || process.argv.includes('--dry-run')) {
+      console.log(`[DryRun] Would download ${url} to ${destPath}`);
+      return finalFilename;
+    }
+
+    await downloadFile(url, destPath);
+    console.log(`Downloaded image: ${finalFilename}`);
+    return finalFilename;
+  } catch (e) {
+    console.warn("Invalid URL or download error", e);
+    return null;
+  }
+}
+
+function downloadFile(url, dest) {
+  return new Promise((resolve, reject) => {
+    const file = fs.createWriteStream(dest);
+    https.get(url, (response) => {
+      if (response.statusCode >= 400) {
+        reject(new Error(`Status code ${response.statusCode}`));
+        return;
+      }
+      response.pipe(file);
+      file.on('finish', () => {
+        file.close(resolve);
+      });
+    }).on('error', (err) => {
+      fs.unlink(dest, () => { });
+      reject(err);
+    });
+  });
 }

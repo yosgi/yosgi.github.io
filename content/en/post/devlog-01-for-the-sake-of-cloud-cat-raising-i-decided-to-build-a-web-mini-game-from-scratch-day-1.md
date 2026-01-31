@@ -5,6 +5,7 @@ description: Build a Web Mini Game from Scratch
 categories:
   - Technology
 date: 2025-12-11 00:00:00
+draft: true
 ---
 
 ## 1. Introduction: Why Start This Project?
@@ -232,7 +233,7 @@ This stage is mostly manual work, but it’s surprisingly relaxing.
 Seeing the map appear correctly in the engine is genuinely satisfying.
 
 
-![](https://prod-files-secure.s3.us-west-2.amazonaws.com/4ebc926d-a5ea-4392-a4ae-a936f72673cd/1dde2521-b751-432b-bb0e-94dd8c044b19/image.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAZI2LB466S4OZFRZE%2F20260129%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20260129T043526Z&X-Amz-Expires=3600&X-Amz-Security-Token=IQoJb3JpZ2luX2VjELT%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLXdlc3QtMiJHMEUCIQCYu8BNIerH%2FJoRC3GdP0sjH6zzjtbUHmOsbSnxXJoxwAIgWX7g08xa2cEmLvURnXVyG1v23KKV60%2FZAZPTRbElIWMq%2FwMIfRAAGgw2Mzc0MjMxODM4MDUiDCxeaX0%2FbrsPOrNYzCrcA2ROOkAH7dzZrGTS%2BTgkiLthNvaNw6KQStDN7CMUOho1UXFwdKxpj6JFS4rsSdwngCxpyd8hcFCZSpgydTSuFUxeYhLfXb%2BvU2vHRpakQJ4N5PgJ%2BheufQivjiIujT8uJ48YVlNuwsjKIXfw9HSwuMpD2PMCjlzjh7PzlwLoKfw0Sj1sXrqb2k%2BirdQ39dbOiqD3wdeM0pSuXXzdvhkPBRhGmWosZvh%2B3Bw3iCM5PEerjFnZONHY%2BWRq003VV2czazXBI50NaTHThzFZ271pN4LsvenyMtaY6iIkgb9COHH4p37NgwBGNSVN3HEp01NI%2FiYHjfKd9UiHboNPDfK2ws8XYqtbYlxbLi0UpqRvSZMDkG35Gr0S70mRU7Kp08xjU%2Bw0E1y%2BYWmUeSDGIFlhDgFM%2Bpo%2BBCw%2FxmPdoEaNMPjgkJRIbIDFhzlivv6T1LOdqGtS7UG%2FqGXzNm8WHqyKrqKVSeouBEb4Y7m%2BUqiZFJp2DLqUTlRB0wbtE9RwaFF%2BXCdMl5cDIDcwMDhk4AgDSTfFxwtmwO1KFaK%2FZ7QkBTBDZRTjJx8QKhngElmbpaQmprL9c8k5FlZZ%2F2OzxB%2Bu7RwsrgFo6%2ForzuKduIKLMrZ3Gy8uFQ%2Fg2u%2Fjq9cwMNqo68sGOqUBe%2Bs%2F7ggiwY5C%2BuI%2BLqZQTovSM77jhVV3PoE7TIZLDT10pNKDcCzVFBLcHnIUwdwM%2B3IxeWUoJehkp0vm%2B4L%2BTydId1kYp3P%2F%2Bi6JoBlaMedVYzZyS5QGeOPqkrix7XNum0IMfJFEgY5FarMSo%2Baz%2BrqrT8RxNdr2IWhHmaPpv%2ByG5gth%2FfEbW6l2voj5uUiiiuH6NNvPsxZ7Iav3d8HADivjoJq9&X-Amz-Signature=65b77e81694b1388cfb83fe035e96ea01fddd732ef9c90fac4c52e2784f2f298&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject)
+![](/images/notion/528a20f41a26ad884aa4a549c5ec8024.png)
 
 
 ---
