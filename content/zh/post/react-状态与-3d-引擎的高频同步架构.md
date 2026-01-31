@@ -37,11 +37,16 @@ Web 开发中存在两种截然不同的更新模式：
 
 
 ```text
-mermaid
+flowchart LR
+  A["3D Engine (Cesium)"] -->|High-frequency events| B["TreeStateManager / StateManager"]
 
-[ 3D Engine (Cesium) ]  <===>  [ StateManager (Buffer) ]  <===>  [ UI (React Virtual List) ]
-      (Source)                       (Middle Layer)                     (Projection)
-     60,000+ Entities                Flattened Array                    View Port Only
+  B --- D[("Node Store: Map(ID -> Node)")]
+  B --- E[("Pending Updates Buffer: Dedup + BatchUpdate")]
+  B --- F[("View Projection: Graph -> Flat Array")]
+
+  B -->|Low-frequency view updates| C["React UI (Virtual List)"]
+  C --- G[("Render viewport only: O(H)")]
+
 ```
 
 
