@@ -8,7 +8,7 @@ categories:
 date: 2026-05-07 00:00:00
 ---
 
-## **Using Skills to Stabilize Agent Tool Paths**
+## 
 
 
 Over the past few days, I’ve been working on something that looked simple at first, but turned out to be surprisingly messy.

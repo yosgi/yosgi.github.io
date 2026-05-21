@@ -12,15 +12,14 @@
 }
 
 :root {
-  --article-bg-top: #fcfcfa;
-  --article-bg-bottom: #ffffff;
-  --article-spotlight: rgba(37, 99, 235, 0.08);
+  --article-bg: #fcfcfa;
   --article-text: #1f2937;
   --article-heading: #111827;
   --article-muted: #6b7280;
   --article-border: rgba(17, 24, 39, 0.08);
   --article-border-strong: rgba(17, 24, 39, 0.14);
-  --article-toolbar-bg: rgba(255, 255, 255, 0.82);
+  --article-toolbar-bg: rgba(252, 252, 250, 0.9);
+  --article-surface: #f7f5f0;
   --article-code-bg: #f3f4f6;
   --article-pre-bg: #fbfbfc;
   --article-tag-bg: rgba(37, 99, 235, 0.06);
@@ -53,9 +52,7 @@
 
 /* Article reading experience */
 .article-shell {
-  background:
-    radial-gradient(circle at top, var(--article-spotlight), transparent 32%),
-    linear-gradient(180deg, var(--article-bg-top) 0%, var(--article-bg-bottom) 22%, var(--article-bg-bottom) 100%);
+  background: var(--article-bg);
   min-height: 100vh;
 }
 
@@ -129,51 +126,6 @@
   text-decoration: none;
 }
 
-.article-toolbar-wrap {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  margin-bottom: 22px;
-}
-
-.article-toolbar {
-  display: flex;
-  justify-content: center;
-  padding: 10px 24px;
-  background: var(--article-toolbar-bg);
-  backdrop-filter: blur(16px);
-  border-top: 1px solid rgba(17, 24, 39, 0.05);
-  border-bottom: 1px solid var(--article-border);
-}
-
-.article-toolbar-main {
-  width: 100%;
-  max-width: 780px;
-  display: flex;
-  align-items: center;
-}
-
-.article-toc-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 0.55rem 0.9rem;
-  border: 1px solid var(--article-border);
-  border-radius: 999px;
-  background: var(--article-bg-bottom);
-  color: var(--article-heading);
-  font-size: 0.92rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
-}
-
-.article-toc-button:hover {
-  background: #f9fafb;
-  border-color: var(--article-border-strong);
-  transform: translateY(-1px);
-}
-
 .article-body-wrap {
   display: flex;
   justify-content: center;
@@ -184,8 +136,8 @@
   max-width: 780px;
   color: var(--article-text);
   font-family: Georgia, Cambria, "Times New Roman", Times, serif;
-  font-size: 1.18rem;
-  line-height: 1.9;
+  font-size: 1.24rem;
+  line-height: 1.92;
   letter-spacing: 0.002em;
   hanging-punctuation: first last;
 }
@@ -213,7 +165,7 @@
 .article-body.markdown-body pre,
 .article-body.markdown-body table {
   margin-top: 0;
-  margin-bottom: 1.6em;
+  margin-bottom: 1.28em;
 }
 
 .article-body.markdown-body li + li {
@@ -226,8 +178,8 @@
 .article-body.markdown-body h4,
 .article-body.markdown-body h5,
 .article-body.markdown-body h6 {
-  margin-top: 2.4em;
-  margin-bottom: 0.7em;
+  margin-top: 1.8em;
+  margin-bottom: 0.48em;
   color: var(--article-heading);
   border-bottom: 0;
   padding-bottom: 0;
@@ -239,14 +191,17 @@
 
 .article-body.markdown-body h1 {
   font-size: 2.2rem;
+  margin-top: 1.2em;
 }
 
 .article-body.markdown-body h2 {
   font-size: 1.8rem;
+  margin-top: 1.7em;
 }
 
 .article-body.markdown-body h3 {
   font-size: 1.45rem;
+  margin-top: 1.45em;
 }
 
 .article-body.markdown-body h4,
@@ -337,19 +292,7 @@
 }
 
 .article-body.markdown-body > p:first-of-type {
-  font-size: 1.26em;
-  line-height: 1.78;
   color: color-mix(in srgb, var(--article-text) 88%, white);
-}
-
-.article-body.markdown-body > p:first-of-type::first-letter {
-  float: left;
-  margin: 0.08em 0.08em 0 0;
-  color: var(--article-heading);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-  font-size: 3.4em;
-  line-height: 0.88;
-  font-weight: 760;
 }
 
 .article-body.markdown-body figcaption,
@@ -692,22 +635,9 @@ a[href*="/zh/tags/"] {
     font-size: 0.8rem;
   }
 
-  .article-toolbar {
-    padding: 8px 16px;
-  }
-
   .article-body {
-    font-size: 1.04rem;
-    line-height: 1.82;
-  }
-
-  .article-body.markdown-body > p:first-of-type {
-    font-size: 1.14em;
-  }
-
-  .article-body.markdown-body > p:first-of-type::first-letter {
-    margin-right: 0.06em;
-    font-size: 2.8em;
+    font-size: 1.1rem;
+    line-height: 1.86;
   }
 
   .article-body.markdown-body h1 {

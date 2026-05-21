@@ -1,9 +1,13 @@
 ---
 title: 你的 Agent 回答不一致，不是因为它笨，而是因为它有太多路径。
 description: 用 Skills 稳定 Agent 的工具路径
+categories:
+  - Technology
+  - Ai
+date: 2026-05-07 00:00:00
 ---
 
-# **当 Agent 有太多工具时，真正的问题不是能力，而是路径**
+# 
 
 
 这几天，我一直在做一件看起来很简单、但实际非常麻烦的事情。

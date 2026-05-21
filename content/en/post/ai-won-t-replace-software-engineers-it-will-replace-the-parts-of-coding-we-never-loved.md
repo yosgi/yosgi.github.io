@@ -8,7 +8,7 @@ categories:
 date: 2026-05-19 00:00:00
 ---
 
-## **This Debate Has Become All Too Familiar**
+## 
 
 
 Every few weeks, the same debate comes back.
