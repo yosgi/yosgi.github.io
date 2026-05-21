@@ -1,0 +1,40 @@
+<div class="article-shell">
+  <main class="article-main">
+    <header class="article-hero">
+      <div class="article-hero-inner">
+        <div class="article-meta-line">
+          <span>{{ .PublishDate.Format "Jan 2, 2006" }}</span>
+          <span class="article-meta-separator">·</span>
+          <span>{{ .ReadingTime }} min read</span>
+          <span class="article-meta-separator">·</span>
+          <span>{{ countwords .Content }} words</span>
+          {{ if .Site.Params.lastmod }}
+          {{ if ne .Lastmod .PublishDate }}
+          <span class="article-meta-separator">·</span>
+          <span>Updated {{ .Lastmod.Format "Jan 2, 2006" }}</span>
+          {{ end }}
+          {{ end }}
+        </div>
+
+        <h1 class="article-title">{{ .Title }}</h1>
+
+        {{ with or .Description .Params.summary }}
+        <p class="article-description">{{ . }}</p>
+        {{ end }}
+
+        {{ with .Params.tags }}
+        <div class="article-tags">
+          {{ range $tag := . }}
+          <a class="article-tag" href="{{ absURL (print "tags/" . | urlize) }}">{{ $tag }}</a>
+          {{ end }}
+        </div>
+        {{ end }}
+      </div>
+    </header>
+    <section class="article-body-wrap">
+      <article class="markdown-body article-body">
+        {{- .Content -}}
+      </article>
+    </section>
+  </main>
+</div>
