@@ -26,7 +26,7 @@ For example:
 Sounds straightforward, right?
 
 
-The agent already had most of the tools it needed. It could take a screenshot of the current scene. It could use a vision model to inspect the image. It could extract 2D screen coordinates. It had a tool to convert those 2D coordinates into 3D scene positions. And finally, it could call a Navigator tool to create a markup or entity at that location.
+The agent already had most of the tools it needed. It could take a screenshot of the current scene. It could use a vision model to inspect the image. It could extract 2D screen coordinates. It had a tool to convert those 2D coordinates into 3D scene positions. And finally, it could call a FrontEnd tool to create a markup or entity at that location.
 
 
 From a capability point of view, the chain was there.
@@ -63,7 +63,7 @@ One time, it followed the path I expected:
 3. Identify the cars in the screenshot.
 4. Return their 2D coordinates.
 5. Convert those 2D coordinates into 3D scene positions.
-6. Call the Navigator tool to create markups.
+6. Call the FrontEnd tool to create markups.
 
 This path was not perfect.
 
@@ -131,7 +131,7 @@ It needs to query business data? Add a database tool.
 It needs to manipulate the UI? Add a UI action tool.
 
 
-It needs to create something in a 3D scene? Add a Navigator tool.
+It needs to create something in a 3D scene? Add a FrontEnd tool.
 
 
 Each tool makes sense on its own.
@@ -302,7 +302,7 @@ It makes the agent more stable inside a complex toolset.
 Going back to the car-markup example, if we already know the stable path is:
 
 
-screenshot → vision model → 2D coordinates → 2D-to-3D conversion → Navigator markup
+screenshot → vision model → 2D coordinates → 2D-to-3D conversion → FrontEnd markup
 
 
 then that path should be captured.
@@ -579,14 +579,14 @@ Instead, the Skill should look more like this:
 
 
 ```text
-When the user asks to mark visible cars in the current Navigator scene:
+When the user asks to mark visible cars in the current FrontEnd scene:
 
-1. Capture a screenshot of the current Navigator view.
+1. Capture a screenshot of the current FrontEnd view.
 2. Use the vision model to identify cars in the screenshot.
 3. Ask for structured bounding boxes and center-point coordinates.
 4. Validate that the coordinates are within the image bounds.
 5. If confidence is too low, do not create markups.
-6. Pass the center-point coordinates to the Navigator 2D-to-3D conversion tool.
+6. Pass the center-point coordinates to the FrontEnd 2D-to-3D conversion tool.
 7. Use the returned 3D positions to create markups.
 8. In the final response, explain whether the markups were created successfully and mention any uncertainty.
 ```
@@ -637,7 +637,7 @@ A vision model.
 A 2D-to-3D conversion tool.
 
 
-A Navigator markup tool.
+A FrontEnd markup tool.
 
 
 So for this run, the system can prioritize that smaller toolset.
