@@ -1,60 +1,24 @@
 {
   "pages": {
-    "29ad20d8-e7dd-8012-acfc-e0f900e36b4f": {
-      "lastEdited": "2025-12-24T04:18:00.000Z",
-      "outputPath": "content/zh/post/系统之外.md"
+    "367d20d8-e7dd-8099-8868-e150029f4040": {
+      "lastEdited": "2026-05-21T11:45:00.000Z",
+      "outputPath": "content/en/post/ai-won-t-replace-software-engineers-it-will-replace-the-parts-of-coding-we-never-loved.md"
     },
-    "29ad20d8-e7dd-8028-b889-d3f01fe8cf2f": {
-      "lastEdited": "2025-12-26T21:24:00.000Z",
-      "outputPath": "content/en/post/early-experiences-with-building-mcp-tools.md"
+    "367d20d8-e7dd-80cb-8d62-cd9fb123dce8": {
+      "lastEdited": "2026-05-21T11:26:00.000Z",
+      "outputPath": "content/zh/post/ai-不会杀死软件工程师-它只会杀死我们最讨厌的那部分工作.md"
     },
-    "29ad20d8-e7dd-80a9-8fa4-cc1a2fba9862": {
-      "lastEdited": "2025-12-26T21:24:00.000Z",
-      "outputPath": "content/zh/post/初步尝试构建-mcp-工具的经验.md"
+    "367d20d8-e7dd-800f-9bd7-d02033211f98": {
+      "lastEdited": "2026-05-21T11:45:00.000Z",
+      "outputPath": "content/en/post/your-agent-is-not-inconsistent-because-it-is-dumb-it-just-has-too-many-tool-paths.md"
     },
-    "29ad20d8-e7dd-80cd-a97c-ddcc3fa3f928": {
-      "lastEdited": "2025-12-24T10:30:00.000Z",
-      "outputPath": "content/en/post/beyond-systems.md"
+    "367d20d8-e7dd-80fc-a848-f251ce5a232e": {
+      "lastEdited": "2026-05-22T09:17:00.000Z",
+      "outputPath": "content/zh/post/你的-agent-回答不一致-不是因为它笨-而是因为它有太多路径.md"
     },
-    "2cdd20d8-e7dd-8045-a987-d5be641c3cc3": {
-      "lastEdited": "2026-01-29T04:23:00.000Z",
-      "outputPath": "content/zh/post/一次基于-anthropic-mcp-as-code-的重构尝试-以及它在数字孪生场景中的代价.md"
-    },
-    "2cdd20d8-e7dd-804d-85d3-edbd4dcb9d3d": {
-      "lastEdited": "2026-01-29T04:23:00.000Z",
-      "outputPath": "content/en/post/a-practical-attempt-at-mcp-as-code-lessons-from-a-digital-twin-system.md"
-    },
-    "2cdd20d8-e7dd-80d2-99d5-cac451485969": {
-      "lastEdited": "2026-01-30T00:25:00.000Z",
-      "outputPath": "content/en/post/devlog-01-for-the-sake-of-cloud-cat-raising-i-decided-to-build-a-web-mini-game-from-scratch-day-1.md"
-    },
-    "2ced20d8-e7dd-807b-937d-f3d5687ffbcb": {
-      "lastEdited": "2026-01-30T00:25:00.000Z",
-      "outputPath": "content/zh/post/devlog-01-为了云养猫-我决定从零写一个-web-小游戏-day-1.md"
-    },
-    "2d3d20d8-e7dd-8076-b23e-d11765ab8874": {
-      "lastEdited": "2026-05-17T23:58:00.000Z",
-      "outputPath": "content/zh/post/2025-年度投资总结.md"
-    },
-    "2d3d20d8-e7dd-80aa-8ff3-ec212ceb2afc": {
-      "lastEdited": "2026-05-17T23:59:00.000Z",
-      "outputPath": "content/en/post/2025-investment-review.md"
-    },
-    "2d5d20d8-e7dd-8002-b23f-f68632773a9a": {
-      "lastEdited": "2026-01-29T04:25:00.000Z",
-      "outputPath": "content/zh/post/分层抽象模型理解-mcp-tool-based-与-code-as-mcp.md"
-    },
-    "2d5d20d8-e7dd-80e8-bb3e-c8d393a73883": {
-      "lastEdited": "2026-01-29T04:26:00.000Z",
-      "outputPath": "content/en/post/understanding-mcp-tool-based-and-code-as-mcp-through-a-layered-abstract-model.md"
-    },
-    "2f5d20d8-e7dd-8087-a2b3-faf932faff98": {
-      "lastEdited": "2026-01-29T04:34:00.000Z",
-      "outputPath": "content/zh/post/结构性必须-数字孪生的ai-混合架构.md"
-    },
-    "2f6d20d8-e7dd-80f3-aff2-c7692106aeaa": {
-      "lastEdited": "2026-01-29T04:27:00.000Z",
-      "outputPath": "content/en/post/structural-necessity-of-hybrid-ai-architectures-in-digital-twin-systems.md"
+    "2fcd20d8-e7dd-808c-994a-c956ebfa4c1d": {
+      "lastEdited": "2026-02-04T00:33:00.000Z",
+      "outputPath": "content/zh/post/关于混合架构.md"
     },
     "2f9d20d8-e7dd-8063-85ba-c9caeeb8662e": {
       "lastEdited": "2026-01-31T10:46:00.000Z",
@@ -64,25 +28,61 @@
       "lastEdited": "2026-01-31T10:46:00.000Z",
       "outputPath": "content/zh/post/react-状态与-3d-引擎的高频同步架构.md"
     },
-    "2fcd20d8-e7dd-808c-994a-c956ebfa4c1d": {
-      "lastEdited": "2026-02-04T00:33:00.000Z",
-      "outputPath": "content/zh/post/关于混合架构.md"
+    "2f6d20d8-e7dd-80f3-aff2-c7692106aeaa": {
+      "lastEdited": "2026-01-29T04:27:00.000Z",
+      "outputPath": "content/en/post/structural-necessity-of-hybrid-ai-architectures-in-digital-twin-systems.md"
     },
-    "367d20d8-e7dd-80fc-a848-f251ce5a232e": {
-      "lastEdited": "2026-05-21T11:45:00.000Z",
-      "outputPath": "content/zh/post/你的-agent-回答不一致-不是因为它笨-而是因为它有太多路径.md"
+    "2f5d20d8-e7dd-8087-a2b3-faf932faff98": {
+      "lastEdited": "2026-01-29T04:34:00.000Z",
+      "outputPath": "content/zh/post/结构性必须-数字孪生的ai-混合架构.md"
     },
-    "367d20d8-e7dd-800f-9bd7-d02033211f98": {
-      "lastEdited": "2026-05-21T11:45:00.000Z",
-      "outputPath": "content/en/post/your-agent-is-not-inconsistent-because-it-is-dumb-it-just-has-too-many-tool-paths.md"
+    "2d5d20d8-e7dd-80e8-bb3e-c8d393a73883": {
+      "lastEdited": "2026-01-29T04:26:00.000Z",
+      "outputPath": "content/en/post/understanding-mcp-tool-based-and-code-as-mcp-through-a-layered-abstract-model.md"
     },
-    "367d20d8-e7dd-8099-8868-e150029f4040": {
-      "lastEdited": "2026-05-21T11:45:00.000Z",
-      "outputPath": "content/en/post/ai-won-t-replace-software-engineers-it-will-replace-the-parts-of-coding-we-never-loved.md"
+    "2d5d20d8-e7dd-8002-b23f-f68632773a9a": {
+      "lastEdited": "2026-01-29T04:25:00.000Z",
+      "outputPath": "content/zh/post/分层抽象模型理解-mcp-tool-based-与-code-as-mcp.md"
     },
-    "367d20d8-e7dd-80cb-8d62-cd9fb123dce8": {
-      "lastEdited": "2026-05-21T11:26:00.000Z",
-      "outputPath": "content/zh/post/ai-不会杀死软件工程师-它只会杀死我们最讨厌的那部分工作.md"
+    "2d3d20d8-e7dd-80aa-8ff3-ec212ceb2afc": {
+      "lastEdited": "2026-05-17T23:59:00.000Z",
+      "outputPath": "content/en/post/2025-investment-review.md"
+    },
+    "2d3d20d8-e7dd-8076-b23e-d11765ab8874": {
+      "lastEdited": "2026-05-17T23:58:00.000Z",
+      "outputPath": "content/zh/post/2025-年度投资总结.md"
+    },
+    "2ced20d8-e7dd-807b-937d-f3d5687ffbcb": {
+      "lastEdited": "2026-01-30T00:25:00.000Z",
+      "outputPath": "content/zh/post/devlog-01-为了云养猫-我决定从零写一个-web-小游戏-day-1.md"
+    },
+    "2cdd20d8-e7dd-80d2-99d5-cac451485969": {
+      "lastEdited": "2026-01-30T00:25:00.000Z",
+      "outputPath": "content/en/post/devlog-01-for-the-sake-of-cloud-cat-raising-i-decided-to-build-a-web-mini-game-from-scratch-day-1.md"
+    },
+    "2cdd20d8-e7dd-804d-85d3-edbd4dcb9d3d": {
+      "lastEdited": "2026-01-29T04:23:00.000Z",
+      "outputPath": "content/en/post/a-practical-attempt-at-mcp-as-code-lessons-from-a-digital-twin-system.md"
+    },
+    "2cdd20d8-e7dd-8045-a987-d5be641c3cc3": {
+      "lastEdited": "2026-01-29T04:23:00.000Z",
+      "outputPath": "content/zh/post/一次基于-anthropic-mcp-as-code-的重构尝试-以及它在数字孪生场景中的代价.md"
+    },
+    "29ad20d8-e7dd-8012-acfc-e0f900e36b4f": {
+      "lastEdited": "2025-12-24T04:18:00.000Z",
+      "outputPath": "content/zh/post/系统之外.md"
+    },
+    "29ad20d8-e7dd-80cd-a97c-ddcc3fa3f928": {
+      "lastEdited": "2025-12-24T10:30:00.000Z",
+      "outputPath": "content/en/post/beyond-systems.md"
+    },
+    "29ad20d8-e7dd-80a9-8fa4-cc1a2fba9862": {
+      "lastEdited": "2025-12-26T21:24:00.000Z",
+      "outputPath": "content/zh/post/初步尝试构建-mcp-工具的经验.md"
+    },
+    "29ad20d8-e7dd-8028-b889-d3f01fe8cf2f": {
+      "lastEdited": "2025-12-26T21:24:00.000Z",
+      "outputPath": "content/en/post/early-experiences-with-building-mcp-tools.md"
     }
   }
 }
