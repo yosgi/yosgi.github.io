@@ -115,9 +115,12 @@ pygmentsUseClasses = true
   writeStats = true
   buildFuture = true
 
-# Output configuration for search
+# Output configuration for search and RSS
 [outputs]
-  home = ["html", "json"]
+  home = ["html", "json", "rss"]
+  section = ["html", "rss"]
+  taxonomy = ["html", "rss"]
+  term = ["html", "rss"]
 
 [outputFormats.json]
   mediaType = "application/json"
@@ -144,3 +147,23 @@ pygmentsUseClasses = true
   from = "/post/"
   to = "/en/post/"
   status = 301
+
+
+[params.giscus]
+  enabled = true
+  repo = "yosgi/yosgi.github.io"
+  repoId = "R_kgDOQKlbGg"
+  category = "Announcements"
+  categoryId = "DIC_kwDOQKlbGs4C9x22"
+  mapping = "pathname"
+  strict = "0"
+  reactionsEnabled = "1"
+  emitMetadata = "0"
+  inputPosition = "bottom"
+  theme = "preferred_color_scheme"
+  lang = "en"
+  loading = "lazy"
+
+[params.cloudflareAnalytics]
+  enabled = true
+  token = "fac713c37bb947058d616f9f75f24763"

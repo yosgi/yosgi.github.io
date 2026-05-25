@@ -1,0 +1,44 @@
+{{ if and .Site.Params.giscus.enabled .Site.Params.giscus.repoId .Site.Params.giscus.categoryId }}
+<div class="container-xl px-3 px-md-4 px-lg-5 mt-4 mb-6">
+  <div class="col-12 col-md-9 offset-md-3">
+    <div class="Box Box-body p-4">
+      <div id="comments" class="giscus-shell">
+        <script src="https://giscus.app/client.js"
+          data-repo="{{ .Site.Params.giscus.repo }}"
+          data-repo-id="{{ .Site.Params.giscus.repoId }}"
+          data-category="{{ .Site.Params.giscus.category }}"
+          data-category-id="{{ .Site.Params.giscus.categoryId }}"
+          data-mapping="{{ .Site.Params.giscus.mapping | default "pathname" }}"
+          data-strict="{{ .Site.Params.giscus.strict | default "0" }}"
+          data-reactions-enabled="{{ .Site.Params.giscus.reactionsEnabled | default "1" }}"
+          data-emit-metadata="{{ .Site.Params.giscus.emitMetadata | default "0" }}"
+          data-input-position="{{ .Site.Params.giscus.inputPosition | default "top" }}"
+          data-theme="{{ .Site.Params.giscus.theme | default "preferred_color_scheme" }}"
+          data-lang="{{ .Site.Params.giscus.lang | default .Site.Language.Lang }}"
+          data-loading="{{ .Site.Params.giscus.loading | default "lazy" }}"
+          crossorigin="anonymous"
+          async>
+        </script>
+      </div>
+    </div>
+  </div>
+</div>
+{{ else if .Site.Params.enableGitalk }}
+<div id="gitalk-container" class="gitalk-container"></div>
+<link rel="stylesheet" href='{{ "css/gitalk.css" | absURL }}'>
+<script src='{{ "js/gitalk.min.js" | absURL }}'></script>
+<script>
+  const gitalk = new Gitalk({
+    clientID: '{{ .Site.Params.Gitalk.clientID }}',
+    clientSecret: '{{ .Site.Params.Gitalk.clientSecret }}',
+    repo: '{{ .Site.Params.Gitalk.repo }}',
+    owner: '{{ .Site.Params.Gitalk.owner }}',
+    admin: ['{{ .Site.Params.Gitalk.owner }}'],
+    id: eval({{ .Site.Params.Gitalk.id }}),
+    distractionFreeMode: false
+  });
+  (function() {
+    gitalk.render('gitalk-container');
+  })();
+</script>
+{{ end }}
