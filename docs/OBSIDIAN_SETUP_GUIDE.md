@@ -93,5 +93,4 @@ GitHub Actions only runs after Git receives new commits. The deployment flow is:
 ## Migration Notes
 
 - Existing posts already live in Markdown, so no content conversion is required.
-- The main migration is operational: stop using Notion as the authoring backend and use Obsidian plus iCloud as the writing layer.
-- Legacy Notion tooling can be removed later after you confirm nothing still depends on it.
+- The main migration is operational: use Obsidian plus iCloud as the writing layer and sync back into the Hugo repo before publishing.

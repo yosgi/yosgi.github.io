@@ -84,7 +84,3 @@ Requires `GOOGLE_API_KEY` in `.env`.
 ## Deployment
 
 GitHub Pages deploys on push to `master`.
-
-## Legacy Notion Files
-
-The old Notion sync scripts are kept in the repo as legacy migration material, but they are no longer part of the active publishing flow.

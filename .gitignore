@@ -109,5 +109,3 @@ config.local.json
 !.obsidian/templates/en-post.md
 !.obsidian/templates/zh-post.md
 
-# Legacy Notion cache
-.notion-sync-cache.json
