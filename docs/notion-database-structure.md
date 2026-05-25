@@ -1,5 +1,6 @@
-
 # Notion Database Structure Design
+
+> Legacy document: this file only describes the retired Notion content model and is no longer used by the active publishing flow.
 
 ## Database Properties
 

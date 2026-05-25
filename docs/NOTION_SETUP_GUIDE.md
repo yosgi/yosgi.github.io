@@ -1,6 +1,6 @@
 # Advanced Setup Guide for Notion to Hugo Sync
 
-> Note: The current sync uses the Node `notion-to-md` pipeline. Run `pnpm sync` to generate Hugo content.
+> Legacy document: this guide is archived for the previous Notion-based workflow. The active authoring flow is now Obsidian plus local Markdown in `content/`.
 
 ##  Quick Start
 

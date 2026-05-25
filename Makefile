@@ -1,19 +1,28 @@
-.PHONY: notion-test notion-sync notion-build help
+.PHONY: dev build sync-icloud publish-icloud new-zh new-en help
 
 help:
 	@echo "Available commands:"
-	@echo "  make notion-test  - Test Notion API connection"
-	@echo "  make notion-sync  - Sync content from Notion to Hugo"
-	@echo "  make notion-build - Build Notion sync binaries"
+	@echo "  make dev          - Start local Hugo server"
+	@echo "  make build        - Build the Hugo site"
+	@echo "  make sync-icloud  - Sync posts and images from iCloud vault"
+	@echo "  make publish-icloud - Sync, build, commit, and push current branch"
+	@echo "  make new-zh TITLE='文章标题' - Create a new Chinese post"
+	@echo "  make new-en TITLE='Post Title' - Create a new English post"
 
-# Test Notion API connection
-notion-test:
-	@cd notion-sync && go run cmd/test/main.go
+dev:
+	@hugo server -D
 
-# Sync content from Notion
-notion-sync:
-	@node scripts/notion-to-md-sync.js
+build:
+	@hugo --minify
 
-# Build binaries
-notion-build:
-	@cd notion-sync && make build
+sync-icloud:
+	@zsh scripts/sync-icloud-to-repo.sh
+
+publish-icloud:
+	@zsh scripts/publish-icloud.sh "$(MESSAGE)"
+
+new-zh:
+	@node scripts/new-post.js --lang zh "$(TITLE)"
+
+new-en:
+	@node scripts/new-post.js --lang en "$(TITLE)"

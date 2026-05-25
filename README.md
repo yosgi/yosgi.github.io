@@ -1,106 +1,90 @@
 # Personal Blog
 
-A personal blog website built with Hugo and modern automation features.
+A bilingual Hugo blog with Obsidian-first authoring.
+
+## What Changed
+
+This repository now treats local Markdown as the source of truth. Instead of syncing posts from Notion, you write in Obsidian and sync Markdown back into this repo before publishing.
 
 ## Features
 
-- **Modern Design** - Clean and responsive layout
-- **Fast Loading** - Hugo static site generator
-- **SEO Optimized** - Built-in search engine optimization
-- **Markdown Support** - Write content using Markdown
-- **Multilingual** - Support for English and Chinese content
-
-## Automation
-
-- **Notion Sync** - Daily automatic content sync from Notion database
-- **Google Translation** - Batch translation from Chinese to English
-- **Auto Deploy** - Automatic build and deployment to GitHub Pages
-- **Smart Caching** - Efficient processing with change detection
+- Hugo static site
+- English and Chinese content
+- Obsidian-compatible Markdown workflow
+- GitHub Pages deployment
+- Google-based translation helper
 
 ## Quick Start
 
-### Setup
-
 ```bash
-# Install Hugo
-brew install hugo  # macOS
-# or use your package manager
-
-# Clone and run
+brew install hugo
 git clone <repo-url>
 cd yosgi-hugo-blog
 hugo server -D
 ```
 
-Visit http://localhost:1313 to preview.
+Preview at `http://localhost:1313`.
 
-### Production Build
+## iCloud + Mobile Workflow
 
-```bash
-hugo  # Output in public/
-```
+For iPhone editing, use the iCloud Obsidian vault at:
 
-## Project Structure
+`~/Library/Mobile Documents/iCloud~md~obsidian/Documents/yosgi-blog-vault`
 
-```
-├── content/en/        # English content
-├── content/zh/        # Chinese content  
-├── static/            # Static resources
-├── themes/            # Theme files
-├── notion-sync/       # Notion sync tool
-├── tools/             # Translation tools
-└── hugo.toml          # Configuration
-```
-
-## Usage
-
-### Notion Integration
-
-Set GitHub Secrets:
-- `NOTION_API_KEY` - Your Notion API key
-- `NOTION_DATABASE_ID` - Your database ID
-
-Automatic sync runs daily or manually via GitHub Actions.
-
-Local sync (Node):
-```bash
-cp env.example .env
-pnpm install
-pnpm sync
-```
-
-### Translation
+Write in that vault on mobile, then sync back into the repo on your Mac:
 
 ```bash
-# Translate content
+pnpm sync:icloud
+```
+
+Important: GitHub Actions does not read directly from iCloud. It only deploys after you sync the vault back into this repo and push the changes to GitHub.
+
+If you want one command for the whole flow on your Mac:
+
+```bash
+pnpm publish:icloud
+```
+
+That command runs sync, Hugo build, `git add`, `git commit`, and `git push` on the current branch.
+
+Detailed setup is in [docs/OBSIDIAN_SETUP_GUIDE.md](/Users/yosgi/freelancer/yosgi-hugo-blog/docs/OBSIDIAN_SETUP_GUIDE.md).
+
+## Useful Commands
+
+```bash
+pnpm dev
+pnpm build
+pnpm new:zh -- "文章标题"
+pnpm new:en -- "Post Title"
+pnpm sync:icloud
+pnpm publish:icloud
+```
+
+You can also create files manually in Obsidian if you prefer.
+
+## Translation
+
+```bash
 python3 tools/translate_with_google.py content/en/post/file.md
 ```
 
-Requires `GOOGLE_API_KEY` in `.env` file.
+Requires `GOOGLE_API_KEY` in `.env`.
 
-### Content Management
+## Project Structure
 
-```bash
-# Create new post
-hugo new content/en/post/title.md
-hugo new content/zh/post/title.md
+```text
+├── content/en/          # English posts and pages
+├── content/zh/          # Chinese posts and pages
+├── static/images/       # Post images
+├── .obsidian/templates/ # Obsidian post templates
+├── tools/               # Translation and maintenance scripts
+└── hugo.toml            # Hugo configuration
 ```
-
-## Configuration
-
-Main settings in `hugo.toml`:
-- `baseURL` - Website domain
-- `title` - Site title  
-- `params` - Theme parameters
 
 ## Deployment
 
-Automatic deployment via GitHub Actions to GitHub Pages when content changes.
+GitHub Pages deploys on push to `master`.
 
-Manual deployment options:
-- **Netlify**: Connect repo, build command `hugo`, publish dir `public`
-- **Vercel**: Import repo, framework preset Hugo
+## Legacy Notion Files
 
-## License
-
-MIT License
+The old Notion sync scripts are kept in the repo as legacy migration material, but they are no longer part of the active publishing flow.

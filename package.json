@@ -1,20 +1,27 @@
 {
-  "name": "notion-hugo-sync",
+  "name": "yosgi-hugo-blog",
   "version": "1.0.0",
-  "description": "Advanced Notion to Hugo blog synchronization tools",
-  "main": "scripts/advanced-notion-sync.js",
+  "description": "Hugo blog with Obsidian-first local Markdown authoring",
+  "main": "scripts/new-post.js",
   "scripts": {
-    "sync": "node scripts/notion-to-md-sync.js",
-    "sync:clear-cache": "node scripts/notion-to-md-sync.js --clear-cache",
-    "sync:help": "node scripts/notion-to-md-sync.js --help",
-    "sync:dry-run": "node scripts/notion-to-md-sync.js --dry-run"
+    "dev": "hugo server -D",
+    "build": "hugo --minify",
+    "new:zh": "node scripts/new-post.js --lang zh",
+    "new:en": "node scripts/new-post.js --lang en",
+    "sync:icloud": "zsh scripts/sync-icloud-to-repo.sh",
+    "sync:icloud:dry-run": "zsh scripts/sync-icloud-to-repo.sh --dry-run",
+    "publish:icloud": "zsh scripts/publish-icloud.sh",
+    "sync:legacy": "node scripts/notion-to-md-sync.js",
+    "sync:legacy:clear-cache": "node scripts/notion-to-md-sync.js --clear-cache",
+    "sync:legacy:help": "node scripts/notion-to-md-sync.js --help",
+    "sync:legacy:dry-run": "node scripts/notion-to-md-sync.js --dry-run"
   },
   "keywords": [
-    "notion",
+    "obsidian",
     "hugo",
     "blog",
-    "sync",
-    "automation"
+    "markdown",
+    "publishing"
   ],
   "author": "Yosgi",
   "license": "MIT",

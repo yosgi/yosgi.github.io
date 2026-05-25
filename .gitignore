@@ -102,3 +102,12 @@ config.local.toml
 config.local.yaml
 config.local.yml
 config.local.json
+
+# Obsidian local state
+.obsidian/*
+!.obsidian/templates/
+!.obsidian/templates/en-post.md
+!.obsidian/templates/zh-post.md
+
+# Legacy Notion cache
+.notion-sync-cache.json
