@@ -7,6 +7,7 @@ title = 'Yosgi Blog'
 theme = 'github-style'
 pygmentsCodeFences = true
 pygmentsUseClasses = true
+enableRobotsTXT = true
 
 # Multilingual configuration
 [languages]
@@ -117,6 +118,27 @@ pygmentsUseClasses = true
   writeStats = true
   buildFuture = true
 
+[related]
+  includeNewer = true
+  threshold = 20
+  toLower = true
+
+  [[related.indices]]
+    name = "tags"
+    weight = 80
+
+  [[related.indices]]
+    name = "categories"
+    weight = 60
+
+  [[related.indices]]
+    name = "keywords"
+    weight = 40
+
+  [[related.indices]]
+    name = "date"
+    weight = 10
+
 # Output configuration for search and RSS
 [outputs]
   home = ["html", "json", "rss"]
@@ -138,6 +160,11 @@ pygmentsUseClasses = true
 # Frontmatter configuration
 [frontmatter]
   lastmod = ["lastmod", ":fileModTime", ":default"]
+
+[params.seo]
+  defaultTitle = "Siqi Liu | Software Engineering, Digital Twins, and AI Systems"
+  defaultDescription = "Personal website of Siqi Liu featuring technical essays, project notes, and writing on software engineering, digital twin systems, frontend architecture, and AI tooling."
+  personDescription = "Software engineer and technical writer publishing notes on frontend systems, digital twins, web performance, and AI tooling."
 
 # Redirects for backward compatibility
 [[redirects]]

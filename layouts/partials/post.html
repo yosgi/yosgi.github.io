@@ -1,0 +1,141 @@
+{{ $summary := partial "seo/summary.html" (dict "page" . "limit" 220) }}
+{{ $breadcrumbs := slice (dict "name" "Home" "url" .Site.Home.RelPermalink) }}
+{{ if eq .Section "post" }}
+  {{ $breadcrumbs = $breadcrumbs | append (dict "name" "Posts" "url" ("/post/" | relLangURL)) }}
+{{ else if and .Section (ne .Section "") (ne .Section "post") }}
+  {{ $breadcrumbs = $breadcrumbs | append (dict "name" (.Section | humanize) "url" (.CurrentSection.RelPermalink | default .Site.Home.RelPermalink)) }}
+{{ end }}
+{{ if not .IsHome }}
+  {{ $breadcrumbs = $breadcrumbs | append (dict "name" .Title "url" .RelPermalink) }}
+{{ end }}
+{{ $related := slice }}
+{{ if eq .Section "post" }}
+  {{ $related = first 3 (.Site.RegularPages.Related .) }}
+{{ end }}
+
+<div class="article-shell">
+  <main class="article-main">
+    <header class="article-hero">
+      <div class="article-hero-inner">
+        {{ if gt (len $breadcrumbs) 1 }}
+        <nav class="article-breadcrumbs" aria-label="Breadcrumb">
+          {{ range $idx, $item := $breadcrumbs }}
+            {{ if gt $idx 0 }}<span class="article-breadcrumb-separator">/</span>{{ end }}
+            {{ if eq (add $idx 1) (len $breadcrumbs) }}
+              <span aria-current="page">{{ $item.name }}</span>
+            {{ else }}
+              <a href="{{ $item.url }}">{{ $item.name }}</a>
+            {{ end }}
+          {{ end }}
+        </nav>
+        {{ end }}
+
+        <div class="article-meta-line">
+          <span>{{ .PublishDate.Format "Jan 2, 2006" }}</span>
+          <span class="article-meta-separator">·</span>
+          <span>{{ .ReadingTime }} min read</span>
+          <span class="article-meta-separator">·</span>
+          <span>{{ countwords .Content }} words</span>
+          {{ if and .Site.Params.lastmod (ne .Lastmod .PublishDate) }}
+          <span class="article-meta-separator">·</span>
+          <span>Updated {{ .Lastmod.Format "Jan 2, 2006" }}</span>
+          {{ end }}
+        </div>
+
+        <h1 class="article-title">{{ .Title }}</h1>
+
+        {{ with $summary }}
+        <p class="article-description">{{ . }}</p>
+        {{ end }}
+
+        {{ if and (eq .Section "post") $summary }}
+        <section class="article-callout" aria-labelledby="article-tldr-title">
+          <h2 id="article-tldr-title">TL;DR</h2>
+          <p>{{ with .Params.tldr }}{{ . }}{{ else }}{{ $summary }}{{ end }}</p>
+        </section>
+        {{ end }}
+
+        {{ with .Params.key_takeaways }}
+        <section class="article-callout article-callout-compact" aria-labelledby="article-takeaways-title">
+          <h2 id="article-takeaways-title">Key Takeaways</h2>
+          <ul>
+            {{ range . }}
+            <li>{{ . }}</li>
+            {{ end }}
+          </ul>
+        </section>
+        {{ end }}
+
+        {{ with .Params.tags }}
+        <div class="article-tags">
+          {{ range $tag := . }}
+            {{ with $.Site.GetPage (printf "/tags/%s" ($tag | urlize)) }}
+            <a class="article-tag" href="{{ .RelPermalink }}">{{ $tag }}</a>
+            {{ end }}
+          {{ end }}
+        </div>
+        {{ end }}
+      </div>
+    </header>
+
+    <section class="article-body-wrap">
+      <article class="markdown-body article-body">
+        {{- .Content -}}
+      </article>
+    </section>
+
+    {{ with .Params.faq }}
+    <section class="article-support-block">
+      <div class="article-support-card">
+        <h2>FAQ</h2>
+        <div class="article-faq-list">
+          {{ range . }}
+          <details class="article-faq-item">
+            <summary>{{ .question }}</summary>
+            <div><p>{{ .answer }}</p></div>
+          </details>
+          {{ end }}
+        </div>
+      </div>
+    </section>
+    {{ end }}
+
+    {{ if or .Params.citation .Params.bibtex }}
+    <section class="article-support-block">
+      <div class="article-support-card">
+        <h2>Citation</h2>
+        {{ with .Params.citation }}
+        <div class="article-citation-text">
+          {{ with .text }}<p>{{ . }}</p>{{ end }}
+          <ul>
+            {{ with .doi }}<li><strong>DOI:</strong> <a href="https://doi.org/{{ . }}">https://doi.org/{{ . }}</a></li>{{ end }}
+            {{ with .url }}<li><strong>URL:</strong> <a href="{{ . }}">{{ . }}</a></li>{{ end }}
+            {{ with .pdf }}<li><strong>PDF:</strong> <a href="{{ . }}">{{ . }}</a></li>{{ end }}
+          </ul>
+        </div>
+        {{ end }}
+        {{ with or .Params.bibtex .Params.citation.bibtex }}
+        <pre><code>{{ . }}</code></pre>
+        {{ end }}
+      </div>
+    </section>
+    {{ end }}
+
+    {{ if gt (len $related) 0 }}
+    <section class="article-support-block">
+      <div class="article-support-card">
+        <h2>Related Reading</h2>
+        <div class="article-related-grid">
+          {{ range $related }}
+          {{ $relatedSummary := partial "seo/summary.html" (dict "page" . "limit" 140) }}
+          <article class="article-related-card">
+            <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+            {{ with $relatedSummary }}<p>{{ . }}</p>{{ end }}
+          </article>
+          {{ end }}
+        </div>
+      </div>
+    </section>
+    {{ end }}
+  </main>
+</div>

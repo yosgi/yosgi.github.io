@@ -1,8 +1,8 @@
 <div style="position: relative">
   <header class="Header js-details-container Details px-3 px-md-4 px-lg-5 flex-wrap flex-md-nowrap open Details--on">
     <div class="Header-item mobile-none" style="margin-top: -4px; margin-bottom: -4px;">
-      <a class="Header-link" href="javascript:void(0)" onclick="goToHome()">
-        <img class="octicon" height="32" width="32" src="{{ .Site.Params.headerIcon }}">
+      <a class="Header-link" href="{{ .Site.Home.RelPermalink }}" onclick="localStorage.setItem('preferred-language', '{{ .Site.Language.Lang }}')">
+        <img class="octicon" height="32" width="32" src="{{ .Site.Params.headerIcon }}" alt="{{ .Site.Params.author | default .Site.Title }}">
       </a>
     </div>
     <div class="Header-item d-md-none">
@@ -46,8 +46,8 @@
     </div>
 
     <div class="Header-item Header-item--full flex-justify-center d-md-none position-relative">
-      <a class="Header-link " href="javascript:void(0)" onclick="goToHome()">
-        <img class="octicon octicon-mark-github v-align-middle" height="32" width="32" src="{{ .Site.Params.headerIcon }}">
+      <a class="Header-link " href="{{ .Site.Home.RelPermalink }}" onclick="localStorage.setItem('preferred-language', '{{ .Site.Language.Lang }}')">
+        <img class="octicon octicon-mark-github v-align-middle" height="32" width="32" src="{{ .Site.Params.headerIcon }}" alt="{{ .Site.Params.author | default .Site.Title }}">
       </a>
     </div>
     
@@ -64,34 +64,19 @@
     
     <!-- Dark Mode Toggle Button -->
     <div class="Header-item" style="margin-right: 0;">
-      <a href="javascript:void(0)" class="Header-link no-select" onclick="switchTheme()">
+      <button
+        type="button"
+        class="Header-link no-select"
+        style="background:none;border:0;padding:0;"
+        aria-label="Toggle color theme"
+        onclick="switchTheme()">
         <svg style="fill: var(--color-profile-color-modes-toggle-moon);" class="no-select" viewBox="0 0 16 16"
           version="1.1" width="16" height="16">
           <path fill-rule="evenodd" clip-rule="evenodd"
             d="M4.52208 7.71754C7.5782 7.71754 10.0557 5.24006 10.0557 2.18394C10.0557 1.93498 10.0392 1.68986 10.0074 1.44961C9.95801 1.07727 10.3495 0.771159 10.6474 0.99992C12.1153 2.12716 13.0615 3.89999 13.0615 5.89383C13.0615 9.29958 10.3006 12.0605 6.89485 12.0605C3.95334 12.0605 1.49286 10.001 0.876728 7.24527C0.794841 6.87902 1.23668 6.65289 1.55321 6.85451C2.41106 7.40095 3.4296 7.71754 4.52208 7.71754Z">
           </path>
         </svg>
-      </a>
+      </button>
     </div>
   </header>
 </div>
-
-<script>
-function goToHome() {
-  const savedLang = localStorage.getItem('preferred-language');
-  if (savedLang === 'zh') {
-    window.location.href = '/zh/';
-  } else {
-    window.location.href = '/en/';
-  }
-}
-
-function goToPosts() {
-  const savedLang = localStorage.getItem('preferred-language');
-  if (savedLang === 'zh') {
-    window.location.href = '/zh/post/';
-  } else {
-    window.location.href = '/en/post/';
-  }
-}
-</script>

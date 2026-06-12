@@ -1,0 +1,92 @@
+{{- $canonical := partial "seo/canonical.html" . -}}
+{{- $summary := partial "seo/summary.html" (dict "page" . "limit" 170) -}}
+{{- $socialImage := partial "seo/social-image.html" . -}}
+{{- $title := partial "seo/page-title.html" . -}}
+{{- $author := .Site.Params.author | default .Site.Title -}}
+{{- $robots := partial "seo/robots.html" . -}}
+{{- $defaultTranslations := where .AllTranslations "Lang" site.Home.Language.Lang -}}
+{{- $isArticle := false -}}
+{{- if and .IsPage (eq .Section "post") -}}
+  {{- $isArticle = true -}}
+{{- end -}}
+{{- if and .IsPage (eq .Params.schemaType "ScholarlyArticle") -}}
+  {{- $isArticle = true -}}
+{{- end -}}
+{{- if and .IsPage .Params.citation -}}
+  {{- $isArticle = true -}}
+{{- end -}}
+{{- if and .IsPage .Params.bibtex -}}
+  {{- $isArticle = true -}}
+{{- end -}}
+<meta name="description" content="{{ $summary }}" />
+{{ with .Params.Keywords }}
+<meta name="keywords" content="{{ if reflect.IsSlice . }}{{ delimit . ", " }}{{ else }}{{ . }}{{ end }}" />
+{{ else }}
+<meta name="keywords" content="{{ delimit .Site.Params.keywords ", " }}" />
+{{ end }}
+<meta name="robots" content="{{ $robots }}" />
+<meta name="author" content="{{ $author }}" />
+<link rel="canonical" href="{{ $canonical }}" />
+
+{{ range .AllTranslations }}
+<link rel="alternate" hreflang="{{ .Language.LanguageCode | default .Language.Lang }}" href="{{ .Permalink }}" />
+{{ end }}
+{{ range first 1 $defaultTranslations }}
+<link rel="alternate" hreflang="x-default" href="{{ .Permalink }}" />
+{{ end }}
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="{{ $title }}" />
+<meta name="twitter:description" content="{{ $summary }}" />
+{{ with $socialImage }}<meta name="twitter:image" content="{{ . }}" />{{ end }}
+
+<meta property="og:type" content="{{ if $isArticle }}article{{ else }}website{{ end }}" />
+<meta property="og:title" content="{{ $title }}" />
+<meta property="og:description" content="{{ $summary }}" />
+<meta property="og:url" content="{{ $canonical }}" />
+<meta property="og:site_name" content="{{ .Site.Title }}" />
+{{ with $socialImage }}<meta property="og:image" content="{{ . }}" />{{ end }}
+{{ if .IsHome }}
+<meta property="og:locale" content="{{ replace .Site.LanguageCode "-" "_" }}" />
+{{ end }}
+
+{{ if $isArticle }}
+<meta property="article:author" content="{{ $author }}" />
+<meta property="article:published_time" content="{{ .PublishDate.Format "2006-01-02T15:04:05Z07:00" }}" />
+<meta property="article:modified_time" content="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}" />
+{{ with .Params.categories }}{{ range . }}<meta property="article:section" content="{{ . }}" />{{ end }}{{ end }}
+{{ with .Params.tags }}{{ range . }}<meta property="article:tag" content="{{ . }}" />{{ end }}{{ end }}
+{{ end }}
+
+{{ if or (eq .Params.schemaType "ScholarlyArticle") .Params.citation .Params.bibtex }}
+{{ $citation := .Params.citation }}
+<meta name="citation_title" content="{{ with $citation.title }}{{ . }}{{ else }}{{ .Title }}{{ end }}" />
+{{ with $citation.authors }}
+{{ range . }}<meta name="citation_author" content="{{ . }}" />{{ end }}
+{{ else }}
+<meta name="citation_author" content="{{ $author }}" />
+{{ end }}
+<meta name="citation_publication_date" content="{{ .PublishDate.Format "2006/01/02" }}" />
+<meta name="citation_language" content="{{ .Language.Lang }}" />
+{{ with $citation.venue }}<meta name="citation_journal_title" content="{{ . }}" />{{ end }}
+{{ with $citation.doi }}<meta name="citation_doi" content="{{ . }}" />{{ end }}
+{{ with $citation.pdf }}<meta name="citation_pdf_url" content="{{ . | absURL }}" />{{ end }}
+{{ end }}
+
+{{ with .OutputFormats.Get "RSS" }}
+<link
+  href="{{ .RelPermalink }}"
+  rel="alternate"
+  type="application/rss+xml"
+  title="{{ $.Site.Title }}"
+/>
+{{ end }}
+
+{{ with .OutputFormats.Get "json" }}
+<link
+  href="{{ .RelPermalink }}"
+  rel="alternate"
+  type="application/json"
+  title="{{ $.Site.Title }}"
+/>
+{{ end }}

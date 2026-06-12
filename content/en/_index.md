@@ -2,6 +2,8 @@
 title: "Home"
 date: 2024-01-01T00:00:00+08:00
 draft: false
+description: "Personal website of Siqi Liu, featuring writing on software engineering, digital twin systems, frontend architecture, performance, and AI tooling."
+summary: "Personal website of Siqi Liu with technical essays, project notes, and bilingual writing."
 ---
 
 # Welcome to My Blog 🎉
@@ -40,11 +42,11 @@ This is where I share technology, life, and thoughts. I'll document here:
 
 ## 🤝 Contact Me
 
-If you have any thoughts or suggestions about my articles, feel free to connect with me:
+If you have thoughts about my articles or want to discuss a technical problem, feel free to connect:
 
-- 📧 **Email**: your-email@example.com
-- 🐙 **GitHub**: [github.com/your-github-username](https://github.com/your-github-username)
-- 🐦 **Twitter**: [@your-twitter-username](https://twitter.com/your-twitter-username)
+- 📧 **Email**: [hiyosgi@gmail.com](mailto:hiyosgi@gmail.com)
+- 🐙 **GitHub**: [github.com/Yosgi](https://github.com/Yosgi)
+- 💼 **LinkedIn**: [linkedin.com/in/siqi-l-262b61200](https://www.linkedin.com/in/siqi-l-262b61200/)
 
 ---
 

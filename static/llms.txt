@@ -1,0 +1,32 @@
+# Siqi Liu
+
+> Personal website of Siqi Liu (Yosgi). This site contains bilingual technical writing, project notes, and professional profile information. The strongest subject areas are software engineering, frontend architecture, digital twin systems, web performance, and AI tooling.
+
+Use the English pages when a language-neutral answer is preferred. Chinese pages include both translations and original Chinese writing.
+
+## Profile
+
+- [English home](https://siqi-liu.com/en/): Main landing page for the site
+- [About](https://siqi-liu.com/en/about/): Background, focus areas, and contact details
+- [Contact](https://siqi-liu.com/en/contact/): Direct contact links
+- [Chinese home](https://siqi-liu.com/zh/): Chinese landing page
+
+## Site Data
+
+- [Sitemap](https://siqi-liu.com/sitemap.xml): Crawlable index of public pages
+- [English RSS](https://siqi-liu.com/en/index.xml): Feed of English writing
+- [English search index](https://siqi-liu.com/en/index.json): Machine-readable page index
+- [Chinese search index](https://siqi-liu.com/zh/index.json): Machine-readable page index
+
+## Key Technical Writing
+
+- [High-Frequency Synchronization Architecture Between React State and a 3D Engine](https://siqi-liu.com/en/post/high-frequency-synchronization-architecture-between-react-state-and-a-3d-engine/): React and Cesium synchronization architecture for high-frequency scene updates
+- [From Extracting Drawing Text to Placing 2D Annotations in a 3D Scene](https://siqi-liu.com/en/post/from-extracting-drawing-text-to-placing-2d-annotations-in-a-3d-scene/): Connecting 2D drawing data to 3D annotation workflows
+- [Early Experiences with Building MCP Tools](https://siqi-liu.com/en/post/early-experiences-with-building-mcp-tools/): Lessons from early MCP tool-building work
+- [A Brief Introduction to Web Security](https://siqi-liu.com/en/post/a-brief-introduction-to-web-security/): Introductory security concepts for web systems
+- [2025 Investment Review](https://siqi-liu.com/en/post/2025-investment-review/): Personal long-form review outside the core engineering topics
+
+## Optional
+
+- [English posts index](https://siqi-liu.com/en/post/): Full English article archive
+- [Chinese posts index](https://siqi-liu.com/zh/post/): Full Chinese article archive

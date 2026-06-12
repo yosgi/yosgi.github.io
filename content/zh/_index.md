@@ -2,6 +2,8 @@
 title: "首页"
 date: 2024-01-01T00:00:00+08:00
 draft: false
+description: "Siqi Liu 的个人网站，内容涵盖软件工程、数字孪生系统、前端架构、性能优化与 AI 工具。"
+summary: "Siqi Liu 的双语个人网站，收录技术文章、项目笔记与长期写作。"
 ---
 
 # 欢迎来到我的博客 🎉
@@ -40,11 +42,11 @@ draft: false
 
 ## 🤝 联系我
 
-如果你对我的文章有任何想法或建议，欢迎与我交流：
+如果你对文章有想法，或者想讨论具体技术问题，欢迎联系我：
 
-- 📧 **邮箱**: your-email@example.com
-- 🐙 **GitHub**: [github.com/your-github-username](https://github.com/your-github-username)
-- 🐦 **Twitter**: [@your-twitter-username](https://twitter.com/your-twitter-username)
+- 📧 **邮箱**: [hiyosgi@gmail.com](mailto:hiyosgi@gmail.com)
+- 🐙 **GitHub**: [github.com/Yosgi](https://github.com/Yosgi)
+- 💼 **LinkedIn**: [linkedin.com/in/siqi-l-262b61200](https://www.linkedin.com/in/siqi-l-262b61200/)
 
 ---
 

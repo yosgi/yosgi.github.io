@@ -692,3 +692,138 @@ a[href*="/zh/tags/"] {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
   }
 }
+
+.article-breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  color: var(--article-muted);
+  font-size: 0.92rem;
+}
+
+.article-breadcrumbs a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.article-breadcrumbs a:hover {
+  color: var(--article-heading);
+  text-decoration: underline;
+}
+
+.article-breadcrumb-separator {
+  opacity: 0.55;
+}
+
+.article-callout,
+.article-support-card {
+  max-width: 780px;
+  margin: 0 auto;
+  border: 1px solid var(--article-border);
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(247, 245, 240, 0.92));
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+}
+
+.article-callout {
+  padding: 18px 20px;
+}
+
+.article-callout-compact {
+  padding-bottom: 14px;
+}
+
+.article-callout h2,
+.article-support-card h2 {
+  margin: 0 0 0.65rem;
+  font-size: 1.05rem;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+}
+
+.article-callout p,
+.article-callout ul,
+.article-support-card p,
+.article-support-card ul {
+  margin: 0;
+  color: color-mix(in srgb, var(--article-text) 84%, white);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.article-callout ul,
+.article-citation-text ul {
+  padding-left: 1.2rem;
+}
+
+.article-support-block {
+  padding: 0 24px 28px;
+}
+
+.article-support-card {
+  padding: 24px;
+}
+
+.article-related-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.article-related-card {
+  padding: 16px;
+  border: 1px solid var(--article-border);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.article-related-card h3 {
+  margin: 0 0 0.55rem;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.article-related-card p {
+  color: var(--article-muted);
+  font-size: 0.95rem;
+}
+
+.article-faq-list {
+  display: grid;
+  gap: 12px;
+}
+
+.article-faq-item {
+  border: 1px solid var(--article-border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.article-faq-item summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--article-heading);
+}
+
+.article-faq-item p {
+  margin-top: 0.75rem;
+}
+
+.article-figure {
+  margin: 1.6rem 0;
+}
+
+.article-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+}
+
+.article-figure figcaption {
+  margin-top: 0.65rem;
+  color: var(--article-muted);
+  font-size: 0.95rem;
+  text-align: center;
+}

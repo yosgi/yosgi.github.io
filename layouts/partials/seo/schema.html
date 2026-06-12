@@ -1,0 +1,106 @@
+{{- $page := . -}}
+{{- $summary := partial "seo/summary.html" (dict "page" $page "limit" 220) -}}
+{{- $image := partial "seo/social-image.html" $page -}}
+{{- $canonical := partial "seo/canonical.html" $page -}}
+{{- $authorName := $page.Site.Params.author | default $page.Site.Title -}}
+{{- $personId := printf "%s#person" $page.Site.Home.Permalink -}}
+{{- $websiteId := printf "%s#website" $page.Site.Home.Permalink -}}
+{{- $sameAs := slice -}}
+{{- with $page.Site.Params.github -}}
+  {{- $sameAs = $sameAs | append (printf "https://github.com/%s" .) -}}
+{{- end -}}
+{{- with $page.Site.Params.url -}}
+  {{- $sameAs = $sameAs | append . -}}
+{{- end -}}
+{{- $knowsAbout := slice -}}
+{{- range first 12 (sort $page.Site.Taxonomies.categories.ByCount "Count" "desc") -}}
+  {{- $knowsAbout = $knowsAbout | append .Page.Title -}}
+{{- end -}}
+{{- range first 12 (sort $page.Site.Taxonomies.tags.ByCount "Count" "desc") -}}
+  {{- $knowsAbout = $knowsAbout | append .Page.Title -}}
+{{- end -}}
+{{- $person := dict
+  "@type" "Person"
+  "@id" $personId
+  "name" $authorName
+  "url" $page.Site.Home.Permalink
+  "image" $image
+  "email" (printf "mailto:%s" $page.Site.Params.email)
+  "description" ($page.Site.Params.seo.personDescription | default $page.Site.Params.description)
+  "sameAs" $sameAs
+  "knowsAbout" ($knowsAbout | uniq)
+  "address" (dict "@type" "PostalAddress" "addressLocality" $page.Site.Params.location)
+ -}}
+{{- $website := dict
+  "@type" "WebSite"
+  "@id" $websiteId
+  "url" $page.Site.Home.Permalink
+  "name" $page.Site.Title
+  "inLanguage" $page.Language.Lang
+  "description" ($page.Site.Params.seo.defaultDescription | default $page.Site.Params.description)
+  "publisher" (dict "@id" $personId)
+ -}}
+{{- $graph := slice $website $person -}}
+{{- if not $page.IsHome -}}
+  {{- $pageType := "WebPage" -}}
+  {{- if not $page.IsPage -}}
+    {{- $pageType = "CollectionPage" -}}
+  {{- end -}}
+  {{- if and $page.IsPage (eq $page.Section "post") -}}
+    {{- $pageType = cond (or (eq $page.Params.schemaType "ScholarlyArticle") $page.Params.citation $page.Params.bibtex) "ScholarlyArticle" "BlogPosting" -}}
+  {{- end -}}
+  {{- $pageNode := dict
+    "@type" $pageType
+    "@id" (printf "%s#primary" $canonical)
+    "url" $canonical
+    "mainEntityOfPage" $canonical
+    "headline" $page.Title
+    "description" $summary
+    "inLanguage" $page.Language.Lang
+    "author" (dict "@id" $personId)
+    "publisher" (dict "@id" $personId)
+  -}}
+  {{- if $page.IsPage -}}
+    {{- $pageNode = merge $pageNode (dict
+      "datePublished" ($page.PublishDate.Format "2006-01-02T15:04:05Z07:00")
+      "dateModified" ($page.Lastmod.Format "2006-01-02T15:04:05Z07:00")
+      "wordCount" (countwords $page.Plain)
+    ) -}}
+  {{- end -}}
+  {{- if $image -}}
+    {{- $pageNode = merge $pageNode (dict "image" (slice $image)) -}}
+  {{- end -}}
+  {{- with and $page.IsPage $page.Params.categories -}}
+    {{- $pageNode = merge $pageNode (dict "articleSection" .) -}}
+  {{- end -}}
+  {{- with and $page.IsPage $page.Params.tags -}}
+    {{- $pageNode = merge $pageNode (dict "keywords" (delimit . ", ")) -}}
+  {{- end -}}
+  {{- with and $page.IsPage $page.Params.citation -}}
+    {{- with .doi -}}
+      {{- $pageNode = merge $pageNode (dict "identifier" (printf "https://doi.org/%s" .)) -}}
+    {{- end -}}
+    {{- with .venue -}}
+      {{- $pageNode = merge $pageNode (dict "isPartOf" (dict "@type" "PublicationIssue" "name" .)) -}}
+    {{- end -}}
+  {{- end -}}
+  {{- $graph = $graph | append $pageNode -}}
+  {{- $crumbItems := slice -}}
+  {{- $breadcrumbs := slice (dict "name" "Home" "url" $page.Site.Home.Permalink) -}}
+  {{- if eq $page.Section "post" -}}
+    {{- $breadcrumbs = $breadcrumbs | append (dict "name" "Posts" "url" ("/post/" | relLangURL | absURL)) -}}
+  {{- else if and $page.Section (ne $page.Section "") (ne $page.Section "post") -}}
+    {{- $breadcrumbs = $breadcrumbs | append (dict "name" ($page.Section | humanize) "url" ($page.CurrentSection.Permalink | default $page.Site.Home.Permalink)) -}}
+  {{- end -}}
+  {{- $breadcrumbs = $breadcrumbs | append (dict "name" $page.Title "url" $canonical) -}}
+  {{- range $idx, $item := $breadcrumbs -}}
+    {{- $crumbItems = $crumbItems | append (dict "@type" "ListItem" "position" (add $idx 1) "name" $item.name "item" $item.url) -}}
+  {{- end -}}
+  {{- if gt (len $crumbItems) 1 -}}
+    {{- $graph = $graph | append (dict "@type" "BreadcrumbList" "@id" (printf "%s#breadcrumb" $canonical) "itemListElement" $crumbItems) -}}
+  {{- end -}}
+{{- end -}}
+{{- $schema := dict "@context" "https://schema.org" "@graph" $graph -}}
+<script type="application/ld+json">
+{{ $schema | jsonify | safeJS }}
+</script>

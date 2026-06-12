@@ -2,6 +2,10 @@
 title: "README"
 date: 2024-01-01T00:00:00+08:00
 draft: false
+description: "Siqi Liu 博客内容概览，涵盖软件工程、项目笔记与技术写作。"
+seo_noindex: true
+sitemap:
+  disable: true
 ---
 
 ## 关于这个博客
@@ -12,4 +16,3 @@ draft: false
 - **项目经验** - 开发过程中的收获和踩坑记录  
 - **读书笔记** - 好书推荐和阅读感悟
 - **个人成长** - 生活感悟和成长思考
-

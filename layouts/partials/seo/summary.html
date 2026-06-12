@@ -1,0 +1,27 @@
+{{- $page := .page | default . -}}
+{{- $limit := .limit | default 170 -}}
+{{- $summary := "" -}}
+{{- with $page.Params.description -}}
+  {{- $summary = . -}}
+{{- else -}}
+  {{- with $page.Description -}}
+    {{- $summary = . -}}
+  {{- else -}}
+    {{- with $page.Params.summary -}}
+      {{- $summary = . -}}
+    {{- else -}}
+      {{- $summary = $page.Summary | default $page.Plain -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- $summary = plainify ($summary | htmlUnescape) -}}
+{{- $summary = replaceRE "\\s+" " " $summary -}}
+{{- $summary = trim $summary " " -}}
+{{- $title := plainify $page.Title -}}
+{{- if hasPrefix (lower $summary) (lower $title) -}}
+  {{- $summary = trim (strings.TrimPrefix $title $summary) " :-" -}}
+{{- end -}}
+{{- if not $summary -}}
+  {{- $summary = $page.Site.Params.seo.defaultDescription | default $page.Site.Params.description -}}
+{{- end -}}
+{{- $summary | truncate $limit -}}

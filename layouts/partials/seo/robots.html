@@ -1,0 +1,8 @@
+{{- $directives := slice -}}
+{{- if or .Params.seo_noindex (and .File (eq .File.BaseFileName "readme")) (in .RelPermalink "/page/") -}}
+  {{- $directives = $directives | append "noindex" "follow" -}}
+{{- else -}}
+  {{- $directives = $directives | append "index" "follow" -}}
+{{- end -}}
+{{- $directives = $directives | append "max-image-preview:large" "max-snippet:-1" "max-video-preview:-1" -}}
+{{- delimit $directives "," -}}

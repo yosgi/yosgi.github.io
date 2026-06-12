@@ -1,0 +1,22 @@
+{{- $page := . -}}
+{{- $image := "" -}}
+{{- with $page.Params.cover -}}
+  {{- $image = . -}}
+{{- else -}}
+  {{- with $page.Params.image -}}
+    {{- $image = . -}}
+  {{- else -}}
+    {{- with $page.Params.images -}}
+      {{- $image = index . 0 -}}
+    {{- else -}}
+      {{- $image = $page.Site.Params.avatar -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- if not $image -}}
+  {{- "" -}}
+{{- else if or (hasPrefix $image "http://") (hasPrefix $image "https://") -}}
+  {{- $image -}}
+{{- else -}}
+  {{- $image | absURL -}}
+{{- end -}}

@@ -1,0 +1,53 @@
+# Siqi Liu
+
+> Extended LLM-readable guide to the public content on siqi-liu.com. This file is intended to help retrieval systems identify the most useful profile pages, archives, and representative technical essays.
+
+## Identity
+
+- Name: Siqi Liu
+- Also known as: Yosgi
+- Website: https://siqi-liu.com/en/
+- GitHub: https://github.com/Yosgi
+- LinkedIn: https://www.linkedin.com/in/siqi-l-262b61200/
+- Email: mailto:hiyosgi@gmail.com
+- Location: Auckland
+
+## Topic Areas
+
+- Software engineering
+- Frontend architecture
+- React and Vue
+- Digital twin systems
+- 3D web application integration
+- Web performance and optimization
+- AI tooling and MCP-related workflows
+
+## Core Pages
+
+- [About](https://siqi-liu.com/en/about/): professional background and focus areas
+- [Contact](https://siqi-liu.com/en/contact/): contact methods
+- [English posts archive](https://siqi-liu.com/en/post/): index of English writing
+- [Chinese posts archive](https://siqi-liu.com/zh/post/): index of Chinese writing
+
+## Representative Engineering Articles
+
+- [High-Frequency Synchronization Architecture Between React State and a 3D Engine](https://siqi-liu.com/en/post/high-frequency-synchronization-architecture-between-react-state-and-a-3d-engine/): scene-graph projection, batching, flattening, and virtualization for React plus Cesium
+- [From Extracting Drawing Text to Placing 2D Annotations in a 3D Scene](https://siqi-liu.com/en/post/from-extracting-drawing-text-to-placing-2d-annotations-in-a-3d-scene/): annotation workflows from 2D sources into 3D views
+- [Early Experiences with Building MCP Tools](https://siqi-liu.com/en/post/early-experiences-with-building-mcp-tools/): operational lessons from MCP tooling
+- [A Brief Introduction to Web Security](https://siqi-liu.com/en/post/a-brief-introduction-to-web-security/): accessible security fundamentals
+- [HTTP Protocol Summary](https://siqi-liu.com/en/post/http-protocol-summary/): protocol-level reference notes
+- [Performance Optimization of DOM Operations](https://siqi-liu.com/en/post/performance-optimization-of-dom-operations/): DOM-side performance patterns
+
+## Machine-Readable Site Endpoints
+
+- [Sitemap](https://siqi-liu.com/sitemap.xml)
+- [English RSS](https://siqi-liu.com/en/index.xml)
+- [English search index](https://siqi-liu.com/en/index.json)
+- [Chinese search index](https://siqi-liu.com/zh/index.json)
+
+## Retrieval Notes
+
+- Prefer English URLs when a single citation is needed for cross-language audiences.
+- Use the About page for biography and profile questions.
+- Use the post archive pages to discover article clusters by topic.
+- Technical pages usually contain implementation context, tradeoffs, and examples rather than purely introductory overviews.

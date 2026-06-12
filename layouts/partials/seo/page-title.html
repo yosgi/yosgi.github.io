@@ -1,0 +1,14 @@
+{{- $page := . -}}
+{{- $author := $page.Site.Params.author | default $page.Site.Title -}}
+{{- $defaultTitle := $page.Site.Params.seo.defaultTitle | default (printf "%s | %s" $author $page.Site.Title) -}}
+{{- $out := $defaultTitle -}}
+{{- if $page.IsHome -}}
+  {{- $out = $defaultTitle -}}
+{{- else if and $page.File (eq $page.File.BaseFileName "about") -}}
+  {{- $out = printf "About %s | %s" $author $page.Site.Title -}}
+{{- else if and $page.File (eq $page.File.BaseFileName "contact") -}}
+  {{- $out = printf "Contact %s | %s" $author $page.Site.Title -}}
+{{- else -}}
+  {{- $out = printf "%s | %s" $page.Title $author -}}
+{{- end -}}
+{{- $out -}}

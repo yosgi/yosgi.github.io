@@ -2,32 +2,29 @@
 title: "Contact Me"
 date: 2024-01-01T00:00:00+08:00
 draft: false
+description: "Contact Siqi Liu for engineering discussions, collaboration, technical writing, and digital twin or AI systems work."
+summary: "Contact page for Siqi Liu, with direct links for email, GitHub, and LinkedIn."
 ---
-
-# Contact Me
 
 I'm delighted that you'd like to connect with me! Whether it's technical discussions, collaboration opportunities, or just a simple greeting, I welcome all forms of communication.
 
 ## Contact Information
 
 ### 📧 Email
-your-email@example.com
+[hiyosgi@gmail.com](mailto:hiyosgi@gmail.com)
 
 ### 🐙 GitHub
-[github.com/your-github-username](https://github.com/your-github-username)
-
-### 🐦 Twitter
-[@your-twitter-username](https://twitter.com/your-twitter-username)
+[github.com/Yosgi](https://github.com/Yosgi)
 
 ### 💼 LinkedIn
-[linkedin.com/in/your-linkedin-username](https://linkedin.com/in/your-linkedin-username)
+[linkedin.com/in/siqi-l-262b61200](https://www.linkedin.com/in/siqi-l-262b61200/)
 
 ## Topics I'm Interested In
 
 - 🚀 Exploring new technologies
 - 💡 Open source projects
 - 📖 Technical writing
-- 🎨 User experience design
+- 🏗️ Digital twin systems and frontend architecture
 - 🌱 Personal growth
 
 ## Response Time

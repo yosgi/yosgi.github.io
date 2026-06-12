@@ -2,32 +2,29 @@
 title: "联系我"
 date: 2024-01-01T00:00:00+08:00
 draft: false
+description: "Siqi Liu 的联系方式页面，适合技术交流、合作沟通、技术写作与数字孪生或 AI 系统相关讨论。"
+summary: "联系 Siqi Liu，可通过邮箱、GitHub 和 LinkedIn 交流。"
 ---
-
-# 联系我
 
 很高兴你愿意与我交流！无论是技术讨论、合作机会，还是简单的问候，我都非常欢迎。
 
 ## 联系方式
 
 ### 📧 邮箱
-your-email@example.com
+[hiyosgi@gmail.com](mailto:hiyosgi@gmail.com)
 
 ### 🐙 GitHub
-[github.com/your-github-username](https://github.com/your-github-username)
-
-### 🐦 Twitter
-[@your-twitter-username](https://twitter.com/your-twitter-username)
+[github.com/Yosgi](https://github.com/Yosgi)
 
 ### 💼 LinkedIn
-[linkedin.com/in/your-linkedin-username](https://linkedin.com/in/your-linkedin-username)
+[linkedin.com/in/siqi-l-262b61200](https://www.linkedin.com/in/siqi-l-262b61200/)
 
 ## 我感兴趣的话题
 
 - 🚀 新技术探索
 - 💡 开源项目
 - 📖 技术写作
-- 🎨 用户体验设计
+- 🏗️ 数字孪生系统与前端架构
 - 🌱 个人成长
 
 ## 响应时间
