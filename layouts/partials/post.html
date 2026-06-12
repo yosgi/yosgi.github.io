@@ -48,10 +48,10 @@
         <p class="article-description">{{ . }}</p>
         {{ end }}
 
-        {{ if and (eq .Section "post") $summary }}
+        {{ with and (eq .Section "post") .Params.tldr }}
         <section class="article-callout" aria-labelledby="article-tldr-title">
           <h2 id="article-tldr-title">TL;DR</h2>
-          <p>{{ with .Params.tldr }}{{ . }}{{ else }}{{ $summary }}{{ end }}</p>
+          <p>{{ . }}</p>
         </section>
         {{ end }}
 

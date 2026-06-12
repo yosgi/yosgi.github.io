@@ -55,24 +55,7 @@
                   </a>
                 </div>
 
-                {{ $summary := "" }}
-                {{ if .Params.description }}
-                  {{ $summary = .Params.description }}
-                {{ else if .Params.summary }}
-                  {{ $summary = .Params.summary }}
-                {{ else }}
-                  {{ $raw := plainify (.Summary | default .Plain) }}
-                  {{ $title := plainify .Title }}
-                  {{ $lines := split $raw "\n" }}
-                  {{ $clean := slice }}
-                  {{ range $lines }}
-                    {{ $line := trim . " " }}
-                    {{ if and (ne $line "") (ne $line $title) }}
-                      {{ $clean = $clean | append $line }}
-                    {{ end }}
-                  {{ end }}
-                  {{ $summary = (delimit $clean " " | truncate 200) }}
-                {{ end }}
+                {{ $summary := partial "seo/summary.html" (dict "page" . "limit" 200) }}
 
                 {{ with $summary }}
                 <div name="summary" class="pinned-item-desc text-gray text-small d-block mt-2 mb-3">
