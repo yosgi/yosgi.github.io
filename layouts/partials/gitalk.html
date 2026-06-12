@@ -25,8 +25,8 @@
 </div>
 {{ else if .Site.Params.enableGitalk }}
 <div id="gitalk-container" class="gitalk-container"></div>
-<link rel="stylesheet" href='{{ "css/gitalk.css" | absURL }}'>
-<script src='{{ "js/gitalk.min.js" | absURL }}'></script>
+<link rel="stylesheet" href='{{ "css/gitalk.css" | relURL }}'>
+<script src='{{ "js/gitalk.min.js" | relURL }}'></script>
 <script>
   const gitalk = new Gitalk({
     clientID: '{{ .Site.Params.Gitalk.clientID }}',

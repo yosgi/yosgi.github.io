@@ -1,0 +1,34 @@
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <script type="application/javascript" src='{{ "js/theme-mode.js" | relURL }}'></script>
+    <link rel="stylesheet" href='{{ "css/frameworks.min.css" | relURL }}' />
+    <link rel="stylesheet" href='{{ "css/github.min.css" | relURL }}' />
+    <link rel="stylesheet" href='{{ "css/github-style.css" | relURL }}' />
+    <link rel="stylesheet" href='{{ "css/light.css" | relURL }}' />
+    <link rel="stylesheet" href='{{ "css/dark.css" | relURL }}' />
+    <link rel="stylesheet" href='{{ "css/syntax.css" | relURL }}' />
+    <title>{{ if .IsHome }}{{ else }}{{ .Title }} - {{ end }}{{ .Site.Title }}</title>
+    {{ if .Site.Params.favicon }}
+    {{ $favicon := .Site.Params.favicon }}
+    <link rel="icon" type="image/x-icon" href='{{ if or (hasPrefix $favicon "http://") (hasPrefix $favicon "https://") }}{{ $favicon }}{{ else }}{{ $favicon | relURL }}{{ end }}'>
+    {{ else }}
+    <link rel="icon" type="image/x-icon" href='{{ "images/favicon.ico" | relURL }}'>
+    {{ end }}
+    <meta name="theme-color" content="#1e2327">
+
+    {{ range .Site.Params.custom_css -}}
+    {{ $href := . }}
+    <link rel="stylesheet" href="{{ if or (hasPrefix $href "http://") (hasPrefix $href "https://") }}{{ $href }}{{ else }}{{ $href | relURL }}{{ end }}">
+    {{- end }}
+    {{ range .Site.Params.custom_js -}}
+    {{ $src := . }}
+    <script type="text/javascript" src="{{ if or (hasPrefix $src "http://") (hasPrefix $src "https://") }}{{ $src }}{{ else }}{{ $src | relURL }}{{ end }}"></script>
+    {{- end }}
+    {{ range .Site.Params.defer_custom_js -}}
+    {{ $src := . }}
+    <script defer type="text/javascript" src="{{ if or (hasPrefix $src "http://") (hasPrefix $src "https://") }}{{ $src }}{{ else }}{{ $src | relURL }}{{ end }}"></script>
+    {{- end }}
+
+    {{ partial "extended_head.html" . }}
+</head>

@@ -1,4 +1,4 @@
-baseURL = 'https://yosgi.github.io/'
+baseURL = 'https://siqi-liu.com/'
 defaultContentLanguage = 'en'
 defaultContentLanguageInSubdir = true
 disableLanguages = []
@@ -24,7 +24,7 @@ pygmentsUseClasses = true
 [languages.en.params]
   author = "Siqi Liu"
   description = "A personal blog sharing technology, life, and thoughts"
-  rssBaseURL = "https://yosgi.github.io/"
+  rssBaseURL = "https://siqi-liu.com/"
   github = "Yosgi"
   email = "hiyosgi@gmail.com"
   url = "https://www.linkedin.com/in/siqi-l-262b61200/"
@@ -68,7 +68,7 @@ pygmentsUseClasses = true
 [languages.zh.params]
   author = "Siqi Liu"
   description = "分享技术、生活和思考的个人博客"
-  rssBaseURL = "https://yosgi.github.io/"
+  rssBaseURL = "https://siqi-liu.com/"
   github = "Yosgi"
   email = "hiyosgi@gmail.com"
   url = "https://www.linkedin.com/in/siqi-l-262b61200/"

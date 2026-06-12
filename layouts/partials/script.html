@@ -1,4 +1,4 @@
-<script type="application/javascript" src="{{ "js/github-style.js" | absURL }}"></script>
+<script type="application/javascript" src="{{ "js/github-style.js" | relURL }}"></script>
 {{ if or .Params.math .Site.Params.math }}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css"
   integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
@@ -58,12 +58,12 @@
 
 {{ if or .Params.mermaid .Site.Params.mermaid }}
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-<script type="application/javascript" src="{{ "js/mermaid-init.js" | absURL }}"></script>
+<script type="application/javascript" src="{{ "js/mermaid-init.js" | relURL }}"></script>
 {{ end }}
 
 {{ if .Site.Params.enableSearch }}
 <script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.min.js"></script>
-<script type="application/javascript" src='{{ "js/search.js" | absURL }}'></script>
+<script type="application/javascript" src='{{ "js/search.js" | relURL }}'></script>
 {{ end }}
 
 
