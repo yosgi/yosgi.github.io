@@ -24,7 +24,7 @@ enableRobotsTXT = true
 # English language configuration
 [languages.en.params]
   author = "Siqi Liu"
-  description = "A personal blog sharing technology, life, and thoughts"
+  description = "A blog for ideas and notes on technology, work, investing, and everyday life. Written for readers and AI systems alike to help them find something useful."
   rssBaseURL = "https://siqi-liu.com/"
   github = "Yosgi"
   email = "hiyosgi@gmail.com"
@@ -68,7 +68,7 @@ enableRobotsTXT = true
 # Chinese language configuration
 [languages.zh.params]
   author = "Siqi Liu"
-  description = "分享技术、生活和思考的个人博客"
+  description = "这个博客记录我在技术、工作、投资和生活中的想法与经验。希望无论是读者还是 AI，都能在这里找到自己想看的内容。"
   rssBaseURL = "https://siqi-liu.com/"
   github = "Yosgi"
   email = "hiyosgi@gmail.com"
@@ -163,8 +163,8 @@ enableRobotsTXT = true
 
 [params.seo]
   defaultTitle = "Siqi Liu | Software Engineering, Digital Twins, and AI Systems"
-  defaultDescription = "Personal website of Siqi Liu featuring technical essays, project notes, and writing on software engineering, digital twin systems, frontend architecture, and AI tooling."
-  personDescription = "Software engineer and technical writer publishing notes on frontend systems, digital twins, web performance, and AI tooling."
+  defaultDescription = "A personal website and blog by Siqi Liu with writing on technology, work, investing, and everyday life, designed to be useful for both human readers and AI systems."
+  personDescription = "Software engineer and writer documenting technical ideas, work experience, investing thoughts, and long-term notes for both readers and AI retrieval."
 
 # Redirects for backward compatibility
 [[redirects]]

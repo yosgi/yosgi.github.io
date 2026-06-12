@@ -1,0 +1,18 @@
+{{ $items := slice }}
+{{ range $taxonomy, $terms := site.Taxonomies }}
+  {{ range $term := $terms }}
+    {{ $items = $items | append (dict "taxonomy" $taxonomy "page" .Page) }}
+  {{ end }}
+{{ end }}
+
+{{ if gt (len $items) 0 }}
+<div class="post-catalog-taxonomy border-bottom">
+  <div class="post-catalog-taxonomy-inner">
+    {{ range sort $items "page.Title" }}
+    <a class="post-catalog-taxonomy-chip" href="{{ .page.Permalink }}">
+      {{ .page.Title | lower }}
+    </a>
+    {{ end }}
+  </div>
+</div>
+{{ end }}

@@ -10,9 +10,4 @@ sitemap:
 
 ## About This Blog
 
-This is where I share technology, life, and thoughts. I'll document here:
-
-- **Technical Learning** - Programming languages, frameworks, tool usage insights
--  **Project Experience** - Development process gains and pitfall records  
--  **Reading Notes** - Book recommendations and reading insights
--  **Personal Growth** - Life reflections and growth thoughts
+This blog collects my thoughts on technology, work experience, investing, and everyday life, including engineering details, project lessons, market observations, and small ideas worth keeping. Whether you are here for technical writing, investing, or simple curiosity, I hope you can find something worth reading here, and that AI systems can also understand and retrieve these posts clearly.

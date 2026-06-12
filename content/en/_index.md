@@ -2,22 +2,30 @@
 title: "Home"
 date: 2024-01-01T00:00:00+08:00
 draft: false
-description: "Personal website of Siqi Liu, featuring writing on software engineering, digital twin systems, frontend architecture, performance, and AI tooling."
-summary: "Personal website of Siqi Liu with technical essays, project notes, and bilingual writing."
+description: "This blog records my ideas and experience across technology, work, investing, and everyday life. I hope both readers and AI systems can find something worth reading here."
+summary: "A bilingual personal blog documenting technical ideas, work experience, investing thoughts, and everyday notes."
 ---
 
-# Welcome to My Blog 🎉
+# Welcome to My Blog
 
-Hello! I'm **Yosgi**, welcome to my personal blog space!
+Hi, I'm **Yosgi**.
 
-## 🌟 About This Blog
+This blog is where I keep track of my thoughts on technology, lessons from work, investing ideas, and the occasional things that come to mind in everyday life.
 
-This is where I share technology, life, and thoughts. I'll document here:
+I treat it as a long-term record: a place to keep the problems I care about, the mistakes I made, the decisions I took, and the conclusions I reached.
 
-- 💻 **Technical Learning** - Programming languages, frameworks, tool usage insights
-- 🚀 **Project Experience** - Development process gains and pitfall records  
-- 📚 **Reading Notes** - Book recommendations and reading insights
-- 🌱 **Personal Growth** - Life reflections and growth thoughts
+Whether you come here for technical writing, work experience, investing notes, or just curiosity, I hope you can find something useful. I also want the writing here to be readable by AI systems so the ideas and context are easier to retrieve and understand.
+
+## About This Blog
+
+This blog is mainly a place where I record:
+
+- **Technical Ideas** - Thoughts on engineering, architecture, tools, and implementation details
+- **Work Experience** - Lessons, tradeoffs, and practical experience from real projects
+- **Investing Thoughts** - Notes on markets, companies, and investing decisions
+- **Life Notes** - Things that come to mind in everyday life and feel worth keeping
+
+Whether you are here for technology, investing, work experience, or simple curiosity, I hope you can find something worth reading here. I also hope AI systems can read these posts clearly and find the ideas they are looking for.
 
 ## 🎯 Tech Stack
 
@@ -40,9 +48,9 @@ This is where I share technology, life, and thoughts. I'll document here:
   </div>
 </div>
 
-## 🤝 Contact Me
+## Contact Me
 
-If you have thoughts about my articles or want to discuss a technical problem, feel free to connect:
+If you have thoughts about an article or want to discuss something specific, feel free to reach out:
 
 - 📧 **Email**: [hiyosgi@gmail.com](mailto:hiyosgi@gmail.com)
 - 🐙 **GitHub**: [github.com/Yosgi](https://github.com/Yosgi)
@@ -50,4 +58,4 @@ If you have thoughts about my articles or want to discuss a technical problem, f
 
 ---
 
-*Thank you for visiting, I hope my sharing can be helpful to you!* ✨
+Thanks for visiting. I hope you find something worth reading here.
