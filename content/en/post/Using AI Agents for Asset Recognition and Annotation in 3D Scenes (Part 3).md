@@ -1,7 +1,7 @@
 ---
 description: Making scan results land in the right place
 title: Using AI Agents for Asset Recognition and Annotation in 3D Scenes (Part 3)
-date: 2026-06-23 17:00:00
+date: 2026-06-23 14:00:00
 categories:
   - DigitalTwin
   - AI

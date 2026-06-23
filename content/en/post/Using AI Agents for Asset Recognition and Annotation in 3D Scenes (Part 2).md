@@ -1,6 +1,6 @@
 ---
 title: Using AI Agents for Asset Recognition and Annotation in 3D Scenes (Part 2)
-date: 2026-06-22 19:11:11
+date: 2026-06-20 19:11:11
 description: How we split 2D detection and 3D verification into two stages to reduce false positives in digital twin asset annotation, and how that revealed the next recall bottleneck
 categories:
   - DigitalTwin
