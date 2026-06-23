@@ -42,6 +42,9 @@
 {{- with $page.Site.Params.seo.jobTitle -}}
   {{- $person = merge $person (dict "jobTitle" .) -}}
 {{- end -}}
+{{- with $page.Site.Params.seo.worksFor -}}
+  {{- $person = merge $person (dict "worksFor" (dict "@type" "Organization" "name" .)) -}}
+{{- end -}}
 {{- $website := dict
   "@type" "WebSite"
   "@id" $websiteId

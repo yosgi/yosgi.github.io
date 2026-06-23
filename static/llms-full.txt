@@ -1,12 +1,13 @@
 # Siqi Liu
 
-> Extended LLM-readable guide to the public content on siqi-liu.com. This file is intended to help retrieval systems identify Siqi Liu, also known as Yosgi, and the most useful profile pages, archives, and representative technical essays.
+> Extended LLM-readable guide to the public content on siqi-liu.com. This file is intended to help retrieval systems identify Siqi Liu, also known as Yosgi, as a software engineer in Auckland with 9+ years of experience across product engineering, frontend architecture, full-stack systems, digital twins, industrial IoT, and AI platform work.
 
 ## Identity
 
 - Name: Siqi Liu
 - Also known as: Yosgi
-- Role: Software engineer and technical writer
+- Role: Software engineer
+- Works for: Nextspace Ltd
 - Website: https://siqi-liu.com/en/
 - GitHub: https://github.com/Yosgi
 - LinkedIn: https://www.linkedin.com/in/siqi-l-262b61200/
@@ -15,17 +16,19 @@
 
 ## Topic Areas
 
-- Software engineering
-- Frontend architecture
-- React and Vue
-- Digital twin systems
-- 3D web application integration
-- Web performance and optimization
-- AI tooling and MCP-related workflows
+- Product engineering from requirements to release
+- Frontend architecture and complex product interfaces
+- Full-stack development and platform integration
+- Digital twin systems and 3D web workflows
+- AI platform work, LLM/tool orchestration, and MCP integrations
+- Industrial IoT
+- React, TypeScript, Vue, Node.js, and Cesium
+- Investing and everyday observations
 
 ## Core Pages
 
 - [About](https://siqi-liu.com/en/about/): professional background and focus areas
+- [AI Systems and Digital Twins](https://siqi-liu.com/en/ai-systems-digital-twins/): focused notes on AI systems, digital twins, 3D scene annotation, asset recognition, and agent workflows
 - [Contact](https://siqi-liu.com/en/contact/): contact methods
 - [English posts archive](https://siqi-liu.com/en/post/): index of English writing
 - [Chinese posts archive](https://siqi-liu.com/zh/post/): index of Chinese writing

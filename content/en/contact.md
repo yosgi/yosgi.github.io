@@ -2,11 +2,11 @@
 title: "Contact Me"
 date: 2024-01-01T00:00:00+08:00
 draft: false
-description: "Contact Siqi Liu for engineering discussions, collaboration, technical writing, and digital twin or AI systems work."
+description: "Contact Siqi Liu for engineering discussions, product systems, collaboration, digital twin or AI platform work, investing, and everyday ideas."
 summary: "Contact page for Siqi Liu, with direct links for email, GitHub, and LinkedIn."
 ---
 
-I'm delighted that you'd like to connect with me! Whether it's technical discussions, collaboration opportunities, or just a simple greeting, I welcome all forms of communication.
+If you want to discuss engineering, product systems, collaboration, digital twin or AI platform work, investing, or everyday ideas, feel free to reach out.
 
 ## Contact Information
 
@@ -21,11 +21,11 @@ I'm delighted that you'd like to connect with me! Whether it's technical discuss
 
 ## Topics I'm Interested In
 
-- 🚀 Exploring new technologies
-- 💡 Open source projects
-- 📖 Technical writing
-- 🏗️ Digital twin systems and frontend architecture
-- 🌱 Personal growth
+- 🚀 Software engineering and product systems
+- 💡 Frontend architecture and full-stack work
+- 🏗️ Digital twin systems and AI platform work
+- 📈 Investing and long-term thinking
+- 🌱 Everyday observations and personal growth
 
 ## Response Time
 
@@ -37,4 +37,4 @@ I try to respond to messages within 24-48 hours. If I don't reply promptly, it m
 
 If you don't hear back within 3 days, please try other contact methods.
 
-Looking forward to connecting with you!
+Looking forward to connecting.

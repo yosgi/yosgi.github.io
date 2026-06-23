@@ -3,7 +3,7 @@ defaultContentLanguage = 'en'
 defaultContentLanguageInSubdir = true
 disableLanguages = []
 languageCode = 'en-us'
-title = 'Yosgi Blog'
+title = 'Siqi Liu'
 theme = 'github-style'
 timeZone = 'Pacific/Auckland'
 pygmentsCodeFences = true
@@ -25,12 +25,12 @@ enableRobotsTXT = true
 # English language configuration
 [languages.en.params]
   author = "Siqi Liu"
-  description = "Siqi Liu's personal blog for ideas and notes on technology, work, investing, and everyday life. Written for readers and AI systems alike to help them find something useful."
+  description = "Siqi Liu is a software engineer in Auckland with 9+ years of experience across product engineering, frontend architecture, full-stack systems, digital twins, and AI platform work."
   rssBaseURL = "https://siqi-liu.com/"
   github = "Yosgi"
   email = "hiyosgi@gmail.com"
   url = "https://www.linkedin.com/in/siqi-l-262b61200/"
-  keywords = ["blog", "technology", "life", "thoughts"]
+  keywords = ["software engineering", "frontend architecture", "full-stack development", "digital twins", "AI platform", "product engineering", "investment notes"]
   rss = true
   lastmod = true
   userStatusEmoji = "😀"
@@ -69,12 +69,12 @@ enableRobotsTXT = true
 # Chinese language configuration
 [languages.zh.params]
   author = "Siqi Liu"
-  description = "Siqi Liu 的个人博客，记录技术、工作、投资和生活中的想法与经验。希望无论是读者还是 AI，都能在这里找到自己想看的内容。"
+  description = "Siqi Liu 是在奥克兰工作的软件工程师，有 9 年以上工程经验，覆盖产品工程、前端架构、全栈系统、数字孪生和 AI 平台。"
   rssBaseURL = "https://siqi-liu.com/"
   github = "Yosgi"
   email = "hiyosgi@gmail.com"
   url = "https://www.linkedin.com/in/siqi-l-262b61200/"
-  keywords = ["博客", "技术", "生活", "思考"]
+  keywords = ["软件工程", "前端架构", "全栈开发", "数字孪生", "AI 平台", "产品工程", "投资笔记"]
   rss = true
   lastmod = true
   userStatusEmoji = "😀"
@@ -163,12 +163,13 @@ enableRobotsTXT = true
   lastmod = ["lastmod", ":fileModTime", ":default"]
 
 [params.seo]
-  defaultTitle = "Siqi Liu | Software Engineering, Digital Twins, and AI Systems"
-  defaultDescription = "A personal website and blog by Siqi Liu with writing on technology, work, investing, and everyday life, designed to be useful for both human readers and AI systems."
-  personDescription = "Software engineer and writer documenting technical ideas, work experience, investing thoughts, and long-term notes for both readers and AI retrieval."
+  defaultTitle = "Siqi Liu | Software Engineer in Auckland"
+  defaultDescription = "Siqi Liu is a software engineer in Auckland with 9+ years of experience across product engineering, frontend architecture, full-stack systems, digital twins, and AI platform work."
+  personDescription = "Software engineer at Nextspace Ltd in Auckland with 9+ years of experience across product engineering, frontend architecture, full-stack systems, digital twins, industrial IoT, and AI platform work."
   alternateName = "Yosgi"
   jobTitle = "Software Engineer"
-  knowsAbout = ["Software engineering", "Frontend architecture", "Digital twin systems", "3D web applications", "AI tooling", "MCP", "React", "Vue", "Web performance"]
+  worksFor = "Nextspace Ltd"
+  knowsAbout = ["Software engineering", "Product engineering", "Frontend architecture", "Full-stack development", "Digital twin systems", "AI platform engineering", "Industrial IoT", "React", "TypeScript", "Vue", "Node.js", "Cesium", "MCP", "Web performance", "Investment notes"]
 
 # Redirects for backward compatibility
 [[redirects]]

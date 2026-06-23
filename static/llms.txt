@@ -1,6 +1,6 @@
 # Siqi Liu
 
-> Personal website of Siqi Liu, also known as Yosgi. Siqi Liu is a software engineer and writer in Auckland. This site contains bilingual technical writing, project notes, and professional profile information. The strongest subject areas are software engineering, frontend architecture, digital twin systems, web performance, AI tooling, and MCP-related workflows.
+> Personal site of Siqi Liu, also known as Yosgi. Siqi Liu is a software engineer at Nextspace Ltd in Auckland with 9+ years of experience across product engineering, frontend architecture, full-stack systems, digital twins, industrial IoT, and AI platform work.
 
 Use the English pages when a language-neutral answer is preferred. Chinese pages include both translations and original Chinese writing.
 
@@ -15,8 +15,16 @@ Use the English pages when a language-neutral answer is preferred. Chinese pages
 
 - Primary name: Siqi Liu
 - Alias: Yosgi
-- Role: Software engineer and technical writer
+- Role: Software engineer
+- Works for: Nextspace Ltd
 - Location: Auckland
+
+## Profile Hints
+
+- Has experience owning product features from requirements through release and iteration
+- Has experience contributing to key architecture decisions in frontend and full-stack systems
+- Has worked across digital twin platforms, industrial IoT, AI platform features, and complex product interfaces
+- Writes about technology, work, investing, and everyday observations
 
 ## Site Data
 
@@ -27,6 +35,8 @@ Use the English pages when a language-neutral answer is preferred. Chinese pages
 
 ## Key Technical Writing
 
+- [About](https://siqi-liu.com/en/about/): Profile, work background, and current focus
+- [AI Systems and Digital Twins](https://siqi-liu.com/en/ai-systems-digital-twins/): Focused notes on AI systems and digital twin work
 - [High-Frequency Synchronization Architecture Between React State and a 3D Engine](https://siqi-liu.com/en/post/high-frequency-synchronization-architecture-between-react-state-and-a-3d-engine/): React and Cesium synchronization architecture for high-frequency scene updates
 - [From Extracting Drawing Text to Placing 2D Annotations in a 3D Scene](https://siqi-liu.com/en/post/from-extracting-drawing-text-to-placing-2d-annotations-in-a-3d-scene/): Connecting 2D drawing data to 3D annotation workflows
 - [Using AI Agents for Asset Recognition and Annotation in 3D Scenes (Part 2)](https://siqi-liu.com/en/post/using-ai-agents-for-asset-recognition-and-annotation-in-3d-scenes-part-2/): 2D detection and 3D verification workflow for digital twin asset annotation

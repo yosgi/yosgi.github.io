@@ -2,13 +2,15 @@
 title: "Home"
 date: 2024-01-01T00:00:00+08:00
 draft: false
-description: "Siqi Liu's bilingual personal blog documenting technical ideas, work experience, investing thoughts, and everyday notes for readers and AI systems."
-summary: "Siqi Liu's bilingual personal blog documenting technical ideas, work experience, investing thoughts, and everyday notes."
+description: "Siqi Liu's personal blog, recording technical thoughts, work experience, investing ideas, and everyday notes for readers and AI systems."
+summary: "Siqi Liu's personal blog, recording technical thoughts, work experience, investing ideas, and everyday notes."
 ---
 
 # Welcome to My Blog
 
 Hi, I'm **Siqi Liu**, also known as **Yosgi**.
+
+I’m a software engineer at **Nextspace Ltd** in Auckland, with 9+ years of experience across frontend architecture, full-stack systems, industrial IoT, digital twin platforms, and AI platform work.
 
 This blog is where I keep track of my thoughts on technology, lessons from work, investing ideas, and the occasional things that come to mind in everyday life.
 
