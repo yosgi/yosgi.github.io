@@ -3,10 +3,13 @@ draft: false
 original: content/zh/post/1893-检查是否区域内所有整数都被覆盖.md
 title: 1893-Check if all integers in the region are covered
 description: null
-categories:
-- leetcode
 date: 2021-07-23 00:00:00
 summary: ""
+categories:
+  - Algorithms
+tags:
+  - Algorithms
+  - LeetCode
 ---
 
 I didn't think of any good way to get it, so I used brute force to solve it first.

@@ -3,13 +3,13 @@ draft: false
 original: content/zh/post/legacy/Web安全浅述.md
 title: A Brief Introduction to Web Security
 description: Web security related content
-categories:
-- Frontend
-tags:
-- Frontend
-- JavaScript
 date: 2018-07-05 10:05:36
 summary: ''
+categories:
+  - Web Development
+tags:
+  - Engineering
+  - JavaScript
 ---
 
 ![image](/images/web-security-overview/img1.png)

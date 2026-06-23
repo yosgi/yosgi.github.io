@@ -1,13 +1,14 @@
 ---
 title: proxy
 description: 《ES6标准入门》 知识点整理
+date: 2018-05-18 09:59:26
+summary: ""
 categories:
   - JavaScript
 tags:
+  - Engineering
   - JavaScript
-  - JavaScript
-date: 2018-05-18 09:59:26
-summary: ""
+  - Design Pattern
 ---
 ### 概述 
 

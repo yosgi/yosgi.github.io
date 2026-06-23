@@ -4,9 +4,13 @@ description: "A synchronization paradigm for massive real-time data: a middle
   layer isolates high-frequency data sources, and React consumes only the linear
   projection of the visible viewport."
 categories:
-  - Optimization
-  - Technology
-date: 2025-10-01 00:00:00
+  - Digital Twin
+tags:
+  - Engineering
+  - React
+  - Digital Twins
+  - 3D
+date: 2026-01-31 23:42:31
 ---
 
 We’re used to the data-driven UI mindset in traditional React development: when state changes, the UI changes.

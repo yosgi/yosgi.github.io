@@ -3,10 +3,16 @@ draft: false
 original: content/zh/post/关于二叉树的总结.md
 title: Summary of Binary Trees
 description: null
-categories:
-- leetcode
 date: 2021-02-28 00:00:00
 summary: ""
+categories:
+  - Algorithms
+tags:
+  - Algorithms
+  - LeetCode
+  - Binary Tree
+  - Engineering
+  - JavaScript
 ---
 
 When traversing a binary tree in front, middle, or post-order, we use a stack to simplify operations. This is because they are all recursive structures of DFS, which means processing from bottom to top. However, I always start writing code from the root node, so I need a stack, and the stack is first-in-first-out. This way, I can process the root node last.

@@ -4,12 +4,12 @@ original: content/zh/post/legacy/函数的拓展.md
 title: Function extension
 date: 2018-04-12
 description: '"ES6 Standard Introduction" Knowledge Points Summary'
-categories:
-- JavaScript
-tags:
-- JavaScript
-- JavaScript
 summary: ''
+categories:
+  - JavaScript
+tags:
+  - Engineering
+  - JavaScript
 ---
 
 ### Function Extension

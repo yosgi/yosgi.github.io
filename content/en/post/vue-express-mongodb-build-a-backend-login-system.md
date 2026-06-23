@@ -5,12 +5,13 @@ title: Vue + express + mongodb build a backend login system
 description: Keywords nodejs vue express mongodb
 summary: ''
 categories:
-- frontend
+  - Product Engineering
 tags:
-- Vue
-- Node.js
-- Database
-date: 2018-12-13 18:15:10
+  - Engineering
+  - Vue
+  - Node.js
+  - MongoDB
+date: 2021-01-29 17:44:40
 ---
 
 #### What you need to prepare

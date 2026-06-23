@@ -1,13 +1,14 @@
 ---
 title: Js单例模式
 description: 《Javascript设计模式》 知识点整理
+date: 2018-04-13 20:06:30
+summary: ""
 categories:
   - JavaScript
 tags:
+  - Engineering
   - JavaScript
-  - Design Patterns
-date: 2018-04-13 20:06:30
-summary: ""
+  - Design Pattern
 ---
 ### 单例模式 
 #### 简单的单例模式实现

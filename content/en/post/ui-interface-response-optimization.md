@@ -3,13 +3,14 @@ draft: false
 original: content/zh/post/legacy/快速响应的用户界面.md
 title: UI interface response optimization
 description: High Performance Javascript Knowledge Points
-categories:
-- JavaScript
-- JavaScript
-tags:
-- JavaScript
 date: 2018-11-22 16:55:21
 summary: ''
+categories:
+  - Web Performance
+tags:
+  - Engineering
+  - JavaScript
+  - Performance Optimization
 ---
 
 #### How to understand that Javascript is single-threaded and browsers are multi-threaded?

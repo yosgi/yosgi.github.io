@@ -3,12 +3,13 @@ draft: false
 original: content/zh/post/legacy/Javascript深拷贝实现.md
 title: Javascript deep copy implementation
 description: Javascript Basics
-categories:
-- JavaScript
-tags:
-- JavaScript
 date: 2018-06-26 17:01:50
 summary: ''
+categories:
+  - JavaScript
+tags:
+  - Engineering
+  - JavaScript
 ---
 
 #### How to implement deep copy

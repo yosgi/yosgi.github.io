@@ -3,10 +3,14 @@ draft: false
 original: content/zh/post/215-数组中的第K个最大元素.md
 title: 215. Kth Largest Element in an Array
 description: null
-categories:
-- leetcode
 date: 2021-02-25 00:00:00
 summary: ""
+categories:
+  - Algorithms
+tags:
+  - Algorithms
+  - LeetCode
+  - Array
 ---
 
 30min

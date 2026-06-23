@@ -3,13 +3,13 @@ draft: false
 original: content/zh/post/legacy/promise.md
 title: promise
 description: '"ES6 Standard Introduction" Knowledge Points Summary'
-categories:
-- JavaScript
-tags:
-- JavaScript
-- JavaScript
 date: 2018-06-27 13:18:47
 summary: ''
+categories:
+  - JavaScript
+tags:
+  - Engineering
+  - JavaScript
 ---
 
 ![image](/images/promise/img1.png)

@@ -4,12 +4,12 @@ original: content/zh/post/legacy/对象的拓展.md
 title: Object Expansion
 date: 2018-04-24
 description: '"ES6 Standard Introduction" Knowledge Points Summary'
-categories:
-- JavaScript
-tags:
-- JavaScript
-- JavaScript
 summary: ''
+categories:
+  - JavaScript
+tags:
+  - Engineering
+  - JavaScript
 ---
 
 ### Object Extensions

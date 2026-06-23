@@ -1,10 +1,13 @@
 ---
 title: Hexo 升级到 5
 description: 填坑日记
-categories:
-  - Life
 date: 2020-12-11 12:37:55
 summary: ""
+categories:
+  - Projects
+tags:
+  - Engineering
+  - JavaScript
 ---
 
 一年多没有更新博客，拉下来 `hexo s` 发现生成的页面是空白的，并且也没有报错

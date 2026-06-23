@@ -3,13 +3,15 @@ draft: false
 original: content/zh/post/legacy/正则表达式性能优化.md
 title: Regular expression performance optimization
 description: High Performance Javascript Knowledge Points
-categories:
-- JavaScript
-- JavaScript
-tags:
-- JavaScript
 date: 2018-11-06 15:48:14
 summary: ''
+categories:
+  - Web Performance
+tags:
+  - Engineering
+  - JavaScript
+  - Node.js
+  - Performance Optimization
 ---
 
 #### How to understand backtracking? What is backtracking out of control?

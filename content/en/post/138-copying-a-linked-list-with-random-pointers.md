@@ -3,10 +3,16 @@ draft: false
 original: content/zh/post/138-复制带随机指针的链表.md
 title: 138-Copying a linked list with random pointers
 description: null
-categories:
-- leetcode
 date: 2021-07-22 00:00:00
 summary: ""
+categories:
+  - Algorithms
+tags:
+  - Algorithms
+  - LeetCode
+  - Linked List
+  - Engineering
+  - JavaScript
 ---
 
 The idea behind the question is to use double pointers to point to the old and new nodes, and then add a map to map the old and new nodes.

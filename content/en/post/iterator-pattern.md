@@ -3,13 +3,14 @@ draft: false
 original: content/zh/post/legacy/迭代器模式.md
 title: Iterator pattern
 description: Javascript Design Patterns Knowledge Points
-categories:
-- JavaScript
-tags:
-- JavaScript
-- Design Patterns
 date: 2018-04-20 09:41:05
 summary: ''
+categories:
+  - JavaScript
+tags:
+  - Engineering
+  - JavaScript
+  - Design Pattern
 ---
 
 ### Iterator Pattern

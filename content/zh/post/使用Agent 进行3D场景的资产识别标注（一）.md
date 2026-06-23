@@ -3,8 +3,12 @@ title: 使用Agent 进行3D场景的资产识别标注（一）
 date: 2026-06-19 09:46:11
 description: 如何把 3D 自由探索改成可度量的覆盖扫描，并将数字孪生工厂中的阀门盘点召回率从约 40% 提升到约 90%
 categories:
-  - DigitalTwin
-  - Ai
+  - Digital Twin
+tags:
+  - AI Systems
+  - AI Agents
+  - Digital Twins
+  - 3D
 ---
 我们最开始的需求是：在一个 3D 数字孪生工厂里，找出所有阀门，并把它们标出来。
 

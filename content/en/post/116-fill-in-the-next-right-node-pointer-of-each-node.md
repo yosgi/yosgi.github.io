@@ -3,10 +3,17 @@ draft: false
 original: content/zh/post/116-填充每个节点的下一个右侧节点指针.md
 title: 116-Fill in the next right node pointer of each node
 description: null
-categories:
-- leetcode
 date: 2021-03-10 00:00:00
 summary: ""
+categories:
+  - Algorithms
+tags:
+  - Algorithms
+  - LeetCode
+  - Binary Tree
+  - Engineering
+  - JavaScript
+  - Node.js
 ---
 
 Time: 25 minutes

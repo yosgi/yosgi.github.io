@@ -3,13 +3,13 @@ draft: false
 original: content/zh/post/legacy/vue易错易混知识点整理.md
 title: Summary of Vue's easy-to-error and easy-to-confuse knowledge points
 description: <ES6 Standard Introduction> Knowledge Points Summary
-categories:
-- frontend
-tags:
-- JavaScript
-- Vue
 date: 2018-09-10 18:30:10
 summary: ''
+categories:
+  - Frontend
+tags:
+  - Engineering
+  - Vue
 ---
 
 #### What is MVVM? How does it differ from MVC?

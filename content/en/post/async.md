@@ -3,13 +3,13 @@ draft: false
 original: content/zh/post/legacy/async.md
 title: async
 description: '"ES6 Standard Introduction" Knowledge Points Summary'
-categories:
-- JavaScript
-tags:
-- JavaScript
-- JavaScript
 date: 2018-07-11 14:47:05
 summary: ''
+categories:
+  - JavaScript
+tags:
+  - Engineering
+  - JavaScript
 ---
 
 #### Usage

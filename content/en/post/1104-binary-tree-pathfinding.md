@@ -3,10 +3,14 @@ draft: false
 original: content/zh/post/1104-二叉树寻路.md
 title: 1104-Binary Tree Pathfinding
 description: null
-categories:
-- leetcode
 date: 2021-07-29 00:00:00
 summary: ""
+categories:
+  - Algorithms
+tags:
+  - Algorithms
+  - LeetCode
+  - Binary Tree
 ---
 
 The first thing I thought of was to construct a binary tree, and then use the symmetric relationship of each layer to find the parent node

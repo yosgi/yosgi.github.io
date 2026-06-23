@@ -3,10 +3,13 @@ draft: false
 original: content/zh/post/legacy/Hexo 升级到 5.md
 title: Hexo upgraded to 5
 description: Filling Diary
-categories:
-- Life
 date: 2020-12-11 12:37:55
 summary: ''
+categories:
+  - Projects
+tags:
+  - Engineering
+  - JavaScript
 ---
 
 I haven't updated my blog for more than a year. I pulled down `hexo s` and found that the generated page was blank and there was no error.

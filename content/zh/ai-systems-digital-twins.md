@@ -4,18 +4,6 @@ date: 2024-01-01T00:00:00+08:00
 draft: false
 description: "Siqi Liu 关于数字孪生、3D Web 应用、AI 辅助工作流、Cesium、Agent 工具和前端架构的集中记录。"
 summary: "关于数字孪生、3D Web 应用、AI 辅助工作流、Cesium、Agent 工具和前端架构的集中入口。"
-categories:
-  - DigitalTwin
-  - AI
-  - Engineering
-tags:
-  - AI Systems
-  - Digital Twin
-  - 3D Web
-  - Asset Recognition
-  - Cesium
-  - AI Agents
-  - MCP
 ---
 
 ## 关注点

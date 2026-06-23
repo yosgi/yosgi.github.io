@@ -2,10 +2,11 @@
 title: An MCP-as-Code Refactor, and Why It Did Not Work the Way I Expected
 description: A real-world MCP-as-Code refactor on where Code helps, where Tool still fits better, and why Agent runtime needs both.
 categories:
-  - Technology
-  - Ai
-date: 2025-12-18 00:00:00
-readingTime: 8
+  - AI Engineering
+tags:
+  - AI Systems
+  - MCP
+date: 2026-05-25 14:50:20
 ---
 When I first started building this system, I had a very direct goal:
 

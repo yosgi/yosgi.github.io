@@ -2,8 +2,12 @@
 title: "[DevLog #01]为了云养猫，我决定从零写一个 Web 小游戏（day 1"
 description: Tiled 地图绘制与优化
 categories:
-  - Technology
-date: 2025-12-11 00:00:00
+  - Projects
+tags:
+  - Engineering
+  - JavaScript
+  - Game Development
+date: 2026-01-29 17:44:40
 draft: true
 ---
 

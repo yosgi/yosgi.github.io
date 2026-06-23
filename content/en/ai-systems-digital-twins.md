@@ -4,18 +4,6 @@ date: 2024-01-01T00:00:00+08:00
 draft: false
 description: "Focused notes from Siqi Liu's work around digital twins, 3D web applications, AI-assisted workflows, Cesium, agent tooling, and frontend architecture."
 summary: "A focused entry point for notes around digital twins, 3D web applications, AI-assisted workflows, Cesium, agent tooling, and frontend architecture."
-categories:
-  - DigitalTwin
-  - AI
-  - Engineering
-tags:
-  - AI Systems
-  - Digital Twin
-  - 3D Web
-  - Asset Recognition
-  - Cesium
-  - AI Agents
-  - MCP
 ---
 
 ## Focus

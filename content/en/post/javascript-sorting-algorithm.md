@@ -3,13 +3,16 @@ draft: false
 original: content/zh/post/legacy/Javascript排序算法.md
 title: Javascript sorting algorithm
 description: Javascript algorithm sorting algorithm
-categories:
-- JavaScript
-tags:
-- JavaScript
-- JavaScript
 date: 2018-06-25 18:48:42
 summary: ''
+categories:
+  - JavaScript
+tags:
+  - Algorithms
+  - LeetCode
+  - Sorting
+  - Engineering
+  - JavaScript
 ---
 
 ## Bubble Sort

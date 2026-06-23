@@ -2,8 +2,13 @@
 title: Beyond Systems
 description: Building a Personal Digital Twin
 categories:
-  - Technology
-date: 2025-10-28 00:00:00
+  - Life
+tags:
+  - Engineering
+  - JavaScript
+  - Digital Twins
+  - 3D
+date: 2026-02-01 00:03:08
 draft: true
 ---
 

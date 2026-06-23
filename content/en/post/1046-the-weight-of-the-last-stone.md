@@ -3,10 +3,13 @@ draft: false
 original: content/zh/post/1046-最后一块石头的重量.md
 title: 1046-The Weight of the Last Stone
 description: null
-categories:
-- leetcode
 date: 2021-03-21 00:00:00
 summary: ""
+categories:
+  - Algorithms
+tags:
+  - Algorithms
+  - LeetCode
 ---
 
 Time: 10 minutes

@@ -3,10 +3,14 @@ draft: false
 original: content/zh/post/105-从前序遍历与中序遍历序列构造二叉树-1.md
 title: 105-Constructing a binary tree from pre-order and in-order traversal sequences-1
 description: null
-categories:
-- leetcode
 date: 2021-01-27 00:00:00
 summary: ""
+categories:
+  - Algorithms
+tags:
+  - Algorithms
+  - LeetCode
+  - Binary Tree
 ---
 
 Time: 40 minutes

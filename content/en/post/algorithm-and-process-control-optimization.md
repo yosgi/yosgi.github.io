@@ -3,13 +3,14 @@ draft: false
 original: content/zh/post/legacy/算法和流程控制优化.md
 title: Algorithm and process control optimization
 description: High Performance Javascript Knowledge Points
-categories:
-- JavaScript
-- JavaScript
-tags:
-- JavaScript
 date: 2018-10-25 14:33:59
 summary: ''
+categories:
+  - Web Performance
+tags:
+  - Engineering
+  - JavaScript
+  - Performance Optimization
 ---
 
 #### Performance comparison of for, while, and do-while loops. How can I improve them?

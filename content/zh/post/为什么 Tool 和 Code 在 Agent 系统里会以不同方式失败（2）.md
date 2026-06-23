@@ -2,10 +2,11 @@
 title: 为什么 Tool 和 Code 在 Agent 系统里会以不同方式失败（2）
 description: Tool 和 Code 不只是表达能力不同，它们也会在不同时间失败。本文解释为什么多轮 Agent 系统会放大这种差异。
 categories:
-  - Technology
-  - Ai
-date: 2025-12-27 00:00:00
-readingTime: 15
+  - AI Engineering
+tags:
+  - AI Systems
+  - AI Agents
+date: 2026-05-25 14:50:20
 ---
 
 上一篇里，我写了一次 MCP-as-Code 的重构尝试。

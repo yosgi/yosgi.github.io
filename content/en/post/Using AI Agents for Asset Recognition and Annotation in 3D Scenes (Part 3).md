@@ -1,10 +1,14 @@
 ---
-description: Making scan results land in the right place
 title: Using AI Agents for Asset Recognition and Annotation in 3D Scenes (Part 3)
-date: 2026-06-23 14:00:00
+date: 2026-06-21 10:00:00
+description: Making scan results land in the right place
 categories:
-  - DigitalTwin
-  - AI
+  - Digital Twin
+tags:
+  - AI Systems
+  - AI Agents
+  - Digital Twins
+  - 3D
 ---
 
 Coverage scanning solved the question of where to look. 2D detection and 3D verification solved the question of how to judge what was found. In practice, there is another problem that is easy to underestimate: the model detects a position in a screenshot, but the final annotation needs to be created accurately in the 3D scene.

@@ -3,10 +3,13 @@ draft: false
 original: content/zh/post/面试题-17-14-最小K个数.md
 title: Interview Question-17-14-Minimum Number of K
 description: null
-categories:
-- leetcode
 date: 2021-04-08 00:00:00
 summary: ""
+categories:
+  - Algorithms
+tags:
+  - Algorithms
+  - LeetCode
 ---
 
 Time: 10 minutes

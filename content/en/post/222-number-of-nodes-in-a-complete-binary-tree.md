@@ -3,10 +3,17 @@ draft: false
 original: content/zh/post/222-完全二叉树的节点个数.md
 title: 222-Number of nodes in a complete binary tree
 description: null
-categories:
-- leetcode
 date: 2021-03-13 00:00:00
 summary: ""
+categories:
+  - Algorithms
+tags:
+  - Algorithms
+  - LeetCode
+  - Binary Tree
+  - Engineering
+  - JavaScript
+  - Node.js
 ---
 
 Time: 80 minutes

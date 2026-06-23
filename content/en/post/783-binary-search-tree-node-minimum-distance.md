@@ -3,10 +3,18 @@ draft: false
 original: content/zh/post/783-二叉搜索树节点最小距离.md
 title: 783-Binary Search Tree Node Minimum Distance
 description: null
-categories:
-- leetcode
 date: 2021-03-18 00:00:00
 summary: ""
+categories:
+  - Algorithms
+tags:
+  - Algorithms
+  - LeetCode
+  - Binary Tree
+  - Binary Search Tree
+  - Engineering
+  - JavaScript
+  - Node.js
 ---
 
 Time: 10 minutes

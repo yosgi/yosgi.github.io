@@ -2,10 +2,11 @@
 title: Early Experiences with Building MCP Tools
 description: How  Cut 6,000 Tokens Down to 500
 categories:
-  - Technology
-  - Ai
-date: 2025-07-01 00:00:00
-readingTime: 4
+  - AI Engineering
+tags:
+  - AI Systems
+  - MCP
+date: 2026-01-29 17:45:36
 ---
 
 When building MCP , one of the biggest challenges we faced was token consumption. Our initial setup was incredibly heavy — before the model even said a single word, we were already using thousands of tokens.

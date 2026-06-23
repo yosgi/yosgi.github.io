@@ -3,10 +3,14 @@ draft: false
 original: content/zh/post/反转链表2.md
 title: Reverse Linked List 2
 description: 
-categories:
-- leetcode
 date: 2021-07-23 00:00:00
 summary: 
+categories:
+  - Algorithms
+tags:
+  - Algorithms
+  - LeetCode
+  - Linked List
 ---
 
 Considering that the head may also be reversed, a dummy head is needed.

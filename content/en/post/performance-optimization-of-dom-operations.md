@@ -3,13 +3,14 @@ draft: false
 original: content/zh/post/legacy/DOM操作的性能优化.md
 title: Performance optimization of DOM operations
 description: High Performance Javascript Knowledge Points
-categories:
-- JavaScript
-- JavaScript
-tags:
-- JavaScript
 date: 2018-09-12 15:09:33
 summary: ''
+categories:
+  - Web Performance
+tags:
+  - Engineering
+  - JavaScript
+  - Performance Optimization
 ---
 
 #### Why is DOM slow?

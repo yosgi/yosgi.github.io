@@ -4,9 +4,12 @@ description: |-
   
   这场争论，已经太熟悉了
 categories:
-  - Life
-  - Ai
-date: 2026-05-19 00:00:00
+  - AI Engineering
+tags:
+  - Engineering
+  - JavaScript
+  - AI Systems
+date: 2026-05-21 23:28:56
 ---
 
 # 

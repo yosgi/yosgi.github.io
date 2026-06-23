@@ -2,9 +2,11 @@
 title: Your Agent Is Not Inconsistent Because It Is Dumb. It Just Has Too Many Tool Paths.
 description: Multi-tool agents become unreliable when the same task takes different tool paths each time. This article explains why Skills should preserve validated execution paths, not one-off results, and why those Skills need to evolve over time.
 categories:
-  - Technology
-  - Ai
-date: 2026-05-07 00:00:00
+  - AI Engineering
+tags:
+  - AI Systems
+  - AI Agents
+date: 2026-05-21 18:20:04
 ---
 
 ## 

@@ -3,10 +3,13 @@ draft: false
 original: content/zh/post/875-爱吃香蕉的珂珂.md
 title: 875-Keke who loves bananas
 description: null
-categories:
-- leetcode
 date: 2021-04-28 00:00:00
 summary: ""
+categories:
+  - Algorithms
+tags:
+  - Algorithms
+  - LeetCode
 ---
 
 Time: 60 minutes

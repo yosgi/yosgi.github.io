@@ -2,10 +2,11 @@
 title: 一次 MCP-as-Code 的重构尝试，以及它为什么没有按预想工作( 1 )
 description: 一次 MCP-as-Code 重构复盘：它缓解了上下文压力，但也放大了交互场景中的延迟和运行时失败成本。
 categories:
-  - Technology
-  - Ai
-date: 2025-12-18 00:00:00
-readingTime: 8
+  - AI Engineering
+tags:
+  - AI Systems
+  - MCP
+date: 2026-05-25 14:50:20
 ---
 最开始做这个系统时，我其实有一个很直接的目标：
 

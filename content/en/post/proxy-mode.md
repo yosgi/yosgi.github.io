@@ -3,13 +3,14 @@ draft: false
 original: content/zh/post/legacy/代理模式.md
 title: Proxy Mode
 description: Javascript Design Patterns Knowledge Points
-categories:
-- JavaScript
-tags:
-- JavaScript
-- Design Patterns
 date: 2018-04-19 09:46:11
 summary: ''
+categories:
+  - JavaScript
+tags:
+  - Engineering
+  - JavaScript
+  - Design Pattern
 ---
 
 #### Proxy Mode

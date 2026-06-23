@@ -1,13 +1,14 @@
 ---
 title: UI界面响应优化
 description: 《高性能Javascript》 知识点整理
-categories:
-  - JavaScript
-  - JavaScript
-tags:
-  - JavaScript
 date: 2018-11-22 16:55:21
 summary: ""
+categories:
+  - Web Performance
+tags:
+  - Engineering
+  - JavaScript
+  - Performance Optimization
 ---
 #### 怎么理解Javascript是单线程，浏览器是多线程?
 

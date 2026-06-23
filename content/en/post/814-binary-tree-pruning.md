@@ -3,10 +3,14 @@ draft: false
 original: content/zh/post/814-二叉树剪枝.md
 title: 814-Binary Tree Pruning
 description: null
-categories:
-- leetcode
 date: 2021-03-17 00:00:00
 summary: ""
+categories:
+  - Algorithms
+tags:
+  - Algorithms
+  - LeetCode
+  - Binary Tree
 ---
 
 Time: 6 minutes

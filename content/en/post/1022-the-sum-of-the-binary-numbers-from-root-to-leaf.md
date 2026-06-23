@@ -3,10 +3,14 @@ draft: false
 original: content/zh/post/1022-从根到叶的二进制数之和.md
 title: 1022 - the sum of the binary numbers from root to leaf
 description: null
-categories:
-- leetcode
 date: 2021-03-17 00:00:00
 summary: ""
+categories:
+  - Algorithms
+tags:
+  - Algorithms
+  - LeetCode
+  - Binary Tree
 ---
 
 Time: 10 minutes

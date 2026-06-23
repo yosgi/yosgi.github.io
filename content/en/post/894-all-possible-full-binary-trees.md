@@ -3,10 +3,14 @@ draft: false
 original: content/zh/post/894-所有可能的满二叉树.md
 title: 894-All possible full binary trees
 description: null
-categories:
-- leetcode
 date: 2021-03-07 00:00:00
 summary: ""
+categories:
+  - Algorithms
+tags:
+  - Algorithms
+  - LeetCode
+  - Binary Tree
 ---
 
 Time: I copied the answers and finished it.

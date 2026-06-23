@@ -3,10 +3,17 @@ draft: false
 original: content/zh/post/865-具有所有最深节点的最小子树.md
 title: 865 - Minimum subtree with all deepest nodes
 description: null
-categories:
-- leetcode
 date: 2021-03-21 00:00:00
 summary: ""
+categories:
+  - Algorithms
+tags:
+  - Algorithms
+  - LeetCode
+  - Binary Tree
+  - Engineering
+  - JavaScript
+  - Node.js
 ---
 
 Time: 60 minutes

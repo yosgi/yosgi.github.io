@@ -3,10 +3,14 @@ draft: false
 original: 'content/zh/post/102-二叉树的层序遍历.md'
 title: "102 - Level-order Traversal of a Binary Tree"
 description: "Techniques and examples for breadth-first (level-order) traversal of binary trees."
-categories:
-  - leetcode
 date: 2021-02-28 00:00:00
 summary: 
+categories:
+  - Algorithms
+tags:
+  - Algorithms
+  - LeetCode
+  - Binary Tree
 ---
 
 Traversal itself is very simple. The problem that needs to be considered is how to mark each layer. Here we can use two approaches: iteration and recursion.

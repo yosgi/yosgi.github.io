@@ -3,10 +3,14 @@ draft: false
 original: content/zh/post/1202-交换字符串中的元素.md
 title: 1202-Swap elements in a string
 description: null
-categories:
-- leetcode
 date: 2021-07-06 00:00:00
 summary: ""
+categories:
+  - Algorithms
+tags:
+  - Algorithms
+  - LeetCode
+  - String
 ---
 
 It is mainly used for learning and checking ideas, and you will start only after looking at the answers.

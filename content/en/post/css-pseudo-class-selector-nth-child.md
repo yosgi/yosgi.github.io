@@ -3,12 +3,13 @@ draft: false
 original: content/zh/post/legacy/css伪类选择器nth-child.md
 title: CSS pseudo-class selector nth-child
 description: About nth-child and HTML specifications
-categories:
-- Frontend
-tags:
-- Frontend
 date: 2019-03-07 17:32:19
 summary: ''
+categories:
+  - Frontend
+tags:
+  - Engineering
+  - CSS
 ---
 
 # About CSS pseudo-class selector: nth-child(n)

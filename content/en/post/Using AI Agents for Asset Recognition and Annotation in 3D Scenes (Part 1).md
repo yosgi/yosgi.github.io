@@ -3,8 +3,12 @@ title: Using AI Agents for Asset Recognition and Annotation in 3D Scenes
 date: 2026-06-19 09:46:11
 description: How we turned free-form 3D exploration into measurable coverage scanning and improved valve inventory recall in a digital twin factory from around 40% to around 90%
 categories:
-  - DigitalTwin
-  - AI
+  - Digital Twin
+tags:
+  - AI Systems
+  - AI Agents
+  - Digital Twins
+  - 3D
 ---
 
 Our initial requirement was straightforward: in a 3D digital twin factory, find all the valves and mark them.

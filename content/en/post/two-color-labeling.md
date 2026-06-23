@@ -3,10 +3,13 @@ draft: false
 original: content/zh/post/双色标记法.md
 title: Two-color labeling
 description: null
-categories:
-- leetcode
 date: 2021-02-27 00:00:00
 summary: ""
+categories:
+  - Algorithms
+tags:
+  - Algorithms
+  - LeetCode
 ---
 
 As you can see from the previous questions, the recursive methods for front-, middle-, and post-order traversal of a binary tree are similar, but the iterative implementation is completely different.

@@ -3,13 +3,14 @@ draft: false
 original: content/zh/post/legacy/单例模式.md
 title: Js singleton pattern
 description: Javascript Design Patterns Knowledge Points
-categories:
-- JavaScript
-tags:
-- JavaScript
-- Design Patterns
 date: 2018-04-13 20:06:30
 summary: ''
+categories:
+  - JavaScript
+tags:
+  - Engineering
+  - JavaScript
+  - Design Pattern
 ---
 
 ### Singleton Pattern

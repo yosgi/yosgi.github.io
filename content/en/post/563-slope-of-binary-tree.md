@@ -3,10 +3,14 @@ draft: false
 original: content/zh/post/563-二叉树的坡度.md
 title: 563-Slope of Binary Tree
 description: null
-categories:
-- leetcode
 date: 2021-03-16 00:00:00
 summary: ""
+categories:
+  - Algorithms
+tags:
+  - Algorithms
+  - LeetCode
+  - Binary Tree
 ---
 
 Time: 15 minutes

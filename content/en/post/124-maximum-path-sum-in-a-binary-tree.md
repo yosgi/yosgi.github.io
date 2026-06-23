@@ -3,10 +3,14 @@ draft: false
 original: content/zh/post/124-二叉树中的最大路径和.md
 title: 124-Maximum Path Sum in a Binary Tree
 description: null
-categories:
-- leetcode
 date: 2021-03-15 00:00:00
 summary: ""
+categories:
+  - Algorithms
+tags:
+  - Algorithms
+  - LeetCode
+  - Binary Tree
 ---
 
 Time: 30 minutes

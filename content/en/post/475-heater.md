@@ -3,10 +3,13 @@ draft: false
 original: content/zh/post/475-供暖器.md
 title: 475-Heater
 description: null
-categories:
-- leetcode
 date: 2021-06-10 00:00:00
 summary: ""
+categories:
+  - Algorithms
+tags:
+  - Algorithms
+  - LeetCode
 ---
 
 The first thing that comes to mind is to find the distance r of all heaters that are the shortest distance from the house, and then return the largest r

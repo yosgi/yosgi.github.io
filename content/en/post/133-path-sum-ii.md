@@ -3,10 +3,13 @@ draft: false
 original: content/zh/post/133-路径总和II.md
 title: 133-Path Sum II
 description: null
-categories:
-- leetcode
 date: 2021-02-28 00:00:00
 summary: ""
+categories:
+  - Algorithms
+tags:
+  - Algorithms
+  - LeetCode
 ---
 
 Time: 10 minutes

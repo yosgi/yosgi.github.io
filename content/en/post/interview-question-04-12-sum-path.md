@@ -3,10 +3,13 @@ draft: false
 original: content/zh/post/面试题-04-12-求和路径.md
 title: Interview Question-04-12-Sum Path
 description: null
-categories:
-- leetcode
 date: 2021-03-16 00:00:00
 summary: ""
+categories:
+  - Algorithms
+tags:
+  - Algorithms
+  - LeetCode
 ---
 
 Time: 20 minutes

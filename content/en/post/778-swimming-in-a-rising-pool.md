@@ -3,10 +3,13 @@ draft: false
 original: content/zh/post/778-水位上升的泳池中游泳.md
 title: 778-Swimming in a rising pool
 description: null
-categories:
-- leetcode
 date: 2021-07-05 00:00:00
 summary: ""
+categories:
+  - Algorithms
+tags:
+  - Algorithms
+  - LeetCode
 ---
 
 Time: 20 minutes

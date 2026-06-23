@@ -3,10 +3,13 @@ draft: false
 original: content/zh/post/973-最接近原点的-K-个点.md
 title: 973-K points closest to the origin
 description: null
-categories:
-- leetcode
 date: 2021-04-10 00:00:00
 summary: ""
+categories:
+  - Algorithms
+tags:
+  - Algorithms
+  - LeetCode
 ---
 
 Time: 15 minutes

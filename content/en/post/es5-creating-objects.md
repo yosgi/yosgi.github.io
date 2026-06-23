@@ -3,15 +3,14 @@ draft: false
 original: content/zh/post/legacy/ES5-创建对象.md
 title: ES5 - Creating Objects
 description: ES5 knowledge review
-categories:
-- JavaScript
-tags:
-- JavaScript
-- JavaScript
-- OOP
 date: 2018-07-13 16:51:52
 updated: 2019-02-25 16:51:52
 summary: ''
+categories:
+  - JavaScript
+tags:
+  - Engineering
+  - JavaScript
 ---
 
 Before summarizing ES6 Class, I think it is necessary to sort out the knowledge of ES5 first. This will make it easier to compare and remember.

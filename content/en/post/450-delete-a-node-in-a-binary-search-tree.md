@@ -3,10 +3,18 @@ draft: false
 original: content/zh/post/450-删除二叉搜索树中的节点.md
 title: 450-Delete a node in a binary search tree
 description: null
-categories:
-- leetcode
 date: 2021-03-11 00:00:00
 summary: ""
+categories:
+  - Algorithms
+tags:
+  - Algorithms
+  - LeetCode
+  - Binary Tree
+  - Binary Search Tree
+  - Engineering
+  - JavaScript
+  - Node.js
 ---
 
 Time: 30 minutes

@@ -3,8 +3,12 @@ title: 使用 Agent 进行 3D 场景的资产识别标注（二）
 date: 2026-06-20 14:11:11
 description: 如何把 2D 检测和 3D 验证拆成两个阶段，在数字孪生工厂的资产标注中降低误报，并定位下一步的召回率瓶颈
 categories:
-  - DigitalTwin
-  - Ai
+  - Digital Twin
+tags:
+  - AI Systems
+  - AI Agents
+  - Digital Twins
+  - 3D
 ---
 
 上一篇主要讲搜索问题。我们把自由 3D 探索改成了基于正射视角的覆盖扫描，阀门盘点的召回率从约 40% 提升到了约 90%。现在系统能比较稳定地把主要区域扫到。

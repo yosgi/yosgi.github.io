@@ -3,10 +3,14 @@ draft: false
 original: content/zh/post/145-二叉树的后序遍历.md
 title: 145-Post-order traversal of a binary tree
 description: null
-categories:
-- leetcode
 date: 2021-02-26 00:00:00
 summary: ""
+categories:
+  - Algorithms
+tags:
+  - Algorithms
+  - LeetCode
+  - Binary Tree
 ---
 
 1h

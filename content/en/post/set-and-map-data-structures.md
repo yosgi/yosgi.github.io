@@ -4,12 +4,14 @@ original: content/zh/post/legacy/Set和Map数据结构.md
 title: Set and Map Data Structures
 date: 2018-05-02
 description: '"ES6 Standard Introduction" Knowledge Points Summary'
-categories:
-- JavaScript
-tags:
-- JavaScript
-- JavaScript
 summary: ''
+categories:
+  - JavaScript
+tags:
+  - Algorithms
+  - LeetCode
+  - Engineering
+  - JavaScript
 ---
 
 Set and Map Data Structures

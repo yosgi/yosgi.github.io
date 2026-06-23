@@ -3,10 +3,13 @@ draft: false
 original: content/zh/post/347-前-K-个高频元素.md
 title: 347-first-K-high-frequency elements
 description: null
-categories:
-- leetcode
 date: 2021-04-08 00:00:00
 summary: ""
+categories:
+  - Algorithms
+tags:
+  - Algorithms
+  - LeetCode
 ---
 
 Time: 30 minutes

@@ -2,13 +2,14 @@
 title: vue + express + mongodb 搭建一个后台登录系统
 description: 关键词 nodejs vue express mongodb
 summary: ""
-categories: 
-  - Vue
+categories:
+  - Full-stack
 tags:
+  - Engineering
   - Vue
   - Node.js
-  - Database
-date: 2018-12-13 18:15:10
+  - MongoDB
+date: 2025-10-27 14:17:43
 ---
 #### 需要准备的
 首先安装这些东西

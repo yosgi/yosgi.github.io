@@ -3,10 +3,13 @@ draft: false
 original: content/zh/post/关于登陆注册需求的复盘.md
 title: Review of login and registration requirements
 description: null
-categories:
-- Review Project
 date: 2021-02-21 00:00:00
 summary: ""
+categories:
+  - Product Engineering
+tags:
+  - Engineering
+  - JavaScript
 ---
 
 A few years ago, the company needed to log in and register, and the estimated construction period was one month. As a result, the project became uncontrollable during the process, and it took almost three months to complete. In order not to waste the overtime work during this period, I reviewed the process of completing the project.

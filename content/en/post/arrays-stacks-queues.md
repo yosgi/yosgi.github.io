@@ -3,12 +3,18 @@ draft: false
 original: content/zh/post/legacy/数组，栈，队列.md
 title: Arrays, stacks, queues
 description: Javascript Data Structures
-categories:
-- JavaScript
-tags:
-- JavaScript
 date: 2018-08-22 15:09:45
 summary: ''
+categories:
+  - JavaScript
+tags:
+  - Algorithms
+  - LeetCode
+  - Array
+  - Stack
+  - Queue
+  - Engineering
+  - JavaScript
 ---
 
 ### Array

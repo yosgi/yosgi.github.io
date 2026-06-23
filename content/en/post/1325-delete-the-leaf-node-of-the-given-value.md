@@ -3,10 +3,17 @@ draft: false
 original: content/zh/post/1325-删除给定值的叶子节点.md
 title: 1325-Delete the leaf node of the given value
 description: null
-categories:
-- leetcode
 date: 2021-03-17 00:00:00
 summary: Post-order traversal approach to delete target-valued leaf nodes using a dummy root.
+categories:
+  - Algorithms
+tags:
+  - Algorithms
+  - LeetCode
+  - Binary Tree
+  - Engineering
+  - JavaScript
+  - Node.js
 ---
 
 Time: 5 minutes

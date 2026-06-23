@@ -1,14 +1,15 @@
 ---
 title: 观察者模式和vue监听对象变化
 description: 《Javascript设计模式》 知识点整理
-categories:
-  - JavaScript
-tags:
-  - JavaScript
-  - Design Patterns
 date: 2018-05-05 22:38:54
 updated: 2019-02-25 11:53:54
 summary: ""
+categories:
+  - Frontend
+tags:
+  - Engineering
+  - Vue
+  - Design Pattern
 ---
 #### 发布订阅模式
 

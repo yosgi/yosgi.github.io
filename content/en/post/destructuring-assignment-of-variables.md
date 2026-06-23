@@ -3,13 +3,13 @@ draft: false
 original: content/zh/post/legacy/变量的解构赋值.md
 title: Destructuring assignment of variables
 description: '"ES6 Standard Introduction" Knowledge Points Summary'
-categories:
-- JavaScript
-tags:
-- JavaScript
-- JavaScript
 date: 2018-04-10 11:07:34
 summary: ''
+categories:
+  - JavaScript
+tags:
+  - Engineering
+  - JavaScript
 ---
 
 #### Variable Destructuring

@@ -3,13 +3,14 @@ draft: false
 original: content/zh/post/legacy/数据响应的Proxy实现.md
 title: Proxy implementation of data response
 description: Javascript
-categories:
-- JavaScript
-tags:
-- JavaScript
-- Vue
 date: 2018-07-27 15:56:49
 summary: ''
+categories:
+  - JavaScript
+tags:
+  - Engineering
+  - JavaScript
+  - Design Pattern
 ---
 
 I have previously used Object.defineProperty and closures to accomplish this task.

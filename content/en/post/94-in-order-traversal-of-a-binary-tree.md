@@ -3,10 +3,14 @@ draft: false
 original: content/zh/post/94-二叉树的中序遍历.md
 title: 94-In-order traversal of a binary tree
 description: null
-categories:
-- leetcode
 date: 2021-02-25 00:00:00
 summary: ""
+categories:
+  - Algorithms
+tags:
+  - Algorithms
+  - LeetCode
+  - Binary Tree
 ---
 
 30min

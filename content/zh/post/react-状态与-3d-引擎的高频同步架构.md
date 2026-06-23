@@ -2,9 +2,13 @@
 title: React 状态与 3D 引擎的高频同步架构
 description: 一套适用于海量即时数据的同步范式：中间层隔离高频数据源，React 只消费可视窗口的线性投影。
 categories:
-  - Technology
-  - Optimization
-date: 2025-10-01 00:00:00
+  - Digital Twin
+tags:
+  - Engineering
+  - React
+  - Digital Twins
+  - 3D
+date: 2026-01-31 23:42:31
 ---
 
 我们做传统的 React 开发时候习惯了数据驱动 UI，state 变了 UI 就变。

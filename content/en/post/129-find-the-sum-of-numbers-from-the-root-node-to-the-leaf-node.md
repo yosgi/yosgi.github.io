@@ -3,10 +3,17 @@ draft: false
 original: content/zh/post/129-求根节点到叶节点数字之和.md
 title: 129-Find the sum of numbers from the root node to the leaf node
 description: null
-categories:
-- leetcode
 date: 2021-03-16 00:00:00
 summary: ""
+categories:
+  - Algorithms
+tags:
+  - Algorithms
+  - LeetCode
+  - Binary Tree
+  - Engineering
+  - JavaScript
+  - Node.js
 ---
 
 The question is about starting from the root node. The first thing that comes to mind is top-down DFS, passing parameters downward, and the end condition has no left or right children.

@@ -2,13 +2,15 @@
 layout: herformancejs
 title: ajax数据传输优化
 description: 《高性能Javascript》 知识点整理
-categories:
-  - JavaScript
-  - JavaScript
-tags:
-  - JavaScript
 date: 2018-11-28 14:47:40
 summary: ""
+categories:
+  - Web Performance
+tags:
+  - Engineering
+  - JavaScript
+  - Network
+  - Performance Optimization
 ---
 #### 使用XHR时，POST和GET的对比
 发送数据到服务器时，GET方式会更快，因为对于少量数据而言，一个GET请求往服务器只发送一个数据包。而POST请求至少发送两个数据包，一个装载头信息，一个装载POST正文。POST更适合发送大量数据到服务器，一是因为它不关心额外数据包的数量，二是IE对URL的长度有限制。

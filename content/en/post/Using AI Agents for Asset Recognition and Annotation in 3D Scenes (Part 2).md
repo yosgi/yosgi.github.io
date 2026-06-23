@@ -3,8 +3,12 @@ title: Using AI Agents for Asset Recognition and Annotation in 3D Scenes (Part 2
 date: 2026-06-20 19:11:11
 description: How we split 2D detection and 3D verification into two stages to reduce false positives in digital twin asset annotation, and how that revealed the next recall bottleneck
 categories:
-  - DigitalTwin
-  - AI
+  - Digital Twin
+tags:
+  - AI Systems
+  - AI Agents
+  - Digital Twins
+  - 3D
 ---
 
 The previous article focused on the search problem. We changed free-form 3D exploration into coverage scanning based on a top-down orthographic view, and improved valve inventory recall from around 40% to around 90%. The system can now scan the main regions much more consistently.

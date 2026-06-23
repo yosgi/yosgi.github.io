@@ -4,12 +4,12 @@ original: content/zh/post/legacy/数组的拓展.md
 title: Array expansion
 date: 2018-04-11
 description: '"ES6 Standard Introduction" Knowledge Points Summary'
-categories:
-- JavaScript
-tags:
-- JavaScript
-- JavaScript
 summary: ''
+categories:
+  - JavaScript
+tags:
+  - Engineering
+  - JavaScript
 ---
 
 #### Array expansion

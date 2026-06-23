@@ -3,10 +3,13 @@ draft: false
 original: content/zh/post/1738-找出第-K-大的异或坐标值.md
 title: 1738-Find the K-th largest XOR coordinate value
 description: null
-categories:
-- leetcode
 date: 2021-03-22 00:00:00
 summary: ""
+categories:
+  - Algorithms
+tags:
+  - Algorithms
+  - LeetCode
 ---
 
 Time: Refer to the answer

@@ -3,10 +3,15 @@ draft: false
 original: content/zh/post/99-恢复二叉搜索树.md
 title: 99-Restore Binary Search Tree
 description: null
-categories:
-- leetcode
 date: 2021-03-13 00:00:00
 summary: ""
+categories:
+  - Algorithms
+tags:
+  - Algorithms
+  - LeetCode
+  - Binary Search Tree
+  - Binary Tree
 ---
 
 Time: 60 minutes

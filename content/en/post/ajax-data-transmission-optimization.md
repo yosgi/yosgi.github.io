@@ -4,13 +4,15 @@ original: content/zh/post/legacy/ajax数据传输优化.md
 layout: herformancejs
 title: Ajax data transmission optimization
 description: High Performance Javascript Knowledge Points
-categories:
-- JavaScript
-- JavaScript
-tags:
-- JavaScript
 date: 2018-11-28 14:47:40
 summary: ''
+categories:
+  - Web Performance
+tags:
+  - Engineering
+  - JavaScript
+  - Network
+  - Performance Optimization
 ---
 
 #### Comparing POST and GET when using XHR

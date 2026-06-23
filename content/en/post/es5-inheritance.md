@@ -3,13 +3,13 @@ draft: false
 original: content/zh/post/legacy/ES5-继承.md
 title: ES5-Inheritance
 description: ES5 knowledge review
-categories:
-- JavaScript
-tags:
-- JavaScript
-- OOP
 date: 2018-07-17 09:57:34
 summary: ''
+categories:
+  - JavaScript
+tags:
+  - Engineering
+  - JavaScript
 ---
 
 Before summarizing the es6 class, let's review the ES5 inheritance method.

@@ -3,10 +3,13 @@ draft: false
 original: content/zh/post/684-冗余连接.md
 title: 684-Redundant Connection
 description: null
-categories:
-- leetcode
 date: 2021-07-07 00:00:00
 summary: ""
+categories:
+  - Algorithms
+tags:
+  - Algorithms
+  - LeetCode
 ---
 
 Time: 15 minutes

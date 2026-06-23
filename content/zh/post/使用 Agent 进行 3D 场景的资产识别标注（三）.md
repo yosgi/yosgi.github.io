@@ -1,10 +1,14 @@
 ---
-description: 让扫描结果落到正确的位置
 title: 使用 Agent 进行 3D 场景的资产识别标注（三）
-date: 2026-06-23 14:00:00
+date: 2026-06-21 10:00:00
+description: 让扫描结果落到正确的位置
 categories:
-  - DigitalTwin
-  - Ai
+  - Digital Twin
+tags:
+  - AI Systems
+  - AI Agents
+  - Digital Twins
+  - 3D
 ---
 
 

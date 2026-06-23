@@ -3,10 +3,15 @@ draft: false
 original: content/zh/post/669-修剪二叉搜索树.md
 title: 669-Pruning a Binary Search Tree
 description: null
-categories:
-- leetcode
 date: 2021-03-11 00:00:00
 summary: ""
+categories:
+  - Algorithms
+tags:
+  - Algorithms
+  - LeetCode
+  - Binary Search Tree
+  - Binary Tree
 ---
 
 #669. Pruning a binary search tree

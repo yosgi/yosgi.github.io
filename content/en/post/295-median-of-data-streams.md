@@ -3,10 +3,13 @@ draft: false
 original: content/zh/post/295-数据流的中位数.md
 title: 295-Median of data streams
 description: null
-categories:
-- leetcode
 date: 2021-03-24 00:00:00
 summary: ""
+categories:
+  - Algorithms
+tags:
+  - Algorithms
+  - LeetCode
 ---
 
 Time: Read the answer

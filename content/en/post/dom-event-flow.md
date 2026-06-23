@@ -5,10 +5,11 @@ title: DOM event flow
 description: DOM event flow is easy to confuse
 summary: ''
 categories:
-- JavaScript
+  - Frontend
 tags:
-- JavaScript
-date: 2018-08-29 17:29:45
+  - Engineering
+  - JavaScript
+date: 2021-01-29 17:44:40
 ---
 
 I have never been particularly clear about this concept. This time I will summarize it through data and experiments.

@@ -3,10 +3,14 @@ draft: false
 original: content/zh/post/1372-二叉树中的最长交错路径.md
 title: 1372-Longest Alternating Path in a Binary Tree
 description: null
-categories:
-- leetcode
 date: 2021-03-01 00:00:00
 summary: ""
+categories:
+  - Algorithms
+tags:
+  - Algorithms
+  - LeetCode
+  - Binary Tree
 ---
 
 Time: 25 minutes

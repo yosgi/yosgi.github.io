@@ -3,13 +3,13 @@ draft: false
 original: content/zh/post/legacy/HTTP协议总结.md
 title: HTTP Protocol Summary
 description: HTTP simple organization
-categories:
-- frontend
-tags:
-- frontend
-- Web
 date: 2018-07-23 23:29:19
 summary: ''
+categories:
+  - Web Development
+tags:
+  - Engineering
+  - Network
 ---
 
 This is mainly a summary of my reading of "HTTP Illustrated". I have omitted many parts that I think are not important or that I did not understand. I will make corrections and fill in the gaps in the future as my knowledge broadens.

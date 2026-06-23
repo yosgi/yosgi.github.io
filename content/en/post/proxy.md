@@ -3,13 +3,14 @@ draft: false
 original: content/zh/post/legacy/proxy.md
 title: proxy
 description: '"ES6 Standard Introduction" Knowledge Points Summary'
-categories:
-- JavaScript
-tags:
-- JavaScript
-- JavaScript
 date: 2018-05-18 09:59:26
 summary: ''
+categories:
+  - JavaScript
+tags:
+  - Engineering
+  - JavaScript
+  - Design Pattern
 ---
 
 ### Overview

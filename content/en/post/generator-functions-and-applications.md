@@ -3,13 +3,13 @@ draft: false
 original: content/zh/post/legacy/Generator函数与应用.md
 title: Generator functions and applications
 description: '"ES6 Standard Introduction" Knowledge Points Summary'
-categories:
-- JavaScript
-tags:
-- JavaScript
-- JavaScript
 date: 2018-07-06 18:37:55
 summary: ''
+categories:
+  - JavaScript
+tags:
+  - Engineering
+  - JavaScript
 ---
 
 ![image](/images/generator-function-usage/Generator.png)

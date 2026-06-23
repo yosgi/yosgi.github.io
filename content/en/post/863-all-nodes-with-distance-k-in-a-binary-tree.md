@@ -3,10 +3,17 @@ draft: false
 original: content/zh/post/863-二叉树中所有距离为-K-的结点.md
 title: 863-All nodes with distance -K- in a binary tree
 description: null
-categories:
-- leetcode
 date: 2021-03-13 00:00:00
 summary: ""
+categories:
+  - Algorithms
+tags:
+  - Algorithms
+  - LeetCode
+  - Binary Tree
+  - Engineering
+  - JavaScript
+  - Node.js
 ---
 
 Time: 60 minutes

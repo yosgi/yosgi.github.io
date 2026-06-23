@@ -1,13 +1,13 @@
 ---
 title: promise
 description: 《ES6标准入门》 知识点整理
+date: 2018-06-27 13:18:47
+summary: ""
 categories:
   - JavaScript
 tags:
+  - Engineering
   - JavaScript
-  - JavaScript
-date: 2018-06-27 13:18:47
-summary: ""
 ---
 ![image](/images/promise/img1.png)
 

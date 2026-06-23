@@ -1,13 +1,13 @@
 ---
 title: vue易错易混知识点整理
 description: <ES6标准入门> 知识点整理
-categories:
-  - Vue
-tags:
-  - JavaScript
-  - Vue
 date: 2018-09-10 18:30:10
 summary: ""
+categories:
+  - Frontend
+tags:
+  - Engineering
+  - Vue
 ---
 #### 什么是MVVM？与MVC有什么区别？
 mvc是Model-View-Controller的缩写，用业务逻辑，数据，界面分离的方式组织代码，其中的通信是单项的，View 传送指令到 Controller；Controller 完成业务逻辑后，要求 Model 改变状态；Model 将新的数据发送到 View，用户得到反馈。

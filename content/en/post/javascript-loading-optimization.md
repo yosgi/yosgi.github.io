@@ -3,12 +3,14 @@ draft: false
 original: 'content/zh/post/legacy/Js加载优化.md'
 title: "JavaScript Loading Optimization"
 description: "Notes from 'High Performance JavaScript'"
-categories:
-  - JavaScript
-tags:
-  - JavaScript
 date: 2018-09-04 09:23:11
 summary: ""
+categories:
+  - Web Performance
+tags:
+  - Engineering
+  - JavaScript
+  - Performance Optimization
 ---
 
 ##### Why should the `<script>` tag be placed at the bottom of the `<body>` tag whenever possible?
