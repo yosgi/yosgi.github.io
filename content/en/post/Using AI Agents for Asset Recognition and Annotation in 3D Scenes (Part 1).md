@@ -1,89 +1,97 @@
 ---
-title: 使用Agent 进行3D场景的资产识别标注
+title: Using AI Agents for Asset Recognition and Annotation in 3D Scenes
 date: 2026-06-19 09:46:11
-description: 如何把 3D 自由探索改成可度量的覆盖扫描，并将数字孪生工厂中的阀门盘点召回率从约 40% 提升到约 90%
+description: How we turned free-form 3D exploration into measurable coverage scanning and improved valve inventory recall in a digital twin factory from around 40% to around 90%
 categories:
   - DigitalTwin
-  - Ai
+  - AI
 ---
-我们最开始的需求是：在一个 3D 数字孪生工厂里，找出所有阀门，并把它们标出来。
 
-这是一个测试的场景，因为阀门是在工厂中出现很多而且到处都有的物品，所以用它做例子比较有代表性。
+Our initial requirement was straightforward: in a 3D digital twin factory, find all the valves and mark them.
+
+This was a test scenario. Valves appear frequently in factories and are distributed across many different areas, so they make a representative example for asset inventory.
+
 ![[static/images/Using AI Agent for Asset Recognition and Annotation in 3D Scenes/Screenshot 2026-06-23 at 5.15.30 PM.png]]
-系统已经有了相机控制、截图、视觉模型和场景标注能力，一开始的方案就是让 Agent 在 3D 场景里移动相机，看到阀门就标注，再继续看别的地方，就像人类一样。
 
-这条路很快遇到问题。
+The system already had the basic capabilities: camera control, screenshot capture, a vision model, and scene annotation. The first approach was simple: let the Agent move the camera around the 3D scene, mark valves when it saw them, and then continue looking elsewhere, similar to how a human would inspect the scene.
 
-单看一张清晰图片，模型识别阀门并不算最难。更常见的失败发生在扫描过程中：相机角度不合适，目标被平台或建筑挡住，目标在远景里只有几个像素，或者模型检测到了目标，但标注落回 3D 场景时发生偏移。
+This approach ran into problems quickly.
 
-这些问题叠在一起，最后表现出来就是召回率低。自由 3D 探索的阀门召回率大约只有 40%。
+When looking at a single clear image, recognizing a valve was not the hardest part. The more common failures happened during scanning: the camera angle was not suitable, the target was blocked by platforms or buildings, the target appeared as only a few pixels in a distant view, or the model detected the target but the annotation was misplaced when projected back into the 3D scene.
 
-我后来逐渐意识到，盘点任务不能只看成一个识别问题。识别模型只能处理已经进入视野的目标。一个目标没有被相机稳定拍到，或者没有以足够好的角度出现，后面的模型就没有机会处理它。
+These problems accumulated and showed up as low recall. In our tests, free-form 3D exploration achieved only around 40% recall for valves.
 
-所以第一步要解决的是搜索。
+We gradually realized that inventory should not be treated only as a recognition problem. A recognition model can only process targets that have already entered its view. If a target is not captured clearly by the camera, or does not appear from a useful angle, the downstream model never gets a real chance to handle it.
 
-## 自由 3D 探索为什么不稳定
+So the first problem to solve was search.
 
-3D 场景里的自由探索很接近人类浏览方式。人会拉近、旋转、绕开遮挡、换一个角度确认目标。但自动化系统很难靠这种方式稳定完成盘点。
+## Why Free-Form 3D Exploration Was Unstable
 
-同一个阀门，在侧面看可能有清晰的阀体、手轮和连接管道；从上方看可能只是一个小块；在远景里可能只有几个像素；被管道或建筑遮挡时可能只露出一部分。相机路径稍微不同，模型看到的输入就会完全不同。
+Free-form exploration in a 3D scene is close to how humans browse a scene. A person can zoom in, rotate the view, move around occlusions, and check the same object from another angle. It is much harder for an automated system to complete an inventory reliably in this way.
 
-定位也会带来额外问题。盘点不是只回答“图里有没有阀门”，还要把检测结果转换成世界坐标，在 3D 场景里创建 marker 或 callout。工业场景有很多层级：地面设备、平台、管廊、建筑、塔架。屏幕上的一个点，背后可能有多个深度层。识别正确，不代表最后标注的位置正确。
+The same valve can look very different from different viewpoints. From the side, the valve body, handwheel, and connected pipes may be clear. From above, it may look like a small block. From a distant view, it may occupy only a few pixels. When blocked by pipes or buildings, only part of it may be visible. A small change in the camera path can produce a very different model input.
 
-更麻烦的是，很难定义“已经看完整个工厂”。一个区域从某个角度看过，不代表其中的所有设备都可见；正上方覆盖过某块地面，也不代表建筑物侧面或平台后面的阀门被看到了。自由扫描运行了很多步之后，我们仍然很难回答：哪些地方已经被系统性检查过，哪些地方还没有。
+Localization adds another problem. Inventory is not only about answering “is there a valve in this image?” The system also needs to convert the detection into world coordinates and create a marker or callout in the 3D scene. Industrial scenes contain many layers: ground equipment, platforms, pipe racks, buildings, and towers. A point on the screen may correspond to multiple depth layers. A correct recognition result does not necessarily mean the final annotation lands in the correct place.
 
-这也是后来方案转向的原因。我们需要先让搜索过程变得可度量。
+The harder issue is defining what it means to have “looked through the whole factory.” Seeing an area from one angle does not mean all assets in that area were visible. Covering a patch of ground from above does not mean valves behind a building facade or under a platform were seen. After many steps of free-form scanning, it was still difficult to answer which areas had been systematically checked and which areas had not.
 
-## 把搜索空间固定下来
+This led to the change in direction. We needed to make the search process measurable.
 
-新的做法是先使用正射俯视视角，把工厂变成一个稳定的二维搜索空间。
+## Fixing the Search Space
 
-在正射视角下，画面像素和地面区域之间有比较稳定的对应关系。这样就可以先确定工厂边界，再把区域切成一组 tile，逐个扫描。
+The new approach starts with a top-down orthographic view, turning the factory into a stable two-dimensional search space.
 
-流程从原来的：
+In an orthographic view, there is a more stable relationship between image pixels and ground area. This allows the system to determine the factory boundary, split the region into tiles, and scan them one by one.
 
-在 3D 场景里移动相机 看到什么就检测什么 根据结果继续移动 
+The original process was:
 
-变成：
+text Move the camera around the 3D scene Detect whatever is visible Continue moving based on the result 
 
-确定工厂边界 划分扫描网格 逐个 tile 检测 合并候选目标 进入 3D 验证 
+The new process became:
 
-这个变化不是用 2D 取代 3D。很多设备从侧面看仍然更容易确认，3D 视角在验证阶段很重要。
+text Determine the factory boundary Divide it into scan tiles Run detection on each tile Merge candidate targets Send candidates into 3D verification 
 
-真正的分工变成了：2D 负责提供稳定的搜索空间，3D 负责对候选目标做确认。全局搜索不再依赖相机在三维空间里自由探索，而是先通过二维覆盖生成候选，再把候选交给后续验证。
+This change does not mean replacing 3D with 2D. Many assets are still easier to confirm from a side view, and 3D viewpoints remain important during verification.
 
-## 结果
+The division of responsibility changed: 2D provides a stable search space, and 3D confirms candidate targets. Global search no longer depends on free camera movement in 3D space. Instead, the system first generates candidates through 2D coverage, then passes those candidates to later verification steps.
 
-这个改动带来了明显提升。
+## Results
 
-| 方法 | 召回率 |
+This change brought a clear improvement.
+
+| Method | Recall |
 |---|---:|
-| 自由 3D 探索 | 约 40% |
-| 基于覆盖的扫描 | 约 90% |
+| Free-form 3D exploration | Around 40% |
+| Coverage-based scanning | Around 90% |
 
-召回率从约 40% 提升到约 90%，主要收益来自搜索过程的稳定化。以前很多目标没有被稳定拍到，识别模型也就没有机会处理。覆盖扫描让系统能按计划检查主要区域，并把大部分候选目标送到后续流程。
+Recall improved from around 40% to around 90%. The main gain came from making the search process more stable. Previously, many targets were never captured reliably, so the recognition model never had a chance to process them. Coverage scanning allowed the system to inspect the main regions according to a plan and send most candidate targets into the downstream pipeline.
 
-调试也变得更清楚。出现漏检时，可以追踪对应 tile 是否扫描过，扫描分辨率是否足够，候选是否在该 tile 中产生。以前自由探索模式下，这些问题很难拆开看。
+Debugging also became clearer. When a target was missed, we could check whether the corresponding tile had been scanned, whether the scan resolution was sufficient, and whether a candidate was produced in that tile. In the free-form exploration mode, these questions were much harder to separate.
 
-## 覆盖之后，问题变成可见性
+## After Coverage, the Problem Becomes Visibility
 
-覆盖扫描解决了主要区域搜索的问题，但没有让盘点变成 100% 召回。
+Coverage scanning solved the main region-search problem, but it did not make inventory recall 100%.
 
-剩下的漏检主要来自可见性。一些阀门被建筑物或大型结构遮挡。正射 2D 视角看不到它们，2D 阶段就不会产生候选。当前的 3D verification 又是基于候选触发的；如果候选没有生成，后面的验证阶段也不会发生。
+The remaining misses were mainly caused by visibility. Some valves were blocked by buildings or large structures. From the top-down 2D view, they were not visible, so the 2D stage did not generate candidates. The current 3D verification step is triggered by candidates; if no candidate is generated, the later verification stage never happens.
 
-所以当前流程对误报过滤有效，但对 2D 阶段漏掉的目标帮助有限。
+So the current pipeline is effective for filtering false positives, but it has limited ability to recover targets missed by the 2D stage.
 
- 2D Discovery 到 Candidate 到 3D Verification这条链路的前提是候选必须先出现。目标如果从正射视角不可见，就需要其他候选来源。
+The flow is essentially:
 
-后续的方向是提升 candidate generation。一方面会继续 fine-tune 2D detection，提高当前 proposal 的召回率；另一方面需要引入更多来源，比如侧视检测、3D keypoint 检测和几何规则。
-也就是
- Top-down 2D Detection + Side-view Detection + 3D Keypoint Detection + Geometry Heuristics 最后  Unified Verification 
+text 2D Discovery ↓ Candidate ↓ 3D Verification 
 
-2D 覆盖仍然是基础搜索层。它提供稳定、可度量的扫描过程。侧视和 3D 候选生成用来补足正射视角看不到的目标，尤其是高架设备、建筑遮挡后的设备，以及管廊内部或侧面的设备。
+This chain depends on candidates being generated first. If a target is not visible from the top-down view, the system needs other candidate sources.
 
-## 小结
+The next direction is to improve candidate generation. On one hand, we will continue fine-tuning 2D detection to improve the recall of the current proposal stage. On the other hand, we need to introduce additional sources, such as side-view detection, 3D keypoint detection, and geometry heuristics.
 
+In other words:
 
-识别模型很重要，但它只能处理已经进入视野的目标。自由 3D 探索很难稳定回答“哪里已经看过”。基于正射视角的覆盖扫描把搜索变成了一个可以检查、复盘和优化的流程。
+text Top-down 2D Detection + Side-view Detection + 3D Keypoint Detection + Geometry Heuristics ↓ Unified Verification 
 
-在阀门扫描测试中，这个改动把召回率从约 40% 提升到了约 90%。下一阶段的重点会放在候选生成和可见性上，尤其是那些被建筑物遮挡、位于高架结构、或者不容易从正射视角看到的目标。
+2D coverage remains the base search layer. It provides a stable and measurable scanning process. Side-view and 3D candidate generation can fill in the blind spots of the top-down view, especially for elevated equipment, assets blocked by buildings, and equipment inside or beside pipe racks.
+
+## Summary
+
+Recognition models are important, but they can only process targets that have entered the view. Free-form 3D exploration makes it hard to answer “where have we already looked?” Orthographic coverage scanning turns search into a process that can be checked, reviewed, and improved.
+
+In the valve scanning test, this change improved recall from around 40% to around 90%. The next stage will focus on candidate generation and visibility, especially for targets blocked by buildings, located in elevated structures, or otherwise difficult to see from a top-down orthographic view.

@@ -27,6 +27,8 @@
 <meta name="robots" content="{{ $robots }}" />
 <meta name="author" content="{{ $author }}" />
 <link rel="canonical" href="{{ $canonical }}" />
+<link rel="alternate" type="text/plain" href="{{ "llms.txt" | absURL }}" title="LLMs text" />
+<link rel="alternate" type="text/plain" href="{{ "llms-full.txt" | absURL }}" title="Full LLMs text" />
 
 {{ range .AllTranslations }}
 <link rel="alternate" hreflang="{{ .Language.LanguageCode | default .Language.Lang }}" href="{{ .Permalink }}" />

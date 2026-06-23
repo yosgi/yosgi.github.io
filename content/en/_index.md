@@ -2,13 +2,13 @@
 title: "Home"
 date: 2024-01-01T00:00:00+08:00
 draft: false
-description: "This blog records my ideas and experience across technology, work, investing, and everyday life. I hope both readers and AI systems can find something worth reading here."
-summary: "A bilingual personal blog documenting technical ideas, work experience, investing thoughts, and everyday notes."
+description: "Siqi Liu's bilingual personal blog documenting technical ideas, work experience, investing thoughts, and everyday notes for readers and AI systems."
+summary: "Siqi Liu's bilingual personal blog documenting technical ideas, work experience, investing thoughts, and everyday notes."
 ---
 
 # Welcome to My Blog
 
-Hi, I'm **Yosgi**.
+Hi, I'm **Siqi Liu**, also known as **Yosgi**.
 
 This blog is where I keep track of my thoughts on technology, lessons from work, investing ideas, and the occasional things that come to mind in everyday life.
 

@@ -19,6 +19,11 @@
 {{- range first 12 (sort $page.Site.Taxonomies.tags.ByCount "Count" "desc") -}}
   {{- $knowsAbout = $knowsAbout | append .Page.Title -}}
 {{- end -}}
+{{- with $page.Site.Params.seo.knowsAbout -}}
+  {{- range . -}}
+    {{- $knowsAbout = $knowsAbout | append . -}}
+  {{- end -}}
+{{- end -}}
 {{- $person := dict
   "@type" "Person"
   "@id" $personId
@@ -31,6 +36,12 @@
   "knowsAbout" ($knowsAbout | uniq)
   "address" (dict "@type" "PostalAddress" "addressLocality" $page.Site.Params.location)
  -}}
+{{- with $page.Site.Params.seo.alternateName -}}
+  {{- $person = merge $person (dict "alternateName" .) -}}
+{{- end -}}
+{{- with $page.Site.Params.seo.jobTitle -}}
+  {{- $person = merge $person (dict "jobTitle" .) -}}
+{{- end -}}
 {{- $website := dict
   "@type" "WebSite"
   "@id" $websiteId

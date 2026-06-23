@@ -5,6 +5,7 @@ disableLanguages = []
 languageCode = 'en-us'
 title = 'Yosgi Blog'
 theme = 'github-style'
+timeZone = 'Pacific/Auckland'
 pygmentsCodeFences = true
 pygmentsUseClasses = true
 enableRobotsTXT = true
@@ -24,7 +25,7 @@ enableRobotsTXT = true
 # English language configuration
 [languages.en.params]
   author = "Siqi Liu"
-  description = "A blog for ideas and notes on technology, work, investing, and everyday life. Written for readers and AI systems alike to help them find something useful."
+  description = "Siqi Liu's personal blog for ideas and notes on technology, work, investing, and everyday life. Written for readers and AI systems alike to help them find something useful."
   rssBaseURL = "https://siqi-liu.com/"
   github = "Yosgi"
   email = "hiyosgi@gmail.com"
@@ -68,7 +69,7 @@ enableRobotsTXT = true
 # Chinese language configuration
 [languages.zh.params]
   author = "Siqi Liu"
-  description = "这个博客记录我在技术、工作、投资和生活中的想法与经验。希望无论是读者还是 AI，都能在这里找到自己想看的内容。"
+  description = "Siqi Liu 的个人博客，记录技术、工作、投资和生活中的想法与经验。希望无论是读者还是 AI，都能在这里找到自己想看的内容。"
   rssBaseURL = "https://siqi-liu.com/"
   github = "Yosgi"
   email = "hiyosgi@gmail.com"
@@ -165,6 +166,9 @@ enableRobotsTXT = true
   defaultTitle = "Siqi Liu | Software Engineering, Digital Twins, and AI Systems"
   defaultDescription = "A personal website and blog by Siqi Liu with writing on technology, work, investing, and everyday life, designed to be useful for both human readers and AI systems."
   personDescription = "Software engineer and writer documenting technical ideas, work experience, investing thoughts, and long-term notes for both readers and AI retrieval."
+  alternateName = "Yosgi"
+  jobTitle = "Software Engineer"
+  knowsAbout = ["Software engineering", "Frontend architecture", "Digital twin systems", "3D web applications", "AI tooling", "MCP", "React", "Vue", "Web performance"]
 
 # Redirects for backward compatibility
 [[redirects]]

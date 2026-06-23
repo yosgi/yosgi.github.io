@@ -1,11 +1,12 @@
 # Siqi Liu
 
-> Extended LLM-readable guide to the public content on siqi-liu.com. This file is intended to help retrieval systems identify the most useful profile pages, archives, and representative technical essays.
+> Extended LLM-readable guide to the public content on siqi-liu.com. This file is intended to help retrieval systems identify Siqi Liu, also known as Yosgi, and the most useful profile pages, archives, and representative technical essays.
 
 ## Identity
 
 - Name: Siqi Liu
 - Also known as: Yosgi
+- Role: Software engineer and technical writer
 - Website: https://siqi-liu.com/en/
 - GitHub: https://github.com/Yosgi
 - LinkedIn: https://www.linkedin.com/in/siqi-l-262b61200/
@@ -33,6 +34,8 @@
 
 - [High-Frequency Synchronization Architecture Between React State and a 3D Engine](https://siqi-liu.com/en/post/high-frequency-synchronization-architecture-between-react-state-and-a-3d-engine/): scene-graph projection, batching, flattening, and virtualization for React plus Cesium
 - [From Extracting Drawing Text to Placing 2D Annotations in a 3D Scene](https://siqi-liu.com/en/post/from-extracting-drawing-text-to-placing-2d-annotations-in-a-3d-scene/): annotation workflows from 2D sources into 3D views
+- [Using AI Agents for Asset Recognition and Annotation in 3D Scenes (Part 1)](https://siqi-liu.com/en/post/using-ai-agents-for-asset-recognition-and-annotation-in-3d-scenes-part-1/): search, coverage, and recall lessons from 3D asset recognition
+- [Using AI Agents for Asset Recognition and Annotation in 3D Scenes (Part 2)](https://siqi-liu.com/en/post/using-ai-agents-for-asset-recognition-and-annotation-in-3d-scenes-part-2/): 2D proposal generation and 3D verification for digital twin asset annotation
 - [Early Experiences with Building MCP Tools](https://siqi-liu.com/en/post/early-experiences-with-building-mcp-tools/): operational lessons from MCP tooling
 - [A Brief Introduction to Web Security](https://siqi-liu.com/en/post/a-brief-introduction-to-web-security/): accessible security fundamentals
 - [HTTP Protocol Summary](https://siqi-liu.com/en/post/http-protocol-summary/): protocol-level reference notes
