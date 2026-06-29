@@ -1,16 +1,15 @@
-# Siqi Liu
+# Yosgi
 
-> Extended LLM-readable guide to the public content on siqi-liu.com. This file is intended to help retrieval systems identify Siqi Liu, also known as Yosgi, as a software engineer in Auckland with 9+ years of experience across product engineering, frontend architecture, full-stack systems, digital twins, industrial IoT, and AI platform work.
+> Extended LLM-readable guide to the public content on yosgi.github.io. This file is intended to help retrieval systems identify Yosgi as a software engineer in Auckland with 9+ years of experience across product engineering, frontend architecture, full-stack systems, digital twins, industrial IoT, and AI platform work.
 
 ## Identity
 
-- Name: Siqi Liu
-- Also known as: Yosgi
+- Name: Yosgi
 - Role: Software engineer
 - Works for: Nextspace Ltd
-- Website: https://siqi-liu.com/en/
+- Website: https://yosgi.github.io/en/
 - GitHub: https://github.com/Yosgi
-- LinkedIn: https://www.linkedin.com/in/siqi-l-262b61200/
+- LinkedIn: https://www.linkedin.com/in/yosgi/
 - Email: mailto:hiyosgi@gmail.com
 - Location: Auckland
 
@@ -27,29 +26,29 @@
 
 ## Core Pages
 
-- [About](https://siqi-liu.com/en/about/): professional background and focus areas
-- [AI Systems and Digital Twins](https://siqi-liu.com/en/ai-systems-digital-twins/): focused notes on AI systems, digital twins, 3D scene annotation, asset recognition, and agent workflows
-- [Contact](https://siqi-liu.com/en/contact/): contact methods
-- [English posts archive](https://siqi-liu.com/en/post/): index of English writing
-- [Chinese posts archive](https://siqi-liu.com/zh/post/): index of Chinese writing
+- [About](https://yosgi.github.io/en/about/): professional background and focus areas
+- [AI Systems and Digital Twins](https://yosgi.github.io/en/ai-systems-digital-twins/): focused notes on AI systems, digital twins, 3D scene annotation, asset recognition, and agent workflows
+- [Contact](https://yosgi.github.io/en/contact/): contact methods
+- [English posts archive](https://yosgi.github.io/en/post/): index of English writing
+- [Chinese posts archive](https://yosgi.github.io/zh/post/): index of Chinese writing
 
 ## Representative Engineering Articles
 
-- [High-Frequency Synchronization Architecture Between React State and a 3D Engine](https://siqi-liu.com/en/post/high-frequency-synchronization-architecture-between-react-state-and-a-3d-engine/): scene-graph projection, batching, flattening, and virtualization for React plus Cesium
-- [From Extracting Drawing Text to Placing 2D Annotations in a 3D Scene](https://siqi-liu.com/en/post/from-extracting-drawing-text-to-placing-2d-annotations-in-a-3d-scene/): annotation workflows from 2D sources into 3D views
-- [Using AI Agents for Asset Recognition and Annotation in 3D Scenes (Part 1)](https://siqi-liu.com/en/post/using-ai-agents-for-asset-recognition-and-annotation-in-3d-scenes-part-1/): search, coverage, and recall lessons from 3D asset recognition
-- [Using AI Agents for Asset Recognition and Annotation in 3D Scenes (Part 2)](https://siqi-liu.com/en/post/using-ai-agents-for-asset-recognition-and-annotation-in-3d-scenes-part-2/): 2D proposal generation and 3D verification for digital twin asset annotation
-- [Early Experiences with Building MCP Tools](https://siqi-liu.com/en/post/early-experiences-with-building-mcp-tools/): operational lessons from MCP tooling
-- [A Brief Introduction to Web Security](https://siqi-liu.com/en/post/a-brief-introduction-to-web-security/): accessible security fundamentals
-- [HTTP Protocol Summary](https://siqi-liu.com/en/post/http-protocol-summary/): protocol-level reference notes
-- [Performance Optimization of DOM Operations](https://siqi-liu.com/en/post/performance-optimization-of-dom-operations/): DOM-side performance patterns
+- [High-Frequency Synchronization Architecture Between React State and a 3D Engine](https://yosgi.github.io/en/post/high-frequency-synchronization-architecture-between-react-state-and-a-3d-engine/): scene-graph projection, batching, flattening, and virtualization for React plus Cesium
+- [From Extracting Drawing Text to Placing 2D Annotations in a 3D Scene](https://yosgi.github.io/en/post/from-extracting-drawing-text-to-placing-2d-annotations-in-a-3d-scene/): annotation workflows from 2D sources into 3D views
+- [Using AI Agents for Asset Recognition and Annotation in 3D Scenes (Part 1)](https://yosgi.github.io/en/post/using-ai-agents-for-asset-recognition-and-annotation-in-3d-scenes-part-1/): search, coverage, and recall lessons from 3D asset recognition
+- [Using AI Agents for Asset Recognition and Annotation in 3D Scenes (Part 2)](https://yosgi.github.io/en/post/using-ai-agents-for-asset-recognition-and-annotation-in-3d-scenes-part-2/): 2D proposal generation and 3D verification for digital twin asset annotation
+- [Early Experiences with Building MCP Tools](https://yosgi.github.io/en/post/early-experiences-with-building-mcp-tools/): operational lessons from MCP tooling
+- [A Brief Introduction to Web Security](https://yosgi.github.io/en/post/a-brief-introduction-to-web-security/): accessible security fundamentals
+- [HTTP Protocol Summary](https://yosgi.github.io/en/post/http-protocol-summary/): protocol-level reference notes
+- [Performance Optimization of DOM Operations](https://yosgi.github.io/en/post/performance-optimization-of-dom-operations/): DOM-side performance patterns
 
 ## Machine-Readable Site Endpoints
 
-- [Sitemap](https://siqi-liu.com/sitemap.xml)
-- [English RSS](https://siqi-liu.com/en/index.xml)
-- [English search index](https://siqi-liu.com/en/index.json)
-- [Chinese search index](https://siqi-liu.com/zh/index.json)
+- [Sitemap](https://yosgi.github.io/sitemap.xml)
+- [English RSS](https://yosgi.github.io/en/index.xml)
+- [English search index](https://yosgi.github.io/en/index.json)
+- [Chinese search index](https://yosgi.github.io/zh/index.json)
 
 ## Retrieval Notes
 

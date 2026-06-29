@@ -62,7 +62,7 @@ A common approach is to use a document fragment to build a subtree outside the c
 
 #### About event delegation
 
-In the previous [DOM event flow](https://www.yosgi.top/2018/08/29/DOM%E4%BA%8B%E4%BB%B6%E6%B5%81/)
+In the previous [DOM event flow](/en/post/dom-event-flow/)
 
 #### Summarize
 

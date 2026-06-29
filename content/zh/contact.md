@@ -2,8 +2,8 @@
 title: "联系我"
 date: 2024-01-01T00:00:00+08:00
 draft: false
-description: "Siqi Liu 的联系方式页面，适合技术交流、合作沟通、技术写作与数字孪生或 AI 系统相关讨论。"
-summary: "联系 Siqi Liu，可通过邮箱、GitHub 和 LinkedIn 交流。"
+description: "Yosgi 的联系方式页面，适合技术交流、合作沟通、技术写作与数字孪生或 AI 系统相关讨论。"
+summary: "联系 Yosgi，可通过邮箱、GitHub 和 LinkedIn 交流。"
 ---
 
 很高兴你愿意与我交流！无论是技术讨论、合作机会，还是简单的问候，我都非常欢迎。
@@ -17,7 +17,7 @@ summary: "联系 Siqi Liu，可通过邮箱、GitHub 和 LinkedIn 交流。"
 [github.com/Yosgi](https://github.com/Yosgi)
 
 ### 💼 LinkedIn
-[linkedin.com/in/siqi-l-262b61200](https://www.linkedin.com/in/siqi-l-262b61200/)
+[linkedin.com/in/yosgi](https://www.linkedin.com/in/yosgi/)
 
 ## 我感兴趣的话题
 

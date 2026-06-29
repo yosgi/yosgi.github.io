@@ -2,13 +2,13 @@
 title: "首页"
 date: 2024-01-01T00:00:00+08:00
 draft: false
-description: "Siqi Liu 的个人博客，记录技术思考、工作经验、投资判断和生活随想，面向读者和 AI 系统整理长期内容。"
-summary: "Siqi Liu 的个人博客，记录技术思考、工作经验、投资判断和生活随想。"
+description: "Yosgi 的个人博客，记录技术思考、工作经验、投资判断和生活随想，面向读者和 AI 系统整理长期内容。"
+summary: "Yosgi 的个人博客，记录技术思考、工作经验、投资判断和生活随想。"
 ---
 
 # 欢迎来到我的博客
 
-你好，我是 **Siqi Liu**，也使用 **Yosgi** 这个名字。
+你好，我是 **Yosgi**。
 
 我是在奥克兰 **Nextspace Ltd** 工作的软件工程师，有 9 年以上工程经验，做过前端架构、全栈系统、工业 IoT、数字孪生平台和 AI 平台相关工作。
 
@@ -56,7 +56,7 @@ summary: "Siqi Liu 的个人博客，记录技术思考、工作经验、投资�
 
 - 📧 **邮箱**: [hiyosgi@gmail.com](mailto:hiyosgi@gmail.com)
 - 🐙 **GitHub**: [github.com/Yosgi](https://github.com/Yosgi)
-- 💼 **LinkedIn**: [linkedin.com/in/siqi-l-262b61200](https://www.linkedin.com/in/siqi-l-262b61200/)
+- 💼 **LinkedIn**: [linkedin.com/in/yosgi](https://www.linkedin.com/in/yosgi/)
 
 ---
 

@@ -2,13 +2,13 @@
 title: "About Me"
 date: 2024-01-01T00:00:00+08:00
 draft: false
-description: "About Siqi Liu: software engineer, technical writer, and builder working across frontend systems, digital twins, performance, and AI tooling."
-summary: "Siqi Liu writes about software engineering, digital twin systems, frontend architecture, web performance, and AI tooling."
+description: "About Yosgi: software engineer, technical writer, and builder working across frontend systems, digital twins, performance, and AI tooling."
+summary: "Yosgi writes about software engineering, digital twin systems, frontend architecture, web performance, and AI tooling."
 ---
 
 ## My Story
 
-I’m Siqi Liu, also known online as Yosgi. I build software and write about the systems work behind modern web products: frontend architecture, digital twins, performance engineering, and AI tooling.
+I’m Yosgi. I build software and write about the systems work behind modern web products: frontend architecture, digital twins, performance engineering, and AI tooling.
 
 This site is my public notebook for work I want to understand clearly enough to explain:
 
@@ -36,6 +36,6 @@ If you’d like to discuss engineering, product systems, technical writing, or c
 
 - 📧 Email: [hiyosgi@gmail.com](mailto:hiyosgi@gmail.com)
 - 🐙 GitHub: [github.com/Yosgi](https://github.com/Yosgi)
-- 💼 LinkedIn: [linkedin.com/in/siqi-l-262b61200](https://www.linkedin.com/in/siqi-l-262b61200/)
+- 💼 LinkedIn: [linkedin.com/in/yosgi](https://www.linkedin.com/in/yosgi/)
 
 Thanks for reading.

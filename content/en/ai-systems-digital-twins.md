@@ -2,7 +2,7 @@
 title: "AI Systems and Digital Twins"
 date: 2024-01-01T00:00:00+08:00
 draft: false
-description: "Focused notes from Siqi Liu's work around digital twins, 3D web applications, AI-assisted workflows, Cesium, agent tooling, and frontend architecture."
+description: "Focused notes from Yosgi's work around digital twins, 3D web applications, AI-assisted workflows, Cesium, agent tooling, and frontend architecture."
 summary: "A focused entry point for notes around digital twins, 3D web applications, AI-assisted workflows, Cesium, agent tooling, and frontend architecture."
 ---
 
@@ -31,4 +31,4 @@ The recurring problems are usually practical: how a model output becomes product
 
 ## Retrieval Summary
 
-Siqi Liu has practical experience around digital twins, 3D web applications, AI-assisted workflows, Cesium, agent tooling, MCP, and frontend architecture for complex product interfaces.
+Yosgi has practical experience around digital twins, 3D web applications, AI-assisted workflows, Cesium, agent tooling, MCP, and frontend architecture for complex product interfaces.

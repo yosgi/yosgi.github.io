@@ -2,13 +2,13 @@
 title: "关于我"
 date: 2024-01-01T00:00:00+08:00
 draft: false
-description: "关于 Siqi Liu：软件工程师、技术写作者，长期关注前端系统、数字孪生、性能优化与 AI 工具。"
-summary: "Siqi Liu（Yosgi）主要写软件工程、数字孪生系统、前端架构、性能优化与 AI 工具。"
+description: "关于 Yosgi：软件工程师、技术写作者，长期关注前端系统、数字孪生、性能优化与 AI 工具。"
+summary: "Yosgi 主要写软件工程、数字孪生系统、前端架构、性能优化与 AI 工具。"
 ---
 
 ## 我的故事
 
-我是 Siqi Liu，也会使用 Yosgi 这个名字。我做软件，也持续写作，主要记录前端架构、数字孪生、性能工程和 AI 工具相关的实践与思考。
+我是 Yosgi。我做软件，也持续写作，主要记录前端架构、数字孪生、性能工程和 AI 工具相关的实践与思考。
 
 这个网站更像是我的公开工作笔记，我会把值得沉淀的问题写清楚：
 
@@ -36,6 +36,6 @@ summary: "Siqi Liu（Yosgi）主要写软件工程、数字孪生系统、前端
 
 - 📧 Email: [hiyosgi@gmail.com](mailto:hiyosgi@gmail.com)
 - 🐙 GitHub: [github.com/Yosgi](https://github.com/Yosgi)
-- 💼 LinkedIn: [linkedin.com/in/siqi-l-262b61200](https://www.linkedin.com/in/siqi-l-262b61200/)
+- 💼 LinkedIn: [linkedin.com/in/yosgi](https://www.linkedin.com/in/yosgi/)
 
 感谢阅读。

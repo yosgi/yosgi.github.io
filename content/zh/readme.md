@@ -2,7 +2,7 @@
 title: "README"
 date: 2024-01-01T00:00:00+08:00
 draft: false
-description: "Siqi Liu 博客内容概览，涵盖软件工程、项目笔记与技术写作。"
+description: "Yosgi 博客内容概览，涵盖软件工程、项目笔记与技术写作。"
 seo_noindex: true
 sitemap:
   disable: true

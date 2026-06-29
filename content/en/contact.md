@@ -2,8 +2,8 @@
 title: "Contact Me"
 date: 2024-01-01T00:00:00+08:00
 draft: false
-description: "Contact Siqi Liu for engineering discussions, product systems, collaboration, digital twin or AI platform work, investing, and everyday ideas."
-summary: "Contact page for Siqi Liu, with direct links for email, GitHub, and LinkedIn."
+description: "Contact Yosgi for engineering discussions, product systems, collaboration, digital twin or AI platform work, investing, and everyday ideas."
+summary: "Contact page for Yosgi, with direct links for email, GitHub, and LinkedIn."
 ---
 
 If you want to discuss engineering, product systems, collaboration, digital twin or AI platform work, investing, or everyday ideas, feel free to reach out.
@@ -17,7 +17,7 @@ If you want to discuss engineering, product systems, collaboration, digital twin
 [github.com/Yosgi](https://github.com/Yosgi)
 
 ### 💼 LinkedIn
-[linkedin.com/in/siqi-l-262b61200](https://www.linkedin.com/in/siqi-l-262b61200/)
+[linkedin.com/in/yosgi](https://www.linkedin.com/in/yosgi/)
 
 ## Topics I'm Interested In
 

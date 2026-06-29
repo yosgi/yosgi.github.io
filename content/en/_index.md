@@ -2,13 +2,13 @@
 title: "Home"
 date: 2024-01-01T00:00:00+08:00
 draft: false
-description: "Siqi Liu's personal blog, recording technical thoughts, work experience, investing ideas, and everyday notes for readers and AI systems."
-summary: "Siqi Liu's personal blog, recording technical thoughts, work experience, investing ideas, and everyday notes."
+description: "Yosgi's personal blog, recording technical thoughts, work experience, investing ideas, and everyday notes for readers and AI systems."
+summary: "Yosgi's personal blog, recording technical thoughts, work experience, investing ideas, and everyday notes."
 ---
 
 # Welcome to My Blog
 
-Hi, I'm **Siqi Liu**, also known as **Yosgi**.
+Hi, I'm **Yosgi**.
 
 I’m a software engineer at **Nextspace Ltd** in Auckland, with 9+ years of experience across frontend architecture, full-stack systems, industrial IoT, digital twin platforms, and AI platform work.
 
@@ -56,7 +56,7 @@ If you have thoughts about an article or want to discuss something specific, fee
 
 - 📧 **Email**: [hiyosgi@gmail.com](mailto:hiyosgi@gmail.com)
 - 🐙 **GitHub**: [github.com/Yosgi](https://github.com/Yosgi)
-- 💼 **LinkedIn**: [linkedin.com/in/siqi-l-262b61200](https://www.linkedin.com/in/siqi-l-262b61200/)
+- 💼 **LinkedIn**: [linkedin.com/in/yosgi](https://www.linkedin.com/in/yosgi/)
 
 ---
 

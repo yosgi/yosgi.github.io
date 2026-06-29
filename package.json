@@ -5,7 +5,7 @@
   "main": "scripts/new-post.js",
   "scripts": {
     "dev": "hugo server -D",
-    "build": "hugo --minify",
+    "build": "hugo --minify --cleanDestinationDir",
     "new:zh": "node scripts/new-post.js --lang zh",
     "new:en": "node scripts/new-post.js --lang en",
     "sync:icloud": "zsh scripts/sync-icloud-to-repo.sh",
@@ -28,10 +28,10 @@
   "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/your-username/your-hugo-blog.git"
+    "url": "git+https://github.com/yosgi/yosgi.github.io.git"
   },
   "bugs": {
-    "url": "https://github.com/your-username/your-hugo-blog/issues"
+    "url": "https://github.com/yosgi/yosgi.github.io/issues"
   },
-  "homepage": "https://github.com/your-username/your-hugo-blog#readme"
+  "homepage": "https://yosgi.github.io/"
 }

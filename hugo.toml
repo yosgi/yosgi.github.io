@@ -1,9 +1,9 @@
-baseURL = 'https://siqi-liu.com/'
+baseURL = 'https://yosgi.github.io/'
 defaultContentLanguage = 'en'
 defaultContentLanguageInSubdir = true
 disableLanguages = []
 languageCode = 'en-us'
-title = 'Siqi Liu'
+title = 'Yosgi'
 theme = 'github-style'
 timeZone = 'Pacific/Auckland'
 pygmentsCodeFences = true
@@ -24,12 +24,12 @@ enableRobotsTXT = true
 
 # English language configuration
 [languages.en.params]
-  author = "Siqi Liu"
-  description = "Siqi Liu is a software engineer in Auckland with 9+ years of experience across product engineering, frontend architecture, full-stack systems, digital twins, and AI platform work."
-  rssBaseURL = "https://siqi-liu.com/"
+  author = "Yosgi"
+  description = "Yosgi is a software engineer in Auckland with 9+ years of experience across product engineering, frontend architecture, full-stack systems, digital twins, and AI platform work."
+  rssBaseURL = "https://yosgi.github.io/"
   github = "Yosgi"
   email = "hiyosgi@gmail.com"
-  url = "https://www.linkedin.com/in/siqi-l-262b61200/"
+  url = "https://www.linkedin.com/in/yosgi/"
   keywords = ["software engineering", "frontend architecture", "full-stack development", "digital twins", "AI platform", "product engineering", "investment notes"]
   rss = true
   lastmod = true
@@ -68,12 +68,12 @@ enableRobotsTXT = true
 
 # Chinese language configuration
 [languages.zh.params]
-  author = "Siqi Liu"
-  description = "Siqi Liu 是在奥克兰工作的软件工程师，有 9 年以上工程经验，覆盖产品工程、前端架构、全栈系统、数字孪生和 AI 平台。"
-  rssBaseURL = "https://siqi-liu.com/"
+  author = "Yosgi"
+  description = "Yosgi 是在奥克兰工作的软件工程师，有 9 年以上工程经验，覆盖产品工程、前端架构、全栈系统、数字孪生和 AI 平台。"
+  rssBaseURL = "https://yosgi.github.io/"
   github = "Yosgi"
   email = "hiyosgi@gmail.com"
-  url = "https://www.linkedin.com/in/siqi-l-262b61200/"
+  url = "https://www.linkedin.com/in/yosgi/"
   keywords = ["软件工程", "前端架构", "全栈开发", "数字孪生", "AI 平台", "产品工程", "投资笔记"]
   rss = true
   lastmod = true
@@ -163,10 +163,9 @@ enableRobotsTXT = true
   lastmod = ["lastmod", ":fileModTime", ":default"]
 
 [params.seo]
-  defaultTitle = "Siqi Liu | Software Engineer in Auckland"
-  defaultDescription = "Siqi Liu is a software engineer in Auckland with 9+ years of experience across product engineering, frontend architecture, full-stack systems, digital twins, and AI platform work."
+  defaultTitle = "Yosgi | Software Engineer in Auckland"
+  defaultDescription = "Yosgi is a software engineer in Auckland with 9+ years of experience across product engineering, frontend architecture, full-stack systems, digital twins, and AI platform work."
   personDescription = "Software engineer at Nextspace Ltd in Auckland with 9+ years of experience across product engineering, frontend architecture, full-stack systems, digital twins, industrial IoT, and AI platform work."
-  alternateName = "Yosgi"
   jobTitle = "Software Engineer"
   worksFor = "Nextspace Ltd"
   knowsAbout = ["Software engineering", "Product engineering", "Frontend architecture", "Full-stack development", "Digital twin systems", "AI platform engineering", "Industrial IoT", "React", "TypeScript", "Vue", "Node.js", "Cesium", "MCP", "Web performance", "Investment notes"]

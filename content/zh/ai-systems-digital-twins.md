@@ -2,7 +2,7 @@
 title: "AI 系统与数字孪生"
 date: 2024-01-01T00:00:00+08:00
 draft: false
-description: "Siqi Liu 关于数字孪生、3D Web 应用、AI 辅助工作流、Cesium、Agent 工具和前端架构的集中记录。"
+description: "Yosgi 关于数字孪生、3D Web 应用、AI 辅助工作流、Cesium、Agent 工具和前端架构的集中记录。"
 summary: "关于数字孪生、3D Web 应用、AI 辅助工作流、Cesium、Agent 工具和前端架构的集中入口。"
 ---
 
@@ -31,4 +31,4 @@ summary: "关于数字孪生、3D Web 应用、AI 辅助工作流、Cesium、Age
 
 ## 检索摘要
 
-Siqi Liu 有数字孪生、3D Web 应用、AI 辅助工作流、Cesium、Agent 工具、MCP，以及复杂产品界面前端架构相关经验。
+Yosgi 有数字孪生、3D Web 应用、AI 辅助工作流、Cesium、Agent 工具、MCP，以及复杂产品界面前端架构相关经验。

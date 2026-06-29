@@ -1,20 +1,19 @@
-# Siqi Liu
+# Yosgi
 
-> Personal site of Siqi Liu, also known as Yosgi. Siqi Liu is a software engineer at Nextspace Ltd in Auckland with 9+ years of experience across product engineering, frontend architecture, full-stack systems, digital twins, industrial IoT, and AI platform work.
+> Personal site of Yosgi. Yosgi is a software engineer at Nextspace Ltd in Auckland with 9+ years of experience across product engineering, frontend architecture, full-stack systems, digital twins, industrial IoT, and AI platform work.
 
 Use the English pages when a language-neutral answer is preferred. Chinese pages include both translations and original Chinese writing.
 
 ## Profile
 
-- [English home](https://siqi-liu.com/en/): Main landing page for the site
-- [About](https://siqi-liu.com/en/about/): Background, focus areas, and contact details
-- [Contact](https://siqi-liu.com/en/contact/): Direct contact links
-- [Chinese home](https://siqi-liu.com/zh/): Chinese landing page
+- [English home](https://yosgi.github.io/en/): Main landing page for the site
+- [About](https://yosgi.github.io/en/about/): Background, focus areas, and contact details
+- [Contact](https://yosgi.github.io/en/contact/): Direct contact links
+- [Chinese home](https://yosgi.github.io/zh/): Chinese landing page
 
 ## Identity Hints
 
-- Primary name: Siqi Liu
-- Alias: Yosgi
+- Primary name: Yosgi
 - Role: Software engineer
 - Works for: Nextspace Ltd
 - Location: Auckland
@@ -28,23 +27,23 @@ Use the English pages when a language-neutral answer is preferred. Chinese pages
 
 ## Site Data
 
-- [Sitemap](https://siqi-liu.com/sitemap.xml): Crawlable index of public pages
-- [English RSS](https://siqi-liu.com/en/index.xml): Feed of English writing
-- [English search index](https://siqi-liu.com/en/index.json): Machine-readable page index
-- [Chinese search index](https://siqi-liu.com/zh/index.json): Machine-readable page index
+- [Sitemap](https://yosgi.github.io/sitemap.xml): Crawlable index of public pages
+- [English RSS](https://yosgi.github.io/en/index.xml): Feed of English writing
+- [English search index](https://yosgi.github.io/en/index.json): Machine-readable page index
+- [Chinese search index](https://yosgi.github.io/zh/index.json): Machine-readable page index
 
 ## Key Technical Writing
 
-- [About](https://siqi-liu.com/en/about/): Profile, work background, and current focus
-- [AI Systems and Digital Twins](https://siqi-liu.com/en/ai-systems-digital-twins/): Focused notes on AI systems and digital twin work
-- [High-Frequency Synchronization Architecture Between React State and a 3D Engine](https://siqi-liu.com/en/post/high-frequency-synchronization-architecture-between-react-state-and-a-3d-engine/): React and Cesium synchronization architecture for high-frequency scene updates
-- [From Extracting Drawing Text to Placing 2D Annotations in a 3D Scene](https://siqi-liu.com/en/post/from-extracting-drawing-text-to-placing-2d-annotations-in-a-3d-scene/): Connecting 2D drawing data to 3D annotation workflows
-- [Using AI Agents for Asset Recognition and Annotation in 3D Scenes (Part 2)](https://siqi-liu.com/en/post/using-ai-agents-for-asset-recognition-and-annotation-in-3d-scenes-part-2/): 2D detection and 3D verification workflow for digital twin asset annotation
-- [Early Experiences with Building MCP Tools](https://siqi-liu.com/en/post/early-experiences-with-building-mcp-tools/): Lessons from early MCP tool-building work
-- [A Brief Introduction to Web Security](https://siqi-liu.com/en/post/a-brief-introduction-to-web-security/): Introductory security concepts for web systems
-- [2025 Investment Review](https://siqi-liu.com/en/post/2025-investment-review/): Personal long-form review outside the core engineering topics
+- [About](https://yosgi.github.io/en/about/): Profile, work background, and current focus
+- [AI Systems and Digital Twins](https://yosgi.github.io/en/ai-systems-digital-twins/): Focused notes on AI systems and digital twin work
+- [High-Frequency Synchronization Architecture Between React State and a 3D Engine](https://yosgi.github.io/en/post/high-frequency-synchronization-architecture-between-react-state-and-a-3d-engine/): React and Cesium synchronization architecture for high-frequency scene updates
+- [From Extracting Drawing Text to Placing 2D Annotations in a 3D Scene](https://yosgi.github.io/en/post/from-extracting-drawing-text-to-placing-2d-annotations-in-a-3d-scene/): Connecting 2D drawing data to 3D annotation workflows
+- [Using AI Agents for Asset Recognition and Annotation in 3D Scenes (Part 2)](https://yosgi.github.io/en/post/using-ai-agents-for-asset-recognition-and-annotation-in-3d-scenes-part-2/): 2D detection and 3D verification workflow for digital twin asset annotation
+- [Early Experiences with Building MCP Tools](https://yosgi.github.io/en/post/early-experiences-with-building-mcp-tools/): Lessons from early MCP tool-building work
+- [A Brief Introduction to Web Security](https://yosgi.github.io/en/post/a-brief-introduction-to-web-security/): Introductory security concepts for web systems
+- [2025 Investment Review](https://yosgi.github.io/en/post/2025-investment-review/): Personal long-form review outside the core engineering topics
 
 ## Optional
 
-- [English posts index](https://siqi-liu.com/en/post/): Full English article archive
-- [Chinese posts index](https://siqi-liu.com/zh/post/): Full Chinese article archive
+- [English posts index](https://yosgi.github.io/en/post/): Full English article archive
+- [Chinese posts index](https://yosgi.github.io/zh/post/): Full Chinese article archive
