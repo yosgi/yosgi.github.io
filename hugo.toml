@@ -10,6 +10,9 @@ pygmentsCodeFences = true
 pygmentsUseClasses = true
 enableRobotsTXT = true
 
+[params]
+  googleSiteVerification = "buvE8QgjwvF-_PUpxzCse77d9v-sgDKmCClDy4XCvfI"
+
 # Multilingual configuration
 [languages]
   [languages.en]

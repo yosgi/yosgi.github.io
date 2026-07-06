@@ -1,7 +1,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
-    <meta name="google-site-verification" content="buvE8QgjwvF-_PUpxzCse77d9v-sgDKmCClDy4XCvfI" />
+    {{ with .Site.Params.googleSiteVerification }}
+    <meta name="google-site-verification" content="{{ . }}" />
+    {{ end }}
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link rel="preconnect" href="https://giscus.app" crossorigin>
     <link rel="preconnect" href="https://static.cloudflareinsights.com" crossorigin>
