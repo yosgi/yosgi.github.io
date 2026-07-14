@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/450-删除二叉搜索树中的节点.md
 title: 450-Delete a node in a binary search tree
-description: null
 date: 2021-03-11 00:00:00
-summary: ""
+description: Deleting a node from a binary search tree by locating it via the BST property, then handling the three deletion cases.
+draft: false
 categories:
   - Algorithms
 tags:

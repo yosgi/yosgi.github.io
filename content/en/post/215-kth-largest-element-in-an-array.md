@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/215-数组中的第K个最大元素.md
 title: 215. Kth Largest Element in an Array
-description: null
 date: 2021-02-25 00:00:00
-summary: ""
+description: Finding the k-th largest element with quickselect, an optimized partition-based quicksort.
+draft: false
 categories:
   - Algorithms
 tags:

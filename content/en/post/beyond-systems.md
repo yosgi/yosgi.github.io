@@ -1,6 +1,8 @@
 ---
 title: Beyond Systems
+date: 2026-02-01 00:03:08
 description: Building a Personal Digital Twin
+draft: true
 categories:
   - Life
 tags:
@@ -8,8 +10,6 @@ tags:
   - JavaScript
   - Digital Twins
   - 3D
-date: 2026-02-01 00:03:08
-draft: true
 ---
 
 Recently, I noticed that some companies have started offering services to build a digital twin of a person — usually in the form of a 3D avatar that looks like you and can interact with others on your behalf. It’s an interesting idea, but to be honest, it’s not exactly what I expect.

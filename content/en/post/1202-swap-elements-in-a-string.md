@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/1202-交换字符串中的元素.md
 title: 1202-Swap elements in a string
-description: null
 date: 2021-07-06 00:00:00
-summary: ""
+description: Producing the lexicographically smallest string after swaps by grouping swappable indices with union-find and sorting each group.
+draft: false
 categories:
   - Algorithms
 tags:

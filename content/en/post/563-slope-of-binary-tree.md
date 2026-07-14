@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/563-二叉树的坡度.md
 title: 563-Slope of Binary Tree
-description: null
 date: 2021-03-16 00:00:00
-summary: ""
+description: Computing the total tilt of a binary tree with recursion that returns each subtree's sum.
+draft: false
 categories:
   - Algorithms
 tags:

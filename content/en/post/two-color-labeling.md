@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/双色标记法.md
 title: Two-color labeling
-description: null
 date: 2021-02-27 00:00:00
-summary: ""
+description: A GC-inspired color-marking method that unifies iterative pre-, in-, and post-order binary tree traversal under one template.
+draft: false
 categories:
   - Algorithms
 tags:

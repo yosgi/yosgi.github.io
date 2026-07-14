@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/1046-最后一块石头的重量.md
 title: 1046-The Weight of the Last Stone
-description: null
 date: 2021-03-21 00:00:00
-summary: ""
+description: Simulating the last stone weight by repeatedly smashing the two heaviest stones with a max-heap.
+draft: false
 categories:
   - Algorithms
 tags:

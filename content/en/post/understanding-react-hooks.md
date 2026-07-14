@@ -1,22 +1,14 @@
 ---
-draft: false
-original: content/zh/post/理解-React-Hook.md
 title: Understanding React Hooks
-description: null
 date: 2021-02-25 00:00:00
-summary: ""
+description: Why React introduced Hooks — moving state out of class components and into function components, with worked examples.
+draft: false
 categories:
   - Frontend
 tags:
   - Engineering
   - React
 ---
-
-Understanding React Hooks
-
-**Release Date:** February 25, 2021
-
-Understanding React Hooks
 
 Those who have used the old version of react should know that react's class component has state to manage the internal state, as shown in the following example code
 

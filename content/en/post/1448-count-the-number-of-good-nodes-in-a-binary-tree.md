@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/1448-统计二叉树中好节点的数目.md
 title: 1448-Count the number of good nodes in a binary tree
-description: null
 date: 2021-03-17 00:00:00
-summary: Notes on counting good nodes in a binary tree using DFS with a running max.
+description: Notes on counting good nodes in a binary tree using DFS with a running max.
+draft: false
 categories:
   - Algorithms
 tags:

@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/783-二叉搜索树节点最小距离.md
 title: 783-Binary Search Tree Node Minimum Distance
-description: null
 date: 2021-03-18 00:00:00
-summary: ""
+description: Finding the minimum distance between BST nodes using the ordered property of in-order traversal.
+draft: false
 categories:
   - Algorithms
 tags:

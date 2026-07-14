@@ -1,11 +1,8 @@
 ---
-draft: false
-original: content/zh/post/legacy/观察者模式和vue监听对象变化.md
 title: Observer mode and Vue monitoring object changes
-description: Javascript Design Patterns Knowledge Points
 date: 2018-05-05 22:38:54
-updated: 2019-02-25 11:53:54
-summary: ''
+description: Javascript Design Patterns Knowledge Points
+draft: false
 categories:
   - Frontend
 tags:

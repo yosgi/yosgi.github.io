@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/129-求根节点到叶节点数字之和.md
 title: 129-Find the sum of numbers from the root node to the leaf node
-description: null
 date: 2021-03-16 00:00:00
-summary: ""
+description: Summing all root-to-leaf numbers with top-down pre-order DFS, carrying the running value down each path.
+draft: false
 categories:
   - Algorithms
 tags:

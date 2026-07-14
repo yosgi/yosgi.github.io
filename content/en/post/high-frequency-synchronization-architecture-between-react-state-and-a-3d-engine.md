@@ -1,5 +1,6 @@
 ---
 title: High-Frequency Synchronization Architecture Between React State and a 3D Engine
+date: 2026-01-31 23:42:31
 description: "A synchronization paradigm for massive real-time data: a middle
   layer isolates high-frequency data sources, and React consumes only the linear
   projection of the visible viewport."
@@ -10,7 +11,6 @@ tags:
   - React
   - Digital Twins
   - 3D
-date: 2026-01-31 23:42:31
 ---
 
 We’re used to the data-driven UI mindset in traditional React development: when state changes, the UI changes.

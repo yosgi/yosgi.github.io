@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/98-验证二叉搜索树.md
 title: 98-Verify Binary Search Tree
-description: null
 date: 2021-03-13 00:00:00
-summary: ""
+description: Validating a binary search tree by exploiting the increasing order of its in-order traversal.
+draft: false
 categories:
   - Algorithms
 tags:

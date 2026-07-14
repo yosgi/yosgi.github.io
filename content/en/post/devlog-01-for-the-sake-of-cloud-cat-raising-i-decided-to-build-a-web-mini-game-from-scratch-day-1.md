@@ -1,14 +1,14 @@
 ---
 title: "[DevLog #01] For the Sake of Cloud Cat-Raising, I Decided to Build a Web Mini Game from Scratch（day 1"
+date: 2026-01-29 17:44:40
 description: Build a Web Mini Game from Scratch
+draft: true
 categories:
   - Projects
 tags:
   - Engineering
   - JavaScript
   - AI Systems
-date: 2026-01-29 17:44:40
-draft: true
 ---
 
 ## 1. Introduction: Why Start This Project?

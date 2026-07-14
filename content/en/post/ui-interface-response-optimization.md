@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/legacy/快速响应的用户界面.md
 title: UI interface response optimization
-description: High Performance Javascript Knowledge Points
 date: 2018-11-22 16:55:21
-summary: ''
+description: High Performance Javascript Knowledge Points
+draft: false
 categories:
   - Web Performance
 tags:
@@ -34,43 +32,49 @@ Javascript is single-threaded, because Js needs to operate the DOM tree. If it i
 
 You can use native Date objects to track the running time of your code
 
+```javascript
 var start = + Date()
 //(+) can convert a Date object into a number
+```
 
 
 #### How to use timers to decompose tasks and add time detection mechanisms to improve them?
 
+```javascript
 var todo = item.concat()
 // Clone the original array
 setTimeout(function() {
-// Get the next element in the array and process it
-process(todo.shift())
-// If there are more elements to process, create another timer
-if (todo.length > 0) {
-setTimeout(arguments.callee, 25)
-} else {
-callback(items)
-}
+  // Get the next element in the array and process it
+  process(todo.shift())
+  // If there are more elements to process, create another timer
+  if (todo.length > 0) {
+    setTimeout(arguments.callee, 25)
+  } else {
+    callback(items)
+  }
 }, 25)
+```
 
 Sometimes executing just one task is not efficient. For example, if you process an array of 1000 items, each item takes 1 millisecond to process. If each timer processes only one item, and there is a 25 millisecond delay between each processing, the total time to process the array is (25 + 1) x 1000 milliseconds. If you change it to process 50 items at a time, the processing time is (1000 / 50) * 25 + 1000 = 1500 milliseconds, which is faster than a single processing.
 
+```javascript
 function timedProcessArray(items, process, callback) {
-var todo = items.concat()
-setTimeout(function () {
-// Arrow functions cannot be used here because they have no arguments
-var start = +new Date()
-do {
-process(todo.shift())
-// Check the time after processing. If the time taken is less than 50 milliseconds, continue processing
-} while(todo.length > 0 && (+new Date() - start < 50))
-if(todo.length > 0 ) {
-setTimeout(arguments.callee, 25)
-} else {
-callback()
+  var todo = items.concat()
+  setTimeout(function () {
+    // Arrow functions cannot be used here because they have no arguments
+    var start = +new Date()
+    do {
+      process(todo.shift())
+      // Check the time after processing. If the time taken is less than 50 milliseconds, continue processing
+    } while (todo.length > 0 && (+new Date() - start < 50))
+    if (todo.length > 0) {
+      setTimeout(arguments.callee, 25)
+    } else {
+      callback()
+    }
+  }, 25)
 }
-},25)
-}
+```
 
 #### Does the timer affect performance?
 

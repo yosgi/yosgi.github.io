@@ -1,11 +1,8 @@
 ---
-draft: false
-original: content/zh/post/legacy/ES5-创建对象.md
 title: ES5 - Creating Objects
-description: ES5 knowledge review
 date: 2018-07-13 16:51:52
-updated: 2019-02-25 16:51:52
-summary: ''
+description: ES5 knowledge review
+draft: false
 categories:
   - JavaScript
 tags:

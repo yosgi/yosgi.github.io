@@ -1,15 +1,13 @@
 ---
-draft: false
-original: content/zh/post/legacy/DOM事件流.md
 title: DOM event flow
+date: 2021-01-29 17:44:40
 description: DOM event flow is easy to confuse
-summary: ''
+draft: false
 categories:
   - Frontend
 tags:
   - Engineering
   - JavaScript
-date: 2021-01-29 17:44:40
 ---
 
 I have never been particularly clear about this concept. This time I will summarize it through data and experiments.
@@ -34,44 +32,60 @@ Let's look at the example below
 
 ![image](/images/dom-event-flow/img2.png)
 
-     <div id="wrapDiv">wrapDiv
-        <p id="middleP">middleP
-            <span id="innerSpan">innerSpan</span>
-        </p>
-    </div>
-    
+```html
+<div id="wrapDiv">wrapDiv
+  <p id="middleP">middleP
+    <span id="innerSpan">innerSpan</span>
+  </p>
+</div>
+```
 
-    #wrapDiv, #middleP, #innerSpan{
-        margin: 5px;padding: 5px;box-sizing: border-box;cursor: default;
-    }
-    #wrapDiv{
-        width: 300px;height: 300px;border: indianred 3px solid;
-    }
-    #middleP{
-        width: 200px;height: 200px;border: hotpink 3px solid;
-    }
-    #innerSpan{
-        display: block; width: 100px; height: 100px; border: orange 3px solid;
-    }
-    
-    
-    var wrapDiv = document.getElementById("wrapDiv");
-    var middleP = document.getElementById("middleP");
-    var innerSpan = document.getElementById("innerSpan");
+```css
+#wrapDiv, #middleP, #innerSpan {
+  margin: 5px;
+  padding: 5px;
+  box-sizing: border-box;
+  cursor: default;
+}
+#wrapDiv {
+  width: 300px;
+  height: 300px;
+  border: indianred 3px solid;
+}
+#middleP {
+  width: 200px;
+  height: 200px;
+  border: hotpink 3px solid;
+}
+#innerSpan {
+  display: block;
+  width: 100px;
+  height: 100px;
+  border: orange 3px solid;
+}
+```
+
+```javascript
+var wrapDiv = document.getElementById("wrapDiv");
+var middleP = document.getElementById("middleP");
+var innerSpan = document.getElementById("innerSpan");
+```
 
 ###### Event Capture Elements (Bubble) Triggering Order
 First, let's look at event capture.
 
-    middleP.addEventListener("click", function(e){
-        console.log("middleP capture", e.target.nodeName, e.currentTarget.nodeName);
-    }, true);
-    wrapDiv.addEventListener("click", function(e){
-        console.log("wrapDiv capture", e.target.nodeName, e.currentTarget.nodeName);
-    }, true);
-    innerSpan.addEventListener("click", function(e){
-        console.log("innerSpan capture", e.target.nodeName, e.currentTarget.nodeName);
-    }, true);
-    //wrapDiv captures SPAN DIV middleP captures SPAN P innerSpan captures SPAN SPAN
+```javascript
+middleP.addEventListener("click", function(e){
+  console.log("middleP capture", e.target.nodeName, e.currentTarget.nodeName);
+}, true);
+wrapDiv.addEventListener("click", function(e){
+  console.log("wrapDiv capture", e.target.nodeName, e.currentTarget.nodeName);
+}, true);
+innerSpan.addEventListener("click", function(e){
+  console.log("innerSpan capture", e.target.nodeName, e.currentTarget.nodeName);
+}, true);
+//wrapDiv captures SPAN DIV middleP captures SPAN P innerSpan captures SPAN SPAN
+```
 
 As you can see, the order of binding does not affect the capture order. Event capture is...
 **Less specific nodes should receive events earlier**
@@ -91,25 +105,26 @@ Let's talk about the two properties of the above code, e.target and e.currentTar
 
 Next, do another experiment to see which happens first, capture or bubbling
 
+```javascript
 // Bubble phase events
 middleP.addEventListener("click", function(e){
-console.log("middleP Bubble", e.target.nodeName, e.currentTarget.nodeName);
+  console.log("middleP Bubble", e.target.nodeName, e.currentTarget.nodeName);
 }, false);
 wrapDiv.addEventListener("click", function(e){
-console.log("wrapDiv Bubble", e.target.nodeName, e.currentTarget.nodeName);
+  console.log("wrapDiv Bubble", e.target.nodeName, e.currentTarget.nodeName);
 }, false);
 innerSpan.addEventListener("click", function(e){
-console.log("innerSpan Bubble", e.target.nodeName, e.currentTarget.nodeName);
+  console.log("innerSpan Bubble", e.target.nodeName, e.currentTarget.nodeName);
 }, false);
 // Capture phase binding events
 middleP.addEventListener("click", function(e){
-console.log("middleP Capture", e.target.nodeName, e.currentTarget.nodeName);
+  console.log("middleP Capture", e.target.nodeName, e.currentTarget.nodeName);
 }, true);
 wrapDiv.addEventListener("click", function(e){
-console.log("wrapDiv capture", e.target.nodeName, e.currentTarget.nodeName);
+  console.log("wrapDiv capture", e.target.nodeName, e.currentTarget.nodeName);
 }, true);
 innerSpan.addEventListener("click", function(e){
-console.log("innerSpan capture", e.target.nodeName, e.currentTarget.nodeName);
+  console.log("innerSpan capture", e.target.nodeName, e.currentTarget.nodeName);
 }, true);
 //wrapDiv capture SPAN DIV
 // middleP capture SPAN P
@@ -117,6 +132,7 @@ console.log("innerSpan capture", e.target.nodeName, e.currentTarget.nodeName);
 //innerSpan capture SPAN SPAN
 // middleP bubbles SPAN P
 // wrapDiv bubbles SPAN DIV
+```
 
 In theory, capturing events should occur before bubbling.
 
@@ -131,31 +147,33 @@ The function stopPropagation stops further propagation of the current event duri
 
 Let's use the example above again. Note that I added e.stopPropagation() during the bubbling phase of innerspan.
 
+```javascript
 // Bubble phase events
 middleP.addEventListener("click", function(e){
-console.log("middleP Bubble", e.target.nodeName, e.currentTarget.nodeName);
+  console.log("middleP Bubble", e.target.nodeName, e.currentTarget.nodeName);
 }, false);
 wrapDiv.addEventListener("click", function(e){
-console.log("wrapDiv Bubble", e.target.nodeName, e.currentTarget.nodeName);
+  console.log("wrapDiv Bubble", e.target.nodeName, e.currentTarget.nodeName);
 }, false);
 innerSpan.addEventListener("click", function(e){
-e.stopPropagation()
-console.log("innerSpan Bubble", e.target.nodeName, e.currentTarget.nodeName);
+  e.stopPropagation()
+  console.log("innerSpan Bubble", e.target.nodeName, e.currentTarget.nodeName);
 }, false);
 // Capture phase binding events
 middleP.addEventListener("click", function(e){
-console.log("middleP Capture", e.target.nodeName, e.currentTarget.nodeName);
+  console.log("middleP Capture", e.target.nodeName, e.currentTarget.nodeName);
 }, true);
 wrapDiv.addEventListener("click", function(e){
-console.log("wrapDiv capture", e.target.nodeName, e.currentTarget.nodeName);
+  console.log("wrapDiv capture", e.target.nodeName, e.currentTarget.nodeName);
 }, true);
 innerSpan.addEventListener("click", function(e){
-console.log("innerSpan capture", e.target.nodeName, e.currentTarget.nodeName);
+  console.log("innerSpan capture", e.target.nodeName, e.currentTarget.nodeName);
 }, true);
 //wrapDiv capture SPAN DIV
 //middleP capture SPAN P
 //innerSpan bubble SPAN SPAN
 //innerSpan capture SPAN SPAN
+```
 
 It can be seen that e.stopPropagation prevents the subsequent bubbling events of middleP and wrapDiv from being triggered.
 
@@ -170,14 +188,16 @@ Stops the event from bubbling and prevents other listeners for the same event fr
 
 Let's try this:
 
+```javascript
 innerSpan.addEventListener("click", function(e){
-e.stopImmediatePropagation()
-console.log("innerSpan bubbles", e.target.nodeName, e.currentTarget.nodeName);
+  e.stopImmediatePropagation()
+  console.log("innerSpan bubbles", e.target.nodeName, e.currentTarget.nodeName);
 }, false);
 innerSpan.addEventListener("click", function(e){
-console.log("innerSpan captures", e.target.nodeName, e.currentTarget.nodeName);
+  console.log("innerSpan captures", e.target.nodeName, e.currentTarget.nodeName);
 }, true);
 //innerSpan bubbles SPAN SPAN
+```
 
 This also prevents the capture event from being triggered.
 
@@ -197,16 +217,19 @@ No more experiments, just state the conclusion directly, bubble up.
 
 for example
 
+```javascript
 (function(){
-var lists = document.getElementById('lists');
-lists.addEventListener('click',showColor,false);
-function showColor(e){
-var x = e.target;
-if(x.nodeName.toLowerCase() === 'li'){
-alert('The color is ' + x.innerHTML);
-}
-}
+  var lists = document.getElementById('lists');
+  lists.addEventListener('click', showColor, false);
+  function showColor(e){
+    var x = e.target;
+    if(x.nodeName.toLowerCase() === 'li'){
+      alert('The color is ' + x.innerHTML);
+    }
+  }
 })();
+```
+
 Instead of looping through the entire li list
 
 #### Bubbling or Capturing?

@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/反转链表2.md
 title: Reverse Linked List 2
-description: 
 date: 2021-07-23 00:00:00
-summary: 
+description: Reversing a sublist of a linked list in place using a dummy head and tracking the boundary nodes.
+draft: false
 categories:
   - Algorithms
 tags:

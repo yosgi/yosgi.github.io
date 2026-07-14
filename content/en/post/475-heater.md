@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/475-供暖器.md
 title: 475-Heater
-description: null
 date: 2021-06-10 00:00:00
-summary: ""
+description: Finding the minimum heating radius by locating the nearest heater to each house via binary search.
+draft: false
 categories:
   - Algorithms
 tags:

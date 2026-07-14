@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/347-前-K-个高频元素.md
 title: 347-first-K-high-frequency elements
-description: null
 date: 2021-04-08 00:00:00
-summary: ""
+description: Finding the top K most frequent elements by counting occurrences, then selecting with a min-heap.
+draft: false
 categories:
   - Algorithms
 tags:

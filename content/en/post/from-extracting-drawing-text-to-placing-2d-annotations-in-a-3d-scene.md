@@ -1,5 +1,6 @@
 ---
 title: From Extracting Drawing Text to Placing 2D Annotations in a 3D Scene
+date: 2026-06-12 11:28:21
 description: A practical engineering recap of how a simple drawing text extraction task turned into a 2D-to-3D mapping workflow for digital twins, combining SVG parsing, vision models, geometry rules, registration math, and agent tool design.
 categories:
   - Digital Twin
@@ -7,7 +8,6 @@ tags:
   - AI Systems
   - Digital Twins
   - 3D
-date: 2026-06-12 11:28:21
 ---
 
 

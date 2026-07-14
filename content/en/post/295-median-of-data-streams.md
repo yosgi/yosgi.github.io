@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/295-数据流的中位数.md
 title: 295-Median of data streams
-description: null
 date: 2021-03-24 00:00:00
-summary: ""
+description: Maintaining the running median of a data stream with a max-heap and a min-heap.
+draft: false
 categories:
   - Algorithms
 tags:

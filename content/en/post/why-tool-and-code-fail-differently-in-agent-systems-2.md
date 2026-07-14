@@ -1,12 +1,12 @@
 ---
 title: Why Tool and Code Fail Differently in Agent Systems（2）
+date: 2026-05-25 14:50:20
 description: Tool and Code do not just differ in expressiveness; they also fail at different times. This article explains why multi-round Agent systems amplify that difference.
 categories:
   - AI Engineering
 tags:
   - AI Systems
   - AI Agents
-date: 2026-05-25 14:50:20
 ---
 In the previous article, I wrote about an MCP-as-Code refactor.
 

@@ -1,8 +1,7 @@
 ---
 title: UI界面响应优化
-description: 《高性能Javascript》 知识点整理
 date: 2018-11-22 16:55:21
-summary: ""
+description: 《高性能Javascript》 知识点整理
 categories:
   - Web Performance
 tags:
@@ -34,43 +33,49 @@ Javascript是单线程的，因为Js需要操作DOM树，如果是多线程的�
 
 可以通过原生的Date对象来跟踪代码的运行时间
 
-    var start = + Date()
-    //(+)可以将Date对象转化为数字
-    
+```javascript
+var start = + Date()
+//(+)可以将Date对象转化为数字
+```
+
 
 #### 怎么使用定时器分解任务，并增加时间检测机制来改进？
 
-    var todo = item.concat()
-    // 克隆原数组
-    setTimeout(function() {
-        // 获取数组的下个元素并处理
-        process(todo.shift())
-        // 如果还有需要处理的元素，则创建另一个定时器
-        if (todo.length > 0) {
-            setTimeout(arguments.callee, 25)
-        } else {
-            callback(items)
-        }
-    },25)
+```javascript
+var todo = item.concat()
+// 克隆原数组
+setTimeout(function() {
+  // 获取数组的下个元素并处理
+  process(todo.shift())
+  // 如果还有需要处理的元素，则创建另一个定时器
+  if (todo.length > 0) {
+    setTimeout(arguments.callee, 25)
+  } else {
+    callback(items)
+  }
+}, 25)
+```
 
 有的时候只执行一个任务的效率不高，例如：如果处理一个长度为1000项的数组，每处理一项需要1毫秒，如果每个定时器只处理一项，且在两次处理之间产生25毫秒的延时，数组处理的总时间为 （25+1）x 1000毫秒，如果修改成一次处理50个，处理时间为（1000/50） *25 +  1000 = 1500毫秒，比单个处理更快。
 
-    function timedProcessArray(items, process, callback) {
-        var todo = items.concat()
-        setTimeout(function ()  {
-            // 这里不能使用箭头函数 因为箭头函数没有arguments
-            var start = +new Date()
-            do {
-                process(todo.shift())
-                // 处理完后检测时间，如果所用时间小于50毫秒继续处理
-            } while(todo.length > 0 && (+new Date() - start < 50))
-            if(todo.length > 0 ) {
-                setTimeout(arguments.callee, 25)
-            } else {
-                callback()
-            }
-        },25)
+```javascript
+function timedProcessArray(items, process, callback) {
+  var todo = items.concat()
+  setTimeout(function () {
+    // 这里不能使用箭头函数 因为箭头函数没有arguments
+    var start = +new Date()
+    do {
+      process(todo.shift())
+      // 处理完后检测时间，如果所用时间小于50毫秒继续处理
+    } while (todo.length > 0 && (+new Date() - start < 50))
+    if (todo.length > 0) {
+      setTimeout(arguments.callee, 25)
+    } else {
+      callback()
     }
+  }, 25)
+}
+```
 
 #### 定时器对性能有影响吗？
 

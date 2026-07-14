@@ -1,8 +1,7 @@
 ---
 title: vue易错易混知识点整理
-description: <ES6标准入门> 知识点整理
 date: 2018-09-10 18:30:10
-summary: ""
+description: <ES6标准入门> 知识点整理
 categories:
   - Frontend
 tags:
@@ -22,14 +21,18 @@ new Vue 正是viewmodel
 
 串联
 
-    {{ message | filterA | filterB }}
-    
+```html
+{{ message | filterA | filterB }}
+```
+
 接受参数
 
-    {{ message | filterA('arg1', arg2) }}
-    
+```html
+{{ message | filterA('arg1', arg2) }}
+```
+
 这里，filterA 被定义为接收三个参数的过滤器函数。其中 message 的值作为第一个参数，普通字符串 'arg1' 作为第二个参数，表达式 arg2 的值作为第三个参数。
-    
+
 #### 计算属性和方法有什么区别？计算属性和侦听属性有什么区别？
 
 计算属性和方法的区别是计算属性是基于依赖进行缓存的，只有在相关依赖发生改变后才会求值。
@@ -42,27 +45,33 @@ new Vue 正是viewmodel
 
 观察表达式
 
-    vm.$watch(
-      function () {
-        return this.a + this.b
-      },
-      function (newVal, oldVal) {
-      }
-    )
+```javascript
+vm.$watch(
+  function () {
+    return this.a + this.b
+  },
+  function (newVal, oldVal) {
+  }
+)
+```
 
 对象内部变化
 
-    vm.$watch('someObject', callback, {
-      deep: true
-    })
-    vm.someObject.nestedValue = 123
-    
+```javascript
+vm.$watch('someObject', callback, {
+  deep: true
+})
+vm.someObject.nestedValue = 123
+```
+
 立即触发回调
 
-    vm.$watch('a', callback, {
-      immediate: true
-    })
-    
+```javascript
+vm.$watch('a', callback, {
+  immediate: true
+})
+```
+
 #### v-show和v-if的区别是什么？
 
 v-if支持v-else和v-else-if语法，也支持< template/>语法；v-show不支持这些；
@@ -91,58 +100,63 @@ key的作用主要是为了高效的更新虚拟DOM。另外vue中在使用相�
 
 #### 怎么使vue检测到利用索引直接设置一个项或者修改数组的长度？
 
-    // Vue.set
-    Vue.set(vm.items, indexOfItem, newValue)
-    // Array.prototype.splice
-    vm.items.splice(indexOfItem, 1, newValue)
-    
-    
+```javascript
+// Vue.set
+Vue.set(vm.items, indexOfItem, newValue)
+// Array.prototype.splice
+vm.items.splice(indexOfItem, 1, newValue)
+```
+
 #### 使用修饰符使用户的输入值转为数字类型？自动过滤用户输入的首尾空白字符？
 
-    <input v-model.number="age" type="number">
-    <input v-model.trim="msg">
-    
+```html
+<input v-model.number="age" type="number">
+<input v-model.trim="msg">
+```
+
 #### data为什么必须是函数？
 
 因为只有这样每个实例才能维护一份被返回对象的独立的拷贝，否则对一个实例的修改会影响到其它的实例
 
 #### 怎么从一个文件夹批量全局导入基础组件？
 
-    import Vue from 'vue'
-    import upperFirst from 'lodash/upperFirst'
-    import camelCase from 'lodash/camelCase'
-    //具体查看webpack的API
-    const requireComponent = require.context(
-      // 其组件目录的相对路径
-      './components',
-      // 是否查询其子目录
-      false,
-      // 匹配基础组件文件名的正则表达式
-      /Base[A-Z]\w+\.(vue|js)$/
+```javascript
+import Vue from 'vue'
+import upperFirst from 'lodash/upperFirst'
+import camelCase from 'lodash/camelCase'
+//具体查看webpack的API
+const requireComponent = require.context(
+  // 其组件目录的相对路径
+  './components',
+  // 是否查询其子目录
+  false,
+  // 匹配基础组件文件名的正则表达式
+  /Base[A-Z]\w+\.(vue|js)$/
+)
+
+requireComponent.keys().forEach(fileName => {
+  // 获取组件配置
+  const componentConfig = requireComponent(fileName)
+
+  // 获取组件的 PascalCase 命名
+  const componentName = upperFirst(
+    camelCase(
+      // 剥去文件名开头的 `./` 和结尾的扩展名
+      fileName.replace(/^\.\/(.*)\.\w+$/, '$1')
     )
-    
-    requireComponent.keys().forEach(fileName => {
-      // 获取组件配置
-      const componentConfig = requireComponent(fileName)
-    
-      // 获取组件的 PascalCase 命名
-      const componentName = upperFirst(
-        camelCase(
-          // 剥去文件名开头的 `./` 和结尾的扩展名
-          fileName.replace(/^\.\/(.*)\.\w+$/, '$1')
-        )
-      )
-    
-      // 全局注册组件
-      Vue.component(
-        componentName,
-        // 如果这个组件选项是通过 `export default` 导出的，
-        // 那么就会优先使用 `.default`，
-        // 否则回退到使用模块的根。
-        componentConfig.default || componentConfig
-      )
-    })
-    
+  )
+
+  // 全局注册组件
+  Vue.component(
+    componentName,
+    // 如果这个组件选项是通过 `export default` 导出的，
+    // 那么就会优先使用 `.default`，
+    // 否则回退到使用模块的根。
+    componentConfig.default || componentConfig
+  )
+})
+```
+
 #### 组件的特性继承是什么？如何自定义特性继承？
 
 添加到组件实例上的特性会被自动添加到组件的根元素上。其中class 和 style 特性如果冲突，两边的值会被合并，其它的特性的冲突则会被替换。
@@ -150,147 +164,171 @@ key的作用主要是为了高效的更新虚拟DOM。另外vue中在使用相�
 
 如果不希望组件的根元素继承特性，可以在组件的选项中设置inheritAttrs: false,例如
 
-    ue.component('my-component', {
-      inheritAttrs: false,
-      // ...
-    })
-    
+```javascript
+ue.component('my-component', {
+  inheritAttrs: false,
+  // ...
+})
+```
+
 配合实例的$attrs属性使用，可以手动将特性赋予给指定元素，例如
-    
-    Vue.component('base-input', {
-      inheritAttrs: false,
-      props: ['label', 'value'],
-      template: `
-        <label>
-          {{ label }}
-          <input
-            v-bind="$attrs"
-            v-bind:value="value"
-            v-on:input="$emit('input', $event.target.value)"
-          >
-        </label>
-      `
-    })
-    
+
+```javascript
+Vue.component('base-input', {
+  inheritAttrs: false,
+  props: ['label', 'value'],
+  template: `
+    <label>
+      {{ label }}
+      <input
+        v-bind="$attrs"
+        v-bind:value="value"
+        v-on:input="$emit('input', $event.target.value)"
+      >
+    </label>
+  `
+})
+```
+
 #### 如何将原生事件绑定到组件？怎么绑定到组件的特定元素？
 
 如果是想在组件的根元素直接监听原生事件，可以使用native修饰符，例如
 
-    <base-input v-on:focus.native="onFocus"></base-input>
+```html
+<base-input v-on:focus.native="onFocus"></base-input>
+```
 
 如果根元素不是需要监听的元素，父级的native将会失效，可以使用$listeners属性，它是一个包含了作用在这个组件上的所有监听器的对象。
 例如<base-input />组件中的$listeners是
 
-    {
-      focus: function (event) { /* ... */ }
-    }
-    
+```javascript
+{
+  focus: function (event) { /* ... */ }
+}
+```
+
 这样就可以像如下将事件侦听器指向这个组件的某个特定子元素。
 
-    Vue.component('base-input', {
-      inheritAttrs: false,
-      props: ['label', 'value'],
-      computed: {
-        inputListeners: function () {
-          var vm = this
-          return Object.assign({},
-            // 我们从父级添加所有的监听器
-            this.$listeners,
-            // 然后我们添加自定义监听器，
-            // 或覆写一些监听器的行为
-            {
-              // 这里确保组件配合 `v-model` 的工作
-              input: function (event) {
-                vm.$emit('input', event.target.value)
-              }
-            }
-          )
+```javascript
+Vue.component('base-input', {
+  inheritAttrs: false,
+  props: ['label', 'value'],
+  computed: {
+    inputListeners: function () {
+      var vm = this
+      return Object.assign({},
+        // 我们从父级添加所有的监听器
+        this.$listeners,
+        // 然后我们添加自定义监听器，
+        // 或覆写一些监听器的行为
+        {
+          // 这里确保组件配合 `v-model` 的工作
+          input: function (event) {
+            vm.$emit('input', event.target.value)
+          }
         }
-      },
-      template: `
-        <label>
-          {{ label }}
-          <input
-            v-bind="$attrs"
-            v-bind:value="value"
-            v-on="inputListeners"
-          >
-        </label>
-      `
-    })
+      )
+    }
+  },
+  template: `
+    <label>
+      {{ label }}
+      <input
+        v-bind="$attrs"
+        v-bind:value="value"
+        v-on="inputListeners"
+      >
+    </label>
+  `
+})
+```
 
 ####     .sync修饰符是什么？ 怎么使用？
 
 .sync是子组件触发父组件事件并修改父组件值的方法的缩写，使用例子：
 
-    this.$emit('update:title', newTitle)
-    <text-document
-      v-bind:title="doc.title"
-      v-on:update:title="doc.title = $event"
-    ></text-document>
-    //可以缩写成为
-    <text-document v-bind:title.sync="doc.title"></text-document>
+```html
+this.$emit('update:title', newTitle)
+<text-document
+  v-bind:title="doc.title"
+  v-on:update:title="doc.title = $event"
+></text-document>
+//可以缩写成为
+<text-document v-bind:title.sync="doc.title"></text-document>
+```
 
 
 #### 怎么直接访问根实例，父组件实例，子组件实例（子元素）
 
 访问根实例
 
-    this.$root
-    //最好还是使用vuex
-    
+```javascript
+this.$root
+//最好还是使用vuex
+```
+
 访问父组件实例
 
-    this.$parent
+```javascript
+this.$parent
+```
 
 或者使用依赖注入
 
-    provide: function () {
-      return {
-        getMap: this.getMap
-      }
-    }
-    
-    inject: ['getMap']
-    
+```javascript
+provide: function () {
+  return {
+    getMap: this.getMap
+  }
+}
+
+inject: ['getMap']
+```
+
 访问子组件或者子元素
 
-    this.$refs
-    
+```javascript
+this.$refs
+```
+
 
 #### 如何在实例销毁前注销手动绑定的eventListener？
 
 使用程序化的事件侦听器，比如一个集成的第三方库的模式
 
-    // 一次性将这个日期选择器附加到一个输入框上
-    // 它会被挂载到 DOM 上。
-    mounted: function () {
-      // Pikaday 是一个第三方日期选择器的库
-      this.picker = new Pikaday({
-        field: this.$refs.input,
-        format: 'YYYY-MM-DD'
-      })
-    },
-    // 在组件被销毁之前，
-    // 也销毁这个日期选择器。
-    beforeDestroy: function () {
-      this.picker.destroy()
-    }
+```javascript
+// 一次性将这个日期选择器附加到一个输入框上
+// 它会被挂载到 DOM 上。
+mounted: function () {
+  // Pikaday 是一个第三方日期选择器的库
+  this.picker = new Pikaday({
+    field: this.$refs.input,
+    format: 'YYYY-MM-DD'
+  })
+},
+// 在组件被销毁之前，
+// 也销毁这个日期选择器。
+beforeDestroy: function () {
+  this.picker.destroy()
+}
+```
 
 存在的问题是第一需要在实例中保存这个piker，第二是建立代码和清理代码分开了，使得比较难程序化的清理所建立的所有东西。
 解决办法是
 
-    mounted: function () {
-      var picker = new Pikaday({
-        field: this.$refs.input,
-        format: 'YYYY-MM-DD'
-      })
-    
-      this.$once('hook:beforeDestroy', function () {
-        picker.destroy()
-      })
-    }
-    
+```javascript
+mounted: function () {
+  var picker = new Pikaday({
+    field: this.$refs.input,
+    format: 'YYYY-MM-DD'
+  })
+
+  this.$once('hook:beforeDestroy', function () {
+    picker.destroy()
+  })
+}
+```
+
 #### 什么时候会使用到自定义指令？怎么使用？
 
 当需要对**普通DOM元素**进行底层操作的时候可能需要用到自定义指令
@@ -300,66 +338,77 @@ key的作用主要是为了高效的更新虚拟DOM。另外vue中在使用相�
 
 输入框的例子：
 
-    // 注册一个全局自定义指令 `v-focus`
-    Vue.directive('focus', {
-      // 当被绑定的元素插入到 DOM 中时……
-      inserted: function (el) {
-        // 聚焦元素
-        el.focus()
-      }
-    })
+```javascript
+// 注册一个全局自定义指令 `v-focus`
+Vue.directive('focus', {
+  // 当被绑定的元素插入到 DOM 中时……
+  inserted: function (el) {
+    // 聚焦元素
+    el.focus()
+  }
+})
+```
 
 或者局部指令
 
-    directives: {
-      focus: {
-        // 指令的定义
-        inserted: function (el) {
-          el.focus()
-        }
-      }
+```javascript
+directives: {
+  focus: {
+    // 指令的定义
+    inserted: function (el) {
+      el.focus()
     }
-    <input v-focus>
+  }
+}
+```
+
+```html
+<input v-focus>
+```
 
 背景颜色的例子
 
-    <div v-demo="{ color: 'white', text: 'hello!' }"></div>
+```html
+<div v-demo="{ color: 'white', text: 'hello!' }"></div>
+```
 
-    Vue.directive('demo', function (el, binding) {
-      console.log(binding.value.color) // => "white"
-      console.log(binding.value.text)  // => "hello!"
-    })
-    
+```javascript
+Vue.directive('demo', function (el, binding) {
+  console.log(binding.value.color) // => "white"
+  console.log(binding.value.text)  // => "hello!"
+})
+```
+
 #### vue插件有哪几种？怎么使用插件？
 
 Vue.js 的插件应当有一个公开方法 install 。这个方法的第一个参数是 Vue 构造器，第二个参数是一个可选的选项对象：
 
+```javascript
+MyPlugin.install = function (Vue, options) {
+  // 1. 添加全局方法或属性
+  Vue.myGlobalMethod = function () {
+    // 逻辑...
+  }
 
-    MyPlugin.install = function (Vue, options) {
-      // 1. 添加全局方法或属性
-      Vue.myGlobalMethod = function () {
-        // 逻辑...
-      }
-    
-      // 2. 添加全局资源
-      Vue.directive('my-directive', {
-        bind (el, binding, vnode, oldVnode) {
-          // 逻辑...
-        }
-        ...
-      })
-    
-      // 3. 注入组件
-      Vue.mixin({
-        created: function () {
-          // 逻辑...
-        }
-        ...
-      })
-    
-      // 4. 添加实例方法
-      Vue.prototype.$myMethod = function (methodOptions) {
-        // 逻辑...
-      }
+  // 2. 添加全局资源
+  Vue.directive('my-directive', {
+    bind (el, binding, vnode, oldVnode) {
+      // 逻辑...
     }
+    ...
+  })
 
+  // 3. 注入组件
+  Vue.mixin({
+    created: function () {
+      // 逻辑...
+    }
+    ...
+  })
+
+  // 4. 添加实例方法
+  Vue.prototype.$myMethod = function (methodOptions) {
+    // 逻辑...
+  }
+}
+```

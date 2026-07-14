@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/133-路径总和II.md
 title: 133-Path Sum II
-description: null
 date: 2021-02-28 00:00:00
-summary: ""
+description: Collecting all root-to-leaf paths with a given sum using DFS with backtracking.
+draft: false
 categories:
   - Algorithms
 tags:

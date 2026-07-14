@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/814-二叉树剪枝.md
 title: 814-Binary Tree Pruning
-description: null
 date: 2021-03-17 00:00:00
-summary: ""
+description: Pruning subtrees that contain no 1 with post-order traversal, using a dummy parent so the root can also be pruned.
+draft: false
 categories:
   - Algorithms
 tags:

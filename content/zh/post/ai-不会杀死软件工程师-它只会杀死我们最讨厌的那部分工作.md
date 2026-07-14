@@ -1,5 +1,6 @@
 ---
 title: AI 不会杀死软件工程师，它只会杀死我们最讨厌的那部分工作。
+date: 2026-05-21 23:28:56
 description: |-
   
   这场争论，已经太熟悉了
@@ -9,7 +10,6 @@ tags:
   - Engineering
   - JavaScript
   - AI Systems
-date: 2026-05-21 23:28:56
 ---
 
 # 

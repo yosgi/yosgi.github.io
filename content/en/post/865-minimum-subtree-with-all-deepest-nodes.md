@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/865-具有所有最深节点的最小子树.md
 title: 865 - Minimum subtree with all deepest nodes
-description: null
 date: 2021-03-21 00:00:00
-summary: ""
+description: Finding the smallest subtree containing all deepest nodes with a single bottom-up recursion that returns each subtree's depth.
+draft: false
 categories:
   - Algorithms
 tags:

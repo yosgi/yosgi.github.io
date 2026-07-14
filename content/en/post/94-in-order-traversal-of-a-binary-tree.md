@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/94-二叉树的中序遍历.md
 title: 94-In-order traversal of a binary tree
-description: null
 date: 2021-02-25 00:00:00
-summary: ""
+description: In-order binary tree traversal, both recursively and iteratively with an explicit stack.
+draft: false
 categories:
   - Algorithms
 tags:

@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/875-爱吃香蕉的珂珂.md
 title: 875-Keke who loves bananas
-description: null
 date: 2021-04-28 00:00:00
-summary: ""
+description: Finding the minimum banana-eating speed by searching over the range of possible speeds.
+draft: false
 categories:
   - Algorithms
 tags:

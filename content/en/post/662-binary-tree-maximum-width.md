@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/662-二叉树最大宽度.md
 title: 662-Binary Tree Maximum Width
-description: null
 date: 2021-03-13 00:00:00
-summary: ""
+description: Computing the maximum width of a binary tree with BFS, tracking each node's position index within its level.
+draft: false
 categories:
   - Algorithms
 tags:

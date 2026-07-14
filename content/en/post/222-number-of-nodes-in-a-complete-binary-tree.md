@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/222-完全二叉树的节点个数.md
 title: 222-Number of nodes in a complete binary tree
-description: null
 date: 2021-03-13 00:00:00
-summary: ""
+description: Counting nodes in a complete binary tree using left/right subtree depths instead of a full DFS.
+draft: false
 categories:
   - Algorithms
 tags:

@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/684-冗余连接.md
 title: 684-Redundant Connection
-description: null
 date: 2021-07-07 00:00:00
-summary: ""
+description: Detecting the redundant edge that forms a cycle using a union-find template.
+draft: false
 categories:
   - Algorithms
 tags:

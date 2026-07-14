@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/778-水位上升的泳池中游泳.md
 title: 778-Swimming in a rising pool
-description: null
 date: 2021-07-05 00:00:00
-summary: ""
+description: Finding the least time to swim across a rising pool by binary-searching the water level and checking reachability with DFS.
+draft: false
 categories:
   - Algorithms
 tags:

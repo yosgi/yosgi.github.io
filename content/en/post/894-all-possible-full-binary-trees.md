@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/894-所有可能的满二叉树.md
 title: 894-All possible full binary trees
-description: null
 date: 2021-03-07 00:00:00
-summary: ""
+description: Generating all possible full binary trees with recursion that combines left and right subtree counts (DP).
+draft: false
 categories:
   - Algorithms
 tags:

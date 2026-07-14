@@ -1,11 +1,11 @@
 ---
 title: " Tool 用来控制，Code 用来分析(3)"
+date: 2026-05-25 14:50:20
 description: 在大规模 Agent 系统里，纯 Tool 容易被上下文拖垮，纯 Code 又会带来过高延迟。本文结合真实实验，介绍一种通过 “Context Off-Ramp” 在 Tool 与 Code 之间切换的双轨执行架构。
 categories:
   - AI Engineering
 tags:
   - AI Systems
-date: 2026-05-25 14:50:20
 ---
 在 Agent 系统刚开始流行的时候，我们其实默认认为：
 

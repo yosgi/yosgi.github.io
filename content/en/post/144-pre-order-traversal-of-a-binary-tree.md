@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/144-二叉树的前序遍历.md
 title: 144-Pre-order traversal of a binary tree
-description: null
 date: 2021-02-25 00:00:00
-summary: ""
+description: Iterative pre-order binary tree traversal using an explicit stack.
+draft: false
 categories:
   - Algorithms
 tags:

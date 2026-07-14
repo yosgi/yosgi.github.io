@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/1104-二叉树寻路.md
 title: 1104-Binary Tree Pathfinding
-description: null
 date: 2021-07-29 00:00:00
-summary: ""
+description: Finding the path in a zigzag-labeled binary tree using the symmetry of each level's numbering.
+draft: false
 categories:
   - Algorithms
 tags:

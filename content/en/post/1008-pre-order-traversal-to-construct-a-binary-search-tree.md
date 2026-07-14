@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/1008-前序遍历构造二叉搜索树.md
 title: 1008-Pre-order traversal to construct a binary search tree
-description: null
 date: 2021-03-10 00:00:00
-summary: ""
+description: Constructing a binary search tree from its pre-order sequence by recursively inserting each value.
+draft: false
 categories:
   - Algorithms
 tags:

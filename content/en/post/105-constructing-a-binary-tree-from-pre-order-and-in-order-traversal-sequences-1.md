@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/105-从前序遍历与中序遍历序列构造二叉树-1.md
 title: 105-Constructing a binary tree from pre-order and in-order traversal sequences-1
-description: null
 date: 2021-01-27 00:00:00
-summary: ""
+description: Reconstructing a binary tree from its pre-order and in-order sequences by recursively splitting on the root.
+draft: false
 categories:
   - Algorithms
 tags:

@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/关于二叉树的总结.md
 title: Summary of Binary Trees
-description: null
 date: 2021-02-28 00:00:00
-summary: ""
+description: Notes on binary tree traversal — why DFS uses a stack and BFS a queue, with reusable pre/in/post-order and level-order templates.
+draft: false
 categories:
   - Algorithms
 tags:

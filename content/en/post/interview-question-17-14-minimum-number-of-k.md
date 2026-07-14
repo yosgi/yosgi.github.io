@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/面试题-17-14-最小K个数.md
 title: Interview Question-17-14-Minimum Number of K
-description: null
 date: 2021-04-08 00:00:00
-summary: ""
+description: Finding the smallest K numbers in an array with a heap.
+draft: false
 categories:
   - Algorithms
 tags:

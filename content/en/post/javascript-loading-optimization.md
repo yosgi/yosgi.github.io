@@ -1,10 +1,8 @@
 ---
-draft: false
-original: 'content/zh/post/legacy/Js加载优化.md'
 title: "JavaScript Loading Optimization"
-description: "Notes from 'High Performance JavaScript'"
 date: 2018-09-04 09:23:11
-summary: ""
+description: "Notes from 'High Performance JavaScript'"
+draft: false
 categories:
   - Web Performance
 tags:

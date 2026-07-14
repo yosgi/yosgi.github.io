@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/1893-检查是否区域内所有整数都被覆盖.md
 title: 1893-Check if all integers in the region are covered
-description: null
 date: 2021-07-23 00:00:00
-summary: ""
+description: Checking whether a set of ranges fully covers an interval, from brute force to an interval-compression optimization.
+draft: false
 categories:
   - Algorithms
 tags:

@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/legacy/HTTP协议总结.md
 title: HTTP Protocol Summary
-description: HTTP simple organization
 date: 2018-07-23 23:29:19
-summary: ''
+description: HTTP simple organization
+draft: false
 categories:
   - Web Development
 tags:

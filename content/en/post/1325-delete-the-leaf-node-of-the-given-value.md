@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/1325-删除给定值的叶子节点.md
 title: 1325-Delete the leaf node of the given value
-description: null
 date: 2021-03-17 00:00:00
-summary: Post-order traversal approach to delete target-valued leaf nodes using a dummy root.
+description: Post-order traversal approach to delete target-valued leaf nodes using a dummy root.
+draft: false
 categories:
   - Algorithms
 tags:

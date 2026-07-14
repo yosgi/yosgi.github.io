@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/297-二叉树的序列化与反序列化.md
 title: 297-Serialization and Deserialization of Binary Trees
-description: null
 date: 2021-03-04 00:00:00
-summary: ""
+description: Serializing a binary tree with BFS and deserializing it using parent/child index relationships.
+draft: false
 categories:
   - Algorithms
 tags:

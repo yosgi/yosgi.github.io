@@ -1,11 +1,8 @@
 ---
-draft: false
-original: content/zh/post/legacy/ajax数据传输优化.md
-layout: herformancejs
 title: Ajax data transmission optimization
-description: High Performance Javascript Knowledge Points
 date: 2018-11-28 14:47:40
-summary: ''
+description: High Performance Javascript Knowledge Points
+draft: false
 categories:
   - Web Performance
 tags:
@@ -22,15 +19,18 @@ GET should be used for requests that do not change the server state and only ret
 
 #### What is dynamic script injection? What are its characteristics?
 
+```javascript
 var scriptElement = document.createElement('script')
 scriptElement.src = 'http://xxx.com/lib.js'
 document.getElementsByTagName('head')[0].appendChild(scriptElement)
 function jsonCallBack(jsonString) {
-var data = eval('(' + jsonString + ')')
+  var data = eval('(' + jsonString + ')')
 }
 
 // lib.js
 jsonCallBack({"status":1})
+```
+
 Using JavaScript to create a new script tag and set the src attribute to a URL from a different domain allows for cross-domain data requests.
 
 The request header cannot be set, only the GET method can be used, and access must wait until all data is returned.
@@ -49,10 +49,12 @@ The element is created using a data:URL and therefore cannot be cached by the br
 
 Use JavaScript to create an Image object and set the src attribute to the URL of the script on the server. The URL contains the key-value pairs that need to be transmitted.
 
+```javascript
 var url = '/status_tracker.php';
-var params = ['userName=yosgi','step=2'];
+var params = ['userName=yosgi', 'step=2'];
 (new Image).src = url + '?' + params.join('&');
 // This code sends a request to /status_tracker.php?step=2&time=23311
+```
 
 This code does not return any information to the client, and no image is actually displayed.
 
@@ -69,7 +71,9 @@ JSON-P can be used across domains, but should not be used when dealing with sens
 
 Example of creating a custom format:
 
+```javascript
 'John;Jack;David'
+```
 
 Just simply link the data with a delimiter and use split() after receiving it.
 

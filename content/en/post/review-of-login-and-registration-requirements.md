@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/关于登陆注册需求的复盘.md
 title: Review of login and registration requirements
-description: null
 date: 2021-02-21 00:00:00
-summary: ""
+description: A retrospective on a login/registration project that overran from one month to three — the requirements, the multi-channel auth, and the WeChat scan-code polling design.
+draft: false
 categories:
   - Product Engineering
 tags:

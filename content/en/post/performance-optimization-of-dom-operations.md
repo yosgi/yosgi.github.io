@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/legacy/DOM操作的性能优化.md
 title: Performance optimization of DOM operations
-description: High Performance Javascript Knowledge Points
 date: 2018-09-12 15:09:33
-summary: ''
+description: High Performance Javascript Knowledge Points
+draft: false
 categories:
   - Web Performance
 tags:
@@ -20,10 +18,12 @@ Because the DOM and JavaScript are implemented independently in the browser, thi
 #### Are HTML collections arrays? What precautions should be taken when manipulating HTML collections?
 HTML collection objects are not arrays because they lack methods like push() or slice(). However, they do provide a length property. HTML collections exist in a "hypothetically live" state and automatically update when the underlying document object is updated.
 
+```javascript
 var alldivs = document.getElementsByTagName('div')
-for (var i = 0 ; i < alldivs.length; i++) {
-document.body.appendChild(document.createElement('div'))
+for (var i = 0; i < alldivs.length; i++) {
+  document.body.appendChild(document.createElement('div'))
 }
+```
 
 The above code is an infinite loop because the loop's exit condition, alldivs.length, increases with each iteration. It's also very slow because the query is performed on each iteration.
 
@@ -62,7 +62,7 @@ A common approach is to use a document fragment to build a subtree outside the c
 
 #### About event delegation
 
-In the previous [DOM event flow](/en/post/dom-event-flow/)
+In the previous [DOM event flow](https://www.yosgi.top/2018/08/29/DOM%E4%BA%8B%E4%BB%B6%E6%B5%81/)
 
 #### Summarize
 

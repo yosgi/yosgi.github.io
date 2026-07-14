@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/124-二叉树中的最大路径和.md
 title: 124-Maximum Path Sum in a Binary Tree
-description: null
 date: 2021-03-15 00:00:00
-summary: ""
+description: Finding the maximum path sum in a binary tree with recursion that returns each node's best downward contribution.
+draft: false
 categories:
   - Algorithms
 tags:

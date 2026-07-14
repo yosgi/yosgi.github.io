@@ -1,8 +1,7 @@
 ---
 title: css伪类选择器nth-child
-description: 关于nth-child 和 HTML规范
 date: 2019-03-07 17:32:19
-summary: ""
+description: 关于nth-child 和 HTML规范
 categories:
   - Frontend
 tags:

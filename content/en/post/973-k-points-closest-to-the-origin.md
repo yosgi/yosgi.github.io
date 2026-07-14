@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/973-最接近原点的-K-个点.md
 title: 973-K points closest to the origin
-description: null
 date: 2021-04-10 00:00:00
-summary: ""
+description: Selecting the K points closest to the origin using a heap.
+draft: false
 categories:
   - Algorithms
 tags:

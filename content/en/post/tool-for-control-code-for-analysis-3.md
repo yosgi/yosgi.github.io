@@ -1,11 +1,11 @@
 ---
 title: Tool for Control, Code for Analysis(3)
+date: 2026-05-25 14:50:20
 description: In large-scale Agent systems, pure Tool-based approaches tend to collapse under context pressure, while pure Code-based approaches introduce excessive latency. Based on real-world experiments, this article introduces a dual-path execution model that uses a “Context Off-Ramp” to switch between Tool and Code execution.
 categories:
   - AI Engineering
 tags:
   - AI Systems
-date: 2026-05-25 14:50:20
 ---
 # **Tool for Control, Code for Data**
 

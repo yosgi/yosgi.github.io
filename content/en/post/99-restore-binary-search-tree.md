@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/99-恢复二叉搜索树.md
 title: 99-Restore Binary Search Tree
-description: null
 date: 2021-03-13 00:00:00
-summary: ""
+description: Restoring a BST with two swapped nodes by locating them during an in-order traversal.
+draft: false
 categories:
   - Algorithms
 tags:

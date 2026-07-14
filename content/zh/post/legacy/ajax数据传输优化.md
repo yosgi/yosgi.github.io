@@ -1,9 +1,7 @@
 ---
-layout: herformancejs
 title: ajax数据传输优化
-description: 《高性能Javascript》 知识点整理
 date: 2018-11-28 14:47:40
-summary: ""
+description: 《高性能Javascript》 知识点整理
 categories:
   - Web Performance
 tags:
@@ -19,16 +17,18 @@ tags:
 
 #### 动态脚本注入是什么？有什么特点？
 
-    var scriptElement = document.createElement('script')
-    scriptElement.src = 'http://xxx.com/lib.js'
-    document.getElementsByTagName('head')[0].appendChild(scriptElement)
-    function jsonCallBack(jsonString) {
-        var data = eval('(' + jsonString + ')')
-    }
-    
-    
-    // lib.js
-    jsonCallBack({"status":1})
+```javascript
+var scriptElement = document.createElement('script')
+scriptElement.src = 'http://xxx.com/lib.js'
+document.getElementsByTagName('head')[0].appendChild(scriptElement)
+function jsonCallBack(jsonString) {
+  var data = eval('(' + jsonString + ')')
+}
+
+// lib.js
+jsonCallBack({"status":1})
+```
+
 利用JS创建一个新的脚本标签，并设置src属性为不同域的URL，可以进行跨域请求数据。
 
 不能设置请求头，只能使用GET方式，必须等待所有数据返回才可以访问。
@@ -47,11 +47,13 @@ tags:
 
 使用JavaScript创建一个Image对象，并把src属性设置为服务器上脚本的URL,URL包含需要传输的键值对数据。
 
-    var url = '/status_tracker.php';
-    var params = ['userName=yosgi','step=2'];
-    (new Image).src = url + '?' + params.join('&');
-    // 这段代码会对/status_tracker.php?step=2&time=23311  发送请求
-    
+```javascript
+var url = '/status_tracker.php';
+var params = ['userName=yosgi', 'step=2'];
+(new Image).src = url + '?' + params.join('&');
+// 这段代码会对/status_tracker.php?step=2&time=23311  发送请求
+```
+
 它无需向客户端返回信息，没有图片会实际显示出来。
 
 虽然性能消耗很小，但因为URL长度有最大值，所以可以发送的数据长度很少。只能靠监听Image对象的onload事件判断服务器是否已经接受数据。
@@ -68,14 +70,18 @@ JSON-P可以跨域使用，涉及敏感数据的时候不应该使用它
 
 创建自定义格式的例子：
 
-    'John;Jack;David'
+```javascript
+'John;Jack;David'
+```
 
 只需要简单的把数据用分隔符链接，接收后使用split()即可
 
 创建自定义格式时，最好是使用一个单字符，而且不应该存在于数据之中，ASCII字符表的前几个字符在大多数服务器语言能够正常工作。
 
-    \u0001 \u0002
-    
+```text
+\u0001 \u0002
+```
+
 #### 总结优化Ajax的方法：
 
 ##### 减少请求数，合并JS和css文件，或者使用MXHR
@@ -83,5 +89,3 @@ JSON-P可以跨域使用，涉及敏感数据的时候不应该使用它
 ##### 缩短页面的加载时间，页面主要内容加载之后，使用Ajax获取次要的
 
 ##### 知道何时使用成熟的Ajax类库，以及何时编写自己的底层Ajax代码（大多数javascrpt类库不允许直接访问readystatechange事件）
-    
-

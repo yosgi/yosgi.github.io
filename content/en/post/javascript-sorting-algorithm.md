@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/legacy/Javascript排序算法.md
 title: Javascript sorting algorithm
-description: Javascript algorithm sorting algorithm
 date: 2018-06-25 18:48:42
-summary: ''
+description: Javascript algorithm sorting algorithm
+draft: false
 categories:
   - JavaScript
 tags:

@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/1738-找出第-K-大的异或坐标值.md
 title: 1738-Find the K-th largest XOR coordinate value
-description: null
 date: 2021-03-22 00:00:00
-summary: ""
+description: Finding the k-th largest XOR-coordinate value with a 2D prefix-XOR DP, then selecting the k-th largest.
+draft: false
 categories:
   - Algorithms
 tags:

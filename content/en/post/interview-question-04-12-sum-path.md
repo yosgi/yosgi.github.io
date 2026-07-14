@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/面试题-04-12-求和路径.md
 title: Interview Question-04-12-Sum Path
-description: null
 date: 2021-03-16 00:00:00
-summary: ""
+description: Counting paths with a target sum starting from any node, using an outer recursion over nodes and an inner recursion over paths.
+draft: false
 categories:
   - Algorithms
 tags:

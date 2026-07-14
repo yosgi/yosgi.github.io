@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/669-修剪二叉搜索树.md
 title: 669-Pruning a Binary Search Tree
-description: null
 date: 2021-03-11 00:00:00
-summary: ""
+description: Trimming a BST to a value range by recursing into the correct branch using the BST bounds.
+draft: false
 categories:
   - Algorithms
 tags:
@@ -13,10 +11,6 @@ tags:
   - Binary Search Tree
   - Binary Tree
 ---
-
-#669. Pruning a binary search tree
-
-**Release Date:** March 11, 2021
 
 Time: 20 minutes
 

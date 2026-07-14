@@ -1,12 +1,12 @@
 ---
 title: 初步尝试构建 MCP 工具的经验
+date: 2026-01-29 17:45:36
 description: 如何把 6,000 个 Token 压缩到 500 个
 categories:
   - AI Engineering
 tags:
   - AI Systems
   - MCP
-date: 2026-01-29 17:45:36
 ---
 
 **构建 MCP：我们如何把 6,000 个 Token 压缩到 500 个**

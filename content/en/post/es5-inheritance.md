@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/legacy/ES5-继承.md
 title: ES5-Inheritance
-description: ES5 knowledge review
 date: 2018-07-17 09:57:34
-summary: ''
+description: ES5 knowledge review
+draft: false
 categories:
   - JavaScript
 tags:

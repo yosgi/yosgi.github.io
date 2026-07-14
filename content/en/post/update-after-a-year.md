@@ -1,18 +1,14 @@
 ---
-draft: false
-original: content/zh/post/legacy/时隔很久的更新.md
 title: Update after a year
 date: 2020-12-11 00:17:30
 description: One month after leaving Dahua
-summary: ''
+draft: false
 categories:
   - Life
 tags:
   - Engineering
   - JavaScript
 ---
-
-Update after a year
 
 I have been lazy and haven't updated since I joined Dahua last year.
 

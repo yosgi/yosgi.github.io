@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/legacy/正则表达式性能优化.md
 title: Regular expression performance optimization
-description: High Performance Javascript Knowledge Points
 date: 2018-11-06 15:48:14
-summary: ''
+description: High Performance Javascript Knowledge Points
+draft: false
 categories:
   - Web Performance
 tags:
@@ -31,11 +29,15 @@ For example:
 
 Use a regular expression that matches the tag
 
-    let reg = /<html>[\s\S]*?<head>[\s\S]*?<title>[\s\S]*?<\/title>[\s\S]*?<\/head>[\s\S]*?<body>[\s\S]*?<\/body>[\s\S]*?<\/html>/
-    
+```javascript
+let reg = /<html>[\s\S]*?<head>[\s\S]*?<title>[\s\S]*?<\/title>[\s\S]*?<\/head>[\s\S]*?<body>[\s\S]*?<\/body>[\s\S]*?<\/html>/
+```
+
 to string
 
-    let str = `<html><head><title></title></head><body></body>`
+```javascript
+let str = `<html><head><title></title></head><body></body>`
+```
 
 To match, when the last [\s\S]\*? extends to the end of the string, because the last html closing tag is missing, the regular expression will try to expand to the second to last [\s\S]\*? to match the last body closing tag, and then continue to search for the second closed body tag until the end of the string, and so on.
 
@@ -47,62 +49,73 @@ The lazy quantifier (*?) will match 0 or more times, and will try to match 0 tim
 
 example:
 
-    let reg1 = /<html>[\s\S]*?<\/html>/
-    let reg2 = /<html>[\s\S]*<\/html>/
-    
-    let str = `<html><html>sdasds<\/html><\/html>`
-    str.match(reg1)//['<html><html>sdasds</html>']
-    str.match(reg2)//['<html><html>sdasds</html></html>']
-    
+```javascript
+let reg1 = /<html>[\s\S]*?<\/html>/
+let reg2 = /<html>[\s\S]*<\/html>/
+
+let str = `<html><html>sdasds<\/html><\/html>`
+str.match(reg1) //['<html><html>sdasds</html>']
+str.match(reg2) //['<html><html>sdasds</html></html>']
+```
 
 #### Use regular expressions to remove leading and trailing spaces?
 
 ##### Using two regular expressions
 
+```javascript
 String.prototype.$trim = function() {
-return this.replace(/^\s+/,"").replace(/\s+$/,"")
+  return this.replace(/^\s+/, "").replace(/\s+$/, "")
 }
+```
 
 Two subexpressions are used: one to remove leading whitespace, and the other to remove trailing whitespace.
 The same idea can be used with a single expression.
 
-    String.prototype.$trim = function() {
-        return this.replace(/^\s+|\s+$/g, "")
-    }
+```javascript
+String.prototype.$trim = function() {
+  return this.replace(/^\s+|\s+$/g, "")
+}
+```
 
 This will be slower than the above method because both branch options will be tested for each string match.
 
 ##### Using capture groups
 
-    String.prototype.$trim = function() {
-        return this.replace(/^\s*([\s\S]*?)\s*$/, "$1")
-    }
+```javascript
+String.prototype.$trim = function() {
+  return this.replace(/^\s*([\s\S]*?)\s*$/, "$1")
+}
+```
 
 The lazy quantifier in the capture array will cause the regular expression to backtrack, because the lazy quantifier \*? of the [\s\S] class requires as few repetitions as possible, so the regular expression must stop and try to match the remaining \s\*? every time it matches a character. Consider the optimization plan
 
+```javascript
 String.prototype.$trim = function() {
-return this.replace(/^\s*([\s\S]*\S)?\s*$/, "$1")
+  return this.replace(/^\s*([\s\S]*\S)?\s*$/, "$1")
 }
+```
 
 For performance reasons, the lazy quantifier is replaced with a greedy quantifier. To ensure that the capture group matches the last non-blank character, the trailing \S is required.
 In this expression, the greedy quantifier \* in [\s\S]\* indicates that any character class is repeated until the end of the string. The regular expression then backtracks one character at a time until it matches the next \S or reaches the first character.
 
 ###### Not using regular expressions
 
+```javascript
 String.prototype.$trim = function() {
-var start = 0,
-end = this.length - 1
-ws = "\n\r\t\f"
-// Some whitespace characters, not all
-while (ws.indexOf(this.charAt(start)) > -1) {
-start ++
+  var start = 0,
+    end = this.length - 1
+  ws = "\n\r\t\f"
+  // Some whitespace characters, not all
+  while (ws.indexOf(this.charAt(start)) > -1) {
+    start++
+  }
+  while (end > start && ws.indexOf(this.charAt(end)) > -1) {
+    end--
+  }
+  return this.slice(start, end + 1)
+  // The array items returned by the slice method do not include the items indexed by the second parameter
 }
-while (end > start && ws.indexOf(this.charAt(end)) > -1) {
-end --
-}
-return this.slice(start, end + 1)
-// The array items returned by the slice method do not include the items indexed by the second parameter
-}
+```
 
 The advantage of this version is that it is not affected by the total length of the string. The disadvantage is that it is not suitable for handling large stretches of leading and trailing whitespace characters because the loop traversal efficiency is not as good as regular expressions. (Not being able to remember all whitespace characters is also a disadvantage.)
 
@@ -110,15 +123,17 @@ Hybrid Solutions
 
 You can use regular expressions to filter out leading spaces and use non-regular expression methods to remove trailing characters.
 
+```javascript
 String.prototype.$trim = function() {
-var str = this.replace(/^\s+/,""),
-end = str.length - 1,
-ws = /\s/;
-while (ws.test(str.charAt(end))) {
-end --
+  var str = this.replace(/^\s+/, ""),
+    end = str.length - 1,
+    ws = /\s/;
+  while (ws.test(str.charAt(end))) {
+    end--
+  }
+  return str.slice(0, end + 1)
 }
-return str.slice(0,end + 1)
-}
+```
 
 This solution uses a regular expression in a loop to check for whitespace at the end of the string, making it possible to use the browser-defined list of whitespace characters.
 

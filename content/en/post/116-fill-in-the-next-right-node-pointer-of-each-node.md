@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/116-填充每个节点的下一个右侧节点指针.md
 title: 116-Fill in the next right node pointer of each node
-description: null
 date: 2021-03-10 00:00:00
-summary: ""
+description: Connecting each node to its right neighbor per level, reusing the previous layer's links to reach constant space.
+draft: false
 categories:
   - Algorithms
 tags:

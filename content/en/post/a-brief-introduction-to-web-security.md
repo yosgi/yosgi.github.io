@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/legacy/Web安全浅述.md
 title: A Brief Introduction to Web Security
-description: Web security related content
 date: 2018-07-05 10:05:36
-summary: ''
+description: Web security related content
+draft: false
 categories:
   - Web Development
 tags:
@@ -44,21 +42,29 @@ Principle: Never allow data to become executable code. Do not trust any user dat
 
 ###### Output in HTML tag:
 
-
+```html
 <div>$var</div>
+```
 
 Variables output within a tag, if not processed, can directly lead to XSS.
 
+```html
 <div><script>alert(/XSS/)</script></div> or <a href=# ><img src=# onerror=alert(1) /></a>
+```
+
 Defense method: Use HtmlEncode for variables.
 
 ###### Output in Html attribute:
 
+```html
 <div id="abc name="$var"></div>
+```
 
 Attack method:
 
+```html
 <div id="abc" name=""><script>alert(/XSS/)</script><""></div>
+```
 
 Defense method: Use HtmlEncode.
 
@@ -83,7 +89,7 @@ should also be strictly prohibited. When selecting tags, attributes, and events,
 
 If the output is to an event or script, javascriptEncode must be performed once; if the output is to HTML content or attributes, HtmlEncode must be performed once.
 
-CSRF Attacks
+#### CSRF Attacks
 
 A Cross-Site Request Forgeries (CSRF) attack is a passive attack in which an attacker sets a trap to force authenticated users to perform unexpected status updates such as personal information or settings.
 
@@ -115,29 +121,40 @@ Add a hash value to the form to verify that this is indeed the request sent by t
 
 Unless the user's cookies are stolen due to an XSS vulnerability in the website, most attackers will give up when they see the need to calculate the hash value.
 
-SQL injection attacks
+#### SQL injection attacks
 
 SQL injection attacks are a common method used by hackers to attack databases. This occurs when an application fails to verify the validity of user input, creating security risks. Users can submit a database query and, based on the program's response, obtain desired data. This is known as SQL injection.
 
 ##### Example
 The SQL query code for login verification on a certain website is:
 
-    strSQL = "SELECT * FROM users WHERE (name = '" + userName + "') and (pw = '"+ passWord +"');"
+```sql
+strSQL = "SELECT * FROM users WHERE (name = '" + userName + "') and (pw = '"+ passWord +"');"
+```
 
 Malicious entry
 
+```text
 userName = "1' OR '1'='1";
+```
+
 and
 
+```text
 passWord = "1' OR '1'='1";
+```
 
 This will cause the original SQL string to be filled in as
 
-    strSQL = "SELECT * FROM users WHERE (name = '1' OR '1'='1') and (pw = '1' OR '1'='1');"
+```sql
+strSQL = "SELECT * FROM users WHERE (name = '1' OR '1'='1') and (pw = '1' OR '1'='1');"
+```
 
 That is, the SQL command actually executed will become the following
 
-    strSQL = "SELECT * FROM users;"
+```sql
+strSQL = "SELECT * FROM users;"
+```
 
 Therefore, you can log in to the website without an account or password. Therefore, SQL injection attacks are commonly known as hackers' fill-in-the-blank game.
 
@@ -145,7 +162,7 @@ Therefore, you can log in to the website without an account or password. Therefo
 
 From the perspective of security technology, SQL injection attacks can be prevented through database firewalls. Since SQL injection attacks often attack through applications, virtual patching technology can be used to identify the SQL features of injection attacks and achieve real-time attack blocking.
 
-OS Command Injection
+#### OS Command Injection
 
 OS command injection is similar to SQL injection, except that SQL injection targets the database, while OS command injection targets the operating system. OS command injection allows you to execute arbitrary commands on the server.
 
@@ -157,7 +174,7 @@ OS command injection is similar to SQL injection, except that SQL injection targ
 
 3. Set user permissions
 
-HTTP header injection attack
+#### HTTP header injection attack
 
 HTTP Header Injection is an attack in which an attacker adds arbitrary response headers or bodies by inserting newlines in the response header field.
 
@@ -168,14 +185,16 @@ HTTP header injection is possible by inserting newlines into certain response he
 ##### Example
 For example, a request is as follows:
 
-    GET/HTTP/1.1
-    Host: www.example.com
-    Connection: keep-alive
-    Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
-    Upgrade-Insecure-Requests: 1
-    User-Agent: Mozilla/5.0'(select*from(select(sleep(20)))a) #
-    Accept-Encoding: gzip, deflate, sdch
-    Accept-Language: en-US,en;q=0.8,fr;q=0.6
+```http
+GET/HTTP/1.1
+Host: www.example.com
+Connection: keep-alive
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0'(select*from(select(sleep(20)))a) #
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: en-US,en;q=0.8,fr;q=0.6
+```
 
 The HTTP User-Agent header is "Mozilla/5.0'(select * from (select (sleep(20)))a) #". The "select * from (select (sleep(20)))" is abnormal. The attack here is to make the database sleep for 20 seconds without doing anything, thus wasting database processing threads. This is a simple injection, but more complex attacks are possible.
 

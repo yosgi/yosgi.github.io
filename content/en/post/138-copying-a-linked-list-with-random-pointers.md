@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/138-复制带随机指针的链表.md
 title: 138-Copying a linked list with random pointers
-description: null
 date: 2021-07-22 00:00:00
-summary: ""
+description: Deep-copying a linked list with random pointers using a hash map from old nodes to new.
+draft: false
 categories:
   - Algorithms
 tags:

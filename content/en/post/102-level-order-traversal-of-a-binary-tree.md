@@ -1,10 +1,8 @@
 ---
-draft: false
-original: 'content/zh/post/102-二叉树的层序遍历.md'
 title: "102 - Level-order Traversal of a Binary Tree"
-description: "Techniques and examples for breadth-first (level-order) traversal of binary trees."
 date: 2021-02-28 00:00:00
-summary: 
+description: "Techniques and examples for breadth-first (level-order) traversal of binary trees."
+draft: false
 categories:
   - Algorithms
 tags:

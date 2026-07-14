@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/863-二叉树中所有距离为-K-的结点.md
 title: 863-All nodes with distance -K- in a binary tree
-description: null
 date: 2021-03-13 00:00:00
-summary: ""
+description: Finding all nodes at distance K by first adding parent links with DFS, then searching outward from the target.
+draft: false
 categories:
   - Algorithms
 tags:

@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/legacy/vue易错易混知识点整理.md
 title: Summary of Vue's easy-to-error and easy-to-confuse knowledge points
-description: <ES6 Standard Introduction> Knowledge Points Summary
 date: 2018-09-10 18:30:10
-summary: ''
+description: <ES6 Standard Introduction> Knowledge Points Summary
+draft: false
 categories:
   - Frontend
 tags:
@@ -23,11 +21,15 @@ New Vue is the viewmodel
 
 Series
 
+```html
 {{ message | filterA | filterB }}
+```
 
 Accepts parameters
 
+```html
 {{ message | filterA('arg1', arg2) }}
+```
 
 Here, filterA is defined as a filter function that accepts three parameters: the value of message as the first parameter, the plain string 'arg1' as the second parameter, and the value of the expression arg2 as the third parameter.
 
@@ -43,26 +45,32 @@ Computed properties have only getters by default, but you can also provide a set
 
 Observe Expression
 
-    vm.$watch(
-      function () {
-        return this.a + this.b
-      },
-      function (newVal, oldVal) {
-      }
-    )
+```javascript
+vm.$watch(
+  function () {
+    return this.a + this.b
+  },
+  function (newVal, oldVal) {
+  }
+)
+```
 
 Changes within the object
 
+```javascript
 vm.$watch('someObject', callback, {
-deep: true
+  deep: true
 })
 vm.someObject.nestedValue = 123
+```
 
 The callback is triggered immediately.
 
+```javascript
 vm.$watch('a', callback, {
-immediate: true
+  immediate: true
 })
+```
 
 #### What is the difference between v-show and v-if?
 
@@ -90,15 +98,19 @@ The purpose of key is to update the virtual DOM efficiently. In addition, when u
 
 #### How to make Vue detect the use of index to directly set an item or modify the length of the array?
 
+```javascript
 // Vue.set
 Vue.set(vm.items, indexOfItem, newValue)
 // Array.prototype.splice
 vm.items.splice(indexOfItem, 1, newValue)
+```
 
 #### Using modifiers to convert user input to numeric values? Automatically filtering leading and trailing whitespace in user input?
 
+```html
 <input v-model.number="age" type="number">
 <input v-model.trim="msg">
+```
 
 #### Why must data be a function?
 
@@ -106,40 +118,42 @@ Because only in this way can each instance maintain an independent copy of the r
 
 #### How to globally import basic components in batches from a folder?
 
+```javascript
 import Vue from 'vue'
 import upperFirst from 'lodash/upperFirst'
 import camelCase from 'lodash/camelCase'
 // See webpack's API for details
 const requireComponent = require.context(
-// Relative path to the component directory
-'./components',
-// Whether to search its subdirectories
-false,
-// Regular expression matching base component file names
-/Base[A-Z]\w+\.(vue|js)$/
+  // Relative path to the component directory
+  './components',
+  // Whether to search its subdirectories
+  false,
+  // Regular expression matching base component file names
+  /Base[A-Z]\w+\.(vue|js)$/
 )
 
 requireComponent.keys().forEach(fileName => {
-// Get component configuration
-const componentConfig = requireComponent(fileName)
+  // Get component configuration
+  const componentConfig = requireComponent(fileName)
 
-// Get the component's PascalCase name
-const componentName = upperFirst(
-camelCase(
-// Strip the leading `./` and trailing extension from the file name
-fileName.replace(/^\.\/(.*)\.\w+$/, '$1')
-)
-)
+  // Get the component's PascalCase name
+  const componentName = upperFirst(
+    camelCase(
+      // Strip the leading `./` and trailing extension from the file name
+      fileName.replace(/^\.\/(.*)\.\w+$/, '$1')
+    )
+  )
 
-// Registering a component globally
-Vue.component(
-componentName,
-// If this component's options are exported via `export default`,
-// then `.default` will be used first.
-// Otherwise, fallback to the module's root.
-componentConfig.default || componentConfig
-)
+  // Registering a component globally
+  Vue.component(
+    componentName,
+    // If this component's options are exported via `export default`,
+    // then `.default` will be used first.
+    // Otherwise, fallback to the module's root.
+    componentConfig.default || componentConfig
+  )
 })
+```
 
 #### What is component feature inheritance? How can I customize feature inheritance?
 
@@ -147,144 +161,171 @@ Attributes added to a component instance are automatically added to the componen
 
 If you do not want the root element of a component to inherit attributes, you can set inheritAttrs: false in the component's options, for example
 
+```javascript
 ue.component('my-component', {
-inheritAttrs: false,
-// ...
+  inheritAttrs: false,
+  // ...
 })
+```
 
 Used with the instance's $attrs property, you can manually assign attributes to a specific element. For example,
 
+```javascript
 Vue.component('base-input', {
-inheritAttrs: false,
-props: ['label', 'value'],
-template: `
-<label>
-{{ label }}
-<input
-v-bind="$attrs"
-v-bind:value="value"
-v-on:input="$emit('input', $event.target.value)"
->
-</label>
-`
+  inheritAttrs: false,
+  props: ['label', 'value'],
+  template: `
+    <label>
+      {{ label }}
+      <input
+        v-bind="$attrs"
+        v-bind:value="value"
+        v-on:input="$emit('input', $event.target.value)"
+      >
+    </label>
+  `
 })
+```
 
 #### How do I bind native events to a component? How do I bind to a specific element in a component?
 
 If you want to listen to native events directly on the root element of the component, you can use the native modifier, for example
 
-    <base-input v-on:focus.native="onFocus"></base-input>
+```html
+<base-input v-on:focus.native="onFocus"></base-input>
+```
 
 If the root element is not the element that needs to be listened to, the parent's native will be invalid. You can use the $listeners property, which is an object containing all the listeners acting on this component. For example, the $listeners in the <base-input /> component is
 
+```javascript
 {
-focus: function (event) { /* ... */ }
+  focus: function (event) { /* ... */ }
 }
+```
 
 This allows you to target an event listener to a specific child element of this component, as shown below.
 
+```javascript
 Vue.component('base-input', {
-inheritAttrs: false,
-props: ['label', 'value'],
-computed: {
-inputListeners: function () {
-var vm = this
-return Object.assign({},
-// We add all listeners from the parent
-this.$listeners,
-// Then we add custom listeners,
-// or override some listener behavior
-{
-// Here we make sure the component works with `v-model`
-input: function (event) {
-vm.$emit('input', event.target.value)
-}
-}
-)
-}
-},
-template: `
-<label>
-{{ label }}
-<input
-v-bind="$attrs"
-v-bind:value="value"
-v-on="inputListeners"
->
-</label>
-`
+  inheritAttrs: false,
+  props: ['label', 'value'],
+  computed: {
+    inputListeners: function () {
+      var vm = this
+      return Object.assign({},
+        // We add all listeners from the parent
+        this.$listeners,
+        // Then we add custom listeners,
+        // or override some listener behavior
+        {
+          // Here we make sure the component works with `v-model`
+          input: function (event) {
+            vm.$emit('input', event.target.value)
+          }
+        }
+      )
+    }
+  },
+  template: `
+    <label>
+      {{ label }}
+      <input
+        v-bind="$attrs"
+        v-bind:value="value"
+        v-on="inputListeners"
+      >
+    </label>
+  `
 })
+```
 
 #### What is the .sync modifier and how do I use it?
 
 .sync is an abbreviation for the method in which a child component triggers a parent component event and modifies the parent component value. Example usage:
 
-    this.$emit('update:title', newTitle)
-    <text-document
-      v-bind:title="doc.title"
-      v-on:update:title="doc.title = $event"
-    ></text-document>
-    //can be abbreviated to
-    <text-document v-bind:title.sync="doc.title"></text-document>
+```javascript
+this.$emit('update:title', newTitle)
+```
+
+```html
+<text-document
+  v-bind:title="doc.title"
+  v-on:update:title="doc.title = $event"
+></text-document>
+//can be abbreviated to
+<text-document v-bind:title.sync="doc.title"></text-document>
+```
 
 #### How to directly access the root instance, parent component instance, child component instance (child element)
 
 Accessing the root instance
 
+```javascript
 this.$root
 //Best to use Vuex
+```
 
 Access the parent component instance
 
+```javascript
 this.$parent
+```
 
 Or use dependency injection
 
+```javascript
 provide: function () {
-return {
-getMap: this.getMap
-}
+  return {
+    getMap: this.getMap
+  }
 }
 
 inject: ['getMap']
+```
 
 Accessing child components or elements
 
+```javascript
 this.$refs
+```
 
 
 #### How to unregister a manually bound eventListener before the instance is destroyed?
 
 Using programmatic event listeners, such as a pattern for integrating third-party libraries
 
+```javascript
 // Attach this date picker to an input field once.
 // It will be mounted to the DOM.
 mounted: function () {
-// Pikaday is a third-party date picker library.
-this.picker = new Pikaday({
-field: this.$refs.input,
-format: 'YYYY-MM-DD'
-})
+  // Pikaday is a third-party date picker library.
+  this.picker = new Pikaday({
+    field: this.$refs.input,
+    format: 'YYYY-MM-DD'
+  })
 },
 // Before the component is destroyed,
 // also destroy the date picker.
 beforeDestroy: function () {
-this.picker.destroy()
+  this.picker.destroy()
 }
+```
 
 The problem is that first, the piker needs to be saved in the instance, and second, the creation code and cleanup code are separated, making it difficult to programmatically clean up everything that was created.
 The solution is
 
+```javascript
 mounted: function () {
-var picker = new Pikaday({
-field: this.$refs.input,
-format: 'YYYY-MM-DD'
-})
+  var picker = new Pikaday({
+    field: this.$refs.input,
+    format: 'YYYY-MM-DD'
+  })
 
-this.$once('hook:beforeDestroy', function () {
-picker.destroy()
-})
+  this.$once('hook:beforeDestroy', function () {
+    picker.destroy()
+  })
 }
+```
 
 #### When would you use a custom directive? How?
 
@@ -294,64 +335,77 @@ For example, you want the input box to get the focus when the page loads, or you
 
 Example of input box:
 
+```javascript
 // Register a global custom directive `v-focus`
 Vue.directive('focus', {
-// When the bound element is inserted into the DOM...
-inserted: function (el) {
-// Focus the element
-el.focus()
-}
+  // When the bound element is inserted into the DOM...
+  inserted: function (el) {
+    // Focus the element
+    el.focus()
+  }
 })
+```
 
 or local instructions
 
+```javascript
 directives: {
-focus: {
-// Directive definition
-inserted: function (el) {
-el.focus()
+  focus: {
+    // Directive definition
+    inserted: function (el) {
+      el.focus()
+    }
+  }
 }
-}
-}
+```
+
+```html
 <input v-focus>
+```
 
 Background color examples
 
-    <div v-demo="{ color: 'white', text: 'hello!' }"></div>
+```html
+<div v-demo="{ color: 'white', text: 'hello!' }"></div>
+```
 
+```javascript
 Vue.directive('demo', function (el, binding) {
-console.log(binding.value.color) // => "white"
-console.log(binding.value.text) // => "hello!"
+  console.log(binding.value.color) // => "white"
+  console.log(binding.value.text) // => "hello!"
 })
+```
 
 #### What are the types of Vue plugins? How do I use them?
 
 A Vue.js plugin should have a public method called install . The first argument of this method is the Vue constructor, and the second argument is an optional options object:
 
+```javascript
 MyPlugin.install = function (Vue, options) {
-// 1. Add a global method or property
-Vue.myGlobalMethod = function () {
-// Logic...
-}
+  // 1. Add a global method or property
+  Vue.myGlobalMethod = function () {
+    // Logic...
+  }
 
-// 2. Add a global resource
-Vue.directive('my-directive', {
-bind (el, binding, vnode, oldVnode) {
-// Logic...
-}
-...
-})
+  // 2. Add a global resource
+  Vue.directive('my-directive', {
+    bind (el, binding, vnode, oldVnode) {
+      // Logic...
+    }
+    ...
+  })
 
-// 3. Inject the component
-Vue.mixin({
-created: function () {
-// Logic...
-}
-...
-})
+  // 3. Inject the component
+  Vue.mixin({
+    created: function () {
+      // Logic...
+    }
+    ...
+  })
 
-// 4. Add an instance method
-Vue.prototype.$myMethod = function (methodOptions) {
-// Logic...
+  // 4. Add an instance method
+  Vue.prototype.$myMethod = function (methodOptions) {
+    // Logic...
+  }
 }
-}
+```

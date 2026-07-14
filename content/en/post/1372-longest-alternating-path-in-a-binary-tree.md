@@ -1,10 +1,8 @@
 ---
-draft: false
-original: content/zh/post/1372-二叉树中的最长交错路径.md
 title: 1372-Longest Alternating Path in a Binary Tree
-description: null
 date: 2021-03-01 00:00:00
-summary: ""
+description: Finding the longest zigzag path in a binary tree with DFS that tracks direction and length, handling the boundary cases.
+draft: false
 categories:
   - Algorithms
 tags:
