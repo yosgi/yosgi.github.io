@@ -2,7 +2,6 @@ baseURL = 'https://yosgi.github.io/'
 defaultContentLanguage = 'en'
 defaultContentLanguageInSubdir = true
 disableLanguages = []
-languageCode = 'en-us'
 title = 'Yosgi'
 theme = 'github-style'
 timeZone = 'Pacific/Auckland'
@@ -16,12 +15,14 @@ enableRobotsTXT = true
 # Multilingual configuration
 [languages]
   [languages.en]
-    languageName = "English"
+    label = "English"
+    locale = "en-US"
     weight = 1
     contentDir = "content/en"
     
   [languages.zh]
-    languageName = "中文"
+    label = "中文"
+    locale = "zh-CN"
     weight = 2
     contentDir = "content/zh"
 
@@ -53,6 +54,11 @@ enableRobotsTXT = true
     url = "https://nice-resume.vercel.app/"
     icon = ""
     description = "A convenient and quick resume builder tool"
+  [[languages.en.params.projects]]
+    name = "Our Little Shire"
+    url = "https://shire.siqi-liu.com/"
+    icon = ""
+    description = "A small 3D village to explore, with stories, animals, and little discoveries"
   
   # [[languages.en.params.projects]]
   #   name = "Property NFT"
@@ -97,6 +103,11 @@ enableRobotsTXT = true
     url = "https://nice-resume.vercel.app/"
     icon = ""
     description = "一个方便快捷的做简历的工具"
+  [[languages.zh.params.projects]]
+    name = "我们的夏尔"
+    url = "https://shire.siqi-liu.com/"
+    icon = ""
+    description = "在 3D 小村庄里散步，和村民、动物互动，发现藏起来的小东西"
   
   # [[languages.zh.params.projects]]
   #   name = "Property NFT"

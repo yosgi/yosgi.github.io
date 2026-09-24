@@ -4,7 +4,7 @@
 {{- $title := partial "seo/page-title.html" . -}}
 {{- $author := .Site.Params.author | default .Site.Title -}}
 {{- $robots := partial "seo/robots.html" . -}}
-{{- $defaultTranslations := where .AllTranslations "Lang" site.Home.Language.Lang -}}
+{{- $defaultTranslations := where .AllTranslations "Lang" site.Home.Language.Name -}}
 {{- $isArticle := false -}}
 {{- if and .IsPage (eq .Section "post") -}}
   {{- $isArticle = true -}}
@@ -31,7 +31,7 @@
 <link rel="alternate" type="text/plain" href="{{ "llms-full.txt" | absURL }}" title="Full LLMs text" />
 
 {{ range .AllTranslations }}
-<link rel="alternate" hreflang="{{ .Language.LanguageCode | default .Language.Lang }}" href="{{ .Permalink }}" />
+<link rel="alternate" hreflang="{{ .Language.Locale | default .Language.Name }}" href="{{ .Permalink }}" />
 {{ end }}
 {{ range first 1 $defaultTranslations }}
 <link rel="alternate" hreflang="x-default" href="{{ .Permalink }}" />
@@ -49,7 +49,7 @@
 <meta property="og:site_name" content="{{ .Site.Title }}" />
 {{ with $socialImage }}<meta property="og:image" content="{{ . }}" />{{ end }}
 {{ if .IsHome }}
-<meta property="og:locale" content="{{ replace .Site.LanguageCode "-" "_" }}" />
+<meta property="og:locale" content="{{ replace .Site.Language.Locale "-" "_" }}" />
 {{ end }}
 
 {{ if $isArticle }}
@@ -69,7 +69,7 @@
 <meta name="citation_author" content="{{ $author }}" />
 {{ end }}
 <meta name="citation_publication_date" content="{{ .PublishDate.Format "2006/01/02" }}" />
-<meta name="citation_language" content="{{ .Language.Lang }}" />
+<meta name="citation_language" content="{{ .Language.Name }}" />
 {{ with $citation.venue }}<meta name="citation_journal_title" content="{{ . }}" />{{ end }}
 {{ with $citation.doi }}<meta name="citation_doi" content="{{ . }}" />{{ end }}
 {{ with $citation.pdf }}<meta name="citation_pdf_url" content="{{ . | absURL }}" />{{ end }}

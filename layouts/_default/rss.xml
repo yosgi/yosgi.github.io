@@ -30,7 +30,7 @@
     <link>{{ printf "%s%s" $baseURL (strings.TrimPrefix "/" .RelPermalink) }}</link>
     <description>{{ $description }}</description>
     <generator>Hugo</generator>
-    <language>{{ .Site.Language.Lang }}</language>
+    <language>{{ .Site.Language.Name }}</language>
     <lastBuildDate>{{ now.Format "Mon, 02 Jan 2006 15:04:05 -0700" }}</lastBuildDate>
     {{ with .OutputFormats.Get "RSS" }}
     <atom:link href="{{ printf "%s%s" $baseURL (strings.TrimPrefix "/" .RelPermalink) }}" rel="self" type="{{ .MediaType.Type }}" />

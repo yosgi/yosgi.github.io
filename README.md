@@ -18,8 +18,8 @@ This repository now treats local Markdown as the source of truth. Instead of syn
 
 ```bash
 brew install hugo
-git clone <repo-url>
-cd yosgi-hugo-blog
+git clone git@github.com:yosgi/yosgi.github.io.git
+cd yosgi.github.io
 hugo server -D
 ```
 
@@ -37,7 +37,7 @@ Write in that vault on mobile, then sync back into the repo on your Mac:
 pnpm sync:icloud
 ```
 
-Important: GitHub Actions does not read directly from iCloud. It only deploys after you sync the vault back into this repo and push the changes to GitHub.
+Important: GitHub Actions does not read directly from iCloud. It only deploys after you sync the vault back into this repo and push the changes to GitHub. The sync script uses `rsync --delete` for posts and images, so write new posts in the vault first; a post created only in this repository will be removed by the next sync.
 
 If you want one command for the whole flow on your Mac:
 
@@ -47,7 +47,7 @@ pnpm publish:icloud
 
 That command runs sync, Hugo build, `git add`, `git commit`, and `git push` on the current branch.
 
-Detailed setup is in [docs/OBSIDIAN_SETUP_GUIDE.md](/Users/yosgi/freelancer/yosgi-hugo-blog/docs/OBSIDIAN_SETUP_GUIDE.md).
+Detailed setup is in [docs/OBSIDIAN_SETUP_GUIDE.md](docs/OBSIDIAN_SETUP_GUIDE.md).
 
 ## Useful Commands
 

@@ -12,6 +12,10 @@ Use an iCloud-based Obsidian vault for writing on mobile, then sync that content
 4. Keep writing inside `content/zh/post` or `content/en/post`.
 5. On your Mac, sync the vault back into the repo with `pnpm sync:icloud`.
 
+The sync script treats the vault as the source of truth and uses `rsync --delete`
+for posts and images. Create new posts in the vault before syncing; a post that
+exists only in the repository will be removed by the next sync.
+
 ## Writing Rules
 
 - One Markdown file equals one post.
