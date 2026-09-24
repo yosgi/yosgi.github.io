@@ -29,7 +29,8 @@ enableRobotsTXT = true
 # English language configuration
 [languages.en.params]
   author = "Yosgi"
-  description = "Yosgi is a software engineer in Auckland with 9+ years of experience across product engineering, frontend architecture, full-stack systems, digital twins, and AI platform work."
+  profileSubtitle = "Siqi Liu"
+  description = "A developer who likes to tinker."
   rssBaseURL = "https://yosgi.github.io/"
   github = "Yosgi"
   email = "hiyosgi@gmail.com"
@@ -78,7 +79,8 @@ enableRobotsTXT = true
 # Chinese language configuration
 [languages.zh.params]
   author = "Yosgi"
-  description = "Yosgi 是在奥克兰工作的软件工程师，有 9 年以上工程经验，覆盖产品工程、前端架构、全栈系统、数字孪生和 AI 平台。"
+  profileSubtitle = "刘思奇"
+  description = "一个爱折腾的开发者。"
   rssBaseURL = "https://yosgi.github.io/"
   github = "Yosgi"
   email = "hiyosgi@gmail.com"

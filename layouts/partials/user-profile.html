@@ -52,8 +52,8 @@
             data-original-top="0px" style="position: sticky;">
             <h1 class="vcard-names pl-2 pl-md-0">
               <span class="p-name vcard-fullname d-block overflow-hidden">{{ .Site.Params.author }}</span>
-              {{ if .Site.Params.github }}
-              <span class="p-nickname vcard-username d-block">{{ .Site.Params.github }}</span>
+              {{ with .Site.Params.profileSubtitle }}
+              <span class="vcard-username d-block">{{ . }}</span>
               {{ end }}
             </h1>
           </div>
