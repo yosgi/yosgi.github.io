@@ -9,6 +9,7 @@ tags:
   - Game Development
   - Three.js
 draft: false
+translationKey: our-little-shire-game-dev
 ---
 
 [游戏在这里，可以直接玩。](https://shire.siqi-liu.com/)
