@@ -29,6 +29,9 @@
               Posts
               <span class="Counter">{{ $section_count}}</span>
             </a>
+            <a class="UnderlineNav-item {{ if eq .RelPermalink ("/about/" | relLangURL) }} selected {{ end }}" href="{{ "/about/" | relLangURL }}" onclick="localStorage.setItem('preferred-language', '{{ .Site.Language.Name }}')">
+              {{ if eq .Site.Language.Lang "zh" }}关于我{{ else }}About{{ end }}
+            </a>
           </nav>
           <div class="profile-color-modes js-promo-color-modes-banner-profile isInitialToggle">
             <svg width="106" height="60" viewBox="0 0 106 60" fill="none" stroke-width="3" stroke-linecap="round"
