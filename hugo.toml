@@ -60,6 +60,11 @@ enableRobotsTXT = true
     url = "https://shire.siqi-liu.com/"
     icon = ""
     description = "A small 3D village to explore, with stories, animals, and little discoveries"
+  [[languages.en.params.projects]]
+    name = "Evo! Partner Expedition"
+    url = "https://evo-expedition.pages.dev/"
+    icon = ""
+    description = "A roguelike creature adventure about building a team, evolving partners, and battling together"
   
   # [[languages.en.params.projects]]
   #   name = "Property NFT"
@@ -110,6 +115,11 @@ enableRobotsTXT = true
     url = "https://shire.siqi-liu.com/"
     icon = ""
     description = "在 3D 小村庄里散步，和村民、动物互动，发现藏起来的小东西"
+  [[languages.zh.params.projects]]
+    name = "进化！伙伴远征队"
+    url = "https://evo-expedition.pages.dev/"
+    icon = ""
+    description = "组建队伍、进化伙伴，挑战肉鸽关卡与双人冒险"
   
   # [[languages.zh.params.projects]]
   #   name = "Property NFT"
