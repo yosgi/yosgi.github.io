@@ -225,3 +225,4 @@ enableRobotsTXT = true
 [params.cloudflareAnalytics]
   enabled = true
   token = "fac713c37bb947058d616f9f75f24763"
+  customDomainToken = "472263fd8c1540d9b8e4cd88ff68f67a"

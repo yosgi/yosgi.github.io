@@ -67,6 +67,22 @@
 {{ end }}
 
 
-{{ if and .Site.Params.cloudflareAnalytics.enabled .Site.Params.cloudflareAnalytics.token }}
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token": "{{ .Site.Params.cloudflareAnalytics.token }}"}'></script>
+{{ if and .Site.Params.cloudflareAnalytics.enabled .Site.Params.cloudflareAnalytics.token .Site.Params.cloudflareAnalytics.customDomainToken }}
+<script>
+  (function () {
+    var tokens = {
+      'yosgi.github.io': '{{ .Site.Params.cloudflareAnalytics.token }}',
+      'siqi-liu.com': '{{ .Site.Params.cloudflareAnalytics.customDomainToken }}',
+      'www.siqi-liu.com': '{{ .Site.Params.cloudflareAnalytics.customDomainToken }}'
+    };
+    var token = tokens[window.location.hostname];
+    if (!token) return;
+
+    var beacon = document.createElement('script');
+    beacon.type = 'module';
+    beacon.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+    beacon.setAttribute('data-cf-beacon', JSON.stringify({ token: token }));
+    document.head.appendChild(beacon);
+  })();
+</script>
 {{ end }}
