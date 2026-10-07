@@ -65,6 +65,11 @@ enableRobotsTXT = true
     url = "https://evo-expedition.pages.dev/"
     icon = ""
     description = "A roguelike creature adventure about building a team, evolving partners, and battling together"
+  [[languages.en.params.projects]]
+    name = "Werewolf AI"
+    url = "https://werewolf-ai-etn.pages.dev/"
+    icon = ""
+    description = "A Werewolf social-deduction game played with AI players, built on discussion, voting, and hidden roles"
   
   # [[languages.en.params.projects]]
   #   name = "Property NFT"
@@ -120,6 +125,11 @@ enableRobotsTXT = true
     url = "https://evo-expedition.pages.dev/"
     icon = ""
     description = "组建队伍、进化伙伴，挑战肉鸽关卡与双人冒险"
+  [[languages.zh.params.projects]]
+    name = "狼人杀 AI"
+    url = "https://werewolf-ai-etn.pages.dev/"
+    icon = ""
+    description = "和 AI 玩家一起玩的狼人杀，在发言与投票中推理身份"
   
   # [[languages.zh.params.projects]]
   #   name = "Property NFT"
