@@ -272,6 +272,17 @@
   box-shadow: 0 20px 48px rgba(15, 23, 42, 0.12);
 }
 
+.article-body.markdown-body img[src*="/images/games/evo-partner-expedition/"] {
+  max-width: min(100%, 375px);
+}
+
+.article-body.markdown-body img[src*="/images/games/werewolf-ai/"] {
+  width: min(100%, 500px);
+  aspect-ratio: 3 / 5;
+  object-fit: cover;
+  object-position: center;
+}
+
 .article-body.markdown-body table {
   display: block;
   width: 100%;
