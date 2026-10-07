@@ -1,7 +1,7 @@
 ---
 title: "About Me"
 date: 2024-01-01T00:00:00+08:00
-lastmod: 2026-09-25T00:00:00+12:00
+lastmod: 2026-10-07T00:00:00+13:00
 draft: false
 description: "How I went from a mechanical engineering degree and game scripts to digital twins, AI agents, and fintech."
 summary: "My path from writing game scripts to building software, digital twins, AI agents, and fintech tools."
@@ -28,7 +28,9 @@ I moved to Suzhou to work at Siemens. Life there moved more slowly than in Hangz
 
 Finding opportunities didn't feel too difficult at the time. Speaking English on the phone was another matter. Sometimes I could barely follow what someone was saying, but felt too embarrassed to keep asking them to repeat themselves, so I just said, “OK, OK.” Once, before I'd even worked out what stage our conversation had reached, I received an internal welcome email the next day. I had to go back, explain the misunderstanding, and turn down the offer.
 
-In the end, I chose Nextspace. Its 3D digital twin world felt a little like working on a game, while still connecting to the industrial systems I'd worked with before. Being fully remote appealed to me too. I started as a software engineer working across frontend and backend, with more of my time on the frontend. After a while, I began to think that AI could do something interesting with the digital twin, so I put forward a proposal. We built on that idea, and it led me deeper into agent development.
+In the end, I chose Nextspace. Its 3D digital twin world felt a little like working on a game, while still connecting to the industrial systems I'd worked with before. Being fully remote appealed to me too. After finding the job at Nextspace, I was granted a Straight to Residence Visa and became a New Zealand resident. Looking back, it feels as though New Zealand and I were meant to find each other.
+
+I started as a software engineer working across frontend and backend, with more of my time on the frontend. After a while, I began to think that AI could do something interesting with the digital twin, so I put forward a proposal. We built on that idea, and it led me deeper into agent development.
 
 Digital twins hold a lot of messy data. Say someone wants to find buildings in a particular city, built within a certain period, whose emissions exceed a threshold. Before, they would have to assemble the search conditions themselves, highlight the results in the 3D scene, and perhaps prepare a report. I started using agents and MCP to connect the search, scene, and reporting tools, so people could begin by describing what they wanted. I also see a business case: if data is easier to find and use, customers may be more willing to bring more of it into the platform and keep using it. That fits a product model measured by the scale of data and entities managed.
 
