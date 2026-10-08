@@ -42,7 +42,9 @@ var levelOrder = function(root) {
     }
     return res
 };
-```recursion
+```
+
+Recursion
 
 The key to the recursive solution is to pass the number of layers as a parameter
 
@@ -66,61 +68,3 @@ The steps are shown in the code
 1. Create an array for the level you are on.
 1. Add root to the array.
 1. If there is a left or right node, continue to level 1, level + 1.
-
-
-Traversal itself is very simple. The problem that needs to be considered is how to mark each layer. Here we can use two approaches: iteration and recursion.
-
-Iteration
-
-1. Enqueue root , then enqueue a null to indicate the end of level 0.
-1. Dequeue root , then enqueue the left and right nodes. If the dequeued item is null, it indicates the end of a level, and then enqueue a null.
-1. If the queue is not empty, loop 2.
-⚠️ Note: The last item in the queue will remain null if not processed, so an end condition is required.
-
-```javascript
-var levelOrder = function(root) {
-    var que = [root,null]
-    var res = []
-    var level = []
-    if (!root ) return []
-    while(que.length) {
-        var node = que.shift()
-        if (node) {
-            node.left && que.push(node.left)
-            node.right && que.push(node.right)
-            level.push(node.val)
-        } else {
-            res.push([...level])
-            level = []
-            if(que.length) {
-                que.push(null)
-            }
-        }
-    }
-    return res
-};
-```recursion
-
-The key to the recursive solution is to pass the number of layers as a parameter
-
-```javascript
-var levelOrder = function(root) {
-    var res = []
-    if (!root) return []
-    var walk = function (node,index) {
-        if (!res[index]) res[index] = []
-        res[index].push(node.val)
-        node.left && walk(node.left,index + 1)
-        node.right && walk(node.right,index + 1)
-    }
-    walk(root,0)
-    return res
-};
-```
-
-The steps are shown in the code
-
-1. Create an array for the level you are at.
-1. Add root to the array.
-1. If a left or right node exists, continue to level 1, then level 1.
-

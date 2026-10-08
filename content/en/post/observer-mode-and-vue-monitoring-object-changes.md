@@ -115,7 +115,9 @@ salesOffices.trigger('square100',1500000)// Square100's news, the price is 15000
 
 salesOffices.remove("square88",f1);
 salesOffices.trigger('square88',1000000)// Square88's news, the price is 1000000
-```##### How does Vue monitor object changes?
+```
+
+##### How does Vue monitor object changes?
 
 `Object.defineProperty`
 

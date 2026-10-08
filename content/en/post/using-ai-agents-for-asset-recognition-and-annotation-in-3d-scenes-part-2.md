@@ -11,7 +11,7 @@ tags:
   - 3D
 ---
 
-The previous article focused on the search problem. We changed free-form 3D exploration into coverage scanning based on a top-down orthographic view, and improved valve inventory recall from around 40% to around 90%. The system can now scan the main regions much more consistently.
+The previous article focused on the search problem. We changed free-form 3D exploration into coverage scanning based on a top-down orthographic view. The system can now scan the main regions much more consistently.
 
 But coverage scanning only gets targets into view. Before a target becomes part of the final inventory result, it still needs to go through detection, localization, merging, and verification.
 
@@ -46,7 +46,7 @@ The 2D stage produces false positives. Around valves, there are often pipes, fla
 
 From the current results, 3D verification helps precision noticeably.
 
-| Stage | FP Rate |
+| Stage | False positives among reported candidates |
 |---|---:|
 | 2D only | Around 29%–31% |
 | After 3D, good case | Around 15%–20% |
@@ -55,7 +55,7 @@ From the current results, 3D verification helps precision noticeably.
 
 These numbers show that the value of 3D verification depends on whether it gets a useful viewpoint.
 
-If there is a good viewing angle around the candidate, 3D verification can filter out many false positives. FP drops from around 30% to around 20% in realistic cases, and to around 15%–20% in better cases.
+If there is a good viewing angle around the candidate, 3D verification can filter out many false positives. The share of reported candidates that are false positives drops from around 30% to around 20% in realistic cases, and to around 15%–20% in better cases.
 
 But if 3D viewpoint coverage is poor, or if the candidate is still occluded, the verification stage becomes much less useful. When the 3D view does not contain more information than the original 2D tile, the result will naturally be similar to 2D-only detection.
 
@@ -65,7 +65,9 @@ At first, I treated verification as a way to recover recall. In practice, it is 
 
 The current flow is:
 
-text 2D Discovery ↓ Candidate ↓ 3D Verification 
+```text
+2D Discovery → Candidate → 3D Verification
+```
 
 The limitation is simple: the candidate has to appear first.
 
@@ -115,7 +117,11 @@ Fine-tuning can improve 2D detection, but it cannot solve everything. Targets th
 
 Future candidate generation may need to become multi-source:
 
-text Top-down 2D Detection + Side-view Detection + 3D Keypoint Detection + Geometry Heuristics ↓ Unified Verification 
+```text
+Top-down 2D Detection + Side-view Detection
+  + 3D Keypoint Detection + Geometry Heuristics
+  → Unified Verification
+```
 
 Top-down 2D detection remains the base proposal layer. It is stable, measurable, and suitable for most ground-level targets.
 
@@ -129,7 +135,7 @@ These candidates do not all need to go directly into the final result. A better 
 
 ## Summary
 
-In the current pipeline, 2D detection has precision around 69%–71% and recall around 60%–63%. 3D verification can reduce FP from around 29%–31% to around 20%–25% in realistic cases, and to around 15%–20% in better cases.
+In the current pipeline, 2D detection has precision around 69%–71% and recall around 60%–63%. 3D verification can reduce the share of false positives among reported candidates from around 29%–31% to around 20%–25% in realistic cases, and to around 15%–20% in better cases.
 
 This shows that 3D verification helps precision, but it is not the main source of recall. Missed candidates do not automatically enter the verification stage.
 

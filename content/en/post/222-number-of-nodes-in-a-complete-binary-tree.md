@@ -50,39 +50,3 @@ var countNodes = function(root) {
     }
 };
 ```
-Time: 80 minutes
-
-The first reaction when I got the question was of course to solve it with DFS.
-
-But this is a complete binary tree, so we should use the properties of a complete binary tree.
-
-You can examine the depth of the left and right subtrees of the binary tree
-
-If the left depth is greater than the right depth, it means that the right side is full. The number of full nodes is 2 to the power of n - 1, plus the root is 2 to the power of n, and continue recursively on the left side.
-
-If the right depth is greater than the left, it means the left is full. Similarly, continue recursively on the right.
-
-As for how to find the depth of the binary tree, you can recursively start from the bottom up.
-
-```javascript
-var count = function(root) {
-        if (root === null) return 0        return Math.max(count(root.left),count(root.right)) + 1}
-```
-
-Then the overall code is
-
-```javascript
-var countNodes = function(root) {
-    if (!root) {
-        return 0    }
-    var count = function(root) {
-        if (root === null) return 0        return Math.max(count(root.left),count(root.right)) + 1    }
-    var leftLevel = count(root.left)
-    var rightLevel = count(root.right)
-    if (leftLevel === rightLevel) {
-        return Math.pow(2,leftLevel) + countNodes(root.right)
-    } else {
-        return Math.pow(2,rightLevel ) + countNodes(root.left)
-    }
-};
-```

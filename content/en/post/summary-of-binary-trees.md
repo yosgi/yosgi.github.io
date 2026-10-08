@@ -41,7 +41,9 @@ function dfs(root) {
         dfs(child)
     }
 }
-```### BFS algorithm flow and template
+```
+
+### BFS algorithm flow and template
 
 1. First, place the root node in the queue.
 

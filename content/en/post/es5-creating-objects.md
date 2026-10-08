@@ -201,7 +201,9 @@ There is a more recommended method to test
 
 ```javascript
 Object.getPrototypeOf(dog)===Animal.prototype//true
-```**When the code reads a property of an instance object, it searches for the named property, starting with the object instance itself, and then continuing to its prototype object if it doesn't find the named property.**
+```
+
+**When the code reads a property of an instance object, it searches for the named property, starting with the object instance itself, and then continuing to its prototype object if it doesn't find the named property.**
 
 If we add a property to an instance with the same name as a prototype, the property will be created on the instance, obscuring the prototype's property.
 The `hasOwnProperty()` method can be used to determine whether the prototype property or the instance property is being accessed.
@@ -318,4 +320,6 @@ console.log(dog.hasOwnProperty("name"))//true
 console.log(dog.constructor.name)// Animal (note that this is related to the function declaration method)
 console.log(dog instanceof Animal)//true
 Object.getPrototypeOf(dog)===Animal.prototype//true
-```**To summarize, when creating an object using the constructor and prototype combination pattern, the object's properties are equivalent to deep copies from the constructor, while the methods are equivalent to shallow copies from the prototype. **
+```
+
+**To summarize, when creating an object using the constructor and prototype combination pattern, the object's properties are equivalent to deep copies from the constructor, while the methods are equivalent to shallow copies from the prototype.**

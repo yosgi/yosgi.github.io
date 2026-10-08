@@ -37,7 +37,9 @@ If I want to use a function component and want to have manual control over the d
 function Clock(props) {
   return (
     <div>      <h1>Hello, world!</h1>      <h2>It is {props.date.toLocaleTimeString()}.</h2>    </div>  );}
-```**In React 16.8, new features of Hooks enable function components to control their own ‘state’**
+```
+
+**In React 16.8, Hooks enabled function components to manage their own state.**
 
 ```javascript
 import React, { useState } from 'react';function Example() {

@@ -23,7 +23,10 @@ A vision model sees a screenshot. It returns a location in that screenshot, eith
 
 The chain looks roughly like this:
 
-text Camera pose ↓ Rendered frame ↓ VLM detection ↓ Pixel coordinate ↓ World coordinate ↓ Marker / callout 
+```text
+Camera pose → Rendered frame → VLM detection
+→ Pixel coordinate → World coordinate → Marker / callout
+```
 
 If any step in this chain is wrong, the final symptom may look like “the model is inaccurate.” But in many cases, the issue is not the model. It can be screenshot quality, camera state, coordinate mapping, or scene depth resolution.
 
@@ -35,7 +38,10 @@ At first, we tried to use Cesium’s scene.pickPosition directly to convert a de
 
 We saw logs like this:
 
-text pickPosition: [115.7441, 57.9449, -6343534] globePick:    [115.7887, -32.1432, -27.8] 
+```text
+pickPosition: [115.7441, 57.9449, -6343534]
+globePick:    [115.7887, -32.1432, -27.8]
+```
 
 The latitude and height returned by pickPosition were clearly wrong. The height was even close to negative one Earth radius. The final marker would naturally be placed far away from the intended target.
 
@@ -71,7 +77,9 @@ At first, we used the same span as both the horizontal and vertical step size, e
 
 If the aspect ratio is 1.88, then when the horizontal coverage width is span, the vertical coverage height is roughly:
 
-text frameH = span / 1.88 
+```text
+frameH = span / 1.88
+```
 
 So the actual height is only a little more than half of the width.
 
@@ -79,7 +87,10 @@ If we still place vertical tiles using span, large gaps appear between rows. The
 
 We later changed tile planning to use the real frame footprint:
 
-text frameW = span frameH = span / aspect 
+```text
+frameW = span
+frameH = span / aspect
+```
 
 Then we calculate the number of columns and rows based on frameW and frameH. Edge tiles also need to be clamped so that the frame does not go outside the scan boundary unnecessarily.
 

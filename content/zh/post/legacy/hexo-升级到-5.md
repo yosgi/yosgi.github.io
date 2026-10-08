@@ -126,7 +126,7 @@ external_link:
 
 从 [issue： 与 hexo 5 不兼容](https://github.com/ahonn/hexo-theme-even/issues/266) 找到了解决办法，原来是 Hexo 5 把 swig 渲染插件删了，需要单独安装
 
-```npm i hexo-renderer-swig
+```bash
 npm i hexo-renderer-swig
 ```
 

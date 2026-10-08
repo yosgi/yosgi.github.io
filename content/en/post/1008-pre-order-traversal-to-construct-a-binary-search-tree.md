@@ -48,39 +48,3 @@ var bstFromPreorder = function(preorder) {
     }
     return root};
 ```
-Time: Not done
-
-The main reason I didn't make it was that I kept thinking about how to use a stack. When I looked at the answer to the stack later, I found that recursion was the simplest.
-
-recursion
-
-The idea is very simple. First, write out how to insert a child node
-
-1. If the node is smaller than the parent node and the parent node's left node is empty, make it the left node.
-1. If the node is larger than the parent node and the parent node's right node is empty, make it the right node.
-1. If the node is smaller than the parent node, assign the parent node to the parent node's left node and return to 1.
-1. If the node is larger than the parent node, assign the parent node to the parent node's right node and return to 1.
-Traverse the entire array and insert each node one by one to get the result.
-
-```javascript
-var bstFromPreorder = function(preorder) {
-    var add = function (node,val) {
-        if (val < node.val && !node.left) {
-            node.left = new TreeNode(val)
-        }
-        if (val > node.val && !node.right) {
-            node.right = new TreeNode(val)
-        }
-        if (val < node.val) {
-            add(node.left,val)
-        }
-        if (val > node.val) {
-            add(node.right,val)
-        }
-    }
-    var root = new TreeNode(preorder.shift())
-    for(let i = 0 ; i < preorder.length ; i ++) {
-        add(root,preorder[i])
-    }
-    return root};
-```

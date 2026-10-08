@@ -22,8 +22,8 @@ summary: "关于数字孪生、3D Web 应用、AI 辅助工作流、Cesium、Age
 
 ## 代表内容
 
-- [使用 Agent 进行 3D 场景的资产识别标注（一）](/zh/post/%E4%BD%BF%E7%94%A8agent-%E8%BF%9B%E8%A1%8C3d%E5%9C%BA%E6%99%AF%E7%9A%84%E8%B5%84%E4%BA%A7%E8%AF%86%E5%88%AB%E6%A0%87%E6%B3%A8%E4%B8%80/)：3D 场景中的覆盖扫描和召回率问题
-- [使用 Agent 进行 3D 场景的资产识别标注（二）](/zh/post/%E4%BD%BF%E7%94%A8-agent-%E8%BF%9B%E8%A1%8C-3d-%E5%9C%BA%E6%99%AF%E7%9A%84%E8%B5%84%E4%BA%A7%E8%AF%86%E5%88%AB%E6%A0%87%E6%B3%A8%E4%BA%8C/)：2D 候选生成和 3D 验证
+- [使用 Agent 进行 3D 场景的资产识别标注（一）](/zh/post/使用-agent-进行-3d-场景的资产识别标注-一/)：3D 场景中的覆盖扫描和召回率问题
+- [使用 Agent 进行 3D 场景的资产识别标注（二）](/zh/post/使用-agent-进行-3d-场景的资产识别标注-二/)：2D 候选生成和 3D 验证
 - [我们怎么把 2D 图纸接进 3D 场景](/zh/post/%E6%88%91%E4%BB%AC%E6%80%8E%E4%B9%88%E6%8A%8A-2d-%E5%9B%BE%E7%BA%B8%E6%8E%A5%E8%BF%9B-3d-%E5%9C%BA%E6%99%AF/)：把图纸数据接入 3D 标注流程
 - [React 状态与 3D 引擎的高频同步架构](/zh/post/react-%E7%8A%B6%E6%80%81%E4%B8%8E-3d-%E5%BC%95%E6%93%8E%E7%9A%84%E9%AB%98%E9%A2%91%E5%90%8C%E6%AD%A5%E6%9E%B6%E6%9E%84/)：React 与 Cesium 的同步架构
 - [初步尝试构建 MCP 工具的经验](/zh/post/%E5%88%9D%E6%AD%A5%E5%B0%9D%E8%AF%95%E6%9E%84%E5%BB%BA-mcp-%E5%B7%A5%E5%85%B7%E7%9A%84%E7%BB%8F%E9%AA%8C/)：MCP 工具构建经验

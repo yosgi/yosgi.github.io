@@ -11,225 +11,74 @@ tags:
   - Array
 ---
 
-30min
+For an array of length `n`, the kth largest value is the value at index `n - k` after sorting in ascending order. Sorting the whole array works, but it takes `O(n log n)` time when we only need one position.
 
-The first thing that comes to mind when I get the question is to sort it directly...
+### Solution 1: Quickselect
 
-But we can optimize the quick sort to get the result
-
-### Solution 1. Quick sort
-
-The idea of quick sort is to find a benchmark in the array and divide the array into the benchmark, the part smaller than the benchmark, and the part larger than the benchmark.
-
-The benchmark itself has been sorted. If the benchmark is the kth largest element, the result can be obtained directly.
-
-If the position of the benchmark is to the left of k, continue to look for the
-
-If the benchmark is on the right side of k, continue to look for the part smaller than the benchmark.
-
-There are three points to note
-
-1. How to choose the base `Math.floor(Math.random() * (r - l + 1) + l)`
-1. Opening and closing intervals during sorting
-1. Remember to return the base after sorting
+Partition the array around a pivot. The pivot ends up at its final sorted index, so only the side containing index `n - k` needs another partition. A random pivot gives expected `O(n)` time and `O(1)` extra space; the worst case is `O(n²)`.
 
 ```javascript
-function swap(a,i,j) {
-    [a[i],a[j]] = [a[j],a[i]]
+function findKthLargest(nums, k) {
+  const target = nums.length - k;
+  let left = 0;
+  let right = nums.length - 1;
+
+  while (left <= right) {
+    const pivotIndex = left + Math.floor(Math.random() * (right - left + 1));
+    [nums[pivotIndex], nums[right]] = [nums[right], nums[pivotIndex]];
+    const pivot = nums[right];
+    let store = left;
+
+    for (let i = left; i < right; i++) {
+      if (nums[i] < pivot) {
+        [nums[store], nums[i]] = [nums[i], nums[store]];
+        store++;
+      }
+    }
+    [nums[store], nums[right]] = [nums[right], nums[store]];
+
+    if (store === target) return nums[store];
+    if (store < target) left = store + 1;
+    else right = store - 1;
+  }
 }
-var findKthLargest = function(nums, k) {
-    var res = null    function quickSelect(a,l,r) {
-        if (l > r) {
-            return false        }
-        var piviot = Math.floor(Math.random() * (r - l + 1) + l);        swap(a,l,piviot)
-        let i = l,j = l + 1        // j increments // [ l ... i] is greater than or equal to the reference // [i + 1, .... r] is less than the reference while(j <= r) {
-            if (a[j] >= a[l]) {
-                swap(a,++i,j)
-            }
-            j++        }
-        // Baseline homing swap(a,i,l)
-        // At this time, i is a number greater than i + 1 var _k = i + 1 if (k === _k) {
-            return res = a[i]
-        } else if (_k < k) {
-        // The benchmark is less than k, continue to search the right quickSelect(a,i+1,r)
-        } else {
-            quickSelect(a,l,i - 1)
-        }
-    }
-    quickSelect(nums,0,nums.length - 1)
-    return res
-};
-```### Solution 2. Max Heap
-
-Since we want to get the kth largest value, we can take the maximum value of the maximum heap k times, and the last time is the result we want.
-
-The difficulty here is that we implement a maximum heap, and the points we need to pay attention to are
-
-1. Boundary conditions, such as when shifting Up, k must be as low as 0, and when shifting Down, the end condition is that there is no left child.
-1. When shifting Down, it is necessary to determine whether the right child node exists.
-
-```javascript
-function swap(a,i,j) {
-    [a[i],a[j]] = [a[j],a[i]]
-}
-class MaxHeap{
-    constructor() {
-        this.data = []
-    }
-    shiftUp(k) {
-        while(k >= 0 ) {
-            let father  = Math.floor( (k - 1) / 2 )
-            if (this.data[k] > this.data[father]) {
-                swap(this.data,k,father)
-                k = father
-            } else {
-                break            }
-        }
-    }
-    shiftDown(k) {
-        let len = this.data.length        while( 2 * k + 1  <= len ) {
-            let left = 2 * k + 1            let right = 2 * k + 2            let j = k
-            if (right <= len && this.data[right] > this.data[k] && this.data[right] > this.data[left]) {
-                j = right
-            } else if (this.data[left] > this.data[k]) {
-                j = left
-            } else {
-                break            }
-            swap(this.data,j,k)
-            k = j
-        }
-    }
-    getMax() {
-        let ret = this.data[0]
-        swap(this.data,0,this.data.length - 1)
-        this.data.pop()
-        this.shiftDown(0)
-        return ret
-    }
-    insert(a) {
-        this.data[this.data.length] = a
-        this.shiftUp(this.data.length - 1)
-    }
-}
-var findKthLargest = function(nums, k) {
-    var heap = new MaxHeap()
-    for(let i = 0 ; i < nums.length ; i ++) {
-        heap.insert(nums[i])
-    }
-    var res = null    while(k > 0) {
-        res = heap.getMax()
-        k--    }
-    return res
-};
 ```
-30min
 
-The first thing that comes to mind when I get the question is to sort it directly...
+This rearranges `nums`. If the original order matters, pass a copy instead.
 
-But we can optimize the quick sort to get the result
+### Solution 2: Max heap
 
-### Solution 1. Quick sort
-
-The idea of quick sort is to find a benchmark in the array and divide the array into the benchmark, the part smaller than the benchmark, and the part larger than the benchmark.
-
-The benchmark itself has been sorted. If the benchmark is the kth largest element, the result can be obtained directly.
-
-If the position of the benchmark is to the left of k, continue to look for the
-
-If the benchmark is on the right side of k, continue to look for the part smaller than the benchmark.
-
-There are three points to note
-
-1. How to choose the base `Math.floor(Math.random() * (r - l + 1) + l)`
-1. Opening and closing intervals during sorting
-1. Remember to return the base after sorting
+Put all values in a max heap, then remove the maximum `k` times. The last removed value is the answer. Building the heap takes `O(n)` time, and the removals take `O(k log n)` time; the heap uses `O(n)` extra space.
 
 ```javascript
-function swap(a,i,j) {
-    [a[i],a[j]] = [a[j],a[i]]
+function findKthLargestWithHeap(nums, k) {
+  const heap = [...nums];
+
+  function siftDown(index, size) {
+    while (2 * index + 1 < size) {
+      let child = 2 * index + 1;
+      if (child + 1 < size && heap[child + 1] > heap[child]) child++;
+      if (heap[index] >= heap[child]) break;
+      [heap[index], heap[child]] = [heap[child], heap[index]];
+      index = child;
+    }
+  }
+
+  for (let i = Math.floor(heap.length / 2) - 1; i >= 0; i--) {
+    siftDown(i, heap.length);
+  }
+
+  let result;
+  for (let remaining = k; remaining > 0; remaining--) {
+    result = heap[0];
+    const last = heap.pop();
+    if (heap.length > 0) {
+      heap[0] = last;
+      siftDown(0, heap.length);
+    }
+  }
+  return result;
 }
-var findKthLargest = function(nums, k) {
-    var res = null    function quickSelect(a,l,r) {
-        if (l > r) {
-            return false        }
-        var piviot = Math.floor(Math.random() * (r - l + 1) + l);        swap(a,l,piviot)
-        let i = l,j = l + 1        // j increments // [ l ... i] is greater than or equal to the reference // [i + 1, .... r] is less than the reference while(j <= r) {
-            if (a[j] >= a[l]) {
-                swap(a,++i,j)
-            }
-            j++        }
-        // Baseline homing swap(a,i,l)
-        // At this time, i is a number greater than i + 1 var _k = i + 1 if (k === _k) {
-            return res = a[i]
-        } else if (_k < k) {
-        // The benchmark is less than k, continue to search the right quickSelect(a,i+1,r)
-        } else {
-            quickSelect(a,l,i - 1)
-        }
-    }
-    quickSelect(nums,0,nums.length - 1)
-    return res
-};
-```### Solution 2. Max Heap
-
-Since we want to get the kth largest value, we can take the maximum value of the maximum heap k times, and the last time is the result we want.
-
-The difficulty here is that we implement a maximum heap, and the points we need to pay attention to are
-
-1. Boundary conditions, such as when shifting Up, k must be as low as 0, and when shifting Down, the end condition is that there is no left child.
-1. When shifting Down, it is necessary to determine whether the right child node exists.
-
-```javascript
-function swap(a,i,j) {
-    [a[i],a[j]] = [a[j],a[i]]
-}
-class MaxHeap{
-    constructor() {
-        this.data = []
-    }
-    shiftUp(k) {
-        while(k >= 0 ) {
-            let father  = Math.floor( (k - 1) / 2 )
-            if (this.data[k] > this.data[father]) {
-                swap(this.data,k,father)
-                k = father
-            } else {
-                break            }
-        }
-    }
-    shiftDown(k) {
-        let len = this.data.length        while( 2 * k + 1  <= len ) {
-            let left = 2 * k + 1            let right = 2 * k + 2            let j = k
-            if (right <= len && this.data[right] > this.data[k] && this.data[right] > this.data[left]) {
-                j = right
-            } else if (this.data[left] > this.data[k]) {
-                j = left
-            } else {
-                break            }
-            swap(this.data,j,k)
-            k = j
-        }
-    }
-    getMax() {
-        let ret = this.data[0]
-        swap(this.data,0,this.data.length - 1)
-        this.data.pop()
-        this.shiftDown(0)
-        return ret
-    }
-    insert(a) {
-        this.data[this.data.length] = a
-        this.shiftUp(this.data.length - 1)
-    }
-}
-var findKthLargest = function(nums, k) {
-    var heap = new MaxHeap()
-    for(let i = 0 ; i < nums.length ; i ++) {
-        heap.insert(nums[i])
-    }
-    var res = null    while(k > 0) {
-        res = heap.getMax()
-        k--    }
-    return res
-};
 ```
+
+Both examples assume `1 <= k <= nums.length`.

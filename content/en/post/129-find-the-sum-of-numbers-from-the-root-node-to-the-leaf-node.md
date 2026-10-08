@@ -31,20 +31,3 @@ var sumNumbers = function(root) {
     return ans
 };
 ```
-The question is about starting from the root node. The first thing that comes to mind is top-down DFS, passing parameters downward, and the end condition has no left or right children.
-
-Start with the pre-order traversal, and you can assume that all the previous nodes have been processed.
-
-```javascript
-var sumNumbers = function(root) {
-    var ans = 0    var DFS = function (root,path) {
-        if (!root) return        path += root.val        if (!root.left && !root.right) {
-            ans += Number(path)
-        }
-        root.left && DFS(root.left,path)
-        DFS(root.right, path)
-    }
-    DFS(root,'')
-    return ans
-};
-```
