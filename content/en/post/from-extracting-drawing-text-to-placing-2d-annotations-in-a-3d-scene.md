@@ -194,7 +194,7 @@ The next question was how to place the drawing into the 3D scene.
 
 The `DrawingGraph` knows where objects are in drawing coordinates. The 3D scene knows where objects are in world coordinates. We needed a mapping between those two spaces.
 
-An affine transform was enough.
+For site plans whose positions preserve the physical layout, an affine transform was enough in our case. A P&ID is different: it describes equipment and connections schematically, so its spacing does not generally represent real-world distance. We can still extract tags and relationships from it, but we should not use one global affine transform to place every P&ID symbol in the 3D scene.
 
 That sounds boring, but boring was good here. It handles scale, rotation, translation, and the y-axis flip between SVG and map coordinates. SVG y-values grow downward. A local northing coordinate grows upward. We did not need a special case for that; the fitted coefficients capture it.
 
@@ -237,7 +237,7 @@ Then we asked the obvious cold-start question: what if the scene has no entities
 
 For example, the scene might just be a photogrammetry mesh. It has geometry and georeferencing, but no equipment objects, no labels, and no structured asset model.
 
-The registration code already had the answer. The affine fit only needs point pairs:
+For a spatially meaningful plan, the registration code already had the answer. The affine fit only needs point pairs:
 
 ```text
 drawing x/y -> world lon/lat
@@ -265,13 +265,13 @@ So anchor acquisition became a cascade:
    Ask the user to click P-101, then VLV-23, then E-401.
 ```
 
-The last option sounds primitive, but it is useful. It works on point clouds, night scenes, incomplete models, and abstract schematics. When automated registration fails, three clicks are often the cheapest reliable fallback.
+The last option sounds primitive, but it is useful when the source is a spatial plan and the scene lacks structured entities. Three non-collinear clicks can anchor a plan to the scene. They cannot turn an abstract schematic or a P&ID into a scaled map; those drawings need tag- or relationship-based matching for each component instead.
 
 ## A bug showed up while writing the workflow
 
 One of the better bugs was found while writing documentation.
 
-I was writing the cold-start workflow: the 3D scene has no structured entities, the user uploads a drawing, clicks three anchors, the system registers the drawing, and then the drawing components get placed into the scene.
+I was writing the cold-start workflow for a spatial plan: the 3D scene has no structured entities, the user uploads the plan, clicks three anchors, the system registers it, and then the drawing components get placed into the scene.
 
 While writing that flow end to end, I noticed a contradiction.
 
@@ -317,9 +317,9 @@ Without those artifacts, the system becomes a black box. When the output is wron
 
 The full loop works now.
 
-A user can upload an SVG drawing. The system parses components, annotations, and relationships. The user can ask questions about the drawing in natural language. The drawing can also be registered into a 3D scene using existing entities, visual recognition, or three manual anchor clicks.
+A user can upload an SVG drawing. The system parses components, annotations, and relationships, and the user can ask questions about them in natural language. When the drawing is a spatially meaningful plan, it can also be registered into a 3D scene using existing entities, visual recognition, or three manual anchor clicks. A schematic such as a P&ID instead needs component-level matching through tags and relationships; it cannot use the same global coordinate transform.
 
-After registration, drawing components are staged as candidate 3D entities with their annotations attached. Once the user confirms them, the system creates the entities and their digital twin relationships.
+After a spatial plan is registered, its components are staged as candidate 3D entities with their annotations attached. Once the user confirms them, the system creates the entities and their digital twin relationships.
 
 The next two things we want to improve are fairly clear.
 

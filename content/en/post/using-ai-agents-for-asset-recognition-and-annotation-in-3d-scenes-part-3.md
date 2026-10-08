@@ -47,9 +47,9 @@ The latitude and height returned by pickPosition were clearly wrong. The height 
 
 This kind of issue is easy to misread as poor model localization. In reality, the model may have pointed to the correct position in the screenshot, while the pixel-to-world coordinate conversion was wrong.
 
-Later, in orthographic scanning, we switched to an analytic mapping based on known camera and tile parameters. For each tile, the center, span, canvas aspect ratio, and detection pixel coordinate are known, so the ground position can be computed directly.
+Later, in orthographic scanning, we switched to an analytic mapping based on known camera and tile parameters. For each tile, the center, span, canvas aspect ratio, and detection pixel coordinate are known, so we can calculate where the image ray meets an assumed ground plane.
 
-In this flow, we no longer rely on pickPosition for depth reconstruction.
+That gives us a ground projection, not a unique 3D asset position. A valve on an elevated platform may have the same image coordinates as a point on the ground below it. To place a marker on the asset itself, we still need a reliable height source, a match to scene geometry or an existing entity, or a later 3D verification step. Until then, the point should remain a candidate ground location rather than a confirmed world position. This flow does not use `pickPosition` to obtain the initial ground projection.
 
 ## Camera State Needs to Be Recorded Completely
 
@@ -138,7 +138,8 @@ So each annotation should ideally be traceable:
 - which tile it came from
 - what the camera state was at capture time
 - where the detection point was in the image
-- what parameters were used to map it into world coordinates
+- what reference plane and camera parameters were used for the ground projection
+- how, if at all, the candidate was matched to a 3D height or scene entity
 - whether it went through 3D verification
 - what the verification result was
 
@@ -148,4 +149,4 @@ Without this intermediate data, every problem eventually collapses into the vagu
 
 ## Summary
 
-The most important lesson from this part is that geometry problems should be solved with geometry whenever possible. In orthographic view, pixel-to-world mapping, tile footprint, camera frustum, and LOD loading state should not be left for the model to guess.
+The most important lesson from this part is that geometry problems should be solved with geometry whenever possible. In orthographic view, the ground projection, tile footprint, camera frustum, and LOD loading state should not be left for the model to guess. The ground projection is only one step toward an accurate 3D annotation.

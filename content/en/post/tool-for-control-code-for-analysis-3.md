@@ -1,7 +1,7 @@
 ---
 title: Tool for Control, Code for Analysis(3)
 date: 2026-05-25 14:50:20
-description: In large-scale Agent systems, pure Tool-based approaches tend to collapse under context pressure, while pure Code-based approaches introduce excessive latency. Based on real-world experiments, this article introduces a dual-path execution model that uses a “Context Off-Ramp” to switch between Tool and Code execution.
+description: In one data-heavy agent task, large raw Tool responses strained context while a Code-only path took longer. We used a Context Off-Ramp to switch between the two paths.
 categories:
   - AI Engineering
 tags:
@@ -13,9 +13,9 @@ When Agent systems first started becoming popular, we implicitly assumed somethi
 
 If Tools became good enough, Agents would eventually turn into “brains that call APIs.”
 
-Later we realized this assumption only holds at small scale.
+Later we found that this assumption did not always hold in the data-heavy tasks we worked on.
 
-Once the amount of data keeps increasing — especially in environments like log analysis, RAG, monitoring systems, and digital twins — pure Tool-based systems start running into very obvious problems.
+When a Tool returns large amounts of raw data directly to the model, context pressure rises. Log analysis, RAG, monitoring, and digital twins can all encounter this problem. Whether they do depends on how the interface filters, paginates, or summarizes results, not simply on whether it is called a Tool.
 
 A typical task looks like this:
 
@@ -31,13 +31,7 @@ Later, on a real-world task involving around 10,000 entities, we compared three 
 - Pure Code-as-MCP
 - A dual-path execution model using both Tool and Code
 
-The results were very straightforward.
-
-Pure Tool systems eventually get dragged down by context.
-
-Pure Code systems are more accurate, but latency grows very quickly.
-
-The only thing that stayed stable was a dual-path execution model:
+In this implementation, sending raw Tool output into context became costly, while sending everything through Code added execution time. We ended up with a dual-path model:
 
 - Tool handles the control plane
 - Code handles the data plane
@@ -56,7 +50,7 @@ In the previous article, we already separated MCP (Tool-based execution) and Cod
 
 At small scale, these differences barely matter.
 
-But once system complexity keeps increasing, the problems start appearing in very non-linear ways.
+But as returned data and execution steps grow, the costs can become difficult to manage.
 
 Eventually we kept running into two recurring “cost cliffs.”
 
@@ -156,9 +150,7 @@ In pure Code systems we repeatedly saw problems like:
 - sandbox debugging loops growing
 - Agents generating complex logic for tiny operations
 
-Accuracy improved significantly.
-
-But latency also increased significantly.
+This path could analyze the complete dataset, while the truncated Tool run could not. It also took longer in the comparison below.
 
 A surprising amount of time was spent simply getting the code to run successfully.
 
@@ -269,4 +261,38 @@ Context Off-Ramp
 
 Because it behaves very similarly to a highway off-ramp.
 
-Once context traffic becomes too large, the system forcibly redirects the data flow onto another execution path.
+Once context traffic becomes too large, the system redirects the data flow onto another execution path.
+
+---
+
+# **4. One Engineering Comparison**
+
+We used a real task involving about 10,000 entities: screen the full dataset for anomalies and produce a PDF report. The figures below describe one run of each implementation. They are not a repeated, controlled benchmark. In particular, the pure Tool path truncated its data, while the other paths could process the complete dataset. Any difference in the result therefore cannot be attributed to the execution architecture alone. A Tool with server-side filtering, pagination, or aggregation would be another useful baseline.
+
+## **Pure Tool**
+
+This version took about 13 minutes, including about 11 minutes of Agent conversation and seven Tool calls. One full response approached 510,000 tokens. To avoid filling the context, we truncated the API result. The anomaly search was then working from incomplete data.
+
+What this run shows directly is the cost of returning a huge raw result into the model's context and the loss of coverage after truncation.
+
+## **Pure Code-as-MCP**
+
+This version had access to the complete data, but took about 23 minutes and around 15 Tool calls. Some of that time went into fixing sandbox issues, dependencies, and generated code before the analysis could finish.
+
+The extra execution work mattered most for small control actions that would otherwise have been a single validated Tool call. That does not make Code a poor fit for analysis; it shows the cost of sending every operation through the same flexible runtime.
+
+## **Tool and Code with a Context Off-Ramp**
+
+The dual-path version took about 4 minutes 30 seconds in this run. It kept small control operations as Tools and moved oversized data into the Code environment.
+
+At step R2, `entities_keyword_search` produced a result estimated at 108,634 tokens. The orchestrator wrote the full result to CSV and returned a file pointer and a short preview instead of injecting the raw data into context. At R3, a refined result reached about 512,675 tokens and triggered the same switch. The Agent then spent about 3.5 minutes processing the data in a Python sandbox.
+
+This run did not exhaust the context. The useful observation is that a file pointer kept large data available to the analysis path without asking the model to hold the whole dataset in conversation. The timing alone does not prove that this design is faster in every workload, and this comparison cannot establish an accuracy gain.
+
+---
+
+# **5. Where the Boundary May Help**
+
+This experience came from a digital twin task. Other systems may have a similar split between small, high-risk control operations and large analytical workloads. In finance, for example, an order or risk-control action benefits from a narrow, validated interface, while a historical backtest may benefit from code operating on a dataset. In DevOps, changing a deployment and analyzing a large set of logs call for different execution controls.
+
+The design rule we took from this run is narrower than “Tool is bad” or “Code is better”: keep state-changing actions explicit and validated, and avoid sending large raw datasets through the model's context when a bounded query or file-backed analysis path will do. Which boundary works best still depends on the task, available Tools, data volume, and acceptable latency.

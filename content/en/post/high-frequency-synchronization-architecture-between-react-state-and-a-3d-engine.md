@@ -51,7 +51,7 @@ flowchart LR
   B --- F[("View Projection: Graph -> Flat Array")]
 
   B -->|Low-frequency view updates| C["React UI (Virtual List)"]
-  C --- G[("Render viewport only: O(H)")]
+  C --- G[("Render visible rows only")]
 
 ```
 
@@ -84,7 +84,7 @@ Faced with thousands of state-change events (Add/Remove/Update) that may flood i
 It decides “how the data is viewed.” Based on the current SortType (e.g., sorting by CAD structure, sorting by entity type), it dynamically takes the nonlinear in-memory data (Graph) and computes, in real time, the linear array (Flat Array) needed by the UI.
 
 
-This means there’s only one copy of the underlying data, but there can be countless “views.” Switching views is just recomputing a projection, with very low cost.
+This means we maintain one underlying node store and can derive different views from it. Switching views still requires recomputing a projection; a full traversal or sort grows with the number of nodes.
 
 
 ## 3. Key Implementation Strategies
@@ -95,25 +95,25 @@ For the deep nesting common in 3D scenes, I abandoned the intuitive “recursive
 
 In early experiments, I found that when tree depth increases and node counts become large, recursive React components incur a huge performance penalty:
 
-1. Call stack overflow risk: a deeply nested component tree greatly increases pressure on the JS engine’s call stack.
-2. Diff cost rises sharply: when React reconciles a very deep component tree, the diff algorithm’s cost increases significantly, causing FPS to fall off a cliff.
+1. If the tree-building logic itself uses deep recursion, it can hit JavaScript call stack limits. A deeply nested component structure is also harder to maintain.
+2. Mounting or updating many nodes increases reconciliation and DOM work. We observed poor frame rates, but that observation does not establish exponential diff complexity.
 
 So we maintain a flattened array flatNodeArray in memory, using a depth property to indicate hierarchy.
 
-- Advantage: a virtual list can consume this array directly. React only needs to render a few dozen divs in the viewport, decoupling render complexity from total data size (N); it depends only on viewport height (H), i.e., O(H).
-- Operation: expanding/collapsing nodes only involves filtering the array, no longer requiring expensive DOM tree redraws.
+- Advantage: a virtual list renders only the visible rows. The rendering work for one update depends mainly on the number of visible rows V, rather than the total node count N.
+- Cost: expanding, collapsing, or changing sort order may still traverse or rebuild the visible-node array. Virtualization does not make those data operations O(V).
 
 ### Strategy B: Asynchronous Time Slicing (Time Slicing)
 
 
-This is the key to preventing “freezing.” Not only do we use batching, we also split the build work into multiple micro-tasks.
+Batching helps, but a large build can still block the main thread. We split it into batches and yield to the browser between them. Awaiting an already resolved Promise would only queue another microtask and would not guarantee a paint opportunity.
 
 
 ```javascript
-// Pseudocode logic
-while (queue.length>0) {
-  process(queue.splice(0,100)); // process a small batch
-  awaitnextTick();              // yield the main thread, allow UI to respond to interactions
+// Pseudocode inside an async function
+for (let offset = 0; offset < items.length; offset += 100) {
+  process(items.slice(offset, offset + 100));
+  await new Promise(requestAnimationFrame); // allow the browser another frame
 }
 
 
@@ -134,15 +134,16 @@ But under our flattened array (Flat Array) architecture, this becomes straightfo
 
 ```javascript
 // Pseudocode: implement range selection in a flat array
-constrangeSelection= (startId,endId)=> {
-conststartIndex=nodePositionMap.get(startId);
-constendIndex=nodePositionMap.get(endId);
+const rangeSelection = (startId, endId) => {
+  const startIndex = nodePositionMap.get(startId);
+  const endIndex = nodePositionMap.get(endId);
+  if (startIndex === undefined || endIndex === undefined) return [];
 
-// no matter how complex the tree is, the visual range is just an array slice by index
-returnflatNodeArray.slice(
-Math.min(startIndex,endIndex),
-Math.max(startIndex,endIndex)+1
-    );
+  // This covers visible rows; hidden descendants need separate handling.
+  return flatNodeArray.slice(
+    Math.min(startIndex, endIndex),
+    Math.max(startIndex, endIndex) + 1
+  );
 };
 
 
@@ -152,16 +153,16 @@ Math.max(startIndex,endIndex)+1
 Another example: the most complex state in a tree control is checkbox cascade updates (select all / deselect all).
 
 
-In a traditional recursive tree, checking a parent with 20,000 children means triggering 20,000 React component re-renders—an absolute performance disaster. In our architecture, this is simplified to pure in-memory operations:
+In a recursive tree, updating each child through its own UI state can cause substantial rendering work. Our architecture first updates the node store in a batch, then notifies the visible list:
 
-1. Index lookup: use Map to instantly locate all 26,000 descendant node IDs.
-2. Batch modification: update the data store directly without touching the DOM.
-3. On-demand drawing: VirtualList only redraws the 20 visible rows on screen. Result: no matter how many nodes are cascaded, rendering cost stays constant at O(1).
+1. Index lookup: Map finds one node by ID in O(1) on average; collecting all descendants still visits the relevant nodes.
+2. Batch modification: updating about 26,000 stored nodes takes work proportional to the number changed.
+3. On-demand rendering: VirtualList renders only the roughly 20 rows on screen, avoiding DOM work for every changed node.
 
-## 4. Experimental Data & Performance Validation
+## 5. Experimental Data & Performance Validation
 
 
-To verify scalability, we ran performance instrumentation tests in two real scenarios: a medium scale and a high-load scale.
+To observe how the architecture behaves at different sizes, we instrumented two real scenarios: a medium scale and a high-load scale.
 
 
 Test environment: Chrome / M2 Chip
@@ -181,22 +182,20 @@ This is the most basic performance metric, measuring whether this “flattening 
 
 | Key Metric                       | Medium Scenario (7k Nodes) | Heavy Scenario (6.8w Nodes) | Architectural Interpretation                                                                                                                                                                                                                         |
 | -------------------------------- | -------------------------- | --------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Tree:Flatten (flatten hierarchy) | 0.8 ms                     | 4.3 ms                      | Core validation: reorganizing tens of thousands of hierarchical relationships into a linear list takes only 4ms. This proves perfect linear scalability (Linear Scalability) and stays far below the 16ms/frame safety line.                         |
-| Tree:FullBuild (full build)      | 290 ms                     | 2,804 ms                    | Although data volume increased 10x and time also increased linearly, thanks to time slicing (Time Slicing), these 2.8 seconds were spread across hundreds of event loop ticks. The UI remained fully interactive during this period with no stutter. |
+| Tree:Flatten (flatten hierarchy) | 0.8 ms                     | 4.3 ms                      | This step was fast in both measured scenarios. Two data points do not establish a general complexity bound. |
+| Tree:FullBuild (full build)      | 290 ms                     | 2,804 ms                    | Total build time increased with scale. Time slicing spreads work across batches, but frame and input-latency measurements are needed to substantiate a claim of uninterrupted responsiveness. |
 
-undefined
 ### Experiment 2: Interaction Responsiveness (Shift+Select Range)
 
 
 This is the ultimate stress test for the architecture. We ran a “hidden select all” test in a 3D scene: the user selected only a few dozen folders in the visible area, but each contained tens of thousands of folded 3D entities.
 
 
-| Operation Scenario     | Traditional Recursive Tree (Estimated) | This Architecture (Measured) | Improvement |
-| ---------------------- | -------------------------------------- | ---------------------------- | ----------- |
-| Select 80,000 entities | ~10,000 ms (browser freeze)            | 263 ms                       | ~40×        |
+| Operation Scenario     | Previous approach (recalled estimate) | This architecture (one measured run) |
+| ---------------------- | ------------------------------------- | ------------------------------------ |
+| Select 80,000 entities | About 10,000 ms                       | 263 ms                               |
 
-undefined
-Interpretation: previously, computing the “visual range” between two nodes required complex recursive tree traversal and could easily lock the main thread. In a flattened array, this degenerates into a simple `Array.slice` operation (plus subsequent ID collection). Even processing 80,000 objects can finish in ~260ms.
+Interpretation: the visible range is easy to obtain by index, but selecting hidden descendants still requires collecting and updating their IDs. The 263 ms figure covers the measured operation, not just `Array.slice`. Because the old time was not measured under the same conditions, it does not support a numerical speedup claim.
 
 
 ### Experiment 3: Cascading State Updates (Checkbox Cascade)
@@ -209,14 +208,13 @@ This tests performance when the user clicks “select all” on the root node an
 | ----------------- | ------------ | ------- | ------------------ |
 | Tree:CheckCascade | 26,419 nodes | 72.6 ms | Real-time response |
 
-undefined
-Interpretation: thanks to Map indexing (O(1)) and in-memory state operations, we can synchronize the states of 26k+ components in just over 70ms. To the user, this feels like instant feedback.
+Interpretation: in this run, updating the in-memory state of about 26,000 nodes took 72.6 ms. This is not the full click-to-paint latency; that would also require measuring rendering and input responsiveness.
 
 
-These three experiments are enough to prove: when data scale grows from 7,000 to 70,000 (10× pressure), the system’s core performance metrics remain within a linearly controllable range, without exponential collapse.
+These observations show that the design worked in the measured scenarios. More scale points, repeated runs, and interaction-latency measurements would be needed to make a broader scalability claim.
 
 
-## 5. Summary
+## 6. Summary
 
 
 When dealing with the complex engineering of combining a 3D engine with React, it’s easy to fall into a trap: trying to patch performance holes with more complicated React techniques (memo, useMemo).
@@ -225,10 +223,10 @@ When dealing with the complex engineering of combining a 3D engine with React, i
 But this architecture shows: the ultimate solution to performance problems often isn’t incremental code-level tweaks, but a restructuring of the underlying data logic.
 
 
-By introducing a middle-layer architecture, we isolated the violent 3D render loop from the quiet UI thread; by reducing dimensionality of data, we downgraded O(N) DOM operations into O(1) array operations.
+The middle layer absorbs high-frequency scene events and sends React less frequent view updates. Virtualization reduces the number of mounted DOM rows, while full-data processing and large state updates still grow with the number of nodes involved.
 
 
-This not only solves the performance bottleneck of Cesium scene trees, but also provides a general architectural pattern for any massive real-time data visualization (such as stock quotes, log monitoring, complex tables):
+In the measured Cesium scene-tree cases, this reduced rendering work. The same separation of data updates and visible rows may help other large, frequently updated views, such as log tables or monitoring dashboards:
 
 1. Think beyond the framework: don’t let React’s declarative model constrain you; manage your own data flow in side effects.
 2. Embrace eventual consistency: within millisecond-level gaps imperceptible to humans, use batching and time slicing to trade consistency for throughput.
