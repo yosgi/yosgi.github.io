@@ -66,6 +66,11 @@ enableRobotsTXT = true
     icon = ""
     description = "A roguelike creature adventure about building a team, evolving partners, and battling together"
   [[languages.en.params.projects]]
+    name = "Pokémon Rumblefield"
+    url = "https://creature-arena.pages.dev/"
+    icon = ""
+    description = "Command a Pokémon team with swaps, evolution and Ultimates. Play solo, duel a friend, or take on co-op adventures."
+  [[languages.en.params.projects]]
     name = "Werewolf AI"
     url = "https://werewolf-ai-etn.pages.dev/"
     icon = ""
@@ -125,6 +130,11 @@ enableRobotsTXT = true
     url = "https://evo-expedition.pages.dev/"
     icon = ""
     description = "组建队伍、进化伙伴，挑战肉鸽关卡与双人冒险"
+  [[languages.zh.params.projects]]
+    name = "Pokémon Rumblefield"
+    url = "https://creature-arena.pages.dev/"
+    icon = ""
+    description = "宝可梦自动战斗，你来换人、进化和释放绝招；支持单人冒险、好友对战与双人合作。"
   [[languages.zh.params.projects]]
     name = "狼人杀 AI"
     url = "https://werewolf-ai-etn.pages.dev/"
