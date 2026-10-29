@@ -26,11 +26,8 @@ jobs:
           hugo-version: '0.164.0'
           extended: true
 
-      - name: Build
-        run: hugo --minify
-
-      - name: Validate generated site
-        run: python3 tools/check_site.py public
+      - name: Build and validate generated site
+        run: bash scripts/build-site.sh
 
       - name: Setup Pages
         id: pages

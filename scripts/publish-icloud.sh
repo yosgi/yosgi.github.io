@@ -17,7 +17,7 @@ echo "Step 1/4: Sync iCloud vault into repo"
 zsh scripts/sync-icloud-to-repo.sh
 
 echo "Step 2/4: Build Hugo site"
-hugo --minify
+bash scripts/build-site.sh
 
 echo "Step 3/4: Stage and commit changes"
 git add -A

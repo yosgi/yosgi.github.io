@@ -5,7 +5,7 @@
   "main": "scripts/new-post.js",
   "scripts": {
     "dev": "hugo server -D",
-    "build": "hugo --minify --cleanDestinationDir",
+    "build": "bash scripts/build-site.sh",
     "new:zh": "node scripts/new-post.js --lang zh",
     "new:en": "node scripts/new-post.js --lang en",
     "sync:icloud": "zsh scripts/sync-icloud-to-repo.sh",

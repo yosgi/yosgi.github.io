@@ -1,6 +1,12 @@
 [nav_home]
 other = "Home"
 
+[not_found_title]
+other = "This page couldn’t be found"
+
+[not_found_description]
+other = "The address may have changed. Browse the articles or use the search above to find what you were reading."
+
 [nav_posts]
 other = "Articles"
 

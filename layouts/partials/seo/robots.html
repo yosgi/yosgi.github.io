@@ -1,5 +1,5 @@
 {{- $directives := slice -}}
-{{- if or .Params.seo_noindex (and .File (eq .File.BaseFileName "readme")) (in .RelPermalink "/page/") -}}
+{{- if or (eq .Kind "404") .Params.seo_noindex (and .File (eq .File.BaseFileName "readme")) (in .RelPermalink "/page/") -}}
   {{- $directives = $directives | append "noindex" "follow" -}}
 {{- else -}}
   {{- $directives = $directives | append "index" "follow" -}}

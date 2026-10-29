@@ -1,6 +1,12 @@
 [nav_home]
 other = "首页"
 
+[not_found_title]
+other = "没有找到这个页面"
+
+[not_found_description]
+other = "地址可能已经变更。可以查看文章列表，或用顶部搜索找回想读的内容。"
+
 [nav_posts]
 other = "文章"
 

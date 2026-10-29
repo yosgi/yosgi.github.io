@@ -1,0 +1,12 @@
+{{ define "content" }}
+<main id="main-content" class="application-main page-width catalog-main not-found" tabindex="-1">
+  <p class="eyebrow">404</p>
+  <h1>{{ i18n "not_found_title" }}</h1>
+  <p>{{ i18n "not_found_description" }}</p>
+  <nav class="topic-links" aria-label="{{ i18n "nav_home" }}">
+    <a href="{{ .Site.Home.RelPermalink }}">{{ i18n "nav_home" }}</a>
+    <a href="{{ "/post/" | relLangURL }}">{{ i18n "nav_posts" }}</a>
+    <a href="{{ "/projects/" | relLangURL }}">{{ i18n "nav_projects" }}</a>
+  </nav>
+</main>
+{{ end }}

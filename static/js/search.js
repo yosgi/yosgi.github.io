@@ -7,19 +7,23 @@
  const results = document.getElementById('search-result');
  const main = document.querySelector('.application-main');
  const labels = JSON.parse(form.dataset.labels);
- let enginePromise, request = 0, timer, composing = false;
+ let enginePromise, request = 0, timer, composing = false, readingPosition = null;
  const node = (tag, text, className) => {
   const el = document.createElement(tag);
   if (text != null) el.textContent = text;
   if (className) el.className = className;
   return el;
  };
- function open() { panel.hidden = false; toggle.setAttribute('aria-expanded','true'); input.focus(); }
+ function open() {
+  if (readingPosition === null) readingPosition = window.scrollY;
+  panel.hidden = false; toggle.setAttribute('aria-expanded','true'); input.focus({preventScroll:true});
+ }
  function restore() {
   ++request; clearTimeout(timer); results.hidden = true; results.removeAttribute('aria-busy'); main.hidden = false;
+  if (readingPosition !== null) { window.scrollTo({top:readingPosition,behavior:'instant'}); readingPosition = null; }
   const url = new URL(location.href); url.searchParams.delete('q'); history.replaceState(null,'',url);
  }
- function close() { restore(); panel.hidden = true; toggle.setAttribute('aria-expanded','false'); toggle.focus(); }
+ function close() { panel.hidden = true; toggle.setAttribute('aria-expanded','false'); restore(); toggle.focus({preventScroll:true}); }
  function load() {
   if (!enginePromise) {
    enginePromise = Promise.all([
@@ -36,9 +40,11 @@
   return enginePromise;
  }
  function message(text) {
+  if (readingPosition === null && !main.hidden) readingPosition = window.scrollY;
   results.replaceChildren(); results.hidden = false; main.hidden = true;
   const status = node('p',text,'search-status'); status.setAttribute('role','status'); status.setAttribute('aria-live','polite'); results.append(status);
   const back = node('button',labels.back,'text-button'); back.type = 'button'; back.onclick = close; results.append(back);
+  window.scrollTo({top:0,behavior:'instant'});
  }
  function highlight(parent, text, indices = []) {
   let position = 0;
@@ -86,12 +92,12 @@
  }
  toggle.addEventListener('click',()=>panel.hidden ? open() : close());
  document.getElementById('search-close').addEventListener('click',close);
- document.getElementById('search-clear').addEventListener('click',()=>{ input.value=''; restore(); input.focus(); });
+ document.getElementById('search-clear').addEventListener('click',()=>{ input.value=''; restore(); input.focus({preventScroll:true}); });
  input.addEventListener('focus',()=>{load().catch(()=>{});},{once:true});
- input.addEventListener('compositionstart',()=>{composing=true;clearTimeout(timer);});
+ input.addEventListener('compositionstart',()=>{composing=true;++request;clearTimeout(timer);});
  input.addEventListener('compositionend',()=>{composing=false;clearTimeout(timer);timer=setTimeout(search,250);});
- input.addEventListener('input',()=>{if(composing)return;clearTimeout(timer);timer=setTimeout(search,250);});
- form.addEventListener('submit',e=>{e.preventDefault();clearTimeout(timer);search();});
+ input.addEventListener('input',()=>{++request;if(composing)return;clearTimeout(timer);timer=setTimeout(search,250);});
+ form.addEventListener('submit',e=>{e.preventDefault();if(composing)return;clearTimeout(timer);search();});
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!panel.hidden)close();});
  const query = new URL(location.href).searchParams.get('q');
  if(query){open();input.value=query;search();}

@@ -395,6 +395,17 @@ a,button,input,summary {
   padding-top:42px;
   min-height:65vh
 }
+.not-found {
+  min-height:55vh;
+}
+.not-found h1 {
+  color:var(--article-heading);
+  font-size:clamp(1.8rem,4vw,2.5rem);
+}
+.not-found>p {
+  max-width:620px;
+  margin-bottom:24px;
+}
 .catalog-heading {
   margin-bottom:32px
 }

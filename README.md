@@ -93,4 +93,5 @@ GitHub Pages deploys on push to `master`.
 - Modification dates use an explicit article `lastmod`, then Git author history, then publication date. Keep full Git history in CI; avoid filesystem modification times.
 - Local Markdown images are processed into responsive WebP variants through the `static/images` asset mount. Originals remain available. New screenshots must also be copied into the iCloud vault because the publishing sync uses `rsync --delete` for images.
 - Search loads its index and Fuse only on first use. Mermaid is loaded for diagram pages; KaTeX is loaded for detected block formulas or explicit article `math: true` (required for inline `$…$` formulas).
-- Validate a production build with `hugo --minify` followed by `python3 tools/check_site.py public`. GitHub Actions runs this check before deployment.
+- Build and validate production output with `pnpm build` (or `bash scripts/build-site.sh`). This also publishes the multilingual 404 at `/404.html`, as required by GitHub Pages. The old `/post/` entry redirects through `static/post/index.html`.
+- The build checks every generated local link, image, heading fragment and duplicate ID, plus the domain, language routes and modification dates. GitHub Actions uses the same build command.

@@ -244,16 +244,7 @@ enableGitInfo = true
   worksFor = "Nextspace Ltd"
   knowsAbout = ["Software engineering", "Product engineering", "Frontend architecture", "Full-stack development", "Digital twin systems", "AI platform engineering", "Industrial IoT", "React", "TypeScript", "Vue", "Node.js", "Cesium", "MCP", "Web performance", "Investment notes"]
 
-# Redirects for backward compatibility
-[[redirects]]
-  from = "/post"
-  to = "/en/post/"
-  status = 301
-
-[[redirects]]
-  from = "/post/"
-  to = "/en/post/"
-  status = 301
+# GitHub Pages compatibility redirects live in static/post/index.html.
 
 [params.giscus]
   enabled = true
