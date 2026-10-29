@@ -1,4 +1,4 @@
 <div class="project-grid">{{ range .projects }}<article class="project-card">
- <a class="project-preview" href="{{ .url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ .name }} · {{ i18n "open_project" }}">{{ with .image }}{{ partial "media/image.html" (dict "src" . "alt" "" "sizes" "(max-width: 700px) 100vw, 380px") }}{{ else }}<span class="project-monogram">{{ substr .name 0 1 }}</span>{{ end }}</a>
+ <a class="project-preview" href="{{ .url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ .name }} · {{ i18n "open_project" }}">{{ with .image }}{{ partial "media/image.html" (dict "src" . "alt" "" "sizes" "(max-width: 700px) 100vw, 380px" "processing" "webp lossless lanczos") }}{{ else }}<span class="project-monogram">{{ substr .name 0 1 }}</span>{{ end }}</a>
  <div class="project-card-body"><h3>{{ .name }}</h3><p>{{ .description }}</p><div class="project-actions"><a href="{{ .url }}" target="_blank" rel="noopener noreferrer">{{ i18n "open_project" }} ↗</a>{{ with .article }}{{ with site.GetPage . }}<a href="{{ .RelPermalink }}">{{ i18n "project_story" }}</a>{{ end }}{{ end }}</div></div>
 </article>{{ end }}</div>
