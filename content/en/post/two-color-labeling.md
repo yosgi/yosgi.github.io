@@ -1,4 +1,5 @@
 ---
+translationKey: article-two-color-labeling
 title: Two-color labeling
 date: 2021-02-27 00:00:00
 description: A GC-inspired color-marking method that unifies iterative pre-, in-, and post-order binary tree traversal under one template.

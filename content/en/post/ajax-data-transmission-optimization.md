@@ -1,4 +1,5 @@
 ---
+translationKey: article-ajax-data-transmission-optimization
 title: Ajax data transmission optimization
 date: 2018-11-28 14:47:40
 description: High Performance Javascript Knowledge Points

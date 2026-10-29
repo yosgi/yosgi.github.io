@@ -1,4 +1,5 @@
 ---
+translationKey: article-vue-express-mongodb-build-a-backend-login-system
 title: vue + express + mongodb 搭建一个后台登录系统
 date: 2025-10-27 14:17:43
 description: 关键词 nodejs vue express mongodb
@@ -10,6 +11,9 @@ tags:
   - Node.js
   - MongoDB
 ---
+
+> **历史示例维护说明（2026-10-29）**：本文记录早期学习过程，代码里仍有明文密码比较、固定 JWT 签名密钥，以及把整个用户文档写进 token 的问题，不能直接作为生产登录方案。实际系统应使用带盐的密码哈希、独立管理的签名密钥和最小化的 token 声明；还需要单独完成有效期校验、权限和会话设计。参见 [OWASP 密码存储指南](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html)。
+
 #### 需要准备的
 首先安装这些东西
 
@@ -256,7 +260,7 @@ router.post("/login", function (req, res) {
 module.exports = router;
 ```
 
-其中用户认证用的是基于 JWT 身份验证的方法，其中的secret是存在服务器上的密码,为了方便我把它作为了一个全局变量
+这里的 `secret` 是服务端用于 JWT 签名和验签的密钥，不是用户的登录密码。下方固定字符串是早期学习示例，生产环境必须使用独立生成和管理的密钥。
 
 ```javascript
 //app.js

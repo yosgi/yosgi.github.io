@@ -1,4 +1,5 @@
 ---
+translationKey: article-669-pruning-a-binary-search-tree
 title: 669-Pruning a Binary Search Tree
 date: 2021-03-11 00:00:00
 description: Trimming a BST to a value range by recursing into the correct branch using the BST bounds.
@@ -17,52 +18,58 @@ Time: 20 minutes
 Similar to the previous question, most of them are divided into situations where the parent node is in the interval and not in the interval
 
 ```javascript
-var trimBST = function(root, low, high) {
-    var add = function (root,node) {
-        if (!node || !root) return  null        if (node.val > root.val ) {
-            if (!root.right) {
-                root.right = node
-            } else {
-                add(root.right,node)
-            }
-        }
-        if (node.val < root.val) {
-            if (!root.left) {
-                root.left = node
-            } else {
-                add(root.left,node)
-            }
-        }
+var trimBST = function (root, low, high) {
+  var add = function (root, node) {
+    if (!node || !root) return null;
+    if (node.val > root.val) {
+      if (!root.right) {
+        root.right = node;
+      } else {
+        add(root.right, node);
+      }
     }
-    var walk = function (root) {
-        if (!root) return root        if (root.val < low || root.val > high) {
-            var left = walk(root.left)
-            var right = walk(root.right)
-            if (!left && !right) {
-                root = null            } else if (right && left) {
-                root = right
-                add(root,left)
-            } else if (left) {
-                root = left
-            } else {
-                root = right
-            }
-        } else {
-            root.left= walk(root.left)
-            root.right = walk(root.right)
-        }
-        return root    }
-    return walk(root)
+    if (node.val < root.val) {
+      if (!root.left) {
+        root.left = node;
+      } else {
+        add(root.left, node);
+      }
+    }
+  };
+  var walk = function (root) {
+    if (!root) return root;
+    if (root.val < low || root.val > high) {
+      var left = walk(root.left);
+      var right = walk(root.right);
+      if (!left && !right) {
+        root = null;
+      } else if (right && left) {
+        root = right;
+        add(root, left);
+      } else if (left) {
+        root = left;
+      } else {
+        root = right;
+      }
+    } else {
+      root.left = walk(root.left);
+      root.right = walk(root.right);
+    }
+    return root;
+  };
+  return walk(root);
 };
 ```
 
 After reading the analysis, I found that it can be simpler. The idea is that if it is greater than the right boundary, look directly in the left branch; if it is less than the left boundary, look directly in the right branch. This saves the step of deleting the node.
 
 ```javascript
-var trimBST = function(root, low, high) {
-    if(root == null) return null    if (root.val > high) return trimBST(root.left,low,high)
-    if(root.val < low) return trimBST(root.right,low,high)
-    root.left = trimBST(root.left,low,height)
-    root.right = trimBST(root.right,low,height)
-    return root};
+var trimBST = function (root, low, high) {
+  if (root == null) return null;
+  if (root.val > high) return trimBST(root.left, low, high);
+  if (root.val < low) return trimBST(root.right, low, high);
+  root.left = trimBST(root.left, low, height);
+  root.right = trimBST(root.right, low, height);
+  return root;
+};
 ```

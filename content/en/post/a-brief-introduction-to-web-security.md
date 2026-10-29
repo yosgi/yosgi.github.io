@@ -14,7 +14,7 @@ tags:
 
 #### XSS
 ##### Concept
-Cross-site scripting (CSS) is an attack that executes invalid HTML tags or JavaScript in the browser of a registered user of a website with a security vulnerability. Dynamically created HTML may contain hidden security vulnerabilities. Attackers can create scripts that trap users in their browsers, leaving them vulnerable to passive attacks.
+Cross-site scripting (XSS) is an attack that executes invalid HTML tags or JavaScript in the browser of a registered user of a website with a security vulnerability. Dynamically created HTML may contain hidden security vulnerabilities. Attackers can create scripts that trap users in their browsers, leaving them vulnerable to passive attacks.
 ##### Potential Impacts
 - Using fake input forms to steal user personal information
 - Using scripts to steal user cookies and send malicious requests

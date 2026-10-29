@@ -1,4 +1,5 @@
 ---
+translationKey: article-865-minimum-subtree-with-all-deepest-nodes
 title: 865 - Minimum subtree with all deepest nodes
 date: 2021-03-21 00:00:00
 description: Finding the smallest subtree containing all deepest nodes with a single bottom-up recursion that returns each subtree's depth.

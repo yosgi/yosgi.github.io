@@ -1,4 +1,5 @@
 ---
+translationKey: article-295-median-of-data-streams
 title: 295-Median of data streams
 date: 2021-03-24 00:00:00
 description: Maintaining the running median of a data stream with a max-heap and a min-heap.
@@ -23,67 +24,89 @@ When the total number is odd (i.e., the number of maximum heaps - minimum heaps 
 When the total number is an even number (i.e. the number of maximum heaps = minimum heap), get the maximum value of the maximum heap and the minimum value of the minimum heap
 
 ```javascript
-const swap = function (arr,i,j) {
-    [arr[i],arr[j]] = [arr[j],arr[i]]
-}
+const swap = function (arr, i, j) {
+  [arr[i], arr[j]] = [arr[j], arr[i]];
+};
 class Heap {
-    constructor() {
-        this.count = 0        this.data = new Array(this.count + 1)
+  constructor() {
+    this.count = 0;
+    this.data = new Array(this.count + 1);
+  }
+  shiftUp(k) {
+    while (k >= 1) {
+      let father = Math.floor(k / 2);
+      if (this.data[k] > this.data[father]) {
+        swap(this.data, k, father);
+        k = father;
+      } else {
+        break;
+      }
     }
-    shiftUp(k) {
-        // Put the new elements up while(k>=1) {
-            let father = Math.floor(k / 2)
-            if (this.data[k] > this.data[father]) {
-                swap(this.data,k,father)
-                k = father
-            } else {
-                break            }
-        }
+  }
+  shiftDown(k) {
+    while (k * 2 <= this.count) {
+      let j = k;
+      if (
+        k * 2 + 1 <= this.count &&
+        this.data[k * 2 + 1] > this.data[k] &&
+        this.data[k * 2 + 1] > this.data[k * 2]
+      ) {
+        j = k * 2 + 1;
+      } else if (this.data[k * 2] > this.data[k]) {
+        j = k * 2;
+      } else {
+        break;
+      }
+      swap(this.data, j, k);
+      k = j;
     }
-    shiftDown(k) {
-        while( k * 2  <= this.count) { // Indicates that k has children let j = k
-            if (k * 2 + 1 <= this.count && this.data[k * 2 + 1] > this.data[k] && this.data[k * 2 + 1] > this.data[k * 2]) {
-                j = k * 2 + 1            } else if (this.data[k * 2] > this.data[k]) {
-                j = k * 2            } else {
-                break            }
-            swap(this.data,j,k)
-            k = j
-        }
-    }
-    size() {
-        return this.count    }
-    isEmpty() {
-        return this.count === 0    }
-    insert(item) {
-        this.data[++this.count] = item
-        this.shiftUp(this.count)
-    }
-    extractMax() {
-        if (this.count <= 0) return
-        let ret = this.data[1]
-        swap(this.data,1,this.count--)
-        this.shiftDown(1)
-        return ret
-    }
+  }
+  size() {
+    return this.count;
+  }
+  isEmpty() {
+    return this.count === 0;
+  }
+  insert(item) {
+    this.data[++this.count] = item;
+    this.shiftUp(this.count);
+  }
+  extractMax() {
+    if (this.count <= 0) return;
+    let ret = this.data[1];
+    swap(this.data, 1, this.count--);
+    this.shiftDown(1);
+    return ret;
+  }
 }
-var MedianFinder = function() {
-    this.maxHeap = new Heap();    this.minHeap = new Heap();};MedianFinder.prototype.addNum = function(num) {
-    //[1] []    // [1,2] [] -> [1] [2]    // [1,3] [2] -> [1,2] [3]    // [1,2,4] [3] -> [1,2] [3,4]    // [1,2,5] [3,4] -> [1,2,4] [4,5]    var maxHeapsize = this.maxHeap.size()
-    var minHeapsize = this.minHeap.size()
-    this.maxHeap.insert(num)
-    var max = this.maxHeap.extractMax()
-    this.minHeap.insert(-max )
-    if (maxHeapsize === minHeapsize) {
-        var min = Math.abs(this.minHeap.extractMax())
-        this.maxHeap.insert(min)
-    }
-};MedianFinder.prototype.findMedian = function() {
-    if (this.maxHeap.size() === this.minHeap.size()) {
-        var max = this.maxHeap.extractMax()
-        var min = Math.abs(this.minHeap.extractMax())
-        return (max + min) / 2    } else {
-        return this.maxHeap.extractMax()
-    }
+var MedianFinder = function () {
+  this.maxHeap = new Heap();
+  this.minHeap = new Heap();
+};
+MedianFinder.prototype.addNum = function (num) {
+  //[1] []
+  // [1,2] [] -> [1] [2]
+  // [1,3] [2] -> [1,2] [3]
+  // [1,2,4] [3] -> [1,2] [3,4]
+  // [1,2,5] [3,4] -> [1,2,4] [4,5]
+  var maxHeapsize = this.maxHeap.size();
+  var minHeapsize = this.minHeap.size();
+  this.maxHeap.insert(num);
+  var max = this.maxHeap.extractMax();
+  this.minHeap.insert(-max);
+  if (maxHeapsize === minHeapsize) {
+    var min = Math.abs(this.minHeap.extractMax());
+    this.maxHeap.insert(min);
+  }
+};
+MedianFinder.prototype.findMedian = function () {
+  if (this.maxHeap.size() === this.minHeap.size()) {
+    var max = this.maxHeap.extractMax();
+    var min = Math.abs(this.minHeap.extractMax());
+    return (max + min) / 2;
+  } else {
+    return this.maxHeap.extractMax();
+  }
 };
 ```
 

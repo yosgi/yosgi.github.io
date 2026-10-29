@@ -1,4 +1,5 @@
 ---
+translationKey: article-vue-express-mongodb-build-a-backend-login-system
 title: Vue + express + mongodb build a backend login system
 date: 2021-01-29 17:44:40
 description: Keywords nodejs vue express mongodb
@@ -11,6 +12,9 @@ tags:
   - Node.js
   - MongoDB
 ---
+
+> **Historical example note (2026-10-29):** This learning log still contains plaintext password comparisons, a fixed JWT signing key, and encoding the entire user document into a token. It is not a production authentication design. A real system needs salted password hashing, independently managed signing keys, minimal token claims, and a separate expiry, authorization, and session design. See the [OWASP password storage guidance](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html).
+
 
 #### What you need to prepare
 First, install these things
@@ -255,7 +259,7 @@ router.post("/login", function (req, res) {
 module.exports = router;
 ```
 
-The user authentication method is based on JWT authentication. The secret is the password stored on the server. For convenience, I have used it as a global variable.
+Here, `secret` is the server-side JWT signing and verification key, not the user’s login password. The fixed string below is from the historical learning example; production keys must be generated and managed independently.
 
 ```javascript
 //app.js

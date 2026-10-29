@@ -1,4 +1,5 @@
 ---
+translationKey: article-563-slope-of-binary-tree
 title: 563-Slope of Binary Tree
 date: 2021-03-16 00:00:00
 description: Computing the total tilt of a binary tree with recursion that returns each subtree's sum.
@@ -22,23 +23,28 @@ The condition that recursion needs to meet is that the problem can be split into
 So it's still double recursion
 
 ```javascript
-var findTilt = function(root) {
-    var total = 0    var innerDFS = function (root) {
-        if (!root) return 0        var left = 0 ,right = 0        if (root.left) {
-            left = innerDFS(root.left)
-        }
-        if (root.right) {
-            right = innerDFS(root.right)
-        }
-        return root.val + left + right
+var findTilt = function (root) {
+  var total = 0;
+  var innerDFS = function (root) {
+    if (!root) return 0;
+    var left = 0,
+      right = 0;
+    if (root.left) {
+      left = innerDFS(root.left);
     }
-    var outerDFS = function (root) {
-        if (!root) return        root.right && outerDFS(root.right)
-        total += Math.abs(innerDFS(root.left) - innerDFS(root.right))
-        root.left && outerDFS(root.left)
+    if (root.right) {
+      right = innerDFS(root.right);
     }
-    outerDFS(root)
-    return total
+    return root.val + left + right;
+  };
+  var outerDFS = function (root) {
+    if (!root) return;
+    root.right && outerDFS(root.right);
+    total += Math.abs(innerDFS(root.left) - innerDFS(root.right));
+    root.left && outerDFS(root.left);
+  };
+  outerDFS(root);
+  return total;
 };
 ```
 
@@ -49,19 +55,23 @@ After looking at the answer, I think I should just take the clothes.
 It turns out that calculating the sum of the left and right nodes is not inconsistent with accumulating the difference between the left and right nodes. A recursive operation can solve the problem. When performing DFS, we can do both at the same time. The accumulation of the left and right nodes is `return root.val + left + right`, and the difference is `total += Math.abs(left-right)`
 
 ```javascript
-var findTilt = function(root) {
-    var total = 0    var DFS = function (root) {
-        if (!root) return 0        var left = 0 ,right = 0        if (root.left) {
-            left = DFS(root.left)
-        }
-        if (root.right) {
-            right = DFS(root.right)
-        }
-        total += Math.abs(left-right)
-        return root.val + left + right
+var findTilt = function (root) {
+  var total = 0;
+  var DFS = function (root) {
+    if (!root) return 0;
+    var left = 0,
+      right = 0;
+    if (root.left) {
+      left = DFS(root.left);
     }
-    DFS(root)
-    return total
+    if (root.right) {
+      right = DFS(root.right);
+    }
+    total += Math.abs(left - right);
+    return root.val + left + right;
+  };
+  DFS(root);
+  return total;
 };
 ```
 

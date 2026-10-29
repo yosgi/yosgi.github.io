@@ -1,4 +1,5 @@
 ---
+translationKey: article-778-swimming-in-a-rising-pool
 title: 778-Swimming in a rising pool
 date: 2021-07-05 00:00:00
 description: Finding the least time to swim across a rising pool by binary-searching the water level and checking reachability with DFS.
@@ -15,72 +16,90 @@ Time: 20 minutes
 First of all, it can be seen that this is a question to examine DFS
 
 ```javascript
-var swimInWater = function(grid) {
-  let row = grid.length;  let col = grid[0].length;
-  var step = 0  while(true) {
-    for(let i = 0 ; i < row ; i ++) {
-      for(let j = 0 ; j < col ; j ++){
-        grid[i][j] --      }
-    }
-    var visited = []
-    for(let i = 0 ; i < row ; i ++) {
-      let arr = []
-      for(let j = 0 ; j < col ; j ++) {
-        arr.push(false)
+var swimInWater = function (grid) {
+  if (grid.length === 1 && grid[0].length === 1) return grid[0][0];
+  let row = grid.length;
+  let col = grid[0].length;
+  var step = 0;
+  while (true) {
+    for (let i = 0; i < row; i++) {
+      for (let j = 0; j < col; j++) {
+        grid[i][j]--;
       }
-      visited.push(arr)
     }
-    var dfs = function (i,j) {
-        if ( i< 0 || j < 0 || i >= row || j >= col) return false
-        if (visited[i][j]) {
-          return false        } else {
-          visited[i][j] = true        }
-        if (grid[i][j] > 0) return false        if (i === row - 1 && j === col - 1 && grid[i][j] <= 0) return true        return dfs(i+1,j) || dfs(i-1,j) || dfs(i,j-1)|| dfs(i,j + 1)
+    var visited = [];
+    for (let i = 0; i < row; i++) {
+      let arr = [];
+      for (let j = 0; j < col; j++) {
+        arr.push(false);
+      }
+      visited.push(arr);
     }
-    step++    if (dfs(0,0) === true) break
+    var dfs = function (i, j) {
+      if (i < 0 || j < 0 || i >= row || j >= col) return false;
+      if (visited[i][j]) {
+        return false;
+      } else {
+        visited[i][j] = true;
+      }
+      if (grid[i][j] > 0) return false;
+      if (i === row - 1 && j === col - 1 && grid[i][j] <= 0) return true;
+      return dfs(i + 1, j) || dfs(i - 1, j) || dfs(i, j - 1) || dfs(i, j + 1);
+    };
+    step++;
+    if (dfs(0, 0) === true) break;
   }
-  return step
+  return step;
 };
 ```
 
 We don't have to start from 1, we can use the binary search to find the leftmost insertion point.
 
 ```javascript
-var swimInWater = function(grid) {
-  let row = grid.length;  let col = grid[0].length;
-  let right = -Infinity  let left = Infinity  for(let i = 0 ; i < row ; i ++) {
-    for(let j = 0 ; j < col ; j ++ ){
-      let num = grid[i][j]
-      right = Math.max(right,num)
-      left = Math.min(left,num)
+var swimInWater = function (grid) {
+  let row = grid.length;
+  let col = grid[0].length;
+  let right = -Infinity;
+  let left = Infinity;
+  for (let i = 0; i < row; i++) {
+    for (let j = 0; j < col; j++) {
+      let num = grid[i][j];
+      right = Math.max(right, num);
+      left = Math.min(left, num);
     }
   }
-  let mid = left + Math.floor( (right - left) / 2 )
-  while(left <= right) {
-    mid = left + Math.floor( (right - left) / 2 )
-    var visited = []
-    var new_grid = []
-    for(let i = 0 ; i < row ; i ++) {
-      let arr = []
-      let _grid = []
-      for(let j = 0 ; j < col ; j ++) {
-        arr.push(false)
-        _grid.push(grid[i][j] - mid)
+  let mid = left + Math.floor((right - left) / 2);
+  while (left <= right) {
+    mid = left + Math.floor((right - left) / 2);
+    var visited = [];
+    var new_grid = [];
+    for (let i = 0; i < row; i++) {
+      let arr = [];
+      let _grid = [];
+      for (let j = 0; j < col; j++) {
+        arr.push(false);
+        _grid.push(grid[i][j] - mid);
       }
-      visited.push(arr)
-      new_grid.push(_grid)
+      visited.push(arr);
+      new_grid.push(_grid);
     }
-    var dfs = function (i,j) {
-      if ( i < 0 || j < 0 || i >= row || j >= col) return false
+    var dfs = function (i, j) {
+      if (i < 0 || j < 0 || i >= row || j >= col) return false;
       if (visited[i][j]) {
-        return false      } else {
-        visited[i][j] = true      }
-      if (new_grid[i][j] > 0) return false      if (i === row - 1 && j === col - 1 && new_grid[i][j] <= 0) return true      return dfs(i+1,j) || dfs(i-1,j) || dfs(i,j-1)|| dfs(i,j + 1)
+        return false;
+      } else {
+        visited[i][j] = true;
+      }
+      if (new_grid[i][j] > 0) return false;
+      if (i === row - 1 && j === col - 1 && new_grid[i][j] <= 0) return true;
+      return dfs(i + 1, j) || dfs(i - 1, j) || dfs(i, j - 1) || dfs(i, j + 1);
+    };
+    if (dfs(0, 0)) {
+      right = mid - 1;
+    } else {
+      left = mid + 1;
     }
-    if(dfs(0,0)) {
-      // Found the spare tire, continue to see if it can be smaller right = mid - 1 } else {
-      left =  mid + 1    }
   }
-  return left
+  return left;
 };
 ```

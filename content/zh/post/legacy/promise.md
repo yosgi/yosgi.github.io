@@ -1,4 +1,5 @@
 ---
+translationKey: article-promise
 title: promise
 date: 2018-06-27 13:18:47
 description: 《ES6标准入门》 知识点整理
@@ -12,7 +13,7 @@ tags:
 
 ##### 基本用法
 
-```javascript
+```text
 const promise = new Promise(function(resolve, reject) {
   // ... some code
   if (/* 异步操作成功 */){
@@ -45,7 +46,7 @@ const p2 = new Promise(function (resolve, reject) {
 p1和p2都是 Promise 的实例，但是p2的resolve方法将p1作为参数，即一个异步操作的结果是返回另一个异步操作。
 这时p1的状态就会传递给p2，也就是说，p1的状态决定了p2的状态。
 
-如果p1的状态是pending，那么p2的回调函数就会等待p1的状态改变；如果p1的状态已经是resolved或者rejected，那么p2的回调函数将会立刻执行。
+p2 会采纳 p1 的最终状态。即使 p1 已经 fulfilled 或 rejected，注册在 p2 上的 `.then` / `.catch` 处理函数也不会在当前同步调用栈里立刻执行，而是异步调度。`resolved` 也不等同于 `fulfilled`：一个 Promise 可以已经采纳另一个仍在 pending 的 Promise。
 
 一般来说，调用resolve或reject以后，Promise 的使命就完成了，后继操作应该放到then方法里面，而不应该直接写在resolve或reject的后面。所以，最好在它们前面加上return语句，这样就不会有意外。
 

@@ -24,7 +24,7 @@ Then use the property of XOR
 
 Can be written as
 
-`dp[1][1] = matrix[0][0] ^ (matrix[0][1] ^ matrix[0][0]) ^ (matrix[1][0] ^ matrix[1][0]) ^ matrix[1][1]`
+`dp[1][1] = matrix[0][0] ^ (matrix[0][1] ^ matrix[0][0]) ^ (matrix[1][0] ^ matrix[0][0]) ^ matrix[1][1]`
 
 Then get
 
@@ -37,73 +37,79 @@ After the XOR operation of the region (1, 2) and (2, 1), the overlapping parts a
 The overlapping part is exactly the area of (1, 1), so we can XOR (1, 1) to compensate
 
 ```javascript
-const swap = function (arr,i,j) {
-    [arr[i],arr[j]] = [arr[j],arr[i]]
-}
+const swap = function (arr, i, j) {
+  [arr[i], arr[j]] = [arr[j], arr[i]];
+};
 class MaxHeap {
-    constructor() {
-        this.count = 0        this.data = new Array(this.count + 1)
+  constructor() {
+    this.count = 0;
+    this.data = new Array(this.count + 1);
+  }
+  shiftUp(k) {
+    // Put the new elements up
+    while (k > 1) {
+      let father = Math.floor(k / 2);
+      if (this.data[k] > this.data[father]) {
+        swap(this.data, k, father);
+        k = father;
+      } else {
+        break;
+      }
     }
-    shiftUp(k) {
-        // Put the new elements up while(k>=1) {
-            let father = Math.floor(k / 2)
-            if (this.data[k] > this.data[father]) {
-                swap(this.data,k,father)
-                k = father
-            } else {
-                break            }
-        }
+  }
+  shiftDown(k) {
+    while (k * 2 <= this.count) {
+      // Indicates that k has children
+      let j = k;
+      if (
+        k * 2 + 1 <= this.count &&
+        this.data[k * 2 + 1] > this.data[k] &&
+        this.data[k * 2 + 1] > this.data[k * 2]
+      ) {
+        j = k * 2 + 1;
+      } else if (this.data[k * 2] > this.data[k]) {
+        j = k * 2;
+      } else {
+        break;
+      }
+      swap(this.data, j, k);
+      k = j;
     }
-    shiftDown(k) {
-        while( k * 2  <= this.count) { // Indicates that k has children let j = k
-            if (k * 2 + 1 <= this.count && this.data[k * 2 + 1] > this.data[k] && this.data[k * 2 + 1] > this.data[k * 2]) {
-                j = k * 2 + 1            } else if (this.data[k * 2] > this.data[k]) {
-                j = k * 2            } else {
-                break            }
-            swap(this.data,j,k)
-            k = j
-        }
-    }
-    size() {
-        return this.count    }
-    isEmpty() {
-        return this.count === 0    }
-    insert(item) {
-        this.data[++this.count] = item
-        this.shiftUp(this.count)
-    }
-    extractMax() {
-        if (this.count < 0) return
-        let ret = this.data[1]
-        swap(this.data,1,this.count--)
-        this.shiftDown(1)
-        return ret
-    }
+  }
+  size() {
+    return this.count;
+  }
+  isEmpty() {
+    return this.count === 0;
+  }
+  insert(item) {
+    this.data[++this.count] = item;
+    this.shiftUp(this.count);
+  }
+  extractMax() {
+    if (this.count <= 0) return;
+    let ret = this.data[1];
+    swap(this.data, 1, this.count--);
+    this.shiftDown(1);
+    return ret;
+  }
 }
-var kthLargestValue = function(matrix, k) {
-    var maxheap = new MaxHeap()
-    var row = matrix.length    var col = matrix[0].length    var dp = [[matrix[0][0]]]
-    maxheap.insert(matrix[0][0])
-    for(let j = 1; j < col ; j ++) {
-        dp[0][j] = dp[0][j - 1] ^ matrix[0][j]
-        maxheap.insert(dp[0][j])
+var kthLargestValue = function (matrix, k) {
+  const heap = new MaxHeap();
+  const rows = matrix.length,
+    cols = matrix[0].length;
+  const dp = Array.from({ length: rows + 1 }, () => Array(cols + 1).fill(0));
+  for (let i = 1; i <= rows; i++) {
+    for (let j = 1; j <= cols; j++) {
+      dp[i][j] =
+        dp[i - 1][j] ^ dp[i][j - 1] ^ dp[i - 1][j - 1] ^ matrix[i - 1][j - 1];
+      heap.insert(dp[i][j]);
     }
-    for(let i = 1 ; i < row ; i ++) {
-        for(let j = 1 ; j < col; j ++) {
-            if (!dp[i]) {
-                dp[i] = []
-                dp[i][0] = dp[i - 1][0] ^ matrix[i][0]
-                maxheap.insert(dp[i][0])
-            }
-            dp[i][j] = dp[i - 1][j - 1] ^ dp[i][j - 1] ^ dp[i - 1][j] ^ matrix[i][j]
-            maxheap.insert(dp[i][j])
-        }
-    }
-    var res = ''    while(k > 0) {
-        res = maxheap.extractMax()
-        k--    }
-    return res
+  }
+  let result;
+  for (let i = 0; i < k; i++) result = heap.extractMax();
+  return result;
 };
 ```
 
-Then K is large, so we should use the minimum heap. Here we use the maximum heap, but it is not a big problem.
+This version stores every prefix-XOR value in a max-heap. For N = rows × columns, space is O(N) and time is O((N + k) log N). A size-k min-heap can reduce selection space to O(k), separately from storage for the prefix-XOR computation.

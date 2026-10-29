@@ -1,4 +1,5 @@
 ---
+translationKey: article-summary-of-vue-s-easy-to-error-and-easy-to-confuse-knowledge-points
 title: vue易错易混知识点整理
 date: 2018-09-10 18:30:10
 description: <ES6标准入门> 知识点整理

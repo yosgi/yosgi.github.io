@@ -1,4 +1,5 @@
 ---
+translationKey: article-observer-mode-and-vue-monitoring-object-changes
 title: Observer mode and Vue monitoring object changes
 date: 2018-05-05 22:38:54
 description: Javascript Design Patterns Knowledge Points

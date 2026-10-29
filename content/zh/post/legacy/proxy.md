@@ -1,4 +1,5 @@
 ---
+translationKey: article-proxy
 title: proxy
 date: 2018-05-18 09:59:26
 description: 《ES6标准入门》 知识点整理

@@ -1,4 +1,5 @@
 ---
+translationKey: article-css-pseudo-class-selector-nth-child
 title: css伪类选择器nth-child
 date: 2019-03-07 17:32:19
 description: 关于nth-child 和 HTML规范

@@ -1,4 +1,5 @@
 ---
+translationKey: article-hexo-upgraded-to-5
 title: Hexo upgraded to 5
 date: 2020-12-11 12:37:55
 description: Filling Diary

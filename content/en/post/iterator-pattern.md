@@ -1,4 +1,5 @@
 ---
+translationKey: article-iterator-pattern
 title: Iterator pattern
 date: 2018-04-20 09:41:05
 description: Javascript Design Patterns Knowledge Points

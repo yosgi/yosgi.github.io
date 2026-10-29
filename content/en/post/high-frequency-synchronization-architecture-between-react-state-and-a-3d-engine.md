@@ -1,4 +1,5 @@
 ---
+translationKey: article-high-frequency-synchronization-architecture-between-react-state-and-a-3d-engine
 title: High-Frequency Synchronization Architecture Between React State and a 3D Engine
 date: 2026-01-31 23:42:31
 description: "A synchronization paradigm for massive real-time data: a middle
@@ -67,7 +68,7 @@ It takes on three key responsibilities:
 
 It maintains a complete node database in memory.
 
-- It builds a full index using `Map<ID, Node>`, ensuring any operation that looks up a node by ID (e.g., mapping a Cesium click event back to a tree node) is O(1).
+- It builds a full index using `Map<ID, Node>`, avoiding a full scan for each ID lookup. Common hash-table implementations offer average lookup close to O(1), but JavaScript requires only average access time sublinear in the collection size, not O(1) for every implementation or access. See the [ECMAScript Map definition](https://tc39.es/ecma262/multipage/keyed-collections.html#sec-map-objects).
 - It preserves persistent node states (Opened/Checked). These states exist independently of the UI, so even if components unmount and remount, the state remains.
 
 ### 2. Traffic Shaping (Traffic Shaping)
@@ -155,7 +156,7 @@ Another example: the most complex state in a tree control is checkbox cascade up
 
 In a recursive tree, updating each child through its own UI state can cause substantial rendering work. Our architecture first updates the node store in a batch, then notifies the visible list:
 
-1. Index lookup: Map finds one node by ID in O(1) on average; collecting all descendants still visits the relevant nodes.
+1. Index lookup: Common Map implementations find one node by ID in average time close to O(1); collecting all descendants still visits the relevant nodes.
 2. Batch modification: updating about 26,000 stored nodes takes work proportional to the number changed.
 3. On-demand rendering: VirtualList renders only the roughly 20 rows on screen, avoiding DOM work for every changed node.
 

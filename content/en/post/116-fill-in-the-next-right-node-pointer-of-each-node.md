@@ -1,4 +1,5 @@
 ---
+translationKey: article-116-fill-in-the-next-right-node-pointer-of-each-node
 title: 116-Fill in the next right node pointer of each node
 date: 2021-03-10 00:00:00
 description: Connecting each node to its right neighbor per level, reusing the previous layer's links to reach constant space.
@@ -19,29 +20,35 @@ Time: 25 minutes
 The main idea is to use the stack. The difference from the ordinary level-order traversal is that the stack is cleared every time
 
 ```javascript
-var connect = function(root) {
-    if (!root) return null    var stack = [root]
-    while(stack.length) {
-        var _stack = [...stack,null]
-        stack = []
-        var pre = _stack.shift()
-        while(_stack.length || pre) {
-            pre.left && stack.push(pre.left)
-            pre.right && stack.push(pre.right)
-            pre.next = _stack.shift()
-            pre = pre.next        }
+var connect = function (root) {
+  if (!root) return null;
+  var stack = [root];
+  while (stack.length) {
+    var _stack = [...stack, null];
+    stack = [];
+    var pre = _stack.shift();
+    while (_stack.length || pre) {
+      pre.left && stack.push(pre.left);
+      pre.right && stack.push(pre.right);
+      pre.next = _stack.shift();
+      pre = pre.next;
     }
-    return root};
+  }
+  return root;
+};
 ```
 
 Obviously, the memory space of On I used does not meet the constant space requirement of the question, considering that the links of each layer can be found in the form of a linked list by relying on the parent node.
 
 ```javascript
-while(pre) {
-        var cur = pre
-        while(cur) {
-             cur.left.next = cur.right             cur.right.next = cur.next.left             cur = cur.next        }
-    }
+while (pre) {
+  var cur = pre;
+  while (cur) {
+    cur.left.next = cur.right;
+    cur.right.next = cur.next.left;
+    cur = cur.next;
+  }
+}
 ```
 
 The remaining things to consider are

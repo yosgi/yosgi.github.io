@@ -1,4 +1,5 @@
 ---
+translationKey: article-ai-won-t-replace-software-engineers-it-will-replace-the-parts-of-coding-we-never-loved
 title: AI Won’t Replace Software Engineers. It Will Replace the Parts of Coding We Never Loved.
 date: 2026-05-21 23:28:56
 description: AI will not replace software engineers as a whole. It will remove much of the repetitive, mechanical work and give engineers more leverage to focus on judgment, systems, users, and building better products.

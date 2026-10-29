@@ -1,4 +1,5 @@
 ---
+translationKey: article-450-delete-a-node-in-a-binary-search-tree
 title: 450-Delete a node in a binary search tree
 date: 2021-03-11 00:00:00
 description: Deleting a node from a binary search tree by locating it via the BST property, then handling the three deletion cases.
@@ -29,41 +30,46 @@ There are three types of deletion
 1. If there are both children, store the left child, replace it with the right child, and then find the left child's position on the right.
 
 ```javascript
-var deleteNode = function(root, key) {
-    function  insert(root,node) {
-        if (root.val > node.val) {
-            if (!root.left) {
-                root.left = node
-            } else {
-                insert(root.left,node)
-            }
-        } else {
-            if (!root.right) {
-                root.right = node
-            } else {
-                insert(root.right,node)
-            }
-        }
-    }
-    function search(root) {
-      if (!root) {
-        return null
+var deleteNode = function (root, key) {
+  function insert(root, node) {
+    if (root.val > node.val) {
+      if (!root.left) {
+        root.left = node;
+      } else {
+        insert(root.left, node);
       }
-        if (root.val > key) {
-            root.left = search(root.left)
-        } else if (root.val < key){
-            root.right = search(root.right)
-        }  else {
-            if (!root.left && !root.right) {
-                root = null            } else if (root.left && root.right) {
-                var left = root.left                root = root.right                insert(root,left)
-            }
-            else if (root.left) {
-                root = root.left            } else if (root.right) {
-                root = root.right            }
-        }
-        return root    }
-    return search(root)
+    } else {
+      if (!root.right) {
+        root.right = node;
+      } else {
+        insert(root.right, node);
+      }
+    }
+  }
+  function search(root) {
+    if (!root) {
+      return null;
+    }
+    if (root.val > key) {
+      root.left = search(root.left);
+    } else if (root.val < key) {
+      root.right = search(root.right);
+    } else {
+      if (!root.left && !root.right) {
+        root = null;
+      } else if (root.left && root.right) {
+        var left = root.left;
+        root = root.right;
+        insert(root, left);
+      } else if (root.left) {
+        root = root.left;
+      } else if (root.right) {
+        root = root.right;
+      }
+    }
+    return root;
+  }
+  return search(root);
 };
 ```
 

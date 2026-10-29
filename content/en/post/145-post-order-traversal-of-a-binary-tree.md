@@ -1,4 +1,5 @@
 ---
+translationKey: article-145-post-order-traversal-of-a-binary-tree
 title: 145-Post-order traversal of a binary tree
 date: 2021-02-26 00:00:00
 description: Post-order binary tree traversal, both recursively and iteratively with a stack.
@@ -20,17 +21,16 @@ recursion
 It's very easy with recursion
 
 ```javascript
-var postorderTraversal = function(root) {
-    var res = []
-    if (!root)
-    return res
-    var travel = function (node) {
-        node.left && travel(node.left)
-        node.right && travel(node.right)
-        res.push(node.val)
-    }
-    travel(root)
-    return res
+var postorderTraversal = function (root) {
+  var res = [];
+  if (!root) return res;
+  var travel = function (node) {
+    node.left && travel(node.left);
+    node.right && travel(node.right);
+    res.push(node.val);
+  };
+  travel(root);
+  return res;
 };
 ```Iteration
 
@@ -40,28 +40,34 @@ var postorderTraversal = function(root) {
 1. Repeat step 2.
 
 ```javascript
-var postorderTraversal = function(root) {
-    var stack = [root]
-    var res = []
-    if (!root) {
-        return res
+var postorderTraversal = function (root) {
+  var stack = [root];
+  var res = [];
+  if (!root) {
+    return res;
+  }
+  var pre = root;
+  while (stack.length) {
+    var node = stack[stack.length - 1];
+
+    if (
+      (!node.left && !node.right) ||
+      node.left === pre ||
+      node.right === pre
+    ) {
+      node = stack.pop();
+      pre = node;
+      res.push(node.val);
+    } else {
+      if (node.right) {
+        stack.push(node.right);
+      }
+      if (node.left) {
+        stack.push(node.left);
+      }
     }
-    var pre = root    while(stack.length) {
-        var node = stack[stack.length - 1]
-        // When the left/right node of a node is the last node to be output, it means that both the left and right nodes have been output (because the root node is at the end of the post-order traversal) if ( (!node.left && !node.right) || (node.left === pre || node.right === pre)) {
-             // Only when there is no left or right node, or both left and right nodes have been output, can node = stack.pop() be output.
-            pre = node
-            res.push(node.val)
-        } else {
-            if (node.right) {
-                stack.push(node.right)
-            }
-            if(node.left) {
-                stack.push(node.left)
-            }
-        }
-    }
-    return res
+  }
+  return res;
 };
 ```Summarize
 

@@ -1,4 +1,5 @@
 ---
+translationKey: article-summary-of-vue-s-easy-to-error-and-easy-to-confuse-knowledge-points
 title: Summary of Vue's easy-to-error and easy-to-confuse knowledge points
 date: 2018-09-10 18:30:10
 description: <ES6 Standard Introduction> Knowledge Points Summary

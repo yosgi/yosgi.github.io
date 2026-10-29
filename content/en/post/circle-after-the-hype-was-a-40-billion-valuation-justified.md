@@ -1,4 +1,5 @@
 ---
+translationKey: article-circle-after-the-hype-was-a-40-billion-valuation-justified
 title: Circle After the Hype, Was a $40 Billion Valuation Justified?
 date: 2025-06-29 00:00:00
 description: Circle is a high-quality company operating in a promising sector, but at a valuation of roughly $40 billion, the market had already priced in a substantial portion of its future growth.

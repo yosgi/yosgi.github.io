@@ -1,4 +1,5 @@
 ---
+translationKey: article-promise
 title: promise
 date: 2018-06-27 13:18:47
 description: '"ES6 Standard Introduction" Knowledge Points Summary'
@@ -14,7 +15,7 @@ tags:
 
 ##### Basic usage
 
-```javascript
+```text
 const promise = new Promise(function(resolve, reject) {
   // ... some code
   if (/* Asynchronous operation succeeded */) {
@@ -47,7 +48,7 @@ const p2 = new Promise(function (resolve, reject) {
 Both p1 and p2 are instances of Promise, but p2's resolve method takes p1 as a parameter. This means that the result of one asynchronous operation is another asynchronous operation.
 In this case, the state of p1 is passed to p2, meaning that the state of p1 determines the state of p2.
 
-If the status of p1 is pending, then the callback function of p2 will wait for the status of p1 to change; if the status of p1 is already resolved or rejected, then the callback function of p2 will be executed immediately.
+p2 adopts the eventual state of p1. Even if p1 is already fulfilled or rejected, handlers registered with `.then` or `.catch` on p2 do not run immediately on the current synchronous call stack; they are scheduled asynchronously. Resolved is not synonymous with fulfilled: a promise can already have adopted another promise that remains pending.
 
 Generally speaking, after calling resolve or reject, the Promise's mission is completed. Subsequent operations should be placed in the then method, not directly after resolve or reject. Therefore, it is best to add a return statement before them to avoid unexpected situations.
 

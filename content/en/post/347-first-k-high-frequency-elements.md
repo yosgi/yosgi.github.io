@@ -1,5 +1,5 @@
 ---
-title: 347-first-K-high-frequency elements
+title: 347-Top K Frequent Elements
 date: 2021-04-08 00:00:00
 description: Finding the top K most frequent elements by counting occurrences, then selecting with a min-heap.
 draft: false
@@ -12,82 +12,88 @@ tags:
 
 Time: 30 minutes
 
-The idea is to first use the time complexity of On to count, and then solve it using the minimum heap method
+Count frequencies in O(n), then maintain a min-heap containing at most k entries. The heap root is the least frequent entry currently selected. The total time is O(n + u log k), where u is the number of distinct values; space is O(u + k).
 
 ```javascript
 class Heap {
-    constructor(list, compare = (a, b) => a - b) {
-      this.left = index => 2 * index + 1      this.right = index => 2 * index + 2      this.parent = index => Math.floor((index - 1) / 2)
-      this.heapify = (index = 0) => {
-        const { list } = this        const leftIndex = this.left(index)
-        const rightIndex = this.right(index)
-        let maxIndex = index
-        if (list[leftIndex] !== undefined          && this.compare(list[maxIndex], list[leftIndex]) > 0) {
-          maxIndex = leftIndex
-        }
-        if (list[rightIndex] !== undefined          && this.compare(list[maxIndex], list[rightIndex]) > 0) {
-          maxIndex = rightIndex
-        }
-        if (index !== maxIndex) {
-          const temp = list[index]
-          list[index] = list[maxIndex]
-          list[maxIndex] = temp
-          this.heapify(maxIndex)
-        }
+  constructor(list, compare = (a, b) => a - b) {
+    this.left = (index) => 2 * index + 1;
+    this.right = (index) => 2 * index + 2;
+    this.parent = (index) => Math.floor((index - 1) / 2);
+    this.heapify = (index = 0) => {
+      const { list } = this;
+      const leftIndex = this.left(index);
+      const rightIndex = this.right(index);
+      let maxIndex = index;
+      if (
+        list[leftIndex] !== undefined &&
+        this.compare(list[maxIndex], list[leftIndex]) > 0
+      ) {
+        maxIndex = leftIndex;
       }
-      this.buildHeap = () => {
-        for (let i = Math.floor(this.list.length / 2); i >= 0; i--) {
-          this.heapify(i)
-        }
-        return this.list      }
-      this.extract = () => {
-        const temp = this.list[0]
-        this.list[0] = this.list[this.list.length - 1]
-        this.list[this.list.length - 1] = temp
-        const result = this.list.pop()
-        this.heapify(0)
-        return result
+      if (
+        list[rightIndex] !== undefined &&
+        this.compare(list[maxIndex], list[rightIndex]) > 0
+      ) {
+        maxIndex = rightIndex;
       }
-      this.top = () => {
-          return this.list[0]
+      if (index !== maxIndex) {
+        const temp = list[index];
+        list[index] = list[maxIndex];
+        list[maxIndex] = temp;
+        this.heapify(maxIndex);
       }
-      this.insert = (item) => {
-        const { list } = this        list.push(item)
-        let index = list.length - 1        let parentIndex = this.parent(index)
-        while (list[parentIndex] !== undefined && this.compare(list[parentIndex], list[index]) > 0) {
-          const temp = list[index]
-          list[index] = list[parentIndex]
-          list[parentIndex] = temp
-          index = parentIndex
-          parentIndex = this.parent(index)
-        }
+    };
+    this.buildHeap = () => {
+      for (let i = Math.floor(this.list.length / 2); i >= 0; i--) {
+        this.heapify(i);
       }
-      this.list = list
-      this.compare = compare
-      this.buildHeap()
+      return this.list;
+    };
+    this.extract = () => {
+      const temp = this.list[0];
+      this.list[0] = this.list[this.list.length - 1];
+      this.list[this.list.length - 1] = temp;
+      const result = this.list.pop();
+      this.heapify(0);
+      return result;
+    };
+    this.top = () => {
+      return this.list[0];
+    };
+    this.insert = (item) => {
+      const { list } = this;
+      list.push(item);
+      let index = list.length - 1;
+      let parentIndex = this.parent(index);
+      while (
+        list[parentIndex] !== undefined &&
+        this.compare(list[parentIndex], list[index]) > 0
+      ) {
+        const temp = list[index];
+        list[index] = list[parentIndex];
+        list[parentIndex] = temp;
+        index = parentIndex;
+        parentIndex = this.parent(index);
+      }
+    };
+    this.list = list;
+    this.compare = compare;
+    this.buildHeap();
+  }
+}
+var topKFrequent = function (nums, k) {
+  const counts = new Map();
+  for (const value of nums) counts.set(value, (counts.get(value) || 0) + 1);
+  const heap = new Heap([], (a, b) => a[1] - b[1]);
+  for (const entry of counts) {
+    if (heap.list.length < k) {
+      heap.insert(entry);
+    } else if (entry[1] > heap.top()[1]) {
+      heap.extract();
+      heap.insert(entry);
     }
   }
-var topKFrequent = function(nums, k) {
-    var map = {}
-    for(let i = 0 ; i < nums.length ; i ++) {
-        var num = nums[i]
-        if (map[num] == undefined) {
-            map[num] = 1        } else {
-            map[num] ++        }
-    }
-    // Use a minimum heap to maintain the K highest elements var heap = new Heap([],(a,b) => a[1] - b[1])
-    var K = 0
-    // Because the api is a maximum heap, we need to take the opposite number Object.entries(map).forEach(([key,val]) => {
-        if (K < k) {
-            heap.insert([key,-val])
-        } else {
-            var top = heap.top()
-            if (val > - top[1]) {
-                heap.extract()
-                heap.insert([key,-val])
-            }
-        }
-    })
-    return heap.list.map((v) => v[0]).slice(0,k)
+  return heap.list.map(([value]) => value);
 };
 ```

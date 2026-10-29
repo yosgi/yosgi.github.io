@@ -1,4 +1,5 @@
 ---
+translationKey: article-regular-expression-performance-optimization
 title: Regular expression performance optimization
 date: 2018-11-06 15:48:14
 description: High Performance Javascript Knowledge Points

@@ -1,4 +1,5 @@
 ---
+translationKey: article-arrays-stacks-queues
 title: Arrays, stacks, queues
 date: 2018-08-22 15:09:45
 description: Javascript Data Structures
@@ -28,12 +29,12 @@ The following are some common methods that are easy to remember incorrectly or m
 I saw it in a bad interview question
 
 ```javascript
-["1", "2", "3"].map(parseInt)
+["1", "2", "3"].map(parseInt);
 ```
 
 Let's review this problem. First, let's look at the parameters in a typical map.
 
-```javascript
+```text
 var new_array = arr.map(function callback(currentValue[, index[, array]]) {
   // Return element for new_array
 }[, thisArg])
@@ -52,7 +53,7 @@ array: The array on which the map method is called.
 Let's look at parseInt again.
 
 ```javascript
-parseInt(string, radix)
+parseInt(string, radix);
 // string Required. The string to be parsed.
 // radix Optional. Indicates the radix of the number to be parsed. This value is between 2 and 36.
 ```
@@ -63,7 +64,7 @@ If this parameter is less than 2 or greater than 36, parseInt() returns NaN.
 
 Combining these two, and using the formulas
 
-```javascript
+```text
 parseInt('1',0) = 1,
 parseInt('2',1) = NaN,
 parseInt('3',2) = NaN
@@ -71,9 +72,9 @@ parseInt('3',2) = NaN
 
 we can get the result [1,NaN,NaN];
 
-Solice and split
+#### splice and slice
 
-```javascript
+```text
 array.splice(start[, deleteCount[, item1[, item2[, ...]]]])
 ```
 
@@ -81,7 +82,7 @@ The splice function adds or removes elements at any position in an array.
 The first parameter specifies the index of the element to be removed or inserted, the second parameter specifies the number of elements to be removed (0 for adding elements), and the third and subsequent parameters are the values to be added to the array.
 
 ```javascript
-array.slice(start,end)
+array.slice(start, end);
 ```
 
 The slice() method returns a shallow copy of a portion of an array selected from the beginning to the end (excluding the end) into a new array object. The original array is not modified.
@@ -94,48 +95,51 @@ Implementing the Stack Class
 
 ```javascript
 let Stack = (function () {
-  const items = new WeakMap()
+  const items = new WeakMap();
   class Stack {
     constructor() {
-      items.set(this, [])
+      items.set(this, []);
     }
     push(element) {
-      let s = items.get(this)
-      s.push(element) //Note that the return value is the length of the array
+      let s = items.get(this);
+      s.push(element); //Note that the return value is the length of the array
     }
     pop() {
-      let s = items.get(this)
-      let r = s.pop()
-      return r
-    }
-    isEmpty () {
       let s = items.get(this);
-      return s.length==0
+      let r = s.pop();
+      return r;
+    }
+    isEmpty() {
+      let s = items.get(this);
+      return s.length == 0;
     }
   }
-  return Stack
-})()
+  return Stack;
+})();
 ```
 
 Stack Application - Base Conversion
 
 ```javascript
-function baseConverter(decNumber,base) {
-  let remStack = new Stack(),rem,binaryString = "",chars ="0123456789ABCDEF";
-  while(decNumber>0){
+function baseConverter(decNumber, base) {
+  let remStack = new Stack(),
+    rem,
+    binaryString = "",
+    chars = "0123456789ABCDEF";
+  while (decNumber > 0) {
     //Push remainder onto the stack
-    rem = decNumber%base
+    rem = decNumber % base;
     //Round the dividend
-    decNumber = Math.floor(decNumber/base);
+    decNumber = Math.floor(decNumber / base);
     remStack.push(rem);
   }
-  while(!remStack.isEmpty()){
-    binaryString+=chars[remStack.pop()]
+  while (!remStack.isEmpty()) {
+    binaryString += chars[remStack.pop()];
   }
-  return binaryString
+  return binaryString;
 }
-let result = baseConverter(10,2)//1010
-let result1 = baseConverter(105,16)//69
+let result = baseConverter(10, 2); //1010
+let result1 = baseConverter(105, 16); //69
 ```
 
 ### Queue
@@ -145,53 +149,53 @@ Implementing a Queue Class
 
 ```javascript
 let Queue = (function () {
-  const items = new WeakMap()
+  const items = new WeakMap();
   class Queue {
     constructor() {
-      items.set(this, [])
+      items.set(this, []);
     }
     enqueue(element) {
-      let q = items.get(this)
-      q.push(element)//Note that the return value is the length of the array
+      let q = items.get(this);
+      q.push(element); //Note that the return value is the length of the array
     }
     dequeue() {
-      let q = items.get(this)
-      let r = q.shift()
-      return r
-    }
-    isEmpty () {
       let q = items.get(this);
-      return q.length==0
+      let r = q.shift();
+      return r;
     }
-    size () {
-      let q =items.get(this);
-      return q.length
+    isEmpty() {
+      let q = items.get(this);
+      return q.length == 0;
+    }
+    size() {
+      let q = items.get(this);
+      return q.length;
     }
   }
-  return Queue
-})()
+  return Queue;
+})();
 ```
 
 Application of Queue - Pass the Flower
 
 ```javascript
-function hotPotato(nameList, num){
-  let queue = new Queue()
-  for(let i=0;i<nameList.length;i++){
+function hotPotato(nameList, num) {
+  let queue = new Queue();
+  for (let i = 0; i < nameList.length; i++) {
     //All players are queued
-    queue.enqueue(nameList[i])
+    queue.enqueue(nameList[i]);
   }
-  let eliminated = '';
+  let eliminated = "";
   //When there are more than one player in the queue
-  while (queue.size()>1){
+  while (queue.size() > 1) {
     //Num players are queued to the end of the queue
-    for(let i=0;i<num;i++){
-      queue.enqueue(queue.dequeue())
+    for (let i = 0; i < num; i++) {
+      queue.enqueue(queue.dequeue());
     }
-    eliminated = queue.dequeue()
-    console.log(eliminated + 'eliminate')
+    eliminated = queue.dequeue();
+    console.log(eliminated + "eliminate");
   }
-  return queue.dequeue()
+  return queue.dequeue();
 }
-let nameList = ['a', 'b', 'c', 'd']
+let nameList = ["a", "b", "c", "d"];
 ```

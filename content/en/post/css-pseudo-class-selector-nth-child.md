@@ -1,4 +1,5 @@
 ---
+translationKey: article-css-pseudo-class-selector-nth-child
 title: CSS pseudo-class selector nth-child
 date: 2019-03-07 17:32:19
 description: About nth-child and HTML specifications

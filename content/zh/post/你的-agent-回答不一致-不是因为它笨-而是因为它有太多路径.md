@@ -1,4 +1,5 @@
 ---
+translationKey: article-your-agent-is-not-inconsistent-because-it-is-dumb-it-just-has-too-many-tool-paths
 title: 你的 Agent 回答不一致，不是因为它笨，而是因为它有太多路径。
 date: 2026-05-21 22:22:58
 description: 用 Skills 稳定 Agent 的工具路径

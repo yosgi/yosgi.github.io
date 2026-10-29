@@ -1,4 +1,5 @@
 ---
+translationKey: article-2025-investment-review
 title: 2025 Investment Review
 date: 2026-01-29 17:45:36
 description: "2025 Investment Review: A Bet-the-Dip Strategy in AI-Driven Markets"

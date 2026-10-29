@@ -1,4 +1,5 @@
 ---
+translationKey: article-1104-binary-tree-pathfinding
 title: 1104-Binary Tree Pathfinding
 date: 2021-07-29 00:00:00
 description: Finding the path in a zigzag-labeled binary tree using the symmetry of each level's numbering.

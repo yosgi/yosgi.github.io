@@ -1,4 +1,5 @@
 ---
+translationKey: article-an-mcp-as-code-refactor-and-why-it-did-not-work-the-way-i-expected-1
 title: 一次 MCP-as-Code 的重构尝试，以及它为什么没有按预想工作( 1 )
 date: 2026-05-25 14:50:20
 description: 一次 MCP-as-Code 重构复盘：它缓解了上下文压力，但也放大了交互场景中的延迟和运行时失败成本。

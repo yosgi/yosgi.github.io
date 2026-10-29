@@ -1,5 +1,6 @@
 ---
-title: "[DevLog #01]为了云养猫，我决定从零写一个 Web 小游戏（day 1"
+translationKey: article-devlog-01-for-the-sake-of-cloud-cat-raising-i-decided-to-build-a-web-mini-game-from-scratch-day-1
+title: "[DevLog #01]为了云养猫，我决定从零写一个 Web 小游戏（Day 1）"
 date: 2026-01-29 17:44:40
 description: Tiled 地图绘制与优化
 draft: true

@@ -1,4 +1,5 @@
 ---
+translationKey: article-ui-interface-response-optimization
 title: UI interface response optimization
 date: 2018-11-22 16:55:21
 description: High Performance Javascript Knowledge Points

@@ -1,4 +1,5 @@
 ---
+translationKey: article-ajax-data-transmission-optimization
 title: ajax数据传输优化
 date: 2018-11-28 14:47:40
 description: 《高性能Javascript》 知识点整理

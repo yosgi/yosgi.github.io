@@ -1,4 +1,5 @@
 ---
+translationKey: article-proxy-mode
 title: Proxy Mode
 date: 2018-04-19 09:46:11
 description: Javascript Design Patterns Knowledge Points
