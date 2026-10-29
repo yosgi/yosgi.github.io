@@ -32,7 +32,7 @@ enableGitInfo = true
 [languages.en.params]
   author = "Yosgi"
   profileSubtitle = "Siqi Liu"
-  description = "AI agents, digital twins, and independent projects."
+  description = "A developer who likes to tinker."
   featured = ["/post/working-like-a-cto-with-ai-agents/", "/post/using-ai-agents-for-asset-recognition-and-annotation-in-3d-scenes-part-1/", "/post/high-frequency-synchronization-architecture-between-react-state-and-a-3d-engine/"]
   rssBaseURL = "https://siqi-liu.com/"
   github = "Yosgi"
@@ -110,7 +110,7 @@ enableGitInfo = true
 [languages.zh.params]
   author = "Yosgi"
   profileSubtitle = "刘思奇"
-  description = "AI Agent、数字孪生与独立项目的实践。"
+  description = "一个爱折腾的开发者。"
   featured = ["/post/working-like-a-cto-with-ai-agents/", "/post/使用-agent-进行-3d-场景的资产识别标注-一/", "/post/react-状态与-3d-引擎的高频同步架构/"]
   rssBaseURL = "https://siqi-liu.com/"
   github = "Yosgi"

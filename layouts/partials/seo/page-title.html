@@ -1,7 +1,6 @@
 {{- $page := . -}}
 {{- $author := $page.Site.Params.author | default $page.Site.Title -}}
 {{- $defaultTitle := $page.Site.Params.seo.defaultTitle | default (printf "%s | %s" $author $page.Site.Title) -}}
-{{- if eq $page.Language.Lang "zh" -}}{{- $defaultTitle = "Yosgi | 奥克兰软件工程师" -}}{{- end -}}
 {{- $out := $defaultTitle -}}
 {{- if $page.IsHome -}}
   {{- $out = $defaultTitle -}}

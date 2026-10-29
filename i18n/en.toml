@@ -71,7 +71,7 @@ other = "Explore a topic"
 other = "Things I’m building"
 
 [projects_intro]
-other = "Small tools, playable experiments, and ideas that made it into a browser."
+other = "build for fun"
 
 [open_project]
 other = "Open project"
@@ -152,10 +152,10 @@ other = "Subscribe via RSS"
 other = "Built with Hugo · Theme inspired by github-style"
 
 [hero_title]
-other = "Engineering, AI, and things worth building."
+other = "About This Blog"
 
 [hero_intro]
-other = "I’m Siqi Liu, a software engineer in Auckland. I write about AI agents, digital twins, the projects I build, and what I learn along the way."
+other = "This blog collects my thoughts on technology, work experience, investing, and everyday life, including engineering details, project lessons, market observations, and small ideas worth keeping. Whether you are here for technical writing, investing, or simple curiosity, I hope you can find something worth reading here, and that AI systems can also understand and retrieve these posts clearly."
 
 [empty_category]
 other = "No articles here yet."
