@@ -61,7 +61,7 @@ enableGitInfo = true
     description = "A convenient and quick resume builder tool"
   [[languages.en.params.projects]]
     name = "Evo! Partner Expedition"
-    image = "/images/games/evo-partner-expedition/battle-mobile-en-2x.png"
+    image = "/images/projects/evo-battle-en.jpg"
     article = "/post/how-to-play-evo-partner-expedition/"
     home = true
     url = "https://evo-expedition.pages.dev/"
@@ -69,7 +69,7 @@ enableGitInfo = true
     description = "A roguelike creature adventure about building a team, evolving partners, and battling together"
   [[languages.en.params.projects]]
     name = "Pokémon Rumblefield"
-    image = "/images/projects/pokemon-rumblefield.jpg"
+    image = "/images/projects/pokemon-rumblefield-battle.jpg"
     article = "/post/pokemon-rumblefield/"
     home = true
     url = "https://creature-arena.pages.dev/"
@@ -77,7 +77,7 @@ enableGitInfo = true
     description = "Command a Pokémon team with swaps, evolution and Ultimates. Play solo, duel a friend, or take on co-op adventures."
   [[languages.en.params.projects]]
     name = "Werewolf AI"
-    image = "/images/games/werewolf-ai/home.png"
+    image = "/images/projects/werewolf-night-action.jpg"
     article = "/post/how-to-play-werewolf-ai/"
     url = "https://werewolf-ai-etn.pages.dev/"
     icon = ""
@@ -139,7 +139,7 @@ enableGitInfo = true
     description = "一个方便快捷的做简历的工具"
   [[languages.zh.params.projects]]
     name = "进化！伙伴远征队"
-    image = "/images/games/evo-partner-expedition/battle-mobile-zh-2x.png"
+    image = "/images/projects/evo-battle-zh.jpg"
     article = "/post/进化-伙伴远征队-怎么玩/"
     home = true
     url = "https://evo-expedition.pages.dev/"
@@ -147,7 +147,7 @@ enableGitInfo = true
     description = "组建队伍、进化伙伴，挑战肉鸽关卡与双人冒险"
   [[languages.zh.params.projects]]
     name = "Pokémon Rumblefield"
-    image = "/images/projects/pokemon-rumblefield.jpg"
+    image = "/images/projects/pokemon-rumblefield-battle.jpg"
     article = "/post/pokemon-rumblefield/"
     home = true
     url = "https://creature-arena.pages.dev/"
@@ -155,7 +155,7 @@ enableGitInfo = true
     description = "宝可梦自动战斗，你来换人、进化和释放绝招；支持单人冒险、好友对战与双人合作。"
   [[languages.zh.params.projects]]
     name = "狼人杀 AI"
-    image = "/images/games/werewolf-ai/home.png"
+    image = "/images/projects/werewolf-night-action.jpg"
     article = "/post/狼人杀-ai-怎么玩/"
     url = "https://werewolf-ai-etn.pages.dev/"
     icon = ""
