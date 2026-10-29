@@ -85,7 +85,7 @@ enableGitInfo = true
   
   [[languages.en.params.projects]]
     name = "Our Little Shire"
-    image = "/images/projects/our-little-shire.jpg"
+    image = "/images/projects/our-little-shire-exploring.jpg"
     article = "/post/i-made-a-small-3d-game-with-ai/"
     home = true
     url = "https://shire.siqi-liu.com/"
@@ -163,7 +163,7 @@ enableGitInfo = true
   
   [[languages.zh.params.projects]]
     name = "我们的夏尔"
-    image = "/images/projects/our-little-shire.jpg"
+    image = "/images/projects/our-little-shire-exploring.jpg"
     article = "/post/我用-ai-做了一个小小的-3d-游戏/"
     home = true
     url = "https://shire.siqi-liu.com/"
