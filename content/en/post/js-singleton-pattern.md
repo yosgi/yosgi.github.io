@@ -1,4 +1,5 @@
 ---
+translationKey: article-js-singleton-pattern
 title: Js singleton pattern
 date: 2018-04-13 20:06:30
 description: Javascript Design Patterns Knowledge Points

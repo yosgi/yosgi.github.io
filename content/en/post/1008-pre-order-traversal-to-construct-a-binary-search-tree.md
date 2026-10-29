@@ -1,4 +1,5 @@
 ---
+translationKey: article-1008-pre-order-traversal-to-construct-a-binary-search-tree
 title: 1008-Pre-order traversal to construct a binary search tree
 date: 2021-03-10 00:00:00
 description: Constructing a binary search tree from its pre-order sequence by recursively inserting each value.

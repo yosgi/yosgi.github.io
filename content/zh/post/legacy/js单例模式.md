@@ -1,4 +1,5 @@
 ---
+translationKey: article-js-singleton-pattern
 title: Js单例模式
 date: 2018-04-13 20:06:30
 description: 《Javascript设计模式》 知识点整理

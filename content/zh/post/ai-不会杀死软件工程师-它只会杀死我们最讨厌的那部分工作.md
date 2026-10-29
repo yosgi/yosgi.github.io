@@ -1,4 +1,5 @@
 ---
+translationKey: article-ai-won-t-replace-software-engineers-it-will-replace-the-parts-of-coding-we-never-loved
 title: AI 不会杀死软件工程师，它只会杀死我们最讨厌的那部分工作。
 date: 2026-05-21 23:28:56
 description: |-

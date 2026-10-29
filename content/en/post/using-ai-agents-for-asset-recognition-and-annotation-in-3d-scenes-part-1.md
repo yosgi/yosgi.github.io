@@ -1,4 +1,5 @@
 ---
+translationKey: article-using-ai-agents-for-asset-recognition-and-annotation-in-3d-scenes-part-1
 title: Using AI Agents for Asset Recognition and Annotation in 3D Scenes
 date: 2026-06-19 09:46:11
 description: How we turned free-form 3D exploration into measurable coverage scanning for valve inventory in a digital twin factory

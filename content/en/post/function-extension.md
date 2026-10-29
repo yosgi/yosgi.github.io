@@ -1,4 +1,5 @@
 ---
+translationKey: article-function-extension
 title: Function extension
 date: 2018-04-12 00:00:00
 description: '"ES6 Standard Introduction" Knowledge Points Summary'

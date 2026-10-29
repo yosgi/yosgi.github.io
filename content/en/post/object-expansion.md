@@ -1,4 +1,5 @@
 ---
+translationKey: article-object-expansion
 title: Object Expansion
 date: 2018-04-24 00:00:00
 description: '"ES6 Standard Introduction" Knowledge Points Summary'

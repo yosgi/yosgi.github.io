@@ -1,4 +1,5 @@
 ---
+translationKey: article-array-expansion
 title: Array expansion
 date: 2018-04-11 00:00:00
 description: '"ES6 Standard Introduction" Knowledge Points Summary'

@@ -1,4 +1,5 @@
 ---
+translationKey: article-tool-for-control-code-for-analysis-3
 title: "Tool 用来控制，Code 用来分析（3）"
 date: 2026-05-25 14:50:20
 description: 在一次高数据量 Agent 任务中，我们遇到了原始 Tool 返回过大和纯 Code 路径耗时较长的问题，并尝试用 Context Off-Ramp 在两条路径之间切换。

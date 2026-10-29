@@ -1,4 +1,5 @@
 ---
+translationKey: article-review-of-login-and-registration-requirements
 title: Review of login and registration requirements
 date: 2021-02-21 00:00:00
 description: A retrospective on a login/registration project that overran from one month to three — the requirements, the multi-channel auth, and the WeChat scan-code polling design.

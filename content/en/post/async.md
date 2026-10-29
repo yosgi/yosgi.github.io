@@ -1,4 +1,5 @@
 ---
+translationKey: article-async
 title: async
 date: 2018-07-11 14:47:05
 description: '"ES6 Standard Introduction" Knowledge Points Summary'

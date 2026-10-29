@@ -1,4 +1,5 @@
 ---
+translationKey: article-99-restore-binary-search-tree
 title: 99-Restore Binary Search Tree
 date: 2021-03-13 00:00:00
 description: Restoring a BST with two swapped nodes by locating them during an in-order traversal.
@@ -19,28 +20,37 @@ The idea is still in-order traversal, using pre to cache the previous node. Beca
 So the first problem is pre, the second is root
 
 ```javascript
-var recoverTree = function(root) {
-    var left = null    var right = null    var pre = null    // You must find the big one first, then the small one, so the first one to have a problem is pre, and the second one to have a problem is root var DFS = function (root) {
-        if (root.left) {
-            DFS(root.left)
-        }
-        if (pre) {
-            console.log(pre.val)
-            if (pre.val > root.val) {
-                if(!left) {
-                    left = pre
-                    right = root                } else {
-                    right = root                }
-            }
-            pre = root        } else {
-            pre = root        }
-        if (root.right) {
-            DFS(root.right)
-        }
+var recoverTree = function (root) {
+  var left = null;
+  var right = null;
+  var pre = null;
+
+  var DFS = function (root) {
+    if (root.left) {
+      DFS(root.left);
     }
-    DFS(root)
-    if (left && right) {
-        [left.val,right.val] = [right.val,left.val]
+    if (pre) {
+      console.log(pre.val);
+      if (pre.val > root.val) {
+        if (!left) {
+          left = pre;
+          right = root;
+        } else {
+          right = root;
+        }
+      }
+      pre = root;
+    } else {
+      pre = root;
     }
-    return root}
+    if (root.right) {
+      DFS(root.right);
+    }
+  };
+  DFS(root);
+  if (left && right) {
+    [left.val, right.val] = [right.val, left.val];
+  }
+  return root;
+};
 ```

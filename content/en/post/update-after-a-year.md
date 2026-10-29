@@ -1,4 +1,5 @@
 ---
+translationKey: article-update-after-a-year
 title: Update after a year
 date: 2020-12-11 00:17:30
 description: One month after leaving Dahua

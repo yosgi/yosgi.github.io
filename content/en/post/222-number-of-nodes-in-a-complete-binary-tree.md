@@ -1,4 +1,5 @@
 ---
+translationKey: article-222-number-of-nodes-in-a-complete-binary-tree
 title: 222-Number of nodes in a complete binary tree
 date: 2021-03-13 00:00:00
 description: Counting nodes in a complete binary tree using left/right subtree depths instead of a full DFS.
@@ -29,24 +30,29 @@ If the right depth is greater than the left, it means the left is full. Similarl
 As for how to find the depth of the binary tree, you can recursively start from the bottom up.
 
 ```javascript
-var count = function(root) {
-        if (root === null) return 0        return Math.max(count(root.left),count(root.right)) + 1}
+var count = function (root) {
+  if (root === null) return 0;
+  return Math.max(count(root.left), count(root.right)) + 1;
+};
 ```
 
 Then the overall code is
 
 ```javascript
-var countNodes = function(root) {
-    if (!root) {
-        return 0    }
-    var count = function(root) {
-        if (root === null) return 0        return Math.max(count(root.left),count(root.right)) + 1    }
-    var leftLevel = count(root.left)
-    var rightLevel = count(root.right)
-    if (leftLevel === rightLevel) {
-        return Math.pow(2,leftLevel) + countNodes(root.right)
-    } else {
-        return Math.pow(2,rightLevel ) + countNodes(root.left)
-    }
+var countNodes = function (root) {
+  if (!root) {
+    return 0;
+  }
+  var count = function (root) {
+    if (root === null) return 0;
+    return Math.max(count(root.left), count(root.right)) + 1;
+  };
+  var leftLevel = count(root.left);
+  var rightLevel = count(root.right);
+  if (leftLevel === rightLevel) {
+    return Math.pow(2, leftLevel) + countNodes(root.right);
+  } else {
+    return Math.pow(2, rightLevel) + countNodes(root.left);
+  }
 };
 ```

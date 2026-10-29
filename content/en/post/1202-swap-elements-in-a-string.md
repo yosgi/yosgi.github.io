@@ -1,4 +1,5 @@
 ---
+translationKey: article-1202-swap-elements-in-a-string
 title: 1202-Swap elements in a string
 date: 2021-07-06 00:00:00
 description: Producing the lexicographically smallest string after swaps by grouping swappable indices with union-find and sorting each group.
@@ -18,38 +19,47 @@ The idea is to group the interchangeable strings first, sort the groups, and the
 Union-find is to use recursion or while loop to implement find, and then use arrays and subscripts to implement union
 
 ```javascript
-var smallestStringWithSwaps = function(s, pairs) {
-  var fa = []
+var smallestStringWithSwaps = function (s, pairs) {
+  var fa = [];
   var find = function (x) {
     if (x === fa[x]) {
-      return x
+      return x;
     } else {
-      return fa[x] = find(fa[x])
+      return (fa[x] = find(fa[x]));
+    }
+  };
+  for (let i = 0; i < s.length; i++) {
+    fa[i] = i;
+  }
+  for (let i = 0; i < pairs.length; i++) {
+    const [x, y] = pairs[i];
+    fa[find(x)] = find(y);
+  }
+  var n = s.length;
+
+  const vec = new Array(n).fill(0).map(() => new Array());
+  for (let i = 0; i < n; i++) {
+    fa[i] = find(i);
+    vec[fa[i]].push(s[i]);
+  }
+  console.log(fa);
+
+  for (let i = 0; i < n; ++i) {
+    if (vec[i].length > 0) {
+      vec[i].sort((a, b) => a.charCodeAt() - b.charCodeAt());
     }
   }
-  for (let i = 0; i < s.length; i++) {
-      fa[i] = i
+
+  const ans = new Array(n).fill(0);
+  for (let i = 0; i < n; ++i) {
+    var group = fa[i];
+    if (group != undefined && vec[group].length) {
+      ans[i] = vec[fa[i]].shift();
+    } else {
+      ans[i] = s[i];
+    }
   }
-  for(let i = 0 ; i < pairs.length ; i ++) {
-    const [x,y] = pairs[i]
-    fa[find(x)] = find(y)
-  }
-  var n = s.length  // Calculate the grouped map const vec = new Array(n).fill(0).map(() => new Array()); for (let i = 0; i < n; i++) {
-      fa[i] = find(i);      vec[fa[i]].push(s[i]);  }
-  console.log(fa)
-  // Sort the grouped map for (let i = 0; i < n; ++i) {
-      if (vec[i].length > 0) {
-          vec[i].sort((a, b) => a.charCodeAt() - b.charCodeAt());      }
-  }
-  // Combined into ans const ans = new Array(n).fill(0); for (let i = 0; i < n; ++i) {
-      var group = fa[i]
-      if ( group!= undefined && vec[group].length) {
-        // Take out the smallest number in each group ans[i] = vec[fa[i]].shift()
-      } else {
-        ans[i] = s[i]
-      }
-  }
-  return ans.join('')
+  return ans.join("");
 };
 ```
 It is mainly used to learn and check the ideas, and you will start only after looking at the answers.

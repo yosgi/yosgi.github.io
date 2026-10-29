@@ -1,4 +1,5 @@
 ---
+translationKey: article-destructuring-assignment-of-variables
 title: Destructuring assignment of variables
 date: 2018-04-10 11:07:34
 description: '"ES6 Standard Introduction" Knowledge Points Summary'

@@ -1,4 +1,5 @@
 ---
+translationKey: article-using-ai-agents-for-asset-recognition-and-annotation-in-3d-scenes-part-2
 title: 使用 Agent 进行 3D 场景的资产识别标注（二）
 date: 2026-06-20 14:11:11
 description: 如何把 2D 检测和 3D 验证拆成两个阶段，在数字孪生工厂的资产标注中降低误报，并定位下一步的召回率瓶颈
@@ -55,6 +56,10 @@ tags:
 | 3D 后，效果较好时 | 约 15%–20% |
 | 3D 后，现实情况 | 约 20%–25% |
 | 3D coverage 不好时 | 可能接近 2D，仍约 30% |
+
+这里的“误报占比”指输出候选中 `FP / (TP + FP)`，即 `1 - precision`，不是以全部负样本为分母的 false positive rate。过滤后的候选总数也会变化，因此不能把两阶段的百分比差直接解释成删掉了多少个误报。3D 验证还可能误剔真实目标，最终 recall 需要另外统计。指标定义可参考 [scikit-learn 文档](https://scikit-learn.org/stable/modules/model_evaluation.html#precision-recall-f-measure-metrics)。
+
+这些约数记录了当时测试中的观察；要复现实验，还需要补充场景范围、标注总数、TP/FP/FN、候选合并规则和 `unverified` 的计分方式。
 
 这个数据说明，3D verification 的收益取决于它是否真的拿到了有用视角。
 

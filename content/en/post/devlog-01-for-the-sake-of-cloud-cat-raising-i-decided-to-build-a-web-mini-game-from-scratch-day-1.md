@@ -1,5 +1,6 @@
 ---
-title: "[DevLog #01] For the Sake of Cloud Cat-Raising, I Decided to Build a Web Mini Game from Scratch（day 1"
+translationKey: article-devlog-01-for-the-sake-of-cloud-cat-raising-i-decided-to-build-a-web-mini-game-from-scratch-day-1
+title: "[DevLog #01] For the Sake of Cloud Cat-Raising, I Decided to Build a Web Mini Game from Scratch(Day 1)"
 date: 2026-01-29 17:44:40
 description: Build a Web Mini Game from Scratch
 draft: true

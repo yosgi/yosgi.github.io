@@ -1,4 +1,5 @@
 ---
+translationKey: article-814-binary-tree-pruning
 title: 814-Binary Tree Pruning
 date: 2021-03-17 00:00:00
 description: Pruning subtrees that contain no 1 with post-order traversal, using a dummy parent so the root can also be pruned.
@@ -16,24 +17,32 @@ Time: 6 minutes
 It's very simple. In-order traversal, calculate whether the value 1 exists in the subtrees on both sides, and remove it if not. If the left or right subtree or the tree itself contains 1, return true. Otherwise, return false.
 
 ```javascript
-var pruneTree = function(root) {
-    var DFS = function (root) {
-        if (!root) return false        var left = DFS(root.left)
-        var right = DFS(root.right)
-        if (!left) {
-            root.left = null        }
-        if (!right) {
-            root.right = null        }
-        if (left) {
-            return true        }
-        if (right) {
-            return true        }
-        if( root.val === 1) {
-            return true        }
+var pruneTree = function (root) {
+  var DFS = function (root) {
+    if (!root) return false;
+    var left = DFS(root.left);
+    var right = DFS(root.right);
+    if (!left) {
+      root.left = null;
     }
-    var dummp = new TreeNode(1)
-    dummp.left = root    DFS(dummp)
-    return dummp.left};
+    if (!right) {
+      root.right = null;
+    }
+    if (left) {
+      return true;
+    }
+    if (right) {
+      return true;
+    }
+    if (root.val === 1) {
+      return true;
+    }
+  };
+  var dummp = new TreeNode(1);
+  dummp.left = root;
+  DFS(dummp);
+  return dummp.left;
+};
 ```
 
 One point to note is that the root itself may also need to be pruned, so a virtual node is added as the parent node

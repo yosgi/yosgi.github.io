@@ -1,4 +1,5 @@
 ---
+translationKey: article-94-in-order-traversal-of-a-binary-tree
 title: 94-In-order traversal of a binary tree
 date: 2021-02-25 00:00:00
 description: In-order binary tree traversal, both recursively and iteratively with an explicit stack.
@@ -20,18 +21,18 @@ The order of in-order traversal is left - middle - right
 It's very easy with recursion
 
 ```javascript
-var inorderTraversal = function(root) {
-    var res = []
-    if (!root) {
-        return res
-    }
-    var travel = function (node) {
-        node.left && travel(node.left)
-        res.push(node.val)
-        node.right && travel(node.right)
-    }
-    travel(root)
-    return res
+var inorderTraversal = function (root) {
+  var res = [];
+  if (!root) {
+    return res;
+  }
+  var travel = function (node) {
+    node.left && travel(node.left);
+    res.push(node.val);
+    node.right && travel(node.right);
+  };
+  travel(root);
+  return res;
 };
 ```Iteration
 
@@ -41,24 +42,28 @@ The iterative steps are more complicated because the root node is not output fir
 1. Pop the stack, output, and check if it has a right child. If so, push it onto the stack and continue with step 2.
 
 ```javascript
-var inorderTraversal = function(root) {
-    var stack = []
-    var res = []
-    if (!root) return res
-    stack.push(root)
-    while(root.left) {
-        stack.push(root.left)
-        root = root.left    }
-    while(stack.length) {
-        // At this point the top of the stack is the leftmost node in the tree var node = stack.pop()
-        res.push(node.val)
-        // There is a right node, push it into the stack and continue to look for the left node if (node.right) {
-            node = node.right            stack.push(node)
-            while(node.left) {
-                stack.push(node.left)
-                node = node.left            }
-        }
+var inorderTraversal = function (root) {
+  var stack = [];
+  var res = [];
+  if (!root) return res;
+  stack.push(root);
+  while (root.left) {
+    stack.push(root.left);
+    root = root.left;
+  }
+  while (stack.length) {
+    var node = stack.pop();
+    res.push(node.val);
+
+    if (node.right) {
+      node = node.right;
+      stack.push(node);
+      while (node.left) {
+        stack.push(node.left);
+        node = node.left;
+      }
     }
-    return res
+  }
+  return res;
 };
 ```

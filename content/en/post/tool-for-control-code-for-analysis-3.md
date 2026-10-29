@@ -1,4 +1,5 @@
 ---
+translationKey: article-tool-for-control-code-for-analysis-3
 title: Tool for Control, Code for Analysis(3)
 date: 2026-05-25 14:50:20
 description: In one data-heavy agent task, large raw Tool responses strained context while a Code-only path took longer. We used a Context Off-Ramp to switch between the two paths.

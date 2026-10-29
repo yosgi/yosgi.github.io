@@ -13,65 +13,83 @@ tags:
 Time: 10 minutes
 
 ```javascript
-const swap = function (arr,i,j) {
-    [arr[i],arr[j]] = [arr[j],arr[i]]
-}
+const swap = function (arr, i, j) {
+  [arr[i], arr[j]] = [arr[j], arr[i]];
+};
 class MaxHeap {
-    constructor() {
-        this.count = 0        this.data = new Array(this.count + 1)
+  constructor() {
+    this.count = 0;
+    this.data = new Array(this.count + 1);
+  }
+  shiftUp(k) {
+    // Put the new elements up
+    while (k > 1) {
+      let father = Math.floor(k / 2);
+      if (this.data[k] > this.data[father]) {
+        swap(this.data, k, father);
+        k = father;
+      } else {
+        break;
+      }
     }
-    shiftUp(k) {
-        // Put the new elements up while(k>=1) {
-            let father = Math.floor(k / 2)
-            if (this.data[k] > this.data[father]) {
-                swap(this.data,k,father)
-                k = father
-            } else {
-                break            }
-        }
+  }
+  shiftDown(k) {
+    while (k * 2 <= this.count) {
+      // Indicates that k has children
+      let j = k;
+      if (
+        k * 2 + 1 <= this.count &&
+        this.data[k * 2 + 1] > this.data[k] &&
+        this.data[k * 2 + 1] > this.data[k * 2]
+      ) {
+        j = k * 2 + 1;
+      } else if (this.data[k * 2] > this.data[k]) {
+        j = k * 2;
+      } else {
+        break;
+      }
+      swap(this.data, j, k);
+      k = j;
     }
-    shiftDown(k) {
-        while( k * 2  <= this.count) { // Indicates that k has children let j = k
-            if (k * 2 + 1 <= this.count && this.data[k * 2 + 1] > this.data[k] && this.data[k * 2 + 1] > this.data[k * 2]) {
-                j = k * 2 + 1            } else if (this.data[k * 2] > this.data[k]) {
-                j = k * 2            } else {
-                break            }
-            swap(this.data,j,k)
-            k = j
-        }
-    }
-    size() {
-        return this.count    }
-    isEmpty() {
-        return this.count === 0    }
-    insert(item) {
-        this.data[++this.count] = item
-        this.shiftUp(this.count)
-    }
-    extractMax() {
-        if (this.count < 0) return
-        let ret = this.data[1]
-        swap(this.data,1,this.count--)
-        this.shiftDown(1)
-        return ret
-    }
-    top() {
-        return this.data[1]
-    }
+  }
+  size() {
+    return this.count;
+  }
+  isEmpty() {
+    return this.count === 0;
+  }
+  insert(item) {
+    this.data[++this.count] = item;
+    this.shiftUp(this.count);
+  }
+  extractMax() {
+    if (this.count <= 0) return;
+    let ret = this.data[1];
+    swap(this.data, 1, this.count--);
+    this.shiftDown(1);
+    return ret;
+  }
+  top() {
+    return this.data[1];
+  }
 }
-var smallestK = function(arr, k) {
-    var heap = new MaxHeap()
-    var K = 0    while(K < k) {
-        heap.insert(arr[K])
-        K++    }
-    // Maintain the heap at size K while(K < arr.length) {
-        var max = heap.top()
-        if (arr[K] < max) {
-            heap.extractMax()
-            heap.insert(arr[K])
-        }
-        K++    }
-    var size = heap.size()
-    return heap.data.slice(1, 1 + size )
+var smallestK = function (arr, k) {
+  var heap = new MaxHeap();
+  var K = 0;
+  while (K < k) {
+    heap.insert(arr[K]);
+    K++;
+  }
+  // Maintain the heap at size K
+  while (K < arr.length) {
+    var max = heap.top();
+    if (arr[K] < max) {
+      heap.extractMax();
+      heap.insert(arr[K]);
+    }
+    K++;
+  }
+  var size = heap.size();
+  return heap.data.slice(1, 1 + size);
 };
 ```

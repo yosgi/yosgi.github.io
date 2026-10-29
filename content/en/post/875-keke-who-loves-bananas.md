@@ -1,5 +1,6 @@
 ---
-title: 875-Keke who loves bananas
+translationKey: article-875-keke-who-loves-bananas
+title: 875-Koko Eating Bananas
 date: 2021-04-28 00:00:00
 description: Finding the minimum banana-eating speed by searching over the range of possible speeds.
 draft: false
@@ -17,39 +18,28 @@ The quickest way of thinking when getting the question is to enumerate all the s
 The enumeration speed range is [1... the largest pile of bananas], because the speed will not be less than 1, and there is no need for the speed to be faster than the largest pile of bananas.
 
 ```javascript
-var minEatingSpeed = function(piles, h) {
-  // Enumerate all possible speeds to eat bananas and find the smallest one. piles = piles.sort((a,b) => a - b)
-  var maxSpeed = piles[piles.length - 1]
-  var min = maxSpeed
-  for(let i = 1; i <= maxSpeed; i ++) {
-    var H = 0    for(let j = 0 ; j < piles.length; j ++) {
-      H += Math.ceil(piles[j] / i)
-    }
-    if(H <= h) {
-      min = Math.min(min,i)
-    }
+var minEatingSpeed = function (piles, h) {
+  const maxSpeed = piles.reduce((max, pile) => Math.max(max, pile), 0);
+  for (let speed = 1; speed <= maxSpeed; speed++) {
+    const hours = piles.reduce((sum, pile) => sum + Math.ceil(pile / speed), 0);
+    if (hours <= h) return speed;
   }
-  return min
+  return maxSpeed;
 };
 ```
 
 It can be thought that [1…maximum speed] is a monotonic interval, which can be solved by bisection.
 
 ```javascript
-var minEatingSpeed = function(piles, h) {
-  // The minimum speed is to find the lower bound l piles = piles.sort((a,b) => a - b)
-  var maxSpeed = piles[piles.length - 1]
-  var min = maxSpeed
-  // Binary the speed range [1...maxSpeed] var l = 1 , r = maxSpeed
-  while(l <= r) {
-    var mid = l + Math.floor ((r - l) / 2)
-    var H = 0    for(let j = 0 ; j < piles.length ; j ++) {
-      H += Math.ceil(piles[j] / mid)
-    }
-    if ( H <= h ) {
-      // If yes, try to see if the speed can be smaller r = mid - 1 } else {
-      // Not applicable, increase the speed l = mid + 1 }
+var minEatingSpeed = function (piles, h) {
+  let left = 1;
+  let right = piles.reduce((max, pile) => Math.max(max, pile), 0);
+  while (left < right) {
+    const mid = left + Math.floor((right - left) / 2);
+    const hours = piles.reduce((sum, pile) => sum + Math.ceil(pile / mid), 0);
+    if (hours <= h) right = mid;
+    else left = mid + 1;
   }
-  return l
+  return left;
 };
 ```

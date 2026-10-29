@@ -1,4 +1,5 @@
 ---
+translationKey: article-138-copying-a-linked-list-with-random-pointers
 title: 138-Copying a linked list with random pointers
 date: 2021-07-22 00:00:00
 description: Deep-copying a linked list with random pointers using a hash map from old nodes to new.

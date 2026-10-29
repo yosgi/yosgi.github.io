@@ -1,4 +1,5 @@
 ---
+translationKey: article-662-binary-tree-maximum-width
 title: 662-Binary Tree Maximum Width
 date: 2021-03-13 00:00:00
 description: Computing the maximum width of a binary tree with BFS, tracking each node's position index within its level.
@@ -18,52 +19,62 @@ The initial idea was to use BFS, and remove a whole queue when removing it (late
 Then the double pointer finds the left and right nodes. End when both the left and right nodes do not exist
 
 ```javascript
-var widthOfBinaryTree = function(root) {
-    var que = [root]
-    var max = 0    while(que.length) {
-        var len = que.length        var left = 0        var right = que.length - 1        while(!que[left] && left < len) {
-            left ++        }
-        while(!que[right] && right >= 0) {
-            right --        }
-        if (left > right) {
-            break        }
-        max = Math.max(max,right - left+ 1)
-        for(let i = 0 ; i < len ; i ++) {
-            var node = que.shift()
-            if (!node) {
-                que.push(node)
-                que.push(node)
-                continue            }
-            node.left ? que.push(node.left) : que.push(null)
-            node.right ? que.push(node.right) : que.push(null)
-        }
+var widthOfBinaryTree = function (root) {
+  var que = [root];
+  var max = 0;
+  while (que.length) {
+    var len = que.length;
+    var left = 0;
+    var right = que.length - 1;
+    while (!que[left] && left < len) {
+      left++;
     }
-    return max
+    while (!que[right] && right >= 0) {
+      right--;
+    }
+    if (left > right) {
+      break;
+    }
+    max = Math.max(max, right - left + 1);
+    for (let i = 0; i < len; i++) {
+      var node = que.shift();
+      if (!node) {
+        que.push(node);
+        que.push(node);
+        continue;
+      }
+      node.left ? que.push(node.left) : que.push(null);
+      node.right ? que.push(node.right) : que.push(null);
+    }
+  }
+  return max;
 };
 ```
 
 Soon, the submission showed that the execution exceeded the time limit, so a queue for storing sequence numbers was added, which was synchronized with the BFS stack to calculate the left and right distances.
 
 ```javascript
-var widthOfBinaryTree = function(root) {
-    var que = [root]
-    var numQue = [1]
-    var max = 0    while(que.length) {
-        var len = que.length        max = Math.max(numQue[numQue.length - 1] - numQue[0] + 1)
-        for(let i = 0 ; i < len ; i ++) {
-            var node = que.shift()
-            var val = numQue.shift()
-            if (node.left) {
-                que.push(node.left)
-                numQue.push(val * 2)
-            }
-            if (node.right) {
-                que.push(node.right)
-                numQue.push(val * 2 + 1)
-            }
-        }
+var widthOfBinaryTree = function (root) {
+  var que = [root];
+  var numQue = [1];
+  var max = 0;
+  while (que.length) {
+    var len = que.length;
+    max = Math.max(max, numQue[numQue.length - 1] - numQue[0] + 1);
+    for (let i = 0; i < len; i++) {
+      var node = que.shift();
+      var val = numQue.shift();
+      if (node.left) {
+        que.push(node.left);
+        numQue.push(val * 2);
+      }
+      if (node.right) {
+        que.push(node.right);
+        numQue.push(val * 2 + 1);
+      }
     }
-    return max
+  }
+  return max;
 };
 ```
 
@@ -74,25 +85,27 @@ Then I flipped through the answers
 The first number of the current layer is subtracted from the table below each time.
 
 ```javascript
-var widthOfBinaryTree = function(root) {
-    var que = [root]
-    var numQue = [0]
-    var max = 0    while(que.length) {
-        var len = que.length        var start = numQue[0]
-        max = Math.max( numQue[numQue.length - 1]  - start  + 1,max)
-        for(let i = 0 ; i < len ; i ++) {
-            var node = que.shift()
-            var val = numQue.shift() - start
-            if (node.left) {
-                que.push(node.left)
-                numQue.push(val * 2 + 1 )
-            }
-            if (node.right) {
-                que.push(node.right)
-                numQue.push(val * 2 + 2 )
-            }
-        }
+var widthOfBinaryTree = function (root) {
+  var que = [root];
+  var numQue = [0];
+  var max = 0;
+  while (que.length) {
+    var len = que.length;
+    var start = numQue[0];
+    max = Math.max(numQue[numQue.length - 1] - start + 1, max);
+    for (let i = 0; i < len; i++) {
+      var node = que.shift();
+      var val = numQue.shift() - start;
+      if (node.left) {
+        que.push(node.left);
+        numQue.push(val * 2 + 1);
+      }
+      if (node.right) {
+        que.push(node.right);
+        numQue.push(val * 2 + 2);
+      }
     }
-    return max
+  }
+  return max;
 };
 ```

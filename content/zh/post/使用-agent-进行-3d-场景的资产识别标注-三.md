@@ -1,4 +1,5 @@
 ---
+translationKey: article-using-ai-agents-for-asset-recognition-and-annotation-in-3d-scenes-part-3
 title: 使用 Agent 进行 3D 场景的资产识别标注（三）
 date: 2026-06-21 10:00:00
 description: 让扫描结果落到正确的位置
@@ -42,9 +43,11 @@ Marker / callout
 
 所以我们后来把这部分单独拿出来处理。模型只负责判断图里可能有什么，几何和坐标问题尽量用确定性方法解决。
 
-## 正射视角下不要依赖 depth picking
+## 这次正射扫描为什么改用解析映射
 
-最早我们尝试直接用 Cesium 的 `scene.pickPosition`，把检测点从屏幕坐标转换回世界坐标。这个方法在透视视角下有时能工作，但在正射视角下很容易出问题。
+最早我们尝试直接用 Cesium 的 `scene.pickPosition`，把检测点从屏幕坐标转换回世界坐标。在当时的正射扫描实现里，我们遇到了严重偏移；下面的日志记录的是这次集成中的异常，不能据此判断所有正射视角都不支持 depth picking。
+
+[Cesium 官方文档](https://cesium.com/learn/cesiumjs/ref-doc/Scene.html#pickPosition)说明，该方法从深度缓冲和窗口坐标重建位置，且不同投影下的重建值可能略有不同。排查具体偏移时，还需要核对截图与窗口坐标、深度缓冲、相机状态和版本。
 
 当时我们看到过类似这样的日志：
 

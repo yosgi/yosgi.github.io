@@ -1,4 +1,5 @@
 ---
+translationKey: article-from-extracting-drawing-text-to-placing-2d-annotations-in-a-3d-scene
 title: From Extracting Drawing Text to Placing 2D Annotations in a 3D Scene
 date: 2026-06-12 11:28:21
 description: A practical engineering recap of how a simple drawing text extraction task turned into a 2D-to-3D mapping workflow for digital twins, combining SVG parsing, vision models, geometry rules, registration math, and agent tool design.
@@ -202,7 +203,7 @@ The pipeline looked like this:
 
 1. Convert matched world positions into a local east/north plane in meters around their centroid. We do not solve directly on longitude and latitude because degrees of longitude change with latitude.
     
-2. Fit the six affine coefficients using least squares. Three non-collinear point pairs are the minimum. More points make the fit more stable.
+2. Fit the six affine coefficients using least squares. Three non-collinear point pairs are the minimum. More accurate, well-distributed pairs can reduce sensitivity to individual measurement errors.
     
 3. With four or more matches, run RANSAC over all 3-point subsets. Match counts are usually small, so exhaustive enumeration is fine.
     
@@ -217,7 +218,7 @@ A message like this is much better than a generic “registration failed”:
 
 That tells the user which match to check.
 
-RANSAC helped with bad matches. If someone accidentally matched `P-101` to another pump 200 meters away, that point should become an outlier. It should not bend the whole transform.
+RANSAC can help reject a match to a pump 200 meters away when reliable anchors form a sufficient consensus and the residual threshold is appropriate. Four matches alone do not guarantee detection of one bad match: a 2D affine model needs only three non-collinear pairs, so several three-point hypotheses can tie with three inliers. More reliable anchors, residual checks, and geometric constraints may be needed; consensus fitting does not replace input verification.
 
 We added two guards after seeing the kinds of inputs users actually pick.
 

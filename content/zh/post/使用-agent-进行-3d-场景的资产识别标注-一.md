@@ -1,4 +1,5 @@
 ---
+translationKey: article-using-ai-agents-for-asset-recognition-and-annotation-in-3d-scenes-part-1
 title: 使用Agent 进行3D场景的资产识别标注（一）
 date: 2026-06-19 09:46:11
 description: 如何把 3D 自由探索改成可度量的覆盖扫描，用于数字孪生工厂中的阀门盘点

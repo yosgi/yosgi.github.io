@@ -1,7 +1,8 @@
 ---
+translationKey: article-early-experiences-with-building-mcp-tools
 title: Early Experiences with Building MCP Tools
 date: 2026-01-29 17:45:36
-description: How  Cut 6,000 Tokens Down to 500
+description: Reducing an agent’s default context overhead with dynamic tool loading, unified interfaces, and context budgets.
 categories:
   - AI Engineering
 tags:
@@ -18,7 +19,7 @@ Here’s what that looked like:
 - Tools (42 total): ~4,000 tokens (including both the Digital Twin tools and the Navigator tools)
 - Total baseline: ~6,000 tokens before any conversation even began
 
-And as many developers know, the more tokens you pack into a single context, the “dumber” the AI becomes — slower responses, higher cost, and less accuracy.
+In our tasks, redundant tool descriptions and irrelevant data added input overhead and could interfere with tool selection. The effect depends on the model, content, and task; a longer context does not by itself establish lower accuracy.
 
 
 **Step 1. Dynamic Tool Loading with Embeddings**
@@ -60,7 +61,7 @@ We enforced a token budget per conversation:
 - Keep only the first 4 and last 4 messages in full.
 - When the conversation exceeds 6,000 tokens, automatically summarize the middle part.
 
-We also shortened and standardized tool documentation, using clean, regularized one-line formats rather than verbose JSON schemas or lengthy examples.
+We shortened the default tool summaries and loaded detailed definitions on demand. The MCP tools still retained their inputSchema and server-side validation; concise model-facing documentation does not remove interface constraints.
 
 
 **Step 5. Planner–Executor Separation**
@@ -79,9 +80,12 @@ This separation further cut down prompt size and improved clarity.
 
 After all these optimizations:
 
-- Tool tokens reduced: from ~6,000 → ~500
-- System tokens reduced: from ~1,000 → ~400
-- The model became faster, cheaper, and most importantly, more accurate.
+- In one optimized configuration, default tool descriptions occupied about 500 tokens.
+- The system prompt in the optimized notes occupied about 400 tokens.
+
+These figures cover default initialization only. Dynamically loaded definitions, tool results, and later messages still consume context; 500 is not the total cost of a conversation. The earlier and later configurations also lack a complete, consistently measured baseline, so these notes do not establish an exact reduction percentage.
+
+We observed improvements in responsiveness and tool selection. Quantifying latency, accuracy, or total cost would require a fixed model, tokenizer, task set, and retry accounting.
 
 **Bonus: The “Format Imitation” Phenomenon**
 

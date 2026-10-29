@@ -1,4 +1,5 @@
 ---
+translationKey: article-algorithm-and-process-control-optimization
 title: Algorithm and process control optimization
 date: 2018-10-25 14:33:59
 description: High Performance Javascript Knowledge Points

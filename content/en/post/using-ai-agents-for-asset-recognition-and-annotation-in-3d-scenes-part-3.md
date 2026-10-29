@@ -1,4 +1,5 @@
 ---
+translationKey: article-using-ai-agents-for-asset-recognition-and-annotation-in-3d-scenes-part-3
 title: Using AI Agents for Asset Recognition and Annotation in 3D Scenes (Part 3)
 date: 2026-06-21 10:00:00
 description: Making scan results land in the right place
@@ -32,9 +33,11 @@ If any step in this chain is wrong, the final symptom may look like “the model
 
 So we separated this part from model recognition. The model is responsible for judging what may be present in the image. Geometry and coordinate problems should be solved as deterministically as possible.
 
-## Do Not Rely on Depth Picking in Orthographic View
+## Why We Switched This Orthographic Scan to Analytic Mapping
 
-At first, we tried to use Cesium’s scene.pickPosition directly to convert a detection point from screen coordinates back into world coordinates. This can sometimes work in perspective view, but it is unreliable in orthographic view.
+At first, we used Cesium’s `scene.pickPosition` to convert detection points from screen coordinates back into world coordinates. We encountered severe offsets in our orthographic scanning implementation. The log below records that integration failure; it does not establish that depth picking is unsupported in every orthographic view.
+
+[Cesium’s documentation](https://cesium.com/learn/cesiumjs/ref-doc/Scene.html#pickPosition) describes reconstruction from the depth buffer and window coordinates, and notes that results can differ slightly between projection modes. Diagnosing a particular offset also requires checking image-to-window coordinates, depth data, camera state, and the Cesium version.
 
 We saw logs like this:
 

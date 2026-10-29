@@ -95,3 +95,5 @@ GitHub Pages deploys on push to `master`.
 - Search loads its index and Fuse only on first use. Mermaid is loaded for diagram pages; KaTeX is loaded for detected block formulas or explicit article `math: true` (required for inline `$…$` formulas).
 - Build and validate production output with `pnpm build` (or `bash scripts/build-site.sh`). This also publishes the multilingual 404 at `/404.html`, as required by GitHub Pages. The old `/post/` entry redirects through `static/post/index.html`.
 - The build checks every generated local link, image, heading fragment and duplicate ID, plus the domain, language routes and modification dates. GitHub Actions uses the same build command.
+- `node tools/check_article_examples.js` checks complete algorithm snippets and runs input/output regressions for corrected examples. Teaching signatures, module fragments and JSX examples are not treated as standalone algorithms.
+- Paired articles share a `translationKey`; keep it when editing or renaming source files so language switching stays on the same article. Content review findings and outstanding data questions are recorded in `docs/content-audit-2026-10-29.md`.

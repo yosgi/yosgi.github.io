@@ -1,4 +1,5 @@
 ---
+translationKey: article-why-tool-and-code-fail-differently-in-agent-systems-2
 title: Why Tool and Code Fail Differently in Agent Systems（2）
 date: 2026-05-25 14:50:20
 description: Tool and Code do not just differ in expressiveness; they also fail at different times. This article explains why multi-round Agent systems amplify that difference.
@@ -96,7 +97,7 @@ The parameters are already known before execution.
 
 Many errors can be caught early: wrong types, missing fields, invalid enum values, insufficient permissions.
 
-The failure happens before the real execution.
+These parameter and permission errors can be rejected before side effects occur. Tools can also fail during execution: an external API can time out, business state can change, or a frontend operation can succeed only partially. A schema does not guarantee successful execution.
 
 That makes the failure relatively cheap.
 
@@ -234,9 +235,9 @@ If both are forced into the same execution path, the cost starts to show.
 
 Over time, I found validation timing to be the more useful lens.
 
-Tool-based execution is more likely to fail before execution.
+In our implementation, narrow interfaces made parameter errors easier to reject early, while generated code introduced more opportunities for field-access, dependency, and control-flow errors.
 
-Code-based execution is more likely to fail during runtime.
+This is not a distinction imposed by the protocol. Both paths can validate before execution and both can fail at runtime. The useful comparison is validation coverage, when side effects begin, and how much work recovery requires.
 
 That difference changes the whole cost structure.
 
@@ -321,3 +322,7 @@ But they fail differently.
 And in a high-interaction Agent system, where they fail often matters more than what they can express.
 
 The next article will continue with the switching problem.
+
+## Reference
+
+The MCP specification distinguishes protocol errors from tool execution errors, which can be returned with `isError: true`: [Tools — Error Handling](https://modelcontextprotocol.io/specification/2025-06-18/server/tools#error-handling).

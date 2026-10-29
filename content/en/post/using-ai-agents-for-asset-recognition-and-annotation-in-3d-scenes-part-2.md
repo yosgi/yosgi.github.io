@@ -1,4 +1,5 @@
 ---
+translationKey: article-using-ai-agents-for-asset-recognition-and-annotation-in-3d-scenes-part-2
 title: Using AI Agents for Asset Recognition and Annotation in 3D Scenes (Part 2)
 date: 2026-06-20 19:11:11
 description: How we split 2D detection and 3D verification into two stages to reduce false positives in digital twin asset annotation, and how that revealed the next recall bottleneck
@@ -52,6 +53,10 @@ From the current results, 3D verification helps precision noticeably.
 | After 3D, good case | Around 15%–20% |
 | After 3D, realistic case | Around 20%–25% |
 | After 3D, poor coverage | Close to 2D, still around 30% |
+
+Here, the share of false positives means `FP / (TP + FP)`, or `1 - precision`, not the false positive rate over all actual negatives. Filtering changes the number of reported candidates, so the percentage-point difference is not a count of removed false positives. Verification can also reject true targets; final recall must be measured separately. See the [scikit-learn metric definitions](https://scikit-learn.org/stable/modules/model_evaluation.html#precision-recall-f-measure-metrics).
+
+These approximate values describe the tests at the time. Reproduction would also require the scene scope, labeled target count, TP/FP/FN counts, candidate deduplication rules, and how unverified candidates are scored.
 
 These numbers show that the value of 3D verification depends on whether it gets a useful viewpoint.
 

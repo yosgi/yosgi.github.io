@@ -1,4 +1,5 @@
 ---
+translationKey: article-circle-after-the-hype-was-a-40-billion-valuation-justified
 title: Circle暴涨后，400亿美元估值是否合理？
 date: 2025-06-29 00:00:00
 description: 我的判断是：Circle不是没有价值，但当时约400亿美元的估值已经很充分地反映了未来增长预期。这个价格更适合看作对未来三到五年业务扩张的提前定价，而不是对当前盈利能力的定价。

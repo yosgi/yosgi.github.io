@@ -1,4 +1,5 @@
 ---
+translationKey: article-297-serialization-and-deserialization-of-binary-trees
 title: 297-Serialization and Deserialization of Binary Trees
 date: 2021-03-04 00:00:00
 description: Serializing a binary tree with BFS and deserializing it using parent/child index relationships.
@@ -22,39 +23,47 @@ Deserialization requires the use of the properties of a binary tree, that is, th
 1. Repeat 1.
 
 ```javascript
-var serialize = function(root) {
-    if (!root) return []
-    var que = [root]
-    var res = []
-    while(que.length) {
-        var cur = que.shift()
-        if (cur) {
-            res.push(cur.val);
-            que.push(cur.left);            que.push(cur.right);
-        } else {
-            res.push('null');
-        }
+var serialize = function (root) {
+  if (!root) return [];
+  var que = [root];
+  var res = [];
+  while (que.length) {
+    var cur = que.shift();
+    if (cur) {
+      res.push(cur.val);
+      que.push(cur.left);
+      que.push(cur.right);
+    } else {
+      res.push("null");
     }
-    return res.join(',')
-};/** * Decodes your encoded data to tree. * * @param {string} data * @return {TreeNode} */var deserialize = function(data) {
-    if (!data.length) return null    var nodes = data.split(',')
-    var i = 0
-    var root = new TreeNode(nodes[i])
-    var que = [root]
-    while ( que.length) {
-        var node  = que.shift()
-        var left = nodes[ (i + 1) * 2 - 1]
-        var right = nodes[ (i + 1) * 2]
-        if (left !== 'null') {
-            node.left = new TreeNode(left)
-            que.push(node.left)
-        } else {
-            node.left = null        }
-        if (right !== 'null') {
-            node.right = new TreeNode(right)
-            que.push(node.right)
-        } else {
-            node.right = null        }
-        i++    }
-    return root};
+  }
+  return res.join(",");
+};
+/** * Decodes your encoded data to tree. * * @param {string} data * @return {TreeNode} */ var deserialize =
+  function (data) {
+    if (!data.length) return null;
+    var nodes = data.split(",");
+    var i = 0;
+    var root = new TreeNode(nodes[i]);
+    var que = [root];
+    while (que.length) {
+      var node = que.shift();
+      var left = nodes[(i + 1) * 2 - 1];
+      var right = nodes[(i + 1) * 2];
+      if (left !== "null") {
+        node.left = new TreeNode(left);
+        que.push(node.left);
+      } else {
+        node.left = null;
+      }
+      if (right !== "null") {
+        node.right = new TreeNode(right);
+        que.push(node.right);
+      } else {
+        node.right = null;
+      }
+      i++;
+    }
+    return root;
+  };
 ```

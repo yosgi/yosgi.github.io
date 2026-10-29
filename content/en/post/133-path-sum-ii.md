@@ -1,5 +1,5 @@
 ---
-title: 133-Path Sum II
+title: 113-Path Sum II
 date: 2021-02-28 00:00:00
 description: Collecting all root-to-leaf paths with a given sum using DFS with backtracking.
 draft: false
@@ -15,17 +15,20 @@ Time: 10 minutes
 The question is to find the path from the root node to the child nodes whose sum is equal to the target value. It is easy to think of using DFS. The path can be passed as a parameter. As long as the last node is a leaf node, it can be used.
 
 ```javascript
-var pathSum = function(root, sum) {
-    var res = []
-    if (!root) return []
-    var dfs = function (node,visited,total) {
-        if (sum === total && (!node.left && !node.right)) {
-            res.push(visited)
-            return        }
-        node.left && dfs(node.left,[...visited,node.left.val],total + node.left.val)
-        node.right && dfs(node.right ,[...visited,node.right.val], total + node.right.val)
+var pathSum = function (root, sum) {
+  var res = [];
+  if (!root) return [];
+  var dfs = function (node, visited, total) {
+    if (sum === total && !node.left && !node.right) {
+      res.push(visited);
+      return;
     }
-    dfs(root,[root.val],root.val)
-    return res
+    node.left &&
+      dfs(node.left, [...visited, node.left.val], total + node.left.val);
+    node.right &&
+      dfs(node.right, [...visited, node.right.val], total + node.right.val);
+  };
+  dfs(root, [root.val], root.val);
+  return res;
 };
 ```

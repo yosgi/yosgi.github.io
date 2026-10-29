@@ -27,40 +27,47 @@ The reason why it takes so much time is that after finding the parent, DFS is us
 The way to avoid this is to find the parent, and if it is the left child, go to the right child (because the left child has already been found), otherwise go the other way.
 
 ```javascript
-var distanceK = function(root, target, K) {
-    var node = null    var res = []
-    var dfs = function (root) {
-        if (root === target) {
-            node = root        }
-        if (root.left) {
-            root.left.parent = root            dfs(root.left)
-        }
-        if (root.right) {
-            root.right.parent = root            dfs(root.right)
-        }
+var distanceK = function (root, target, K) {
+  var node = null;
+  var res = [];
+  var dfs = function (root) {
+    if (root === target) {
+      node = root;
     }
-    dfs(root)
-    var search = function (root,index) {
-        if (!root) return
-        if (index === K) {
-            res.push(root.val)
-        }
-        root.left && search(root.left,index + 1)
-        root.right &&  search(root.right,index + 1)
+    if (root.left) {
+      root.left.parent = root;
+      dfs(root.left);
     }
-    search(node,0)
-    var index = 1    // The initial distance between the parent node and node is 1 while(index <= K && node.parent) {
-        if(index === K) {
-            res.push(node.parent.val)
-            break        }
-        if (node.parent.left === node) {
-            search(node.parent.right,++index)
-        } else {
-            search(node.parent.left,++index)
-        }
-        node = node.parent
+    if (root.right) {
+      root.right.parent = root;
+      dfs(root.right);
     }
-    return res
+  };
+  dfs(root);
+  var search = function (root, index) {
+    if (!root) return;
+    if (index === K) {
+      res.push(root.val);
+    }
+    root.left && search(root.left, index + 1);
+    root.right && search(root.right, index + 1);
+  };
+  search(node, 0);
+  var index = 1;
+  // The initial distance between the parent node and node is 1
+  while (index <= K && node.parent) {
+    if (index === K) {
+      res.push(node.parent.val);
+      break;
+    }
+    if (node.parent.left === node) {
+      search(node.parent.right, ++index);
+    } else {
+      search(node.parent.left, ++index);
+    }
+    node = node.parent;
+  }
+  return res;
 };
 ```
 

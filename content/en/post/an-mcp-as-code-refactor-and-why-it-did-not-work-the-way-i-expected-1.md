@@ -1,4 +1,5 @@
 ---
+translationKey: article-an-mcp-as-code-refactor-and-why-it-did-not-work-the-way-i-expected-1
 title: An MCP-as-Code Refactor, and Why It Did Not Work the Way I Expected
 date: 2026-05-25 14:50:20
 description: A real-world MCP-as-Code refactor on where Code helps, where Tool still fits better, and why Agent runtime needs both.

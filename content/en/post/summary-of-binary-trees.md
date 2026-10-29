@@ -1,7 +1,8 @@
 ---
+translationKey: article-summary-of-binary-trees
 title: Summary of Binary Trees
 date: 2021-02-28 00:00:00
-description: Notes on binary tree traversal — why DFS uses a stack and BFS a queue, with reusable pre/in/post-order and level-order templates.
+description: "Binary tree traversal: stacks, queues and processing order, with working pre-order DFS and level-order BFS search examples."
 draft: false
 categories:
   - Algorithms
@@ -13,56 +14,51 @@ tags:
   - JavaScript
 ---
 
-When traversing a binary tree in front, middle, or post-order, we use a stack to simplify operations. This is because they are all recursive structures of DFS, which means processing from bottom to top. However, I always start writing code from the root node, so I need a stack, and the stack is first-in-first-out. This way, I can process the root node last.
+## Why DFS Uses a Stack and BFS Uses a Queue
 
-Level-order traversal is BFS, from top to bottom. The root element that was enqueued first is also the one I want to process first. This is why DFS uses a stack and BFS uses a queue.
+A stack is **last in, first out (LIFO)**. A queue is **first in, first out (FIFO)**. Recursive DFS uses the function call stack; an iterative implementation can keep pending nodes in an explicit stack. BFS uses a queue to process one level before the next.
 
-### DFS algorithm flow and template
+DFS does not always process nodes “from bottom to top.” Pre-order processes the current node before its subtrees, in-order between the two subtrees, and post-order after both subtrees. Traversal direction and the moment at which a node is processed are separate choices.
 
-1. First, place the root node in the stack.
+## DFS: A Pre-order Search Template
 
-1. Remove the first node from the stack and check if it is the target. If all nodes are found, the search ends and the result is returned. Otherwise, add one of its unchecked direct child nodes to the stack.
-
-1. Repeat step 2.
-
-1. If there are no unchecked direct child nodes, add the parent node to the stack.
-
-1. Repeat step 2.
-
-1. Repeat step 4.
-
-If the stack is empty, the entire graph has been checked—that is, there is no target to be found. The search ends and the result is returned: "Target not found."
+Pop a node, test it, then push its right child before its left child so the left subtree is visited first. Stop when a match is found or the stack is empty. This is a pre-order template; in-order and post-order require different scheduling of the processing step.
 
 ```javascript
-function dfs(root) {
-    if (满足特定条件）{
-        // Return results or exit search space }
-    for (const child of root.children) {
-        dfs(child)
-    }
-}
-```
-
-### BFS algorithm flow and template
-
-1. First, place the root node in the queue.
-
-1. Remove the first node from the queue and check if it is the target.
-- If the target is found, the search ends and the result is returned.
-- Otherwise, all of its direct children that have not yet been checked are added to the queue.
-
-1. If the queue is empty, the entire graph has been searched—that is, there is no target to be found. The search ends and the result is "target not found."
-
-1. Repeat step 2.
-
-```javascript
-function bfs(root) {
-  var que = [root]
-  while(que.length) {
-    var node = que.shift()
-     if (node 是我们要找到的)  return node
-     node.left && que.push(node.left)
-        node.right && que.push(node.right)
+function findDepthFirst(root, predicate) {
+  if (!root) return null;
+  const stack = [root];
+  while (stack.length) {
+    const node = stack.pop();
+    if (predicate(node)) return node;
+    if (node.right) stack.push(node.right);
+    if (node.left) stack.push(node.left);
   }
+  return null;
 }
 ```
+
+## BFS: A Level-order Search Template
+
+Take the next node from the front and append its children at the back. A `head` index avoids repeatedly shifting array elements. This simple implementation retains visited queue slots, so the array uses O(n) space in the worst case.
+
+```javascript
+function findBreadthFirst(root, predicate) {
+  if (!root) return null;
+  const queue = [root];
+  for (let head = 0; head < queue.length; head++) {
+    const node = queue[head];
+    if (predicate(node)) return node;
+    if (node.left) queue.push(node.left);
+    if (node.right) queue.push(node.right);
+  }
+  return null;
+}
+```
+
+For example, `findDepthFirst(root, node => node.val === 7)` returns the first matching node, or `null` if no match exists. Both searches take O(n) time in the worst case for a tree with n nodes. The explicit DFS stack uses O(h) space, where h is the tree height; the retained BFS queue array uses O(n).
+
+## References
+
+- [NIST: LIFO stack definition](https://xlinux.nist.gov/dads/HTML/stack.html)
+- [NIST: FIFO queue definition](https://www.nist.gov/ncnr/nice-help/queue)

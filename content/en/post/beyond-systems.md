@@ -1,4 +1,5 @@
 ---
+translationKey: article-beyond-systems
 title: Beyond Systems
 date: 2026-02-01 00:03:08
 description: Building a Personal Digital Twin

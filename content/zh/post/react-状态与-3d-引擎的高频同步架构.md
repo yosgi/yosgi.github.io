@@ -1,4 +1,5 @@
 ---
+translationKey: article-high-frequency-synchronization-architecture-between-react-state-and-a-3d-engine
 title: React 状态与 3D 引擎的高频同步架构
 date: 2026-01-31 23:42:31
 description: 一套适用于海量即时数据的同步范式：中间层隔离高频数据源，React 只消费可视窗口的线性投影。
@@ -65,7 +66,7 @@ flowchart LR
 
 它在内存中维护了一个完整的节点数据库。
 
-- 利用 `Map<ID, Node>` 建立全量索引，确保任何一种通过 ID 查找节点的操作（如：根据 Cesium 点击事件反查树节点）都是 O(1) 复杂度。
+- 利用 `Map<ID, Node>` 建立全量索引，避免每次按 ID 查找都遍历全量节点。常见哈希表实现的平均查找接近 O(1)，但 JavaScript 规范只要求平均访问时间随元素数量次线性增长，不保证所有实现和每次访问都是 O(1)。参见 [ECMAScript Map 定义](https://tc39.es/ecma262/multipage/keyed-collections.html#sec-map-objects)。
 - 维护节点的持久化状态（Opened/Checked），这些状态独立于 UI 存在，即使组件卸载重装，状态依然保留。
 
 ### 2. 流量整形 (Traffic Shaping)
@@ -151,7 +152,7 @@ const rangeSelection = (startId, endId) => {
 
 在传统递归树中，如果每个子节点都各自触发 UI 更新，勾选一个包含大量子节点的父级可能造成明显卡顿。在我们的架构中，节点状态先在内存里批量更新，再通知可见列表：
 
-1. 索引查找：Map 可以按 ID 常数时间找到单个节点；收集全部子孙仍需遍历相关节点。
+1. 索引查找：常见实现下，Map 按 ID 查找单个节点的平均时间接近常数；收集全部子孙仍需遍历相关节点。
 2. 批量修改：在数据 Store 中更新约 26,000 个节点，这部分工作至少随更新节点数增长。
 3. 按需绘制：VirtualList 只渲染屏幕可见的约 20 行，避免为所有被修改的节点创建或更新 DOM。
 

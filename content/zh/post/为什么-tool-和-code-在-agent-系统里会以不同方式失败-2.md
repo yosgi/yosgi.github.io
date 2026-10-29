@@ -1,4 +1,5 @@
 ---
+translationKey: article-why-tool-and-code-fail-differently-in-agent-systems-2
 title: 为什么 Tool 和 Code 在 Agent 系统里会以不同方式失败（2）
 date: 2026-05-25 14:50:20
 description: Tool 和 Code 不只是表达能力不同，它们也会在不同时间失败。本文解释为什么多轮 Agent 系统会放大这种差异。
@@ -104,7 +105,7 @@ Tool-based execution 通常有一个有限的动作集合。
 
 很多错误可以提前拦下来：类型不对、字段缺失、枚举值非法、权限不足。
 
-失败发生在真正执行之前。
+这些参数和权限错误可以在产生副作用之前被拒绝。但 Tool 也会在执行中失败，例如外部 API 超时、业务状态变化或前端只完成部分操作；schema 并不保证执行成功。
 
 这让失败相对便宜。
 
@@ -247,9 +248,9 @@ Code 才是更自然的执行环境。
 
 后来我越来越觉得，validation timing 是一个更有用的视角。
 
-Tool-based execution 更容易在执行前失败。
+在我们当时的实现里，窄接口更容易把参数错误提前拦住；自由生成的代码则增加了字段访问、依赖和控制流错误的机会。
 
-Code-based execution 更容易在运行时失败。
+这不是协议规定的二分法。Tool 和 Code 都可能有执行前校验，也都可能出现运行时错误。真正要比较的是校验覆盖范围、产生副作用的时机，以及失败后需要补救多少工作。
 
 这个差异会改变整个成本结构。
 
@@ -334,3 +335,7 @@ Tool 和 Code 都有用。
 而在一个高交互 Agent 系统里，它们在哪里失败，往往比它们能表达什么更重要。
 
 下一篇会继续讲这个切换问题。
+
+## 参考
+
+MCP 规范区分协议错误和工具执行错误，后者可以通过 `isError: true` 返回：[Tools — Error Handling](https://modelcontextprotocol.io/specification/2025-06-18/server/tools#error-handling)。

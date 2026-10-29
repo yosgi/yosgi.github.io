@@ -1,4 +1,5 @@
 ---
+translationKey: article-98-verify-binary-search-tree
 title: 98-Verify Binary Search Tree
 date: 2021-03-13 00:00:00
 description: Validating a binary search tree by exploiting the increasing order of its in-order traversal.
@@ -24,19 +25,25 @@ Just use the increasing property of in-order traversal of the binary search tree
 1. If not, increment, assign pre, and return 1
 
 ```javascript
-var isValidBST = function(root) {
-    var preVal = null    var DFS = function(root) {
-        var left = true        var right = true        if (root.left) {
-            left =  DFS(root.left)
-        }
-        if (preVal !== null) {
-            if (preVal >= root.val) return false            preVal = root.val        } else {
-            preVal = root.val        }
-        if (root.right) {
-            right =  DFS(root.right)
-        }
-        return left && right
+var isValidBST = function (root) {
+  var preVal = null;
+  var DFS = function (root) {
+    var left = true;
+    var right = true;
+    if (root.left) {
+      left = DFS(root.left);
     }
-    return DFS(root)
+    if (preVal !== null) {
+      if (preVal >= root.val) return false;
+      preVal = root.val;
+    } else {
+      preVal = root.val;
+    }
+    if (root.right) {
+      right = DFS(root.right);
+    }
+    return left && right;
+  };
+  return DFS(root);
 };
 ```

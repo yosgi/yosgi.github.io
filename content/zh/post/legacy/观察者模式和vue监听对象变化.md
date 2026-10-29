@@ -1,4 +1,5 @@
 ---
+translationKey: article-observer-mode-and-vue-monitoring-object-changes
 title: 观察者模式和vue监听对象变化
 date: 2018-05-05 22:38:54
 description: 《Javascript设计模式》 知识点整理
