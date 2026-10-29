@@ -4,7 +4,7 @@
 {{- $title := partial "seo/page-title.html" . -}}
 {{- $author := .Site.Params.author | default .Site.Title -}}
 {{- $robots := partial "seo/robots.html" . -}}
-{{- $defaultTranslations := where .AllTranslations "Lang" site.Home.Language.Name -}}
+{{- $defaultTranslations := where .AllTranslations "Lang" site.Home.Language.Lang -}}
 {{- $isArticle := false -}}
 {{- if and .IsPage (eq .Section "post") -}}
   {{- $isArticle = true -}}

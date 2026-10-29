@@ -1,0 +1,5 @@
+<!doctype html>
+<html lang="{{ .Site.Language.Locale | default .Site.Language.Lang }}">
+{{ partial "head.html" . }}
+<body>{{ partial "header.html" . }}{{ partial "search.html" . }}{{ block "content" . }}{{ end }}{{ partial "footer.html" . }}{{ partial "script.html" . }}</body>
+</html>

@@ -1,0 +1,155 @@
+[nav_home]
+other = "Home"
+
+[nav_posts]
+other = "Articles"
+
+[nav_projects]
+other = "Projects"
+
+[nav_about]
+other = "About"
+
+[search]
+other = "Search"
+
+[search_placeholder]
+other = "Search articles, projects, ideas…"
+
+[search_close]
+other = "Close search"
+
+[search_clear]
+other = "Clear"
+
+[search_hint]
+other = "Enter at least 2 characters to search."
+
+[search_loading]
+other = "Searching…"
+
+[search_error]
+other = "Search could not load. Try again."
+
+[search_empty]
+other = "No matching articles. Try another keyword."
+
+[search_count]
+other = "{count} results for “{query}”"
+
+[search_back]
+other = "Back to the page"
+
+[search_more]
+other = "Showing the first 20 results. Refine your search for more."
+
+[skip_content]
+other = "Skip to content"
+
+[theme_toggle]
+other = "Toggle light and dark mode"
+
+[latest]
+other = "Latest writing"
+
+[featured]
+other = "Start here"
+
+[browse_all]
+other = "All articles"
+
+[topics]
+other = "Explore a topic"
+
+[projects_title]
+other = "Things I’m building"
+
+[projects_intro]
+other = "Small tools, playable experiments, and ideas that made it into a browser."
+
+[open_project]
+other = "Open project"
+
+[project_story]
+other = "Read the story"
+
+[all_projects]
+other = "All projects"
+
+[published]
+other = "Published"
+
+[updated]
+other = "Updated"
+
+[minutes]
+other = "min read"
+
+[words]
+other = "words"
+
+[related]
+other = "Keep reading"
+
+[takeaways]
+other = "Key takeaways"
+
+[tldr]
+other = "In brief"
+
+[toc]
+other = "On this page"
+
+[previous]
+other = "Previous"
+
+[next]
+other = "Next"
+
+[previous_article]
+other = "Previous in series"
+
+[next_article]
+other = "Next in series"
+
+[series]
+other = "In this series"
+
+[copy_code]
+other = "Copy code"
+
+[copied]
+other = "Copied"
+
+[copy_failed]
+other = "Select the code to copy"
+
+[back_top]
+other = "Back to top"
+
+[contact]
+other = "Get in touch"
+
+[all_topics]
+other = "All topics"
+
+[filter_clear]
+other = "Clear filter"
+
+[results]
+other = "articles"
+
+[rss]
+other = "Subscribe via RSS"
+
+[built_with]
+other = "Built with Hugo · Theme inspired by github-style"
+
+[hero_title]
+other = "Engineering, AI, and things worth building."
+
+[hero_intro]
+other = "I’m Siqi Liu, a software engineer in Auckland. I write about AI agents, digital twins, the projects I build, and what I learn along the way."
+
+[empty_category]
+other = "No articles here yet."

@@ -1,0 +1,4 @@
+{{ define "content" }}<main id="main-content" class="application-main page-width catalog-main"><header class="catalog-heading"><h1>{{ .Title }}</h1>{{ partial "topic-links.html" . }}</header>
+{{ range hugo.Data.topics }}{{ $topic := . }}{{ $posts := slice }}{{ range where site.RegularPages "Section" "post" }}{{ if intersect (.Params.categories | default slice) $topic.categories }}{{ $posts = $posts | append . }}{{ end }}{{ end }}
+<section id="{{ .id }}" class="home-section topic-section"><div class="section-heading"><h2>{{ index .label site.Language.Lang }}</h2><span>{{ len $posts }} {{ i18n "results" }}</span></div><div class="topic-article-list">{{ range $posts.ByDate.Reverse }}<a href="{{ .RelPermalink }}"><span>{{ .Title }}</span><time datetime="{{ .PublishDate.Format "2006-01-02" }}">{{ .PublishDate.Format "2006-01-02" }}</time></a>{{ end }}</div></section>
+{{ end }}</main>{{ end }}

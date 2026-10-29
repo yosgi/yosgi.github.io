@@ -27,7 +27,7 @@
 
     {{ range .Site.Params.custom_css -}}
     {{ $href := . }}
-    <link rel="stylesheet" href="{{ if or (hasPrefix $href "http://") (hasPrefix $href "https://") }}{{ $href }}{{ else }}{{ $href | relURL }}{{ end }}">
+    <link rel="stylesheet" href="{{ if or (hasPrefix $href "http://") (hasPrefix $href "https://") }}{{ $href }}{{ else }}{{ $href | relURL }}?v={{ readFile (printf "static/%s" $href) | crypto.SHA256 | truncate 12 "" }}{{ end }}">
     {{- end }}
     {{ range .Site.Params.custom_js -}}
     {{ $src := . }}

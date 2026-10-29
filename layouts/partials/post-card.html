@@ -1,0 +1,5 @@
+<article class="post-card">
+  <div class="card-meta"><time datetime="{{ .PublishDate.Format "2006-01-02" }}">{{ .PublishDate.Format "2006-01-02" }}</time>{{ with .Params.categories }}<span>{{ partial "category-label.html" (index . 0) }}</span>{{ end }}</div>
+  <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+  <p>{{ partial "seo/summary.html" (dict "page" . "limit" 150) }}</p>
+</article>

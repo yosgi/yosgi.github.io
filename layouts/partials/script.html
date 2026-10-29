@@ -1,72 +1,17 @@
-<script type="application/javascript" src="{{ "js/github-style.js" | relURL }}"></script>
-{{ if or .Params.math .Site.Params.math }}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css"
-  integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"
-  integrity="sha384-hIoBPJpTUs74ddyc4bFZSM1TVlQDA60VBbJS0oA934VSz82sBx1X7kSx2ATBDIyd" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"
-  integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"
-  onload="renderMathInElement(document.body, {
-    delimiters: [
-      {left: '$$', right: '$$', display: true},
-      {left: '\\[', right: '\\]', display: true},
-      {left: '\\(', right: '\\)', display: false},
-      {left: '$', right: '$', display: false}
-    ],
-    throwOnError: false
-  });"></script>
+<script defer src="{{ "js/site.js" | relURL }}?v={{ readFile "static/js/site.js" | crypto.SHA256 | truncate 12 "" }}"></script>
+{{ if .Site.Params.enableSearch }}<script defer src="{{ "js/search.js" | relURL }}?v={{ readFile "static/js/search.js" | crypto.SHA256 | truncate 12 "" }}"></script>{{ end }}
+{{ if and .IsPage (strings.Contains .RawContent "```mermaid") }}
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script defer src="{{ "js/mermaid-init.js" | relURL }}?v={{ readFile "static/js/mermaid-init.js" | crypto.SHA256 | truncate 12 "" }}"></script>
 {{ end }}
-
-{{ if or .Params.MathJax .Site.Params.MathJax }}
-<script type="text/javascript" async
-  src="https://cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-    MathJax.Hub.Config({
-      tex2jax: {
-        inlineMath: [['$', '$'], ['\\(', '\\)']],
-        displayMath: [['$$', '$$'], ['\[\[', '\]\]']],
-        processEscapes: true,
-        processEnvironments: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-        TeX: {
-          equationNumbers: { autoNumber: "AMS" },
-          extensions: ["AMSmath.js", "AMSsymbols.js"]
-        }
-      }
-    });
-
-    MathJax.Hub.Queue(function () {
-      // Fix <code> tags after MathJax finishes running. This is a
-      // hack to overcome a shortcoming of Markdown. Discussion at
-      // https://github.com/mojombo/jekyll/issues/199
-      var all = MathJax.Hub.getAllJax(), i;
-      for (i = 0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';
-      }
-    });
-  </script>
-
-<style>
-  code.has-jax {
-    font: inherit;
-    font-size: 100%;
-    background: inherit;
-    border: inherit;
-    color: #515151;
-  }
-</style>
+{{ $mathSource := .RawContent | replaceRE `(?s)\x60{3}.*?\x60{3}|~{3}.*?~{3}|\x60[^\x60]+\x60` "" }}
+{{ $hasMath := and .IsPage (or .Params.math .Params.MathJax (findRE `(?s)\$\$.+?\$\$|\\\(.+?\\\)|\\\[.+?\\\]` $mathSource 1)) }}
+{{ if $hasMath }}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css" integrity="sha384-wcIxkf4k558AjM3Yz3BBFQUbk/zgIYC2R0QpeeYb+TwlBVMrlgLqwRjRtGZiK7ww" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js" integrity="sha384-hIoBPJpTUs74ddyc4bFZSM1TVlQDA60VBbJS0oA934VSz82sBx1X7kSx2ATBDIyd" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js" integrity="sha384-43gviWU0YVjaDtb/GhzOouOXtZMP/7XUzwPTstBeZFe/+rCMvRwr4yROQP43s0Xk" crossorigin="anonymous"></script>
+<script defer src="{{ "js/math-init.js" | relURL }}?v={{ readFile "static/js/math-init.js" | crypto.SHA256 | truncate 12 "" }}"></script>
 {{ end }}
-
-{{ if or .Params.mermaid .Site.Params.mermaid }}
-<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-<script type="application/javascript" src="{{ "js/mermaid-init.js" | relURL }}"></script>
-{{ end }}
-
-{{ if .Site.Params.enableSearch }}
-<script src="https://cdn.jsdelivr.net/npm/fuse.js/dist/fuse.min.js"></script>
-<script type="application/javascript" src='{{ "js/search.js" | relURL }}'></script>
-{{ end }}
-
-
 {{ if and .Site.Params.cloudflareAnalytics.enabled .Site.Params.cloudflareAnalytics.token .Site.Params.cloudflareAnalytics.customDomainToken }}
 <script>
   (function () {

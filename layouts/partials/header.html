@@ -1,82 +1,27 @@
-<div style="position: relative">
-  <header class="Header js-details-container Details px-3 px-md-4 px-lg-5 flex-wrap flex-md-nowrap open Details--on">
-    <div class="Header-item mobile-none" style="margin-top: -4px; margin-bottom: -4px;">
-      <a class="Header-link" href="{{ .Site.Home.RelPermalink }}" onclick="localStorage.setItem('preferred-language', '{{ .Site.Language.Name }}')">
-        <img class="octicon" height="32" width="32" src="{{ .Site.Params.headerIcon }}" alt="{{ .Site.Params.author | default .Site.Title }}">
-      </a>
+<a class="skip-link" href="#main-content">{{ i18n "skip_content" }}</a>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="site-brand" href="{{ .Site.Home.RelPermalink }}" aria-label="Yosgi · {{ i18n "nav_home" }}"><img src="/favicon.svg" width="30" height="30" alt="">Yosgi<span class="brand-dot">.</span></a>
+    <nav class="primary-nav" aria-label="{{ i18n "nav_home" }}">
+      <a {{ if .IsHome }}aria-current="page"{{ end }} href="{{ .Site.Home.RelPermalink }}">{{ i18n "nav_home" }}</a>
+      <a {{ if eq .Section "post" }}aria-current="page"{{ end }} href="{{ "/post/" | relLangURL }}">{{ i18n "nav_posts" }}</a>
+      <a {{ if eq .Layout "projects" }}aria-current="page"{{ end }} href="{{ "/projects/" | relLangURL }}">{{ i18n "nav_projects" }}</a>
+      <a {{ if eq .RelPermalink ("/about/" | relLangURL) }}aria-current="page"{{ end }} href="{{ "/about/" | relLangURL }}">{{ i18n "nav_about" }}</a>
+    </nav>
+    <div class="header-actions">
+      {{ range .Translations }}<a class="language-link" href="{{ .RelPermalink }}" hreflang="{{ .Language.Lang }}" lang="{{ .Language.Lang }}">{{ .Language.Label }}</a>{{ end }}
+      {{ if not .IsTranslated }}{{ range hugo.Sites }}{{ if ne .Language.Lang $.Language.Lang }}<a class="language-link" href="{{ .Home.RelPermalink }}" hreflang="{{ .Language.Lang }}" lang="{{ .Language.Lang }}">{{ .Language.Label }}</a>{{ end }}{{ end }}{{ end }}
+      <button id="search-toggle" class="icon-button" aria-expanded="false" aria-controls="site-search">{{ i18n "search" }}</button>
+      <button class="icon-button theme-button" type="button" aria-label="{{ i18n "theme_toggle" }}" onclick="switchTheme()"><span aria-hidden="true">◐</span></button>
     </div>
-    <div class="Header-item d-md-none">
-      <button class="Header-link btn-link js-details-target" type="button"
-        onclick="document.querySelector('#header-search').style.display = document.querySelector('#header-search').style.display == 'none'? 'block': 'none'">
-        <svg height="24" class="octicon octicon-three-bars" viewBox="0 0 16 16" version="1.1" width="24">
-          <path fill-rule="evenodd" d="M1 2.75A.75.75 0 011.75 2h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 2.75zm0 5A.75.75 0 011.75 7h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 7.75zM1.75 12a.75.75 0 100 1.5h12.5a.75.75 0 100-1.5H1.75z">
-          </path>
-        </svg>
-      </button>
-    </div>
-    <div style="display: none;" id="header-search"
-      class="Header-item Header-item--full flex-column flex-md-row width-full flex-order-2 flex-md-order-none mr-0 mr-md-3 mt-3 mt-md-0 Details-content--hidden-not-important d-md-flex">
-      <div
-        class="Header-search header-search flex-auto js-site-search position-relative flex-self-stretch flex-md-self-auto mb-3 mb-md-0 mr-0 mr-md-3 scoped-search site-scoped-search js-jump-to">
-        <div class="position-relative">
-          {{ if .Site.Params.enableSearch }}
-          <form id="search-form" action="" accept-charset="UTF-8" method="get"
-            autocomplete="off">
-            <label
-              class="Header-search-label form-control input-sm header-search-wrapper p-0 js-chromeless-input-container header-search-wrapper-jump-to position-relative d-flex flex-justify-between flex-items-center">
-              <input type="text"
-                class="Header-search-input form-control input-sm header-search-input jump-to-field js-jump-to-field js-site-search-focus js-site-search-field is-clearable"
-                name="q" value="" placeholder="Search" autocomplete="off">
-            </label>
-          </form>
-          {{ else }}
-          <form target="_blank" action="https://www.google.com/search" accept-charset="UTF-8" method="get"
-            autocomplete="off">
-            <label
-              class="Header-search-label form-control input-sm header-search-wrapper p-0 js-chromeless-input-container header-search-wrapper-jump-to position-relative d-flex flex-justify-between flex-items-center">
-              <input type="text"
-                class="Header-search-input form-control input-sm header-search-input jump-to-field js-jump-to-field js-site-search-focus js-site-search-field is-clearable"
-                name="q" value="" placeholder="Search" autocomplete="off">
-              <input type="hidden" name="q" value="site:{{ .Site.BaseURL }}">
-            </label>
-          </form>
-          {{ end }}
-        </div>
-      </div>
-    </div>
-
-    <div class="Header-item Header-item--full flex-justify-center d-md-none position-relative">
-      <a class="Header-link " href="{{ .Site.Home.RelPermalink }}" onclick="localStorage.setItem('preferred-language', '{{ .Site.Language.Name }}')">
-        <img class="octicon octicon-mark-github v-align-middle" height="32" width="32" src="{{ .Site.Params.headerIcon }}" alt="{{ .Site.Params.author | default .Site.Title }}">
-      </a>
-    </div>
-    
-    <!-- Language Toggle Button -->
-    {{ if .IsTranslated }}
-    <div class="Header-item" style="margin-right: 8px;">
-      <div class="language-toggle-container">
-        {{ range .Translations }}
-          <a href="{{ .Permalink }}" class="Header-link language-toggle-link" onclick="localStorage.setItem('preferred-language', '{{ .Language.Name }}')">{{ .Language.Label }}</a>
-        {{ end }}
-      </div>
-    </div>
-    {{ end }}
-    
-    <!-- Dark Mode Toggle Button -->
-    <div class="Header-item" style="margin-right: 0;">
-      <button
-        type="button"
-        class="Header-link no-select"
-        style="background:none;border:0;padding:0;"
-        aria-label="Toggle color theme"
-        onclick="switchTheme()">
-        <svg style="fill: var(--color-profile-color-modes-toggle-moon);" class="no-select" viewBox="0 0 16 16"
-          version="1.1" width="16" height="16">
-          <path fill-rule="evenodd" clip-rule="evenodd"
-            d="M4.52208 7.71754C7.5782 7.71754 10.0557 5.24006 10.0557 2.18394C10.0557 1.93498 10.0392 1.68986 10.0074 1.44961C9.95801 1.07727 10.3495 0.771159 10.6474 0.99992C12.1153 2.12716 13.0615 3.89999 13.0615 5.89383C13.0615 9.29958 10.3006 12.0605 6.89485 12.0605C3.95334 12.0605 1.49286 10.001 0.876728 7.24527C0.794841 6.87902 1.23668 6.65289 1.55321 6.85451C2.41106 7.40095 3.4296 7.71754 4.52208 7.71754Z">
-          </path>
-        </svg>
-      </button>
-    </div>
-  </header>
-</div>
+  </div>
+  <div id="site-search" class="site-search" hidden>
+    <form id="search-form" role="search" data-index="{{ "/index.json" | relLangURL }}" data-labels="{{ dict "hint" (i18n "search_hint") "loading" (i18n "search_loading") "error" (i18n "search_error") "empty" (i18n "search_empty") "count" (i18n "search_count") "back" (i18n "search_back") "more" (i18n "search_more") | jsonify }}">
+      <label class="sr-only" for="search-input">{{ i18n "search" }}</label>
+      <input id="search-input" name="q" type="search" placeholder="{{ i18n "search_placeholder" }}" autocomplete="off" maxlength="200">
+      <button type="submit" class="text-button">{{ i18n "search" }}</button>
+      <button type="button" class="text-button" id="search-clear">{{ i18n "search_clear" }}</button>
+      <button type="button" class="icon-button" id="search-close" aria-label="{{ i18n "search_close" }}">×</button>
+    </form>
+  </div>
+</header>

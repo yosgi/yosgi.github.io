@@ -1,7 +1,8 @@
+{{ $hasToc := and (ge .WordCount 500) (ge (len (findRE `<li>` .TableOfContents)) 3) }}
 {{ $summary := partial "seo/summary.html" (dict "page" . "limit" 220) }}
-{{ $breadcrumbs := slice (dict "name" "Home" "url" .Site.Home.RelPermalink) }}
+{{ $breadcrumbs := slice (dict "name" (i18n "nav_home") "url" .Site.Home.RelPermalink) }}
 {{ if eq .Section "post" }}
-  {{ $breadcrumbs = $breadcrumbs | append (dict "name" "Posts" "url" ("/post/" | relLangURL)) }}
+  {{ $breadcrumbs = $breadcrumbs | append (dict "name" (i18n "nav_posts") "url" ("/post/" | relLangURL)) }}
 {{ else if and .Section (ne .Section "") (ne .Section "post") }}
   {{ $breadcrumbs = $breadcrumbs | append (dict "name" (.Section | humanize) "url" (.CurrentSection.RelPermalink | default .Site.Home.RelPermalink)) }}
 {{ end }}
@@ -13,8 +14,9 @@
   {{ $related = first 3 (.Site.RegularPages.Related .) }}
 {{ end }}
 
-<div class="article-shell">
-  <main class="article-main">
+<div class="article-shell {{ if $hasToc }}has-toc{{ end }}">
+  <div id="reading-progress" class="reading-progress" aria-hidden="true"></div>
+  <main id="main-content" class="article-main" tabindex="-1" data-copy-labels="{{ dict "copy" (i18n "copy_code") "copied" (i18n "copied") "failed" (i18n "copy_failed") | jsonify }}">
     <header class="article-hero">
       <div class="article-hero-inner">
         {{ if gt (len $breadcrumbs) 1 }}
@@ -30,17 +32,12 @@
         </nav>
         {{ end }}
 
-        <div class="article-meta-line">
-          <span>{{ .PublishDate.Format "Jan 2, 2006" }}</span>
-          <span class="article-meta-separator">·</span>
-          <span>{{ .ReadingTime }} min read</span>
-          <span class="article-meta-separator">·</span>
-          <span>{{ countwords .Content }} words</span>
-          {{ if and .Site.Params.lastmod (ne .Lastmod .PublishDate) }}
-          <span class="article-meta-separator">·</span>
-          <span>Updated {{ .Lastmod.Format "Jan 2, 2006" }}</span>
-          {{ end }}
-        </div>
+        {{ if eq .Section "post" }}<div class="article-meta-line">
+          <time datetime="{{ .PublishDate.Format "2006-01-02" }}">{{ .PublishDate.Format "2006-01-02" }}</time>
+          <span class="article-meta-separator">·</span><span>{{ .ReadingTime }} {{ i18n "minutes" }}</span>
+          <span class="article-meta-separator">·</span><span>{{ .WordCount }} {{ i18n "words" }}</span>
+          {{ if and (.Lastmod.After .PublishDate) (ne (.Lastmod.Format "2006-01-02") (.PublishDate.Format "2006-01-02")) }}<span class="article-meta-separator">·</span><span>{{ i18n "updated" }} {{ .Lastmod.Format "2006-01-02" }}</span>{{ end }}
+        </div>{{ end }}
 
         <h1 class="article-title">{{ .Title }}</h1>
 
@@ -50,14 +47,14 @@
 
         {{ with and (eq .Section "post") .Params.tldr }}
         <section class="article-callout" aria-labelledby="article-tldr-title">
-          <h2 id="article-tldr-title">TL;DR</h2>
+          <h2 id="article-tldr-title">{{ i18n "tldr" }}</h2>
           <p>{{ . }}</p>
         </section>
         {{ end }}
 
         {{ with .Params.key_takeaways }}
         <section class="article-callout article-callout-compact" aria-labelledby="article-takeaways-title">
-          <h2 id="article-takeaways-title">Key Takeaways</h2>
+          <h2 id="article-takeaways-title">{{ i18n "takeaways" }}</h2>
           <ul>
             {{ range . }}
             <li>{{ . }}</li>
@@ -78,16 +75,22 @@
       </div>
     </header>
 
+    {{ if $hasToc }}
+    <details class="mobile-toc"><summary>{{ i18n "toc" }}</summary>{{ .TableOfContents | replaceRE ` id="TableOfContents"` "" | safeHTML }}</details>
+    <aside class="desktop-toc" aria-label="{{ i18n "toc" }}"><h2>{{ i18n "toc" }}</h2>{{ .TableOfContents | replaceRE ` id="TableOfContents"` "" | safeHTML }}</aside>
+    {{ end }}
     <section class="article-body-wrap">
       <article class="markdown-body article-body">
         {{- .Content -}}
       </article>
     </section>
 
+    {{ partial "series-nav.html" . }}
+
     {{ with .Params.faq }}
     <section class="article-support-block">
       <div class="article-support-card">
-        <h2>FAQ</h2>
+        <h2>{{ if eq .Language.Lang "zh" }}常见问题{{ else }}FAQ{{ end }}</h2>
         <div class="article-faq-list">
           {{ range . }}
           <details class="article-faq-item">
@@ -103,7 +106,7 @@
     {{ if or .Params.citation .Params.bibtex }}
     <section class="article-support-block">
       <div class="article-support-card">
-        <h2>Citation</h2>
+        <h2>{{ if eq .Language.Lang "zh" }}引用{{ else }}Citation{{ end }}</h2>
         {{ with .Params.citation }}
         <div class="article-citation-text">
           {{ with .text }}<p>{{ . }}</p>{{ end }}
@@ -124,7 +127,7 @@
     {{ if gt (len $related) 0 }}
     <section class="article-support-block">
       <div class="article-support-card">
-        <h2>Related Reading</h2>
+        <h2>{{ i18n "related" }}</h2>
         <div class="article-related-grid">
           {{ range $related }}
           {{ $relatedSummary := partial "seo/summary.html" (dict "page" . "limit" 140) }}
@@ -137,5 +140,6 @@
       </div>
     </section>
     {{ end }}
+    <a class="back-to-top" href="#main-content">↑ {{ i18n "back_top" }}</a>
   </main>
 </div>

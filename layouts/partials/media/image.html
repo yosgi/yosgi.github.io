@@ -1,0 +1,7 @@
+{{- $src := .src -}}{{- $alt := .alt | default "" -}}{{- $sizes := .sizes | default "(max-width: 780px) 100vw, 780px" -}}
+{{- $image := false -}}{{- if hasPrefix $src "/images/" -}}{{- $image = resources.Get (strings.TrimPrefix "/" (urls.Parse $src).Path) -}}{{- end -}}
+{{- if and $image (in (slice "image/jpeg" "image/png" "image/webp") $image.MediaType.Type) -}}
+ {{- $variants := slice -}}{{- range slice 360 640 960 1280 -}}{{- if le . $image.Width -}}{{- $v := $image.Resize (printf "%dx webp q82" .) -}}{{- $variants = $variants | append (printf "%s %dw" $v.RelPermalink $v.Width) -}}{{- end -}}{{- end -}}
+ {{- $main := $image.Resize (printf "%dx webp q82" (math.Min 960 $image.Width | int)) -}}
+ <img src="{{ $main.RelPermalink }}" {{ with $variants }}srcset="{{ delimit . ", " | safeHTMLAttr }}" sizes="{{ $sizes }}"{{ end }} width="{{ $image.Width }}" height="{{ $image.Height }}" alt="{{ $alt }}" loading="lazy" decoding="async">
+{{- else -}}<img src="{{ $src | safeURL }}" alt="{{ $alt }}" loading="lazy" decoding="async">{{- end -}}

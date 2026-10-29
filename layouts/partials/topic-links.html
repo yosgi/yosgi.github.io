@@ -1,0 +1,3 @@
+<nav class="topic-links" aria-label="{{ i18n "topics" }}">
+{{ range hugo.Data.topics }}<a href="{{ "/topics/" | relLangURL }}#{{ .id }}">{{ index .label site.Language.Lang }}</a>{{ end }}
+</nav>

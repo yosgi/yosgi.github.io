@@ -84,3 +84,13 @@ Requires `GOOGLE_API_KEY` in `.env`.
 ## Deployment
 
 GitHub Pages deploys on push to `master`.
+
+## Site presentation
+
+- `hugo.toml` defines the primary domain, project previews and the three featured articles in each language. Latest articles are selected by publication date.
+- Shared interface strings live in `i18n/`. Topic groups and explicitly ordered reading series live in `data/topics.json` and `data/reading_series.json`.
+- New project and topic indexes use `content/<lang>/projects.md` and `topics.md`. Existing article URLs are preserved.
+- Modification dates use an explicit article `lastmod`, then Git author history, then publication date. Keep full Git history in CI; avoid filesystem modification times.
+- Local Markdown images are processed into responsive WebP variants through the `static/images` asset mount. Originals remain available. New screenshots must also be copied into the iCloud vault because the publishing sync uses `rsync --delete` for images.
+- Search loads its index and Fuse only on first use. Mermaid is loaded for diagram pages; KaTeX is loaded for detected block formulas or explicit article `math: true` (required for inline `$…$` formulas).
+- Validate a production build with `hugo --minify` followed by `python3 tools/check_site.py public`. GitHub Actions runs this check before deployment.

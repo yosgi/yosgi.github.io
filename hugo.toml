@@ -1,4 +1,4 @@
-baseURL = 'https://yosgi.github.io/'
+baseURL = 'https://siqi-liu.com/'
 defaultContentLanguage = 'en'
 defaultContentLanguageInSubdir = true
 disableLanguages = []
@@ -8,6 +8,7 @@ timeZone = 'Pacific/Auckland'
 pygmentsCodeFences = true
 pygmentsUseClasses = true
 enableRobotsTXT = true
+enableGitInfo = true
 
 [params]
   googleSiteVerification = "buvE8QgjwvF-_PUpxzCse77d9v-sgDKmCClDy4XCvfI"
@@ -25,13 +26,15 @@ enableRobotsTXT = true
     locale = "zh-CN"
     weight = 2
     contentDir = "content/zh"
+    hasCJKLanguage = true
 
 # English language configuration
 [languages.en.params]
   author = "Yosgi"
   profileSubtitle = "Siqi Liu"
-  description = "A developer who likes to tinker."
-  rssBaseURL = "https://yosgi.github.io/"
+  description = "AI agents, digital twins, and independent projects."
+  featured = ["/post/working-like-a-cto-with-ai-agents/", "/post/using-ai-agents-for-asset-recognition-and-annotation-in-3d-scenes-part-1/", "/post/high-frequency-synchronization-architecture-between-react-state-and-a-3d-engine/"]
+  rssBaseURL = "https://siqi-liu.com/"
   github = "Yosgi"
   email = "hiyosgi@gmail.com"
   url = "https://www.linkedin.com/in/yosgi/"
@@ -52,26 +55,38 @@ enableRobotsTXT = true
   # Projects configuration
   [[languages.en.params.projects]]
     name = "Nice Resume"
+    image = "/images/projects/nice-resume.jpg"
     url = "https://nice-resume.vercel.app/"
     icon = ""
     description = "A convenient and quick resume builder tool"
   [[languages.en.params.projects]]
     name = "Our Little Shire"
+    image = "/images/projects/our-little-shire.jpg"
+    article = "/post/i-made-a-small-3d-game-with-ai/"
+    home = true
     url = "https://shire.siqi-liu.com/"
     icon = ""
     description = "A small 3D village to explore, with stories, animals, and little discoveries"
   [[languages.en.params.projects]]
     name = "Evo! Partner Expedition"
+    image = "/images/games/evo-partner-expedition/battle-mobile-en-2x.png"
+    article = "/post/how-to-play-evo-partner-expedition/"
+    home = true
     url = "https://evo-expedition.pages.dev/"
     icon = ""
     description = "A roguelike creature adventure about building a team, evolving partners, and battling together"
   [[languages.en.params.projects]]
     name = "Pokémon Rumblefield"
+    image = "/images/projects/pokemon-rumblefield.jpg"
+    article = "/post/pokemon-rumblefield/"
+    home = true
     url = "https://creature-arena.pages.dev/"
     icon = ""
     description = "Command a Pokémon team with swaps, evolution and Ultimates. Play solo, duel a friend, or take on co-op adventures."
   [[languages.en.params.projects]]
     name = "Werewolf AI"
+    image = "/images/games/werewolf-ai/home.png"
+    article = "/post/how-to-play-werewolf-ai/"
     url = "https://werewolf-ai-etn.pages.dev/"
     icon = ""
     description = "A Werewolf social-deduction game played with AI players, built on discussion, voting, and hidden roles"
@@ -95,8 +110,9 @@ enableRobotsTXT = true
 [languages.zh.params]
   author = "Yosgi"
   profileSubtitle = "刘思奇"
-  description = "一个爱折腾的开发者。"
-  rssBaseURL = "https://yosgi.github.io/"
+  description = "AI Agent、数字孪生与独立项目的实践。"
+  featured = ["/post/working-like-a-cto-with-ai-agents/", "/post/使用-agent-进行-3d-场景的资产识别标注-一/", "/post/react-状态与-3d-引擎的高频同步架构/"]
+  rssBaseURL = "https://siqi-liu.com/"
   github = "Yosgi"
   email = "hiyosgi@gmail.com"
   url = "https://www.linkedin.com/in/yosgi/"
@@ -117,26 +133,38 @@ enableRobotsTXT = true
   # Projects configuration
   [[languages.zh.params.projects]]
     name = "Nice Resume"
+    image = "/images/projects/nice-resume.jpg"
     url = "https://nice-resume.vercel.app/"
     icon = ""
     description = "一个方便快捷的做简历的工具"
   [[languages.zh.params.projects]]
     name = "我们的夏尔"
+    image = "/images/projects/our-little-shire.jpg"
+    article = "/post/我用-ai-做了一个小小的-3d-游戏/"
+    home = true
     url = "https://shire.siqi-liu.com/"
     icon = ""
     description = "在 3D 小村庄里散步，和村民、动物互动，发现藏起来的小东西"
   [[languages.zh.params.projects]]
     name = "进化！伙伴远征队"
+    image = "/images/games/evo-partner-expedition/battle-mobile-zh-2x.png"
+    article = "/post/进化-伙伴远征队-怎么玩/"
+    home = true
     url = "https://evo-expedition.pages.dev/"
     icon = ""
     description = "组建队伍、进化伙伴，挑战肉鸽关卡与双人冒险"
   [[languages.zh.params.projects]]
     name = "Pokémon Rumblefield"
+    image = "/images/projects/pokemon-rumblefield.jpg"
+    article = "/post/pokemon-rumblefield/"
+    home = true
     url = "https://creature-arena.pages.dev/"
     icon = ""
     description = "宝可梦自动战斗，你来换人、进化和释放绝招；支持单人冒险、好友对战与双人合作。"
   [[languages.zh.params.projects]]
     name = "狼人杀 AI"
+    image = "/images/games/werewolf-ai/home.png"
+    article = "/post/狼人杀-ai-怎么玩/"
     url = "https://werewolf-ai-etn.pages.dev/"
     icon = ""
     description = "和 AI 玩家一起玩的狼人杀，在发言与投票中推理身份"
@@ -158,7 +186,7 @@ enableRobotsTXT = true
 
 # Pagination configuration
 [pagination]
-  pageSize = 5
+  pageSize = 10
 
 # Build configuration
 [build]
@@ -206,7 +234,7 @@ enableRobotsTXT = true
 
 # Frontmatter configuration
 [frontmatter]
-  lastmod = ["lastmod", ":fileModTime", ":default"]
+  lastmod = ["lastmod", ":git", "date"]
 
 [params.seo]
   defaultTitle = "Yosgi | Software Engineer in Auckland"
@@ -246,3 +274,12 @@ enableRobotsTXT = true
   enabled = true
   token = "fac713c37bb947058d616f9f75f24763"
   customDomainToken = "472263fd8c1540d9b8e4cd88ff68f67a"
+
+[markup.tableOfContents]
+  startLevel = 1
+  endLevel = 4
+  ordered = false
+
+[[module.mounts]]
+  source = "static/images"
+  target = "assets/images"

@@ -1,0 +1,6 @@
+{{ $current := . }}{{ range hugo.Data.reading_series }}{{ $series := . }}{{ $paths := index .pages site.Language.Lang }}{{ range $index, $path := $paths }}{{ with site.GetPage (printf "/post/%s/" $path) }}{{ if eq .RelPermalink $current.RelPermalink }}
+<nav class="series-nav" aria-label="{{ i18n "series" }}"><h2>{{ i18n "series" }} · {{ index $series.title site.Language.Lang }}</h2><div class="series-links">
+{{ if gt $index 0 }}{{ with site.GetPage (printf "/post/%s/" (index $paths (sub $index 1))) }}<a rel="prev" href="{{ .RelPermalink }}"><small>← {{ i18n "previous_article" }}</small>{{ .Title }}</a>{{ end }}{{ end }}
+{{ if lt (add $index 1) (len $paths) }}{{ with site.GetPage (printf "/post/%s/" (index $paths (add $index 1))) }}<a rel="next" href="{{ .RelPermalink }}"><small>{{ i18n "next_article" }} →</small>{{ .Title }}</a>{{ end }}{{ end }}
+</div></nav>
+{{ end }}{{ end }}{{ end }}{{ end }}

@@ -1,176 +1,98 @@
 (() => {
-  console.log('Search script loaded');
-  
-  // Get the current language from the URL path
-  const path = window.location.pathname;
-  const lang = path.startsWith('/zh') ? 'zh' : 'en';
-  const indexUrl = `${window.location.origin}/${lang}/index.json`;
-  
-  console.log('Current URL:', window.location.href);
-  console.log('Loading search index from:', indexUrl);
-  
-  fetch(indexUrl)
-  .then(response => {
-    console.log('Search index response:', response.status);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    return response.json();
-  })
-  .then(data => {
-    console.log('Search index loaded, items:', data.length);
-    
-    const fuse = new Fuse(data, {
-      keys: ['title', 'content'],
-      shouldSort: true,
-      includeMatches: true,
-      minMatchCharLength: 2,
-      threshold: 0.3,
-      ignoreLocation: true,
+ const form = document.getElementById('search-form');
+ if (!form) return;
+ const input = form.elements.q;
+ const panel = document.getElementById('site-search');
+ const toggle = document.getElementById('search-toggle');
+ const results = document.getElementById('search-result');
+ const main = document.querySelector('.application-main');
+ const labels = JSON.parse(form.dataset.labels);
+ let enginePromise, request = 0, timer, composing = false;
+ const node = (tag, text, className) => {
+  const el = document.createElement(tag);
+  if (text != null) el.textContent = text;
+  if (className) el.className = className;
+  return el;
+ };
+ function open() { panel.hidden = false; toggle.setAttribute('aria-expanded','true'); input.focus(); }
+ function restore() {
+  ++request; clearTimeout(timer); results.hidden = true; results.removeAttribute('aria-busy'); main.hidden = false;
+  const url = new URL(location.href); url.searchParams.delete('q'); history.replaceState(null,'',url);
+ }
+ function close() { restore(); panel.hidden = true; toggle.setAttribute('aria-expanded','false'); toggle.focus(); }
+ function load() {
+  if (!enginePromise) {
+   enginePromise = Promise.all([
+    fetch(form.dataset.index).then(r => { if(!r.ok) throw new Error('Index unavailable'); return r.json(); }),
+    new Promise((resolve,reject) => {
+     if (window.Fuse) return resolve();
+     const script = document.createElement('script');
+     script.src = 'https://cdn.jsdelivr.net/npm/fuse.js@7.1.0/dist/fuse.min.js';
+     script.onload = resolve; script.onerror = () => { script.remove(); reject(new Error('Search unavailable')); };
+     document.head.append(script);
     })
-  
-    const searchForm = document.getElementById('search-form');
-    console.log('Search form found:', !!searchForm);
-    
-    if (searchForm) {
-      searchForm.addEventListener('submit', function (e) {
-        console.log('Search form submitted');
-        e.preventDefault();
-        const formData = new FormData(e.target);
-        const input = [...formData.entries()][0][1];
-        console.log('Search input:', input);
-        
-        if (input && input.trim().length >= 2) {
-          const results = fuse.search(input);
-          console.log('Search results:', results.length);
-          displayResults(input, results);
-        }
-      });
-    }
-  })
-  .catch(error => {
-    console.error('Error loading search index:', error);
-  });
+   ]).then(([data]) => new Fuse(data,{keys:[{name:'title',weight:0.55},{name:'summary',weight:0.3},{name:'content',weight:0.15}],includeMatches:true,threshold:0.3,ignoreLocation:true,minMatchCharLength:2})).catch(error => { enginePromise = null; throw error; });
+  }
+  return enginePromise;
+ }
+ function message(text) {
+  results.replaceChildren(); results.hidden = false; main.hidden = true;
+  const status = node('p',text,'search-status'); status.setAttribute('role','status'); status.setAttribute('aria-live','polite'); results.append(status);
+  const back = node('button',labels.back,'text-button'); back.type = 'button'; back.onclick = close; results.append(back);
+ }
+ function highlight(parent, text, indices = []) {
+  let position = 0;
+  for (const [start,end] of indices) {
+   if (start < position || start >= text.length) continue;
+   parent.append(document.createTextNode(text.slice(position,start)),node('mark',text.slice(start,end+1)));
+   position = end+1;
+  }
+  parent.append(document.createTextNode(text.slice(position)));
+ }
+ async function search() {
+  const query = input.value.trim().slice(0,200); const id = ++request;
+  if (query.length < 2) { if(query) message(labels.hint); else restore(); return; }
+  message(labels.loading); results.setAttribute('aria-busy','true');
+  try {
+   const engine = await load(); if (id !== request) return;
+   const matches = engine.search(query);
+   message(labels.count.replace('{count}',matches.length).replace('{query}',query));
+   const list = node('ul',null,'search-list');
+   for (const result of matches.slice(0,20)) {
+    const item = result.item;
+    const url = new URL(item.relpermalink || item.permalink,location.origin);
+    if (url.origin !== location.origin || !['http:','https:'].includes(url.protocol)) continue;
+    const li = node('li'); const heading = node('h2'); const link = node('a'); link.href = url.pathname;
+    highlight(link,item.title,result.matches.find(m=>m.key==='title')?.indices); heading.append(link);
+    const contentMatch = result.matches.find(m=>m.key==='content');
+    const text = contentMatch ? item.content : (item.summary || item.content || '');
+    const chinese = document.documentElement.lang.startsWith('zh');
+    let start = contentMatch ? Math.max(0,contentMatch.indices[0][0]-(chinese?20:50)) : 0;
+    while(start>0 && /[A-Za-z0-9]/.test(text[start-1]) && /[A-Za-z0-9]/.test(text[start])) start--;
+    const end = Math.min(text.length,start+(chinese?100:190));
+    const excerpt = node('p');
+    const indices = contentMatch ? contentMatch.indices.filter(([a,b])=>b>=start&&a<end).map(([a,b])=>[Math.max(0,a-start),Math.min(end-start-1,b-start)]) : [];
+    if(start) excerpt.append(document.createTextNode('…'));
+    highlight(excerpt,text.slice(start,end),indices);
+    if(end<text.length) excerpt.append(document.createTextNode('…'));
+    li.append(heading,excerpt); list.append(li);
+   }
+   results.insertBefore(list,results.lastChild);
+   if(!matches.length) results.insertBefore(node('p',labels.empty),results.lastChild);
+   if(matches.length>20) results.insertBefore(node('p',labels.more,'muted'),results.lastChild);
+   const url = new URL(location.href); url.searchParams.set('q',query); history.replaceState(null,'',url);
+  } catch (_) { if(id===request) message(labels.error); }
+  finally { if(id===request) results.removeAttribute('aria-busy'); }
+ }
+ toggle.addEventListener('click',()=>panel.hidden ? open() : close());
+ document.getElementById('search-close').addEventListener('click',close);
+ document.getElementById('search-clear').addEventListener('click',()=>{ input.value=''; restore(); input.focus(); });
+ input.addEventListener('focus',()=>{load().catch(()=>{});},{once:true});
+ input.addEventListener('compositionstart',()=>{composing=true;clearTimeout(timer);});
+ input.addEventListener('compositionend',()=>{composing=false;clearTimeout(timer);timer=setTimeout(search,250);});
+ input.addEventListener('input',()=>{if(composing)return;clearTimeout(timer);timer=setTimeout(search,250);});
+ form.addEventListener('submit',e=>{e.preventDefault();clearTimeout(timer);search();});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!panel.hidden)close();});
+ const query = new URL(location.href).searchParams.get('q');
+ if(query){open();input.value=query;search();}
 })();
-
-function displayResults(input, results) {
-  const searchResults = document.getElementById('search-result');
-  if (!searchResults) {
-    console.error('Search results container not found');
-    return;
-  }
-  
-  // Hide the main content
-  const mainContent = document.querySelector('.application-main main');
-  if (mainContent) {
-    mainContent.style.display = 'none';
-  }
-  
-  // Show search results
-  searchResults.style.display = 'block';
-  
-  let html = renderResultsCountHtml(results.length, input);
-  if (results.length > 0) {
-    let li = renderResultsItemHtml(results);
-    html += `<ul>${li}</ul>`;
-  } else {
-    html += '<div class="no-results">No results found for "' + input + '"</div>';
-  }
-  
-  // Add a back button
-  html += '<button onclick="clearSearch()" class="back-button">← Back to main content</button>';
-  
-  searchResults.innerHTML = html;
-}
-
-function clearSearch() {
-  const searchResults = document.getElementById('search-result');
-  const mainContent = document.querySelector('.application-main main');
-  const searchInput = document.querySelector('#search-form input[name="q"]');
-  
-  if (searchResults) {
-    searchResults.style.display = 'none';
-  }
-  
-  if (mainContent) {
-    mainContent.style.display = 'block';
-  }
-  
-  if (searchInput) {
-    searchInput.value = '';
-  }
-}
-
-function renderResultsCountHtml(count, input) {
-let html = `
-<div class="search-results-count">
-  <svg class="octicon octicon-search" viewBox="0 0 16 16" version="1.1" width="16" height="16">
-    <path fill-rule="evenodd" d="M11.5 7a4.499 4.499 0 11-8.998 0A4.499 4.499 0 0111.5 7zM8 8a3 3 0 100-6 3 3 0 000 6zM9.5 8a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"></path>
-  </svg>
-  <strong>${count} results for "${input}"</strong>
-</div>
-`
-  return html
-}
-
-function renderResultsItemHtml(results) {
-  // modified from https://github.com/brunocechet/Fuse.js-with-highlight
-  var highlighter = function(resultItem){
-    resultItem.matches.forEach((matchItem) => {
-      var text = resultItem.item[matchItem.key];
-      var result = []
-      var matches = [].concat(matchItem.indices);
-      var pair = matches.shift()
-      
-      for (var i = 0; i < text.length; i++) {
-        var char = text.charAt(i)
-        if (pair && i == pair[0]) {
-          result.push('<span style="color: red;">')
-        }
-        result.push(char)
-        if (pair && i == pair[1]) {
-          result.push('</span>')
-          pair = matches.shift()
-        }
-      }
-      resultItem.highlight = result.join('');
-  
-      if(resultItem.children && resultItem.children.length > 0){
-        resultItem.children.forEach((child) => {
-          highlighter(child);
-        });
-      }
-    });
-  };  
-
-  let html = ``
-  results.forEach(result => {
-    highlighter(result)
-    // truncated highlight content
-    let truncated = result.highlight.substring(0, 2000)
-    const reg = /(<span style="color: red;">[a-zA-Z0-9\u4e00-\u9fa5]+<\/span>)/g
-    let array = truncated.split(reg)
-    // drop unstable part
-    array.pop()
-    let content = ""
-    if (array.length > 0) {
-      content = array.join('')
-    } else {
-      // fallback to no highlighted truncated content
-      content = result.item.content.substring(0, 2000)
-    }
-    html += `
-<li class="search-result-item">
-  <div class="search-result-header">
-    <h3>
-      <a href="${result.item.permalink}">${result.item.title}</a>
-    </h3>
-  </div>
-  <div class="search-result-content">
-    ${content} ...
-  </div>
-</li>
-`
-  })
-  return html
-}

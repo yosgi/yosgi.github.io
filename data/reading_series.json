@@ -1,0 +1,38 @@
+[
+  {
+    "title": {
+      "en": "Asset recognition in 3D scenes",
+      "zh": "3D 场景资产识别"
+    },
+    "pages": {
+      "en": [
+        "using-ai-agents-for-asset-recognition-and-annotation-in-3d-scenes-part-1",
+        "using-ai-agents-for-asset-recognition-and-annotation-in-3d-scenes-part-2",
+        "using-ai-agents-for-asset-recognition-and-annotation-in-3d-scenes-part-3"
+      ],
+      "zh": [
+        "使用-agent-进行-3d-场景的资产识别标注-一",
+        "使用-agent-进行-3d-场景的资产识别标注-二",
+        "使用-agent-进行-3d-场景的资产识别标注-三"
+      ]
+    }
+  },
+  {
+    "title": {
+      "en": "Tools, code, and agent systems",
+      "zh": "Tool、Code 与 Agent 系统"
+    },
+    "pages": {
+      "en": [
+        "an-mcp-as-code-refactor-and-why-it-did-not-work-the-way-i-expected-1",
+        "why-tool-and-code-fail-differently-in-agent-systems-2",
+        "tool-for-control-code-for-analysis-3"
+      ],
+      "zh": [
+        "一次-mcp-as-code-的重构尝试-以及它为什么没有按预想工作-1",
+        "为什么-tool-和-code-在-agent-系统里会以不同方式失败-2",
+        "tool-用来控制-code-用来分析-3"
+      ]
+    }
+  }
+]

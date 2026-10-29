@@ -1,0 +1,59 @@
+[
+  {
+    "id": "engineering",
+    "label": {
+      "en": "AI & engineering",
+      "zh": "AI 与工程"
+    },
+    "categories": [
+      "AI Engineering",
+      "Digital Twin",
+      "Frontend",
+      "Product Engineering",
+      "Full-stack",
+      "Web Development",
+      "JavaScript",
+      "Web Performance"
+    ]
+  },
+  {
+    "id": "projects",
+    "label": {
+      "en": "Projects & games",
+      "zh": "项目与游戏"
+    },
+    "categories": [
+      "Projects"
+    ]
+  },
+  {
+    "id": "investing",
+    "label": {
+      "en": "Investing",
+      "zh": "投资笔记"
+    },
+    "categories": [
+      "Investing"
+    ]
+  },
+  {
+    "id": "life",
+    "label": {
+      "en": "Life",
+      "zh": "生活随想"
+    },
+    "categories": [
+      "Life"
+    ]
+  },
+  {
+    "id": "algorithms",
+    "label": {
+      "en": "Algorithms",
+      "zh": "算法归档"
+    },
+    "categories": [
+      "Algorithms"
+    ]
+  }
+]

@@ -1,0 +1,1 @@
+{{ define "content" }}<main id="main-content" class="application-main page-width catalog-main"><header class="catalog-heading"><p class="eyebrow">Yosgi / {{ i18n "nav_projects" }}</p><h1>{{ .Title }}</h1><p>{{ i18n "projects_intro" }}</p></header>{{ partial "project-grid.html" (dict "projects" .Site.Params.projects "page" .) }}</main>{{ end }}

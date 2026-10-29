@@ -1,0 +1,155 @@
+[nav_home]
+other = "首页"
+
+[nav_posts]
+other = "文章"
+
+[nav_projects]
+other = "项目"
+
+[nav_about]
+other = "关于"
+
+[search]
+other = "搜索"
+
+[search_placeholder]
+other = "搜索文章、项目和想法…"
+
+[search_close]
+other = "关闭搜索"
+
+[search_clear]
+other = "清空"
+
+[search_hint]
+other = "输入至少两个字开始搜索。"
+
+[search_loading]
+other = "正在搜索…"
+
+[search_error]
+other = "搜索加载失败，请重试。"
+
+[search_empty]
+other = "没有找到相关文章，换个关键词试试。"
+
+[search_count]
+other = "找到 {count} 篇与“{query}”相关的文章"
+
+[search_back]
+other = "返回原页面"
+
+[search_more]
+other = "显示前 20 条结果，可以缩小关键词范围。"
+
+[skip_content]
+other = "跳到正文"
+
+[theme_toggle]
+other = "切换明暗模式"
+
+[latest]
+other = "最新文章"
+
+[featured]
+other = "精选阅读"
+
+[browse_all]
+other = "全部文章"
+
+[topics]
+other = "按主题阅读"
+
+[projects_title]
+other = "我在做的项目"
+
+[projects_intro]
+other = "一些可以直接使用的小工具，以及能在浏览器里玩的游戏。"
+
+[open_project]
+other = "打开项目"
+
+[project_story]
+other = "了解这个项目"
+
+[all_projects]
+other = "全部项目"
+
+[published]
+other = "发布于"
+
+[updated]
+other = "更新于"
+
+[minutes]
+other = "分钟阅读"
+
+[words]
+other = "字"
+
+[related]
+other = "继续阅读"
+
+[takeaways]
+other = "要点"
+
+[tldr]
+other = "简要说明"
+
+[toc]
+other = "文章目录"
+
+[previous]
+other = "上一页"
+
+[next]
+other = "下一页"
+
+[previous_article]
+other = "系列上一篇"
+
+[next_article]
+other = "系列下一篇"
+
+[series]
+other = "系列阅读"
+
+[copy_code]
+other = "复制代码"
+
+[copied]
+other = "已复制"
+
+[copy_failed]
+other = "请选中代码复制"
+
+[back_top]
+other = "回到顶部"
+
+[contact]
+other = "联系我"
+
+[all_topics]
+other = "全部主题"
+
+[filter_clear]
+other = "清除筛选"
+
+[results]
+other = "篇文章"
+
+[rss]
+other = "RSS 订阅"
+
+[built_with]
+other = "使用 Hugo 构建 · 风格源自 github-style"
+
+[hero_title]
+other = "写工程，也做些好玩的东西。"
+
+[hero_intro]
+other = "我是刘思奇，在奥克兰做软件开发。这里记录 AI Agent、数字孪生、独立游戏，也写投资和生活中的思考。"
+
+[empty_category]
+other = "这里暂时还没有文章。"
